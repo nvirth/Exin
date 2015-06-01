@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DAL.DataBase.EntityFramework.Entites.Store" Provider="System.Data.SQLite" ProviderManifestToken="ISO8601" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SummaryItem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Amount" Type="integer" Nullable="false" />
+          <Property Name="CategoryID" Type="integer" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TransactionItem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Amount" Type="integer" Nullable="false" />
+          <Property Name="Quantity" Type="integer" Nullable="false" />
+          <Property Name="UnitID" Type="integer" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="200" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="CategoryID" Type="integer" Nullable="false" />
+          <Property Name="IsExpenseItem" Type="bit" Nullable="false" />
+          <Property Name="IsIncomeItem" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Unit">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_SummaryItem_0_0">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="SummaryItem" Type="Self.SummaryItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SummaryItem">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TransactionItem_0_0">
+          <End Role="Unit" Type="Self.Unit" Multiplicity="1" />
+          <End Role="TransactionItem" Type="Self.TransactionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TransactionItem">
+              <PropertyRef Name="UnitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TransactionItem_1_0">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="TransactionItem" Type="Self.TransactionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TransactionItem">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DALDataBaseEntityFrameworkEntitesStoreContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" store:Type="Tables" />
+          <EntitySet Name="SummaryItem" EntityType="Self.SummaryItem" store:Type="Tables" />
+          <EntitySet Name="TransactionItem" EntityType="Self.TransactionItem" store:Type="Tables" />
+          <EntitySet Name="Unit" EntityType="Self.Unit" store:Type="Tables" />
+          <AssociationSet Name="FK_SummaryItem_0_0" Association="Self.FK_SummaryItem_0_0">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="SummaryItem" EntitySet="SummaryItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransactionItem_0_0" Association="Self.FK_TransactionItem_0_0">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="TransactionItem" EntitySet="TransactionItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransactionItem_1_0" Association="Self.FK_TransactionItem_1_0">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="TransactionItem" EntitySet="TransactionItem" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DAL.DataBase.EntityFramework.Entites" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category_Sqlite">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DisplayName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="SummaryItems" Relationship="Self.FK_SummaryItem_0_0" FromRole="Category" ToRole="SummaryItem" />
+          <NavigationProperty Name="TransactionItems" Relationship="Self.FK_TransactionItem_1_0" FromRole="Category" ToRole="TransactionItem" />
+        </EntityType>
+        <EntityType Name="SummaryItem_Sqlite">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Amount" Type="Int64" Nullable="false" />
+          <Property Name="CategoryID" Type="Int64" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_SummaryItem_0_0" FromRole="SummaryItem" ToRole="Category" />
+        </EntityType>
+        <EntityType Name="TransactionItem_Sqlite">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Amount" Type="Int64" Nullable="false" />
+          <Property Name="Quantity" Type="Int64" Nullable="false" />
+          <Property Name="UnitID" Type="Int64" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <Property Name="CategoryID" Type="Int64" Nullable="false" />
+          <Property Name="IsExpenseItem" Type="Boolean" Nullable="false" />
+          <Property Name="IsIncomeItem" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_TransactionItem_1_0" FromRole="TransactionItem" ToRole="Category" />
+          <NavigationProperty Name="Unit" Relationship="Self.FK_TransactionItem_0_0" FromRole="TransactionItem" ToRole="Unit" />
+        </EntityType>
+        <EntityType Name="Unit_Sqlite">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DisplayName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_SummaryItem_0_0">
+          <End Role="Category" Type="DAL.DataBase.EntityFramework.Entites.Category_Sqlite" Multiplicity="1" />
+          <End Role="SummaryItem" Type="DAL.DataBase.EntityFramework.Entites.SummaryItem_Sqlite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SummaryItem">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TransactionItem_1_0">
+          <End Role="Category" Type="DAL.DataBase.EntityFramework.Entites.Category_Sqlite" Multiplicity="1" />
+          <End Role="TransactionItem" Type="DAL.DataBase.EntityFramework.Entites.TransactionItem_Sqlite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TransactionItem">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TransactionItem_0_0">
+          <End Role="Unit" Type="DAL.DataBase.EntityFramework.Entites.Unit_Sqlite" Multiplicity="1" />
+          <End Role="TransactionItem" Type="DAL.DataBase.EntityFramework.Entites.TransactionItem_Sqlite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TransactionItem">
+              <PropertyRef Name="UnitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ExinEfSqliteContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Category" EntityType="DAL.DataBase.EntityFramework.Entites.Category_Sqlite" />
+          <EntitySet Name="SummaryItem" EntityType="DAL.DataBase.EntityFramework.Entites.SummaryItem_Sqlite" />
+          <EntitySet Name="TransactionItem" EntityType="DAL.DataBase.EntityFramework.Entites.TransactionItem_Sqlite" />
+          <EntitySet Name="Unit" EntityType="DAL.DataBase.EntityFramework.Entites.Unit_Sqlite" />
+          <AssociationSet Name="FK_SummaryItem_0_0" Association="Self.FK_SummaryItem_0_0">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="SummaryItem" EntitySet="SummaryItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransactionItem_1_0" Association="Self.FK_TransactionItem_1_0">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="TransactionItem" EntitySet="TransactionItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransactionItem_0_0" Association="Self.FK_TransactionItem_0_0">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="TransactionItem" EntitySet="TransactionItem" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DALDataBaseEntityFrameworkEntitesStoreContainer" CdmEntityContainer="ExinEfSqliteContext">
+          <EntitySetMapping Name="Category">
+            <EntityTypeMapping TypeName="DAL.DataBase.EntityFramework.Entites.Category_Sqlite">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SummaryItem">
+            <EntityTypeMapping TypeName="DAL.DataBase.EntityFramework.Entites.SummaryItem_Sqlite">
+              <MappingFragment StoreEntitySet="SummaryItem">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionItem">
+            <EntityTypeMapping TypeName="DAL.DataBase.EntityFramework.Entites.TransactionItem_Sqlite">
+              <MappingFragment StoreEntitySet="TransactionItem">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="IsExpenseItem" ColumnName="IsExpenseItem" />
+                <ScalarProperty Name="IsIncomeItem" ColumnName="IsIncomeItem" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Unit">
+            <EntityTypeMapping TypeName="DAL.DataBase.EntityFramework.Entites.Unit_Sqlite">
+              <MappingFragment StoreEntitySet="Unit">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

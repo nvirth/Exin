@@ -1,0 +1,278 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ExinModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SummaryItem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TransactionItem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="UnitID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="200" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+          <Property Name="IsExpenseItem" Type="bit" Nullable="false" />
+          <Property Name="IsIncomeItem" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Unit">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_SummaryItem_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="SummaryItem" Type="Self.SummaryItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SummaryItem">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TransactionItem_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="TransactionItem" Type="Self.TransactionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TransactionItem">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TransactionItem_Unit">
+          <End Role="Unit" Type="Self.Unit" Multiplicity="1" />
+          <End Role="TransactionItem" Type="Self.TransactionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TransactionItem">
+              <PropertyRef Name="UnitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ExinModelStoreContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SummaryItem" EntityType="Self.SummaryItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransactionItem" EntityType="Self.TransactionItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Unit" EntityType="Self.Unit" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_SummaryItem_Category" Association="Self.FK_SummaryItem_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="SummaryItem" EntitySet="SummaryItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransactionItem_Category" Association="Self.FK_TransactionItem_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="TransactionItem" EntitySet="TransactionItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransactionItem_Unit" Association="Self.FK_TransactionItem_Unit">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="TransactionItem" EntitySet="TransactionItem" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DAL.DataBase.EntityFramework.EntitiesMsSql" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ExinEfMsSqlContext" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="Category" EntityType="DAL.DataBase.EntityFramework.EntitiesMsSql.Category_MsSql" />
+          <EntitySet Name="SummaryItem" EntityType="DAL.DataBase.EntityFramework.EntitiesMsSql.SummaryItem_MsSql" />
+          <EntitySet Name="TransactionItem" EntityType="DAL.DataBase.EntityFramework.EntitiesMsSql.TransactionItem_MsSql" />
+          <EntitySet Name="Unit" EntityType="DAL.DataBase.EntityFramework.EntitiesMsSql.Unit_MsSql" />
+          <AssociationSet Name="FK_SummaryItem_Category" Association="DAL.DataBase.EntityFramework.EntitiesMsSql.FK_SummaryItem_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="SummaryItem" EntitySet="SummaryItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransactionItem_Category" Association="DAL.DataBase.EntityFramework.EntitiesMsSql.FK_TransactionItem_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="TransactionItem" EntitySet="TransactionItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransactionItem_Unit" Association="DAL.DataBase.EntityFramework.EntitiesMsSql.FK_TransactionItem_Unit">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="TransactionItem" EntitySet="TransactionItem" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Category_MsSql">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SummaryItems" Relationship="DAL.DataBase.EntityFramework.EntitiesMsSql.FK_SummaryItem_Category" FromRole="Category" ToRole="SummaryItem" />
+          <NavigationProperty Name="TransactionItems" Relationship="DAL.DataBase.EntityFramework.EntitiesMsSql.FK_TransactionItem_Category" FromRole="Category" ToRole="TransactionItem" />
+        </EntityType>
+        <EntityType Name="SummaryItem_MsSql">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Category" Relationship="DAL.DataBase.EntityFramework.EntitiesMsSql.FK_SummaryItem_Category" FromRole="SummaryItem" ToRole="Category" />
+        </EntityType>
+        <EntityType Name="TransactionItem_MsSql">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="UnitID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="IsExpenseItem" Type="Boolean" Nullable="false" />
+          <Property Name="IsIncomeItem" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="DAL.DataBase.EntityFramework.EntitiesMsSql.FK_TransactionItem_Category" FromRole="TransactionItem" ToRole="Category" />
+          <NavigationProperty Name="Unit" Relationship="DAL.DataBase.EntityFramework.EntitiesMsSql.FK_TransactionItem_Unit" FromRole="TransactionItem" ToRole="Unit" />
+        </EntityType>
+        <EntityType Name="Unit_MsSql">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_SummaryItem_Category">
+          <End Type="DAL.DataBase.EntityFramework.EntitiesMsSql.Category_MsSql" Role="Category" Multiplicity="1" />
+          <End Type="DAL.DataBase.EntityFramework.EntitiesMsSql.SummaryItem_MsSql" Role="SummaryItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SummaryItem">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TransactionItem_Category">
+          <End Type="DAL.DataBase.EntityFramework.EntitiesMsSql.Category_MsSql" Role="Category" Multiplicity="1" />
+          <End Type="DAL.DataBase.EntityFramework.EntitiesMsSql.TransactionItem_MsSql" Role="TransactionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TransactionItem">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TransactionItem_Unit">
+          <End Type="DAL.DataBase.EntityFramework.EntitiesMsSql.Unit_MsSql" Role="Unit" Multiplicity="1" />
+          <End Type="DAL.DataBase.EntityFramework.EntitiesMsSql.TransactionItem_MsSql" Role="TransactionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TransactionItem">
+              <PropertyRef Name="UnitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ExinModelStoreContainer" CdmEntityContainer="ExinEfMsSqlContext" >
+          <EntitySetMapping Name="Category">
+            <EntityTypeMapping TypeName="DAL.DataBase.EntityFramework.EntitiesMsSql.Category_MsSql">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SummaryItem">
+            <EntityTypeMapping TypeName="DAL.DataBase.EntityFramework.EntitiesMsSql.SummaryItem_MsSql">
+              <MappingFragment StoreEntitySet="SummaryItem">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionItem">
+            <EntityTypeMapping TypeName="DAL.DataBase.EntityFramework.EntitiesMsSql.TransactionItem_MsSql">
+              <MappingFragment StoreEntitySet="TransactionItem">
+                <ScalarProperty Name="IsIncomeItem" ColumnName="IsIncomeItem" />
+                <ScalarProperty Name="IsExpenseItem" ColumnName="IsExpenseItem" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Unit">
+            <EntityTypeMapping TypeName="DAL.DataBase.EntityFramework.EntitiesMsSql.Unit_MsSql">
+              <MappingFragment StoreEntitySet="Unit">
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6bae721e45954737a019d4ff0c6a04e8" Name="Diagram1">
+        <EntityTypeShape EntityType="DAL.DataBase.EntityFramework.Entites.Category_Sqlite" Width="1.5" PointX="2.625" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAL.DataBase.EntityFramework.Entites.SummaryItem_Sqlite" Width="1.5" PointX="0.625" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAL.DataBase.EntityFramework.Entites.TransactionItem_Sqlite" Width="1.5" PointX="5" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAL.DataBase.EntityFramework.Entites.Unit_Sqlite" Width="1.5" PointX="7.5" PointY="4.375" IsExpanded="true" />
+        <AssociationConnector Association="DAL.DataBase.EntityFramework.Entites.FK_SummaryItem_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="DAL.DataBase.EntityFramework.Entites.FK_TransactionItem_1_0" ManuallyRouted="false" />
+        <AssociationConnector Association="DAL.DataBase.EntityFramework.Entites.FK_TransactionItem_0_0" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

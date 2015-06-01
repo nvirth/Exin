@@ -1,0 +1,2 @@
+﻿- The "SQLite full.sql" file is added as a link. It's real path can be viewed by it's properties. It's important 
+to set the "Copy to output" to "copy always"; other projects depends on this
