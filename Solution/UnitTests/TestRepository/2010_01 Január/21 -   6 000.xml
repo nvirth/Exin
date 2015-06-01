@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+6.000,-
+---
+Teás cuccok: 6.000,-
+
+]]>
+<DailySummary>6000</DailySummary>
+<ExpenseItem>
+  <Category>Others</Category>
+  <Amount>6000</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Title>Teás cuccok</Title>
+  <Comment></Comment>
+</ExpenseItem>
+</root>

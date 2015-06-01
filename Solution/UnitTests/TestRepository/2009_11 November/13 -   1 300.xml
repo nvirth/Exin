@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+1.300,-
+---
+Kocsma: 1.300,-
+
+]]>
+<DailySummary>1300</DailySummary>
+<ExpenseItem>
+  <Title>Kocsma</Title>
+  <Amount>1300</Amount>
+  <Category>Booze</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+</root>

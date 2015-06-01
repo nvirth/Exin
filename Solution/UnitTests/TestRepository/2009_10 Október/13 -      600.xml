@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+600,-
+---
+Kiemelők (3db): 600,-
+
+]]>
+<DailySummary>600</DailySummary>
+<ExpenseItem>
+  <Category>Others</Category>
+  <Amount>600</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Title>Kiemelők</Title>
+  <Comment>3db</Comment>
+</ExpenseItem>
+</root>

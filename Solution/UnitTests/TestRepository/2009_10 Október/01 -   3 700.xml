@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+3.700,-
+---
+Bkv bérlet: 3.700,-
+
+]]>
+<DailySummary>3700</DailySummary>
+<ExpenseItem>
+  <Category>OtherPublicTransport</Category>
+  <Amount>3700</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Title>Bkv bérlet</Title>
+  <Comment></Comment>
+</ExpenseItem>
+</root>

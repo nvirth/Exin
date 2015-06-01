@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+1.000,-
+---
+Kenyér, cukor, citromlé, ecet: 1.000,-
+
+]]>
+<DailySummary>1000</DailySummary>
+<ExpenseItem>
+  <Category>Eats</Category>
+  <Amount>1000</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Title>Kenyér, cukor, citromlé, ecet</Title>
+  <Comment></Comment>
+</ExpenseItem>
+</root>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+2.000,-
+---
+Váza: 2.000,-
+
+]]>
+<DailySummary>2000</DailySummary>
+<ExpenseItem>
+  <Category>Others</Category>
+  <Amount>2000</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Title>Váza</Title>
+  <Comment></Comment>
+</ExpenseItem>
+</root>

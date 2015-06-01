@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+5.860,-
+---
+Vonatjegy: 4.000,-
+Pia: 1.500,-
+Pizza: 200,-
+Kaja: 160,-
+
+]]>
+<DailySummary>5860</DailySummary>
+<ExpenseItem>
+  <Title>Vonatjegy</Title>
+  <Amount>4000</Amount>
+  <Category>Train</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Pia</Title>
+  <Amount>1500</Amount>
+  <Category>Booze</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Pizza</Title>
+  <Amount>200</Amount>
+  <Category>Eats</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Kaja</Title>
+  <Amount>160</Amount>
+  <Category>Eats</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+</root>

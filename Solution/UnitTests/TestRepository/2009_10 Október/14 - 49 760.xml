@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+49.760,-
+---
+Kung fu havi díj: 10.000,-
+4 db Fehér pólók: 8.000,-
+Kung fu havi díj Benjinek: 8.000,-
+Kung fu mellvédő Benjinek: 8.000,-
+Vizipipa, amit a Bejinek fizetnek ki: 6.000,-
+Kung fu póló: 4.600,-
+Vizipipa: 3.000,-
+Vonatjegy: 2.160,-
+
+]]>
+<DailySummary>49760</DailySummary>
+<ExpenseItem>
+  <Title>Kung fu havi díj</Title>
+  <Amount>10000</Amount>
+  <Category>Others</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Fehér pólók</Title>
+  <Amount>8000</Amount>
+  <Category>Others</Category>
+  <Quantity>4</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Kung fu havi díj Benjinek</Title>
+  <Amount>8000</Amount>
+  <Category>Others</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Kung fu mellvédő Benjinek</Title>
+  <Amount>8000</Amount>
+  <Category>Others</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Vizipipa, amit a Bejinek fizetnek ki</Title>
+  <Amount>6000</Amount>
+  <Category>Others</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Kung fu póló</Title>
+  <Amount>4600</Amount>
+  <Category>Others</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Vizipipa</Title>
+  <Amount>3000</Amount>
+  <Category>Others</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Vonatjegy</Title>
+  <Amount>2160</Amount>
+  <Category>Train</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+</root>
