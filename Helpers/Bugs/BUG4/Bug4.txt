@@ -1,0 +1,72 @@
+- A képen az látszik, hogy a napi kiadások módosultak, a havi kiadás összesítéskor mégis a régi összeggel keresi a fájlnevet
+	- A poén benne pedig, hogy ha "Újra" kattintok, utána jó lesz
+	
+A Log hozzá:
+
+01 -   2 230.xml - Beolvasási hiba! 
+
+                  Level: ERROR 
+
+                  Logger: Exin 
+
+                  Date: 2014-09-01 21:41:36,665 --- Utcdate: 2014-09-01 19:41:36,665 
+
+                  Timestamp: 150 
+
+                  Exception: Message: Nem található a következo fájl: „d:\Norbi\Txt\Naplózások\Kiadások\2014_09 Szeptember\01 -   2 230.xml”.
+Type: System.IO.FileNotFoundException
+Source: mscorlib
+TargetSite: Void WinIOError(Int32, System.String)
+
+User: (unauthenticed)
+
+StackTrace:
+    a következo helyen: System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   a következo helyen: System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   a következo helyen: System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   a következo helyen: System.Xml.XmlDownloadManager.GetStream(Uri uri, ICredentials credentials, IWebProxy proxy, RequestCachePolicy cachePolicy)
+   a következo helyen: System.Xml.XmlUrlResolver.GetEntity(Uri absoluteUri, String role, Type ofObjectToReturn)
+   a következo helyen: System.Xml.XmlTextReaderImpl.FinishInitUriString()
+   a következo helyen: System.Xml.XmlTextReaderImpl..ctor(String uriStr, XmlReaderSettings settings, XmlParserContext context, XmlResolver uriResolver)
+   a következo helyen: System.Xml.XmlReaderSettings.CreateReader(String inputUri, XmlParserContext inputContext)
+   a következo helyen: System.Xml.XmlReader.Create(String inputUri, XmlReaderSettings settings, XmlParserContext inputContext)
+   a következo helyen: System.Xml.Linq.XElement.Load(String uri, LoadOptions options)
+   a következo helyen: DAL.FileRepo.FileRepoManager.<>c__DisplayClass5.<GetDailyExpenses>b__4() hely: c:\Norbi\Development\Exin\Repository\DAL\FileRepo\FileRepoManager.cs, sor: 134
+   a következo helyen: DAL.FileRepo.FileRepoManager.GetDailyExpenses_Core_WithMessages(String fileName, Int64 fileLength, Action parserAction) hely: c:\Norbi\Development\Exin\Repository\DAL\FileRepo\FileRepoManager.cs, sor: 150
+
+ 
+Napi fájlok beolvasása során hiba merült fel: 
+
+                  Level: ERROR 
+
+                  Logger: Exin 
+
+                  Date: 2014-09-01 21:41:36,757 --- Utcdate: 2014-09-01 19:41:36,757 
+
+                  Timestamp: 242 
+
+                  Exception: Message: Nem található a következo fájl: „d:\Norbi\Txt\Naplózások\Kiadások\2014_09 Szeptember\01 -   2 230.xml”.
+Type: System.IO.FileNotFoundException
+Source: mscorlib
+TargetSite: Void WinIOError(Int32, System.String)
+
+User: (unauthenticed)
+
+StackTrace:
+    a következo helyen: System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   a következo helyen: System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   a következo helyen: System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   a következo helyen: System.Xml.XmlDownloadManager.GetStream(Uri uri, ICredentials credentials, IWebProxy proxy, RequestCachePolicy cachePolicy)
+   a következo helyen: System.Xml.XmlUrlResolver.GetEntity(Uri absoluteUri, String role, Type ofObjectToReturn)
+   a következo helyen: System.Xml.XmlTextReaderImpl.FinishInitUriString()
+   a következo helyen: System.Xml.XmlTextReaderImpl..ctor(String uriStr, XmlReaderSettings settings, XmlParserContext context, XmlResolver uriResolver)
+   a következo helyen: System.Xml.XmlReaderSettings.CreateReader(String inputUri, XmlParserContext inputContext)
+   a következo helyen: System.Xml.XmlReader.Create(String inputUri, XmlReaderSettings settings, XmlParserContext inputContext)
+   a következo helyen: System.Xml.Linq.XElement.Load(String uri, LoadOptions options)
+   a következo helyen: DAL.FileRepo.FileRepoManager.<>c__DisplayClass5.<GetDailyExpenses>b__4() hely: c:\Norbi\Development\Exin\Repository\DAL\FileRepo\FileRepoManager.cs, sor: 134
+   a következo helyen: DAL.FileRepo.FileRepoManager.GetDailyExpenses_Core_WithMessages(String fileName, Int64 fileLength, Action parserAction) hely: c:\Norbi\Development\Exin\Repository\DAL\FileRepo\FileRepoManager.cs, sor: 159
+   a következo helyen: DAL.FileRepo.FileRepoManager.GetDailyExpenses(Paths paths, Action`1 toDoWithEach) hely: c:\Norbi\Development\Exin\Repository\DAL\FileRepo\FileRepoManager.cs, sor: 136
+   a következo helyen: DAL.FileRepo.FileRepoManager.<>c__DisplayClass8.<GetMonthlyExpenses>b__7() hely: c:\Norbi\Development\Exin\Repository\DAL\FileRepo\FileRepoManager.cs, sor: 188
+   a következo helyen: DAL.FileRepo.FileRepoManager.GetMonthlyExpenses_Core_WithMessages(Paths paths, Action parserAction) hely: c:\Norbi\Development\Exin\Repository\DAL\FileRepo\FileRepoManager.cs, sor: 202
+
+ 

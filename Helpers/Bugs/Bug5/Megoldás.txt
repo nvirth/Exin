@@ -1,0 +1,5 @@
+﻿Sikerült reprodukálni (véletlenül). A hiba akkor jelentkezett, amikor üres volt a napi kiadások listája (load -kor), hozzáadtunk elemet, és el akartuk menteni. Ekkor panaszkodott, hogy nincs minden rendben az AutoMapper Map-ekkel.
+Mert ezidáig a pl TransactionItem_Sqlite osztály static ctor -jában volt lefuttatva a Map-pelést elvégző kód; mondván, hogy ott biztosan eléri a program használat előtt, és biztosan csak 1x. Ennél optimálisabb nem is lehetne.
+Hát, a fenti esetben sajnos nem nyúlt a program egyáltalán az osztályhoz, így a static ctor se futott le.
+
+Megoldás: InitAutoMapperForEf osztály...

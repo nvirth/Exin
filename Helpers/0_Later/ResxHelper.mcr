@@ -1,0 +1,14 @@
+Keyboard : ControlLeft : KeyDown
+Keyboard : V : KeyDown
+Keyboard : V : KeyUp
+Keyboard : H : KeyDown
+Keyboard : H : KeyUp
+Keyboard : AltLeft : KeyDown
+Keyboard : Enter : KeyDown
+Keyboard : Enter : KeyUp
+Keyboard : AltLeft : KeyUp
+Keyboard : A : KeyDown
+Keyboard : A : KeyUp
+Keyboard : C : KeyDown
+Keyboard : C : KeyUp
+Keyboard : ControlLeft : KeyUp

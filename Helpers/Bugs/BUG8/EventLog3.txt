@@ -1,0 +1,89 @@
+Napló neve:    Application
+Forrás:        .NET Runtime
+Dátum:         2015.04.25. 9:37:10
+Eseményazonosító:1026
+Feladatkategória:Nincs
+Szint:         Hiba
+Kulcsszavak:   Klasszikus
+Felhasználó:   n.a.
+Számítógép:    Szilvi-PC
+Leírás:
+Alkalmazás: ExinWPF.exe
+Keretrendszer verziószáma: v4.0.30319
+Leírás: A folyamat egy nem kezelt kivétel miatt meg lett szakítva.
+Kivétel adatai: System.Exception
+Verem:
+   a következő helyen: System.Runtime.CompilerServices.AsyncMethodBuilderCore.<ThrowAsync>b__4(System.Object)
+   a következő helyen: System.Windows.Threading.ExceptionWrapper.InternalRealCall(System.Delegate, System.Object, Int32)
+   a következő helyen: MS.Internal.Threading.ExceptionFilterHelper.TryCatchWhen(System.Object, System.Delegate, System.Object, Int32, System.Delegate)
+   a következő helyen: System.Windows.Threading.DispatcherOperation.InvokeImpl()
+   a következő helyen: System.Windows.Threading.DispatcherOperation.InvokeInSecurityContext(System.Object)
+   a következő helyen: System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, System.Object, Boolean)
+   a következő helyen: System.Threading.ExecutionContext.Run(System.Threading.ExecutionContext, System.Threading.ContextCallback, System.Object, Boolean)
+   a következő helyen: System.Threading.ExecutionContext.Run(System.Threading.ExecutionContext, System.Threading.ContextCallback, System.Object)
+   a következő helyen: System.Windows.Threading.DispatcherOperation.Invoke()
+   a következő helyen: System.Windows.Threading.Dispatcher.ProcessQueue()
+   a következő helyen: System.Windows.Threading.Dispatcher.WndProcHook(IntPtr, Int32, IntPtr, IntPtr, Boolean ByRef)
+   a következő helyen: MS.Win32.HwndWrapper.WndProc(IntPtr, Int32, IntPtr, IntPtr, Boolean ByRef)
+   a következő helyen: MS.Win32.HwndSubclass.DispatcherCallbackOperation(System.Object)
+   a következő helyen: System.Windows.Threading.ExceptionWrapper.InternalRealCall(System.Delegate, System.Object, Int32)
+   a következő helyen: MS.Internal.Threading.ExceptionFilterHelper.TryCatchWhen(System.Object, System.Delegate, System.Object, Int32, System.Delegate)
+   a következő helyen: System.Windows.Threading.Dispatcher.LegacyInvokeImpl(System.Windows.Threading.DispatcherPriority, System.TimeSpan, System.Delegate, System.Object, Int32)
+   a következő helyen: MS.Win32.HwndSubclass.SubclassWndProc(IntPtr, Int32, IntPtr, IntPtr)
+   a következő helyen: MS.Win32.UnsafeNativeMethods.DispatchMessage(System.Windows.Interop.MSG ByRef)
+   a következő helyen: System.Windows.Threading.Dispatcher.PushFrameImpl(System.Windows.Threading.DispatcherFrame)
+   a következő helyen: System.Windows.Threading.Dispatcher.PushFrame(System.Windows.Threading.DispatcherFrame)
+   a következő helyen: System.Windows.Threading.Dispatcher.Run()
+   a következő helyen: System.Windows.Application.RunDispatcher(System.Object)
+   a következő helyen: System.Windows.Application.RunInternal(System.Windows.Window)
+   a következő helyen: System.Windows.Application.Run(System.Windows.Window)
+   a következő helyen: WPF.App.Main()
+
+Esemény XML:
+<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+  <System>
+    <Provider Name=".NET Runtime" />
+    <EventID Qualifiers="0">1026</EventID>
+    <Level>2</Level>
+    <Task>0</Task>
+    <Keywords>0x80000000000000</Keywords>
+    <TimeCreated SystemTime="2015-04-25T07:37:10.000000000Z" />
+    <EventRecordID>3980</EventRecordID>
+    <Channel>Application</Channel>
+    <Computer>Szilvi-PC</Computer>
+    <Security />
+  </System>
+  <EventData>
+    <Data>Alkalmazás: ExinWPF.exe
+Keretrendszer verziószáma: v4.0.30319
+Leírás: A folyamat egy nem kezelt kivétel miatt meg lett szakítva.
+Kivétel adatai: System.Exception
+Verem:
+   a következő helyen: System.Runtime.CompilerServices.AsyncMethodBuilderCore.&lt;ThrowAsync&gt;b__4(System.Object)
+   a következő helyen: System.Windows.Threading.ExceptionWrapper.InternalRealCall(System.Delegate, System.Object, Int32)
+   a következő helyen: MS.Internal.Threading.ExceptionFilterHelper.TryCatchWhen(System.Object, System.Delegate, System.Object, Int32, System.Delegate)
+   a következő helyen: System.Windows.Threading.DispatcherOperation.InvokeImpl()
+   a következő helyen: System.Windows.Threading.DispatcherOperation.InvokeInSecurityContext(System.Object)
+   a következő helyen: System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, System.Object, Boolean)
+   a következő helyen: System.Threading.ExecutionContext.Run(System.Threading.ExecutionContext, System.Threading.ContextCallback, System.Object, Boolean)
+   a következő helyen: System.Threading.ExecutionContext.Run(System.Threading.ExecutionContext, System.Threading.ContextCallback, System.Object)
+   a következő helyen: System.Windows.Threading.DispatcherOperation.Invoke()
+   a következő helyen: System.Windows.Threading.Dispatcher.ProcessQueue()
+   a következő helyen: System.Windows.Threading.Dispatcher.WndProcHook(IntPtr, Int32, IntPtr, IntPtr, Boolean ByRef)
+   a következő helyen: MS.Win32.HwndWrapper.WndProc(IntPtr, Int32, IntPtr, IntPtr, Boolean ByRef)
+   a következő helyen: MS.Win32.HwndSubclass.DispatcherCallbackOperation(System.Object)
+   a következő helyen: System.Windows.Threading.ExceptionWrapper.InternalRealCall(System.Delegate, System.Object, Int32)
+   a következő helyen: MS.Internal.Threading.ExceptionFilterHelper.TryCatchWhen(System.Object, System.Delegate, System.Object, Int32, System.Delegate)
+   a következő helyen: System.Windows.Threading.Dispatcher.LegacyInvokeImpl(System.Windows.Threading.DispatcherPriority, System.TimeSpan, System.Delegate, System.Object, Int32)
+   a következő helyen: MS.Win32.HwndSubclass.SubclassWndProc(IntPtr, Int32, IntPtr, IntPtr)
+   a következő helyen: MS.Win32.UnsafeNativeMethods.DispatchMessage(System.Windows.Interop.MSG ByRef)
+   a következő helyen: System.Windows.Threading.Dispatcher.PushFrameImpl(System.Windows.Threading.DispatcherFrame)
+   a következő helyen: System.Windows.Threading.Dispatcher.PushFrame(System.Windows.Threading.DispatcherFrame)
+   a következő helyen: System.Windows.Threading.Dispatcher.Run()
+   a következő helyen: System.Windows.Application.RunDispatcher(System.Object)
+   a következő helyen: System.Windows.Application.RunInternal(System.Windows.Window)
+   a következő helyen: System.Windows.Application.Run(System.Windows.Window)
+   a következő helyen: WPF.App.Main()
+</Data>
+  </EventData>
+</Event>

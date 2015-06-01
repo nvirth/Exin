@@ -1,0 +1,17 @@
+﻿Projekt összenyomása kis méretre
+
+--- Törölhetők (újrafordítás szükséges a helyretételhez):
+bin
+obj
+*.bak
+DB.dbmdl 
+\Solution\theSolution\packages 
+Minden fájl a theSolution mappában, a .sln fájl kivételével)
+ 
+--- NEM célszerű törölni (kézzel kell visszarakni):
+x86, x64 mappák 
+FileRepoDeveloper 
+Exin.sqlite
+
+--- Érdemes még
+tömöríteni a FileRepoDeveloper mappát a sok kis fájl miatt

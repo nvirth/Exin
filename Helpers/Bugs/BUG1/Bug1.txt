@@ -1,0 +1,4 @@
+Exin bug:
+-(archív) Ha a havi összesítő oldalon ua napon, ahol a naptár áll, egy tételre dupla katt - kilép
+- Ha a havi összesítőt megnyitom, akk ugye cache-el is. Ha onnan dupla katt-tal egy napi összesítőre megyek, és átírom, és mentem, amire mentem; majd visszamegyek a havi összesítőre - akkor most ua-n fog állni, amire az előbb mentem, amit az előbb módosítottam/töröltem; ergó nem lesz már érvényes a mező. Dupla katt-nál kifagy
+	- Na, most már vmiért nem fagy ki; viszont akkor üres lesz a Kategória és a Unit drop-down-list, és ha úgy adja hozzá, akkor elszáll a program

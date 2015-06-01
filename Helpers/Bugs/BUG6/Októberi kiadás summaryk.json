@@ -1,0 +1,621 @@
+// az októberi tartalma a SummaryItem táblának
+// tehát a hiba oka: emlékszem, hogy volt olyan, amikor "Egyéb"-be tettem véletlenül az albérleti díj utalást.
+// Később vettem csak észre, és akkor átraktam a "Számla" kategóriába, viszont úgy néz ki, hogy a summary-k nem frissültek hozzá
+[
+  {
+    "ID": 3027,
+    "Amount": 4800,
+    "CategoryID": 105,
+    "Date": "2014-10-26T00:00:00",
+    "Category": {
+      "ID": 105,
+      "Name": "Train",
+      "DisplayName": "Vonat"
+    }
+  },
+  {
+    "ID": 3026,
+    "Amount": 4800,
+    "CategoryID": 1,
+    "Date": "2014-10-26T00:00:00",
+    "Category": {
+      "ID": 1,
+      "Name": "FullExpenseSummary",
+      "DisplayName": "Teljes kiadás összegzés (kategória nélkül)"
+    }
+  },
+  {
+    "ID": 3025,
+    "Amount": 3000,
+    "CategoryID": 104,
+    "Date": "2014-10-24T00:00:00",
+    "Category": {
+      "ID": 104,
+      "Name": "Invoice",
+      "DisplayName": "Számla"
+    }
+  },
+  {
+    "ID": 3024,
+    "Amount": 3000,
+    "CategoryID": 1,
+    "Date": "2014-10-24T00:00:00",
+    "Category": {
+      "ID": 1,
+      "Name": "FullExpenseSummary",
+      "DisplayName": "Teljes kiadás összegzés (kategória nélkül)"
+    }
+  },
+  {
+    "ID": 3022,
+    "Amount": 2527,
+    "CategoryID": 105,
+    "Date": "2014-10-23T00:00:00",
+    "Category": {
+      "ID": 105,
+      "Name": "Train",
+      "DisplayName": "Vonat"
+    }
+  },
+  {
+    "ID": 3023,
+    "Amount": 880,
+    "CategoryID": 101,
+    "Date": "2014-10-23T00:00:00",
+    "Category": {
+      "ID": 101,
+      "Name": "Eats",
+      "DisplayName": "Kaja"
+    }
+  },
+  {
+    "ID": 3021,
+    "Amount": 3407,
+    "CategoryID": 1,
+    "Date": "2014-10-23T00:00:00",
+    "Category": {
+      "ID": 1,
+      "Name": "FullExpenseSummary",
+      "DisplayName": "Teljes kiadás összegzés (kategória nélkül)"
+    }
+  },
+  {
+    "ID": 3020,
+    "Amount": 990,
+    "CategoryID": 101,
+    "Date": "2014-10-22T00:00:00",
+    "Category": {
+      "ID": 101,
+      "Name": "Eats",
+      "DisplayName": "Kaja"
+    }
+  },
+  {
+    "ID": 3019,
+    "Amount": 990,
+    "CategoryID": 1,
+    "Date": "2014-10-22T00:00:00",
+    "Category": {
+      "ID": 1,
+      "Name": "FullExpenseSummary",
+      "DisplayName": "Teljes kiadás összegzés (kategória nélkül)"
+    }
+  },
+  {
+    "ID": 3018,
+    "Amount": 1950,
+    "CategoryID": 101,
+    "Date": "2014-10-21T00:00:00",
+    "Category": {
+      "ID": 101,
+      "Name": "Eats",
+      "DisplayName": "Kaja"
+    }
+  },
+  {
+    "ID": 3017,
+    "Amount": 1950,
+    "CategoryID": 1,
+    "Date": "2014-10-21T00:00:00",
+    "Category": {
+      "ID": 1,
+      "Name": "FullExpenseSummary",
+      "DisplayName": "Teljes kiadás összegzés (kategória nélkül)"
+    }
+  },
+  {
+    "ID": 3015,
+    "Amount": 2490,
+    "CategoryID": 108,
+    "Date": "2014-10-19T00:00:00",
+    "Category": {
+      "ID": 108,
+      "Name": "Others",
+      "DisplayName": "Egyéb"
+    }
+  },
+  {
+    "ID": 3016,
+    "Amount": 1325,
+    "CategoryID": 101,
+    "Date": "2014-10-19T00:00:00",
+    "Category": {
+      "ID": 101,
+      "Name": "Eats",
+      "DisplayName": "Kaja"
+    }
+  },
+  {
+    "ID": 3014,
+    "Amount": 3815,
+    "CategoryID": 1,
+    "Date": "2014-10-19T00:00:00",
+    "Category": {
+      "ID": 1,
+      "Name": "FullExpenseSummary",
+      "DisplayName": "Teljes kiadás összegzés (kategória nélkül)"
+    }
+  },
+  {
+    "ID": 3013,
+    "Amount": 0,
+    "CategoryID": 108,
+    "Date": "2014-10-18T00:00:00",
+    "Category": {
+      "ID": 108,
+      "Name": "Others",
+      "DisplayName": "Egyéb"
+    }
+  },
+  {
+    "ID": 3012,
+    "Amount": 1320,
+    "CategoryID": 101,
+    "Date": "2014-10-18T00:00:00",
+    "Category": {
+      "ID": 101,
+      "Name": "Eats",
+      "DisplayName": "Kaja"
+    }
+  },
+  {
+    "ID": 3011,
+    "Amount": 1320,
+    "CategoryID": 1,
+    "Date": "2014-10-18T00:00:00",
+    "Category": {
+      "ID": 1,
+      "Name": "FullExpenseSummary",
+      "DisplayName": "Teljes kiadás összegzés (kategória nélkül)"
+    }
+  },
+  {
+    "ID": 3010,
+    "Amount": 1430,
+    "CategoryID": 101,
+    "Date": "2014-10-17T00:00:00",
+    "Category": {
+      "ID": 101,
+      "Name": "Eats",
+      "DisplayName": "Kaja"
+    }
+  },
+  {
+    "ID": 3009,
+    "Amount": 1430,
+    "CategoryID": 1,
+    "Date": "2014-10-17T00:00:00",
+    "Category": {
+      "ID": 1,
+      "Name": "FullExpenseSummary",
+      "DisplayName": "Teljes kiadás összegzés (kategória nélkül)"
+    }
+  },
+  {
+    "ID": 3008,
+    "Amount": 1860,
+    "CategoryID": 101,
+    "Date": "2014-10-16T00:00:00",
+    "Category": {
+      "ID": 101,
+      "Name": "Eats",
+      "DisplayName": "Kaja"
+    }
+  },
+  {
+    "ID": 3007,
+    "Amount": 1860,
+    "CategoryID": 1,
+    "Date": "2014-10-16T00:00:00",
+    "Category": {
+      "ID": 1,
+      "Name": "FullExpenseSummary",
+      "DisplayName": "Teljes kiadás összegzés (kategória nélkül)"
+    }
+  },
+  {
+    "ID": 3006,
+    "Amount": 1960,
+    "CategoryID": 101,
+    "Date": "2014-10-15T00:00:00",
+    "Category": {
+      "ID": 101,
+      "Name": "Eats",
+      "DisplayName": "Kaja"
+    }
+  },
+  {
+    "ID": 3005,
+    "Amount": 1960,
+    "CategoryID": 1,
+    "Date": "2014-10-15T00:00:00",
+    "Category": {
+      "ID": 1,
+      "Name": "FullExpenseSummary",
+      "DisplayName": "Teljes kiadás összegzés (kategória nélkül)"
+    }
+  },
+  {
+    "ID": 3003,
+    "Amount": 1194,
+    "CategoryID": 104,
+    "Date": "2014-10-14T00:00:00",
+    "Category": {
+      "ID": 104,
+      "Name": "Invoice",
+      "DisplayName": "Számla"
+    }
+  },
+  {
+    "ID": 3004,
+    "Amount": 585,
+    "CategoryID": 101,
+    "Date": "2014-10-14T00:00:00",
+    "Category": {
+      "ID": 101,
+      "Name": "Eats",
+      "DisplayName": "Kaja"
+    }
+  },
+  {
+    "ID": 3002,
+    "Amount": 1779,
+    "CategoryID": 1,
+    "Date": "2014-10-14T00:00:00",
+    "Category": {
+      "ID": 1,
+      "Name": "FullExpenseSummary",
+      "DisplayName": "Teljes kiadás összegzés (kategória nélkül)"
+    }
+  },
+  {
+    "ID": 3001,
+    "Amount": 1840,
+    "CategoryID": 101,
+    "Date": "2014-10-13T00:00:00",
+    "Category": {
+      "ID": 101,
+      "Name": "Eats",
+      "DisplayName": "Kaja"
+    }
+  },
+  {
+    "ID": 3000,
+    "Amount": 1840,
+    "CategoryID": 1,
+    "Date": "2014-10-13T00:00:00",
+    "Category": {
+      "ID": 1,
+      "Name": "FullExpenseSummary",
+      "DisplayName": "Teljes kiadás összegzés (kategória nélkül)"
+    }
+  },
+  {
+    "ID": 2999,
+    "Amount": 980,
+    "CategoryID": 101,
+    "Date": "2014-10-12T00:00:00",
+    "Category": {
+      "ID": 101,
+      "Name": "Eats",
+      "DisplayName": "Kaja"
+    }
+  },
+  {
+    "ID": 2998,
+    "Amount": 980,
+    "CategoryID": 1,
+    "Date": "2014-10-12T00:00:00",
+    "Category": {
+      "ID": 1,
+      "Name": "FullExpenseSummary",
+      "DisplayName": "Teljes kiadás összegzés (kategória nélkül)"
+    }
+  },
+  {
+    "ID": 2997,
+    "Amount": 1400,
+    "CategoryID": 101,
+    "Date": "2014-10-10T00:00:00",
+    "Category": {
+      "ID": 101,
+      "Name": "Eats",
+      "DisplayName": "Kaja"
+    }
+  },
+  {
+    "ID": 2996,
+    "Amount": 1400,
+    "CategoryID": 1,
+    "Date": "2014-10-10T00:00:00",
+    "Category": {
+      "ID": 1,
+      "Name": "FullExpenseSummary",
+      "DisplayName": "Teljes kiadás összegzés (kategória nélkül)"
+    }
+  },
+  {
+    "ID": 2995,
+    "Amount": 280,
+    "CategoryID": 101,
+    "Date": "2014-10-09T00:00:00",
+    "Category": {
+      "ID": 101,
+      "Name": "Eats",
+      "DisplayName": "Kaja"
+    }
+  },
+  {
+    "ID": 2994,
+    "Amount": 280,
+    "CategoryID": 1,
+    "Date": "2014-10-09T00:00:00",
+    "Category": {
+      "ID": 1,
+      "Name": "FullExpenseSummary",
+      "DisplayName": "Teljes kiadás összegzés (kategória nélkül)"
+    }
+  },
+  {
+    "ID": 2993,
+    "Amount": 1600,
+    "CategoryID": 101,
+    "Date": "2014-10-08T00:00:00",
+    "Category": {
+      "ID": 101,
+      "Name": "Eats",
+      "DisplayName": "Kaja"
+    }
+  },
+  {
+    "ID": 2992,
+    "Amount": 1600,
+    "CategoryID": 1,
+    "Date": "2014-10-08T00:00:00",
+    "Category": {
+      "ID": 1,
+      "Name": "FullExpenseSummary",
+      "DisplayName": "Teljes kiadás összegzés (kategória nélkül)"
+    }
+  },
+  {
+    "ID": 2990,
+    "Amount": 700,
+    "CategoryID": 102,
+    "Date": "2014-10-07T00:00:00",
+    "Category": {
+      "ID": 102,
+      "Name": "ConfectionTonic",
+      "DisplayName": "Édesség, üdítő"
+    }
+  },
+  {
+    "ID": 2991,
+    "Amount": 1000,
+    "CategoryID": 101,
+    "Date": "2014-10-07T00:00:00",
+    "Category": {
+      "ID": 101,
+      "Name": "Eats",
+      "DisplayName": "Kaja"
+    }
+  },
+  {
+    "ID": 2989,
+    "Amount": 1700,
+    "CategoryID": 1,
+    "Date": "2014-10-07T00:00:00",
+    "Category": {
+      "ID": 1,
+      "Name": "FullExpenseSummary",
+      "DisplayName": "Teljes kiadás összegzés (kategória nélkül)"
+    }
+  },
+  {
+    "ID": 2988,
+    "Amount": 6765,
+    "CategoryID": 104,
+    "Date": "2014-10-06T00:00:00",
+    "Category": {
+      "ID": 104,
+      "Name": "Invoice",
+      "DisplayName": "Számla"
+    }
+  },
+  {
+    "ID": 2987,
+    "Amount": 6765,
+    "CategoryID": 1,
+    "Date": "2014-10-06T00:00:00",
+    "Category": {
+      "ID": 1,
+      "Name": "FullExpenseSummary",
+      "DisplayName": "Teljes kiadás összegzés (kategória nélkül)"
+    }
+  },
+  {
+    "ID": 2986,
+    "Amount": 0,
+    "CategoryID": 105,
+    "Date": "2014-10-05T00:00:00",
+    "Category": {
+      "ID": 105,
+      "Name": "Train",
+      "DisplayName": "Vonat"
+    }
+  },
+  {
+    "ID": 2985,
+    "Amount": 0,
+    "CategoryID": 1,
+    "Date": "2014-10-05T00:00:00",
+    "Category": {
+      "ID": 1,
+      "Name": "FullExpenseSummary",
+      "DisplayName": "Teljes kiadás összegzés (kategória nélkül)"
+    }
+  },
+  {
+    "ID": 2984,
+    "Amount": 3200,
+    "CategoryID": 103,
+    "Date": "2014-10-04T00:00:00",
+    "Category": {
+      "ID": 103,
+      "Name": "Booze",
+      "DisplayName": "Pia"
+    }
+  },
+  {
+    "ID": 2983,
+    "Amount": 3200,
+    "CategoryID": 1,
+    "Date": "2014-10-04T00:00:00",
+    "Category": {
+      "ID": 1,
+      "Name": "FullExpenseSummary",
+      "DisplayName": "Teljes kiadás összegzés (kategória nélkül)"
+    }
+  },
+  {
+    "ID": 2982,
+    "Amount": 790,
+    "CategoryID": 101,
+    "Date": "2014-10-03T00:00:00",
+    "Category": {
+      "ID": 101,
+      "Name": "Eats",
+      "DisplayName": "Kaja"
+    }
+  },
+  {
+    "ID": 2981,
+    "Amount": 790,
+    "CategoryID": 1,
+    "Date": "2014-10-03T00:00:00",
+    "Category": {
+      "ID": 1,
+      "Name": "FullExpenseSummary",
+      "DisplayName": "Teljes kiadás összegzés (kategória nélkül)"
+    }
+  },
+  {
+    "ID": 2979,
+    "Amount": 4520,
+    "CategoryID": 104,
+    "Date": "2014-10-02T00:00:00",
+    "Category": {
+      "ID": 104,
+      "Name": "Invoice",
+      "DisplayName": "Számla"
+    }
+  },
+  {
+    "ID": 2980,
+    "Amount": 630,
+    "CategoryID": 101,
+    "Date": "2014-10-02T00:00:00",
+    "Category": {
+      "ID": 101,
+      "Name": "Eats",
+      "DisplayName": "Kaja"
+    }
+  },
+  {
+    "ID": 2978,
+    "Amount": 5150,
+    "CategoryID": 1,
+    "Date": "2014-10-02T00:00:00",
+    "Category": {
+      "ID": 1,
+      "Name": "FullExpenseSummary",
+      "DisplayName": "Teljes kiadás összegzés (kategória nélkül)"
+    }
+  },
+  {
+    "ID": 2974,
+    "Amount": 22500,
+    "CategoryID": 108,
+    "Date": "2014-10-01T00:00:00",
+    "Category": {
+      "ID": 108,
+      "Name": "Others",
+      "DisplayName": "Egyéb"
+    }
+  },
+  {
+    "ID": 2975,
+    "Amount": 2643,
+    "CategoryID": 105,
+    "Date": "2014-10-01T00:00:00",
+    "Category": {
+      "ID": 105,
+      "Name": "Train",
+      "DisplayName": "Vonat"
+    }
+  },
+  {
+    "ID": 2976,
+    "Amount": 1000,
+    "CategoryID": 104,
+    "Date": "2014-10-01T00:00:00",
+    "Category": {
+      "ID": 104,
+      "Name": "Invoice",
+      "DisplayName": "Számla"
+    }
+  },
+  {
+    "ID": 2977,
+    "Amount": 1320,
+    "CategoryID": 101,
+    "Date": "2014-10-01T00:00:00",
+    "Category": {
+      "ID": 101,
+      "Name": "Eats",
+      "DisplayName": "Kaja"
+    }
+  },
+  {
+    "ID": 3142,
+    "Amount": 127200,
+    "CategoryID": 2,
+    "Date": "2014-10-01T00:00:00",
+    "Category": {
+      "ID": 2,
+      "Name": "FullIncomeSummary",
+      "DisplayName": "Teljes bevétel összegzés (kategória nélkül)"
+    }
+  },
+  {
+    "ID": 2973,
+    "Amount": 27463,
+    "CategoryID": 1,
+    "Date": "2014-10-01T00:00:00",
+    "Category": {
+      "ID": 1,
+      "Name": "FullExpenseSummary",
+      "DisplayName": "Teljes kiadás összegzés (kategória nélkül)"
+    }
+  }
+]

@@ -1,0 +1,15 @@
+﻿- Nincs benne Stored Procedure
+- Valami ökörködés van a Foreign Key körül; nem ellenőrzi őket automatikusan, hanem mintha minden query-be bele kéne írni, h ellenőrizze... Ezért helyettük triggereket használok
+- Van egy tök jó open source project arra, hogy MS SQL adatbázist egy-az-egyben SQLite -ra konvertáljunk: http://www.codeproject.com/Articles/26932/Convert-SQL-Server-DB-to-SQLite-DB
+
+- Eléggé "lite" ez a cucc... Főleg a .net -es provider-ei...
+	- Amikor megnyitok egy Connection-t, akkor ott rögtön transaction -be vagyok (mintha beírtam vna neki, hogy "BEGIN"). Ez azért szar, mert így utána ha futtatok egy query-t, majd commit -olok; az oké lenne; de ha nem zárom le a connection-t (pl abban a szerencsétlen esetben, amikor foreach-ben adom be neki az insert-eket), akkor a 2. esetben egy commit hibához vezet, mert nem volt még BEGIN.
+		- Ez nem lenne akkora para, ha "kézzel" nyitnám a connection-öket, nem pedig keretrendszerbe építve...
+		- A megoldás, hogy Connection.Open() után rögtön rátolok egy commit-ot.
+			- Ja mert amúgy az sem megy, hogy Connection.Open() után tranzakcióban kezdem default-ból, és itt egy BEGIN-t ha leírok, akkor is exception lesz...
+	- Ami érdekes, az ImportDataToDb résznél; a summary-k importálásánál a dal fv-eket használja a progi, és így tranzakcióban van az egész (ilyenkor előbb kitörli az aktuális napi összegzést, majd beszúrja az újat). Itt RANDOM MÓDON OKOZOTT HIBÁT (kb 400-1200 rekord után), ha így csináltam:
+		" BEGIN; ...delete rész...; " --> Ez az 1. ExecNonQuery
+		" ...insert rész...; COMMIT; " --> Ez a 2. Exec rész
+		- A random hiba az volt, hogy a következő adag summary-nál, Connection.Open() -re vmi "ez a művelet nem hajtható végre ebben a tranzakciós állapotban" jellegű hibát dobott
+		- Ha ezek helyett csak 1 Exec-ben küldöm el az egészet (itt megtehetem; jobb is úgy), akkor nincs hiba (legalábbis 3600 rekordig :D).
+			- Szóval gondolom "jobban örül neki", ha együtt látja a BEGIN-t és a COMMIT-ot; egyébként talán vmi nagyobb léptékű tranzakciót akarna nyitni talán...

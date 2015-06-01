@@ -1,0 +1,82 @@
+App.config - config transfor <-- To add App.Debug.config and App.Release.config, install the extension Slow Cheetah; then right click on the App.config, and select "add transform"
+----
+RESHARPER - GENERATE - EQUALITY MEMBERS (/COMPARER)
+
+Nagyon hasznos, sokat gyorsít; legenerálja az Equals és a GetHashCode fv-ek felüldefiniáltját. 
+Van viszont egy kis hibája: Az Equals-ba nem teszi bele a GetHashCode-ot. Kézzel kell javítani. Pl:
+		public bool Equals(ExpenseItem other)
+		{
+			if (ReferenceEquals(null, other))
+				return false;
+			if (ReferenceEquals(this, other))
+				return true;
+--> 		if (this.GetHashCode() != other.GetHashCode())
+-->			return false;
+			return base.Equals(other) && _category == other._category;
+		}
+Tehát a 2 másolandó sor mindig ez:
+if (this.GetHashCode() != other.GetHashCode())
+return false;
+
+Equality Comparerhez pedig ez:
+if(GetHashCode(x) != GetHashCode(y))
+return false;
+
+Ehhez megjegyzés, hogy
+- A Resharperes Equality Comparer generálás azért nem épp tökéletes. Nem foglalkozik az õsosztállyal...
+	(érdemes legenerálni az IEquatable-t, és onnan leutánozni az Equals és a GetHashCode metódusokat, mert
+	 azon a részen figyelembe veszi az õsosztályt is)
+- Viszont szükség van rá a Xaml UI modelleknél, mert ha implementáljuk bennük az IEquatable-t, akkor nagyon
+	magic hibák lesznek a felületen... (ez az infó 4-5 óra szenvedés eredménye)
+
+--------------------------------------
+- Ha megváltozik a bevételek/kiadások root könyvátra (most c:\Norbi\Txt\Naplózások\Kiadások), akkor át kell írni:
+	- WPF app.config -jában
+	- EngineTester app.config -jában
+---
+Ha elkészül az IncomeItem-es rész:
+2013.05.28 -
+2013.04.04 -
+2013.03.07 -
+2013.02.15 -
+2013.02.23 -
+2012.02.07 +
+2012.01.15 -
+2011.04.04 +
+
+0.5Kg -> 5 dkg
+---
+Todo:
+- validáció
+- gyakori kiadás item-ek mentése
+- File beolvasási hibák kezelése (HasError)
+- Enum-ok magyarul írjanak ki
+
+- Havi kiadások statisztikák mappák átrendezése
+
+- Enum generálás?
+	- Hogy bõvíthetõk legyenek pl a kategóriák
+		- Generálás után újra kell fordítani!
+
+- Ctrl+s, egyéb bill.komb.-ók
+- Paths-ból kivenni a string membereket, csak a fileInfo maradjon
+
+- hozzáad/dupláz gomb
+- del -re töröljön a listából
+- kategória lista ne konstans
+- sûrûn használt dolgok 1 katt
+- többszemélyes
+- rendezések
+
+- Gyakran használt elemek -> auto complete
+	Gyakran használt, több, de összetartozó elem (pl albérleti díj 2db)
+		- Új felületen kiválaszt, beilleszt? - vs - autoComplete (hogy?)
+
+- Alt+jobbra: nap
+- Alt+le: hónap
+- Alt+shift+le: év
+- Automatikusan végezzen el havi összesítést...
+---------------
+To add new lines to C# documentations, use this: <para/>
+To add a blank line: <para>&nbsp;</para>
+* you could use the ASCII char 255 (invisible char, press Alt+255) instead of &nbsp;

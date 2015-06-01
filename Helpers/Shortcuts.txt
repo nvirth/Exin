@@ -1,0 +1,5 @@
+- Alt+jobbra: nap
+- Alt+le: hónap
+- Alt+shift+le: év
+- Alt+end: mai nap
+- Ctrl+s mentés

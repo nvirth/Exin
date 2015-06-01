@@ -1,0 +1,4 @@
+Csak annyi volt az oka, hogy nem találta a Repo Root directory-t (újra lett telepítve a gép).
+Viszont kilépett. A GUI Log-ba kilogolt, meg szerencsére az ExinLog.txt -be is, és ott elmondta.
+Viszont mivel kilépett, és az event log -ban ilyen faszságok voltak... Szóval félrevezetett na
+Task már fel van véve h ilyenkor legyen alert

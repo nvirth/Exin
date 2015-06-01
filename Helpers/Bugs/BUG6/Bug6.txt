@@ -1,0 +1,1 @@
+	5/5	2014.12.22	2014.12.22		Bug	BUG6	A statisztikák mintha nem frissülnének, amikor kategóriát változtatok egy korábban már mentett kiadásnál		Amikor kategóriát vált, a Summary nem frissül	

@@ -1,0 +1,55 @@
+Napló neve:    Application
+Forrás:        Application Error
+Dátum:         2015.04.25. 9:37:10
+Eseményazonosító:1000
+Feladatkategória:(100)
+Szint:         Hiba
+Kulcsszavak:   Klasszikus
+Felhasználó:   n.a.
+Számítógép:    Szilvi-PC
+Leírás:
+A hibát okozó alkalmazás neve: ExinWPF.exe, verzió: 1.0.0.0, időbélyeg: 0x545bd645
+A hibát okozó modul neve: KERNELBASE.dll, verzió: 6.3.9600.17415, időbélyeg: 0x54504ade
+Kivételkód: 0xe0434352
+Hiba pozíciója: 0x00014598
+A hibát okozó folyamat azonosítója: 0x13e0
+A hibát okozó alkalmazás indításának időpontja: 0x01d07f2aa23d5f24
+A hibát okozó alkalmazás elérési útja: C:\Norbi\Exin\ExinWPF.exe
+A hibát okozó modul elérési útja: C:\Windows\SYSTEM32\KERNELBASE.dll
+Jelentés azonosítója: e17396d1-eb1d-11e4-8270-bc5ff402136f
+A hibát okozó csomag teljes neve: 
+A hibát okozó csomag relatív alkalmazásazonosítója: 
+Esemény XML:
+<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+  <System>
+    <Provider Name="Application Error" />
+    <EventID Qualifiers="0">1000</EventID>
+    <Level>2</Level>
+    <Task>100</Task>
+    <Keywords>0x80000000000000</Keywords>
+    <TimeCreated SystemTime="2015-04-25T07:37:10.000000000Z" />
+    <EventRecordID>3981</EventRecordID>
+    <Channel>Application</Channel>
+    <Computer>Szilvi-PC</Computer>
+    <Security />
+  </System>
+  <EventData>
+    <Data>ExinWPF.exe</Data>
+    <Data>1.0.0.0</Data>
+    <Data>545bd645</Data>
+    <Data>KERNELBASE.dll</Data>
+    <Data>6.3.9600.17415</Data>
+    <Data>54504ade</Data>
+    <Data>e0434352</Data>
+    <Data>00014598</Data>
+    <Data>13e0</Data>
+    <Data>01d07f2aa23d5f24</Data>
+    <Data>C:\Norbi\Exin\ExinWPF.exe</Data>
+    <Data>C:\Windows\SYSTEM32\KERNELBASE.dll</Data>
+    <Data>e17396d1-eb1d-11e4-8270-bc5ff402136f</Data>
+    <Data>
+    </Data>
+    <Data>
+    </Data>
+  </EventData>
+</Event>
