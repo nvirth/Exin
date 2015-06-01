@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+206,-
+---
+Készpénzfelvétel tranzakciós jutalék (4.000,- után): 206,-
+
+]]>
+<DailySummary>206</DailySummary>
+<ExpenseItem>
+  <Title>Készpénzfelvétel tranzakciós jutalék</Title>
+  <Amount>206</Amount>
+  <Quantity>1</Quantity>
+  <Unit>db</Unit>
+  <Category>Egyéb</Category>
+  <Comment>4.000,- után</Comment>
+</ExpenseItem>
+</root>

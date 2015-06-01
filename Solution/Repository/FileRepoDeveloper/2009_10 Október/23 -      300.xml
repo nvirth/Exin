@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+300,-
+---
+Kaja: 300,-
+
+]]>
+<DailySummary>300</DailySummary>
+<ExpenseItem>
+  <Title>Kaja</Title>
+  <Amount>300</Amount>
+  <Category>Eats</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+</root>

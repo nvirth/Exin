@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+4.450,-
+---
+Vonatjegyek haza és vissza Kb.: 4.000,-
+Kaja: 450,-
+
+]]>
+<DailySummary>4450</DailySummary>
+<ExpenseItem>
+  <Title>Vonatjegyek haza és vissza Kb.</Title>
+  <Amount>4000</Amount>
+  <Category>Train</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Kaja</Title>
+  <Amount>450</Amount>
+  <Category>Eats</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+</root>

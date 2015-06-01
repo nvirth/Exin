@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+199.857,-
+---
+KisKépző fizetés (4/9): 55.629,-
+KisKépző fizetés (3/9): 55.628,-
+Diákhitel (4/5): 40.000,-
+Bursa (Intézményi rész (1-5/5)): 20.000,-
+Bursa (Önkormányzati rész (1-5/5)): 20.000,-
+Maradvány ösztöndíj: 8.600,-
+
+]]>
+<IncomeSummary>199857</IncomeSummary>
+<IncomeItem>
+  <Title>KisKépző fizetés</Title>
+  <Amount>55629</Amount>
+  <Comment>4/9</Comment>
+</IncomeItem>
+<IncomeItem>
+  <Title>KisKépző fizetés</Title>
+  <Amount>55628</Amount>
+  <Comment>3/9</Comment>
+</IncomeItem>
+<IncomeItem>
+  <Title>Diákhitel</Title>
+  <Amount>40000</Amount>
+  <Comment>4/5</Comment>
+</IncomeItem>
+<IncomeItem>
+  <Title>Bursa</Title>
+  <Amount>20000</Amount>
+  <Comment>Intézményi rész (1-5/5)</Comment>
+</IncomeItem>
+<IncomeItem>
+  <Title>Bursa</Title>
+  <Amount>20000</Amount>
+  <Comment>Önkormányzati rész (1-5/5)</Comment>
+</IncomeItem>
+<IncomeItem>
+  <Title>Maradvány ösztöndíj</Title>
+  <Amount>8600</Amount>
+  <Comment></Comment>
+</IncomeItem>
+</root>

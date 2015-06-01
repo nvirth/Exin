@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+3.000,-
+---
+Pia: 3.000,-
+
+]]>
+<DailySummary>3000</DailySummary>
+<ExpenseItem>
+  <Title>Pia</Title>
+  <Amount>3000</Amount>
+  <Category>Booze</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+</root>

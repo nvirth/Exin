@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+850,-
+---
+Tollak: 850,-
+
+]]>
+<DailySummary>850</DailySummary>
+<ExpenseItem>
+  <Category>Others</Category>
+  <Amount>850</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Title>Tollak</Title>
+  <Comment></Comment>
+</ExpenseItem>
+</root>

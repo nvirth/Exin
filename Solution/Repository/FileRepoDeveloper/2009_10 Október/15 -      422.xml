@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+422,-
+---
+Készpénzfelvétel tranzakciós jutalék (9.000,- után): 213,-
+Készpénzfelvétel tranzakciós jutalék (6.000,- után): 209,-
+Hazautalás ((1/6) 24.050Ft összesen, "Kung Fu pénzek és egyéb" volt az eredeti címke; sztem részenként kiírtam őket 14.én): 0,-
+
+]]>
+<DailySummary>422</DailySummary>
+<ExpenseItem>
+  <Title>Készpénzfelvétel tranzakciós jutalék</Title>
+  <Amount>213</Amount>
+  <Quantity>1</Quantity>
+  <Unit>db</Unit>
+  <Category>Egyéb</Category>
+  <Comment>9.000,- után</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Készpénzfelvétel tranzakciós jutalék</Title>
+  <Amount>209</Amount>
+  <Quantity>1</Quantity>
+  <Unit>db</Unit>
+  <Category>Egyéb</Category>
+  <Comment>6.000,- után</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Hazautalás</Title>
+  <Amount>0</Amount>
+  <Quantity>1</Quantity>
+  <Unit>db</Unit>
+  <Category>Egyéb</Category>
+  <Comment>(1/6) 24.050Ft összesen, "Kung Fu pénzek és egyéb" volt az eredeti címke; sztem részenként kiírtam őket 14.én</Comment>
+</ExpenseItem>
+</root>

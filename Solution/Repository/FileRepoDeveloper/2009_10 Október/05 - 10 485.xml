@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+10.485,-
+---
+Vonat jegyek (okt.02 haza, okt.04 vissza): 4.000,-
+Kocsma kb: 2.000,-
+Könyvrendelés kb (2009.10.05 előtt): 2.000,-
+6 db karpackie (2009.10.05 előtt): 900,-
+Egyetemi könyvek (Eladomakonyvem.hu-ról (50Ft tranzakciós jutalékkal) (passz h hány db)): 650,-
+Nyomtatás (2009.10.05 előtt): 635,-
+DVD író filc (2009.10.05 előtt): 300,-
+
+]]>
+<DailySummary>10485</DailySummary>
+<ExpenseItem>
+  <Title>Vonat jegyek</Title>
+  <Amount>4000</Amount>
+  <Quantity>1</Quantity>
+  <Unit>db</Unit>
+  <Category>Vonat</Category>
+  <Comment>okt.02 haza, okt.04 vissza</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Kocsma kb</Title>
+  <Amount>2000</Amount>
+  <Quantity>1</Quantity>
+  <Unit>db</Unit>
+  <Category>Pia</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Könyvrendelés kb</Title>
+  <Amount>2000</Amount>
+  <Quantity>1</Quantity>
+  <Unit>db</Unit>
+  <Category>Egyéb</Category>
+  <Comment>2009.10.05 előtt</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>karpackie</Title>
+  <Amount>900</Amount>
+  <Quantity>6</Quantity>
+  <Unit>db</Unit>
+  <Category>Pia</Category>
+  <Comment>2009.10.05 előtt</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Egyetemi könyvek</Title>
+  <Amount>650</Amount>
+  <Quantity>1</Quantity>
+  <Unit>db</Unit>
+  <Category>Egyéb</Category>
+  <Comment>Eladomakonyvem.hu-ról (50Ft tranzakciós jutalékkal) (passz h hány db)</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Nyomtatás</Title>
+  <Amount>635</Amount>
+  <Quantity>1</Quantity>
+  <Unit>db</Unit>
+  <Category>Egyéb</Category>
+  <Comment>2009.10.05 előtt</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>DVD író filc</Title>
+  <Amount>300</Amount>
+  <Quantity>1</Quantity>
+  <Unit>db</Unit>
+  <Category>Egyéb</Category>
+  <Comment>2009.10.05 előtt</Comment>
+</ExpenseItem>
+</root>

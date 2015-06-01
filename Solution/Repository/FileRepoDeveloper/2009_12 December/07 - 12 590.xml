@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+12.590,-
+---
+Csuklószorító: 3.700,-
+Kávé: 1.800,-
+BB Zenit: 1.500,-
+Milka cucc: 1.400,-
+Mikulásdobozos keksz: 1.000,-
+Kiemelők,filc: 800,-
+Borotva: 700,-
+BB Szürkebarát: 500,-
+Negró: 300,-
+Keksz: 300,-
+Rágó: 250,-
+Cukor: 200,-
+Sör: 140,-
+
+]]>
+<DailySummary>12590</DailySummary>
+<ExpenseItem>
+  <Title>Csuklószorító</Title>
+  <Amount>3700</Amount>
+  <Category>Others</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Kávé</Title>
+  <Amount>1800</Amount>
+  <Category>ConfectionTonic</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>BB Zenit</Title>
+  <Amount>1500</Amount>
+  <Category>Booze</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Milka cucc</Title>
+  <Amount>1400</Amount>
+  <Category>ConfectionTonic</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Mikulásdobozos keksz</Title>
+  <Amount>1000</Amount>
+  <Category>ConfectionTonic</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Kiemelők,filc</Title>
+  <Amount>800</Amount>
+  <Category>Others</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Borotva</Title>
+  <Amount>700</Amount>
+  <Category>Others</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>BB Szürkebarát</Title>
+  <Amount>500</Amount>
+  <Category>Booze</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Negró</Title>
+  <Amount>300</Amount>
+  <Category>ConfectionTonic</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Keksz</Title>
+  <Amount>300</Amount>
+  <Category>ConfectionTonic</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Rágó</Title>
+  <Amount>250</Amount>
+  <Category>ConfectionTonic</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Cukor</Title>
+  <Amount>200</Amount>
+  <Category>ConfectionTonic</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Sör</Title>
+  <Amount>140</Amount>
+  <Category>Booze</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+</root>

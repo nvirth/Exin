@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+5.000,-
+---
+Bál belépő: 1.500,-
+Báli kávé-unikum kör: 1.500,-
+Báli pia Laci hozta: 1.000,-
+Kocsmában 1 kör sör: 1.000,-
+
+]]>
+<DailySummary>5000</DailySummary>
+<ExpenseItem>
+  <Title>Bál belépő</Title>
+  <Amount>1500</Amount>
+  <Category>Others</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Báli kávé-unikum kör</Title>
+  <Amount>1500</Amount>
+  <Category>Booze</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Báli pia Laci hozta</Title>
+  <Amount>1000</Amount>
+  <Category>Booze</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Kocsmában 1 kör sör</Title>
+  <Amount>1000</Amount>
+  <Category>Booze</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+</root>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+407,-
+---
+Készpénzfelvétel tranzakciós jutalék (4.000,- után): 206,-
+Készpénzfelvétel tranzakciós jutalék (1.000,- után): 201,-
+
+]]>
+<DailySummary>407</DailySummary>
+<ExpenseItem>
+  <Title>Készpénzfelvétel tranzakciós jutalék</Title>
+  <Amount>206</Amount>
+  <Quantity>1</Quantity>
+  <Unit>db</Unit>
+  <Category>Egyéb</Category>
+  <Comment>4.000,- után</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Készpénzfelvétel tranzakciós jutalék</Title>
+  <Amount>201</Amount>
+  <Quantity>1</Quantity>
+  <Unit>db</Unit>
+  <Category>Egyéb</Category>
+  <Comment>1.000,- után</Comment>
+</ExpenseItem>
+</root>

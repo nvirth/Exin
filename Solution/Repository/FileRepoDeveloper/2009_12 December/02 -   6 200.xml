@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+6.200,-
+---
+Elketrodigital: 5.200,-
+Kaja és cigi: 1.000,-
+
+]]>
+<DailySummary>6200</DailySummary>
+<ExpenseItem>
+  <Title>Elketrodigital</Title>
+  <Amount>5200</Amount>
+  <Category>Others</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Kaja és cigi</Title>
+  <Amount>1000</Amount>
+  <Category>Cigarette</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+</root>

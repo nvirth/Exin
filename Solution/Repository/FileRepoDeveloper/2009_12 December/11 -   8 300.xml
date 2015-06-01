@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+8.300,-
+---
+Plüss malacka: 3.000,-
+GumiKígyó: 1.550,-
+Likőr: 1.500,-
+Kaja+Cigi: 1.000,-
+Zselés tollbetétek: 500,-
+Kártya: 300,-
+Csokik: 250,-
+GumiBéka: 200,-
+
+]]>
+<DailySummary>8300</DailySummary>
+<ExpenseItem>
+  <Title>Plüss malacka</Title>
+  <Amount>3000</Amount>
+  <Category>Others</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>GumiKígyó</Title>
+  <Amount>1550</Amount>
+  <Category>Others</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Likőr</Title>
+  <Amount>1500</Amount>
+  <Category>Booze</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Kaja+Cigi</Title>
+  <Amount>1000</Amount>
+  <Category>Cigarette</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Zselés tollbetétek</Title>
+  <Amount>500</Amount>
+  <Category>Others</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Kártya</Title>
+  <Amount>300</Amount>
+  <Category>Others</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Csokik</Title>
+  <Amount>250</Amount>
+  <Category>ConfectionTonic</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>GumiBéka</Title>
+  <Amount>200</Amount>
+  <Category>Others</Category>
+  <Quantity>1</Quantity>
+  <Unit>Db</Unit>
+  <Comment></Comment>
+</ExpenseItem>
+</root>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+45.226,-
+---
+MoneyBookers pénz befizetés (Póker (50Ft tranzakciós jutalékkal)): 40.050,-
+Vásárlás a Spar-ban: 5.176,-
+
+]]>
+<DailySummary>45226</DailySummary>
+<ExpenseItem>
+  <Title>MoneyBookers pénz befizetés</Title>
+  <Amount>40050</Amount>
+  <Quantity>1</Quantity>
+  <Unit>db</Unit>
+  <Category>Egyéb</Category>
+  <Comment>Póker (50Ft tranzakciós jutalékkal)</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Vásárlás a Spar-ban</Title>
+  <Amount>5176</Amount>
+  <Quantity>1</Quantity>
+  <Unit>db</Unit>
+  <Category>Egyéb</Category>
+  <Comment></Comment>
+</ExpenseItem>
+</root>
