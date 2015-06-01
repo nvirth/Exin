@@ -1,0 +1,367 @@
+﻿<Window x:Class="WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:DV="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+        xmlns:DVC="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+        xmlns:vsm ="clr-namespace:System.Windows;assembly=WPFToolkit"
+        xmlns:valueConverters="clr-namespace:WPF.ValueConverters"
+        xmlns:validation="clr-namespace:Common.UiModels.WPF.Validation;assembly=Common"
+        xmlns:res="clr-namespace:Localization;assembly=Localization"
+        xmlns:utils="clr-namespace:WPF.Utils"
+        Title="Kiadások/Bevételek" Height="600" Width="800" WindowStartupLocation="CenterScreen"
+        Closing="MainWindow_OnClosing"
+        DataContext="{Binding Path=Model, RelativeSource={RelativeSource Self}}"
+        PreviewKeyUp="MainWindow_PreviewKeyUp"
+        x:Name="mainWindow" MinHeight="480" MinWidth="650" >
+    <Window.Resources>
+        <valueConverters:NegateBoolConverter x:Key="negateBoolConverter"/>
+        <valueConverters:RemoveButtonConverter x:Key="removeButtonConverter"/>
+        <valueConverters:StringTruncateConverter x:Key="stringTruncate"/>
+        <Style TargetType="Button">
+            <Setter Property="MinWidth" Value="75" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Menu IsMainMenu="True" Grid.Row="0" Grid.ColumnSpan="2" >
+            <MenuItem Header="_Main">
+                <MenuItem Header="_Copy" Click="MenuItem_Copy_OnClick" />
+                <MenuItem Header="_Options" Click="MenuItem_Options_OnClick" />
+                <MenuItem Header="_Shortcuts" Click="MenuItem_Shortcuts_OnClick" />
+                <MenuItem Header="_Search" Click="MenuItem_Search_OnClick" />
+                <Separator />
+                <MenuItem Header="_Exit" Click="MenuItem_Exit_OnClick" />
+            </MenuItem>
+        </Menu>
+        <TabControl x:Name="MainTabControl" Grid.Column="0" Grid.Row="1" Margin="10" SelectionChanged="MainTabControl_SelectionChanged">
+            <TabItem Header="{x:Static res:Localized.Daily_expenses}">
+                <Grid x:Name="DailyExpensesPanel" 
+                            DataContext="{Binding Path=DailyExpenses}"
+                            >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+                        <TextBlock Text="{x:Static res:Localized.Daily_sum}"/>
+                        <TextBlock Text="{Binding Path=Summary.SumOut, StringFormat={}{0:c0}, ConverterCulture=Hu-hu}"/>
+                    </StackPanel>
+                    <ListView Grid.Row="1" x:Name="DailyExpensesLW" MouseDoubleClick="DailyExpensesLW_MouseDoubleClick" Margin="10"
+                            ItemsSource="{Binding}"
+                            DataContext="{Binding TransactionItems}"
+                            GridViewColumnHeader.Click ="ListViewsHeaders_OnClick_Sort" KeyUp="DailyExpensesLW_KeyUp"
+                            >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="{x:Static res:Localized.Title}" DisplayMemberBinding="{Binding Path=Title}" />
+                                <GridViewColumn Header="{x:Static res:Localized.Amount}" DisplayMemberBinding="{Binding Path=Amount, StringFormat={}{0:c0}, ConverterCulture=Hu-hu}" />
+                                <GridViewColumn>
+                                    <GridViewColumnHeader Content="{x:Static res:Localized.Quantity}" Click="ListViewsQuantityHeader_OnClick_Sort" />
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock>
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}{0} {1}">
+                                                        <Binding Path="Quantity"/>
+                                                        <Binding Path="Unit.DisplayName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="{x:Static res:Localized.Category}" DisplayMemberBinding="{Binding Path=Category.DisplayName}" />
+                                <GridViewColumn Header="{x:Static res:Localized.Comment}" DisplayMemberBinding="{Binding Path=Comment}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <GroupBox Grid.Row="2" x:Name="ActualExpenseGP" Header="{x:Static res:Localized.New_daily_expense}" Margin="10" Padding="10"
+                        DataContext="{Binding ElementName=mainWindow, Path=Model.ActualExpenseItem}"      
+                        >
+                        <StackPanel>
+                            <Grid>
+                                <Grid.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                    </Style>
+                                    <Style TargetType="Control" >
+                                        <Setter Property="Margin" Value="0,3,0,3" />
+                                    </Style>
+                                    <Style TargetType="utils:ClickSelectTextBox" BasedOn="{StaticResource {x:Type Control}}" />
+                                    <Style TargetType="ComboBox" BasedOn="{StaticResource {x:Type Control}}" />
+                                </Grid.Resources>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <!--6-->
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="110" />
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!--Column 0-->
+                                <TextBlock Text="{x:Static res:Localized.Title_}" Grid.Row="0" Grid.Column="0" TextAlignment="Right"  />
+                                <TextBlock Text="{x:Static res:Localized.Amount_}" Grid.Row="1" Grid.Column="0" TextAlignment="Right" />
+                                <TextBlock Text="{x:Static res:Localized.Category_}" Grid.Row="2" Grid.Column="0" TextAlignment="Right" />
+                                <TextBlock Text="{x:Static res:Localized.Quantity_}" Grid.Row="3" Grid.Column="0" TextAlignment="Right" />
+                                <TextBlock Text="{x:Static res:Localized.Unit_}" Grid.Row="4" Grid.Column="0" TextAlignment="Right" />
+                                <TextBlock Text="{x:Static res:Localized.Comment_}" Grid.Row="5" Grid.Column="0" TextAlignment="Right" />
+
+                                <!--Column 1-->
+                                <utils:ClickSelectTextBox x:Name="NewExpenseTitleTB" Text="{validation:Binding Path=Title}" Grid.Row="0" Grid.Column="1" />
+                                <utils:ClickSelectTextBox Text="{validation:Binding Path=Amount}" Grid.Row="1" Grid.Column="1" />
+                                <ComboBox x:Name="CategoryCB" Grid.Row="2" Grid.Column="1" 
+                                          ItemsSource="{Binding ElementName=mainWindow, Path=Model.AllCategories}"
+                                          SelectedItem="{Binding Path=Category}"
+                                          PreviewTextInput="CategoryCB_PreviewTextInput" 
+                                          >
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Path=DisplayName}"/>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <utils:ClickSelectTextBox Text="{validation:Binding Path=Quantity}" Grid.Row="3" Grid.Column="1" />
+                                <ComboBox x:Name="UnitCB" Grid.Row="4" Grid.Column="1" 
+                                          ItemsSource="{Binding ElementName=mainWindow, Path=Model.AllUnits}"
+                                          SelectedItem="{Binding Path=Unit}"
+                                          PreviewTextInput="UnitCB_PreviewTextInput"
+                                          >
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Path=DisplayName}"/>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <utils:ClickSelectTextBox Text="{validation:Binding Path=Comment}" Grid.Row="5" Grid.Column="1" />
+                            </Grid>
+                            <WrapPanel Margin="0,10,0,0" FlowDirection="RightToLeft">
+                                <WrapPanel.Resources>
+                                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                        <Setter Property="Margin" Value="0,0,10,0" />
+                                    </Style>
+                                </WrapPanel.Resources>
+                                <Button Content="{x:Static res:Localized.Save}" Click="SaveDailyExpensesButton_OnClick" 
+                                        IsEnabled="{Binding ElementName=DailyExpensesPanel, Path=DataContext.IsModified}" 
+                                        />
+                                <Button Content="{x:Static res:Localized.Add}" Click="AddExpenseButton_OnClick" IsDefault="True"
+                                        IsEnabled="{Binding Path=HasErrors, Converter={StaticResource negateBoolConverter}}" 
+                                        />
+                                <Button Content="{x:Static res:Localized.Remove}" Click="RemoveExpenseButton_OnClick"
+                                        IsEnabled="{Binding ElementName=DailyExpensesLW, Path=SelectedIndex, Converter={StaticResource removeButtonConverter}}" 
+                                        />
+                                <Button Content="{x:Static res:Localized.New}" Click="NewExpenseButton_OnClick" />
+                            </WrapPanel>
+                        </StackPanel>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="{x:Static res:Localized.Monthly_expenses}">
+                <Grid x:Name="MonthlyExpensesPanel" 
+                            DataContext="{Binding Path=MonthlyExpenses}"
+                            >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Margin="10">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{x:Static res:Localized.Monthly_sum}"/>
+                            <TextBlock Text="{Binding Path=Summary.SumOut,StringFormat={}{0:c0}, ConverterCulture=Hu-hu}"/>
+                        </StackPanel>
+                        <WrapPanel FlowDirection="RightToLeft">
+                            <WrapPanel.Resources>
+                                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                    <Setter Property="Margin" Value="10,0,0,0"></Setter>
+                                </Style>
+                            </WrapPanel.Resources>
+                            <Button Content="{x:Static res:Localized.Again}" Click="RedoMonthlyExpensesButton_OnClick"/>
+                        </WrapPanel>
+                    </Grid>
+                    <ListView Grid.Row="1" x:Name="MonthlyExpensesLW" MouseDoubleClick="MonthlyExpensesLW_MouseDoubleClick" Margin="10"
+                              ItemsSource="{Binding}"
+                              DataContext="{Binding TransactionItems}"
+                              GridViewColumnHeader.Click ="ListViewsHeaders_OnClick_Sort"
+                              >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="{x:Static res:Localized.Day}" DisplayMemberBinding="{Binding Path=Date,StringFormat={}{0:dd}}" />
+                                <GridViewColumn Header="{x:Static res:Localized.Title}" DisplayMemberBinding="{Binding Path=Title}" />
+                                <GridViewColumn Header="{x:Static res:Localized.Amount}" DisplayMemberBinding="{Binding Path=Amount, StringFormat={}{0:c0}, ConverterCulture=Hu-hu}" />
+                                <GridViewColumn>
+                                    <GridViewColumnHeader Content="{x:Static res:Localized.Quantity}" Click="ListViewsQuantityHeader_OnClick_Sort" />
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock>
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}{0} {1}">
+                                                        <Binding Path="Quantity"/>
+                                                        <Binding Path="Unit.DisplayName"/>
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="{x:Static res:Localized.Category}" DisplayMemberBinding="{Binding Path=Category.DisplayName}" />
+                                <GridViewColumn Header="{x:Static res:Localized.Comment}" DisplayMemberBinding="{Binding Path=Comment}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+            <TabItem Header="{x:Static res:Localized.Monthly_incomes}">
+                <Grid x:Name="MonthlyIncomesPanel" 
+                            DataContext="{Binding Path=MonthlyIncomes}"
+                            >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+                        <TextBlock Text="{x:Static res:Localized.Monthly_sum}"/>
+                        <TextBlock Text="{Binding Path=Summary.SumIn, StringFormat={}{0:c0}, ConverterCulture=Hu-hu}"/>
+                    </StackPanel>
+                    <ListView  Grid.Row="1" x:Name="MonthlyIncomesLW" Margin="10"
+                              ItemsSource="{Binding}"
+                              DataContext="{Binding TransactionItems}"
+                              GridViewColumnHeader.Click ="ListViewsHeaders_OnClick_Sort" MouseDoubleClick="MonthlyIncomesLW_MouseDoubleClick" KeyUp="MonthlyIncomesLW_KeyUp"
+                              >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="{x:Static res:Localized.Title}" DisplayMemberBinding="{Binding Path=Title}" />
+                                <GridViewColumn Header="{x:Static res:Localized.Amount}" DisplayMemberBinding="{Binding Path=Amount, StringFormat={}{0:c0}}" />
+                                <GridViewColumn Header="{x:Static res:Localized.Comment}" DisplayMemberBinding="{Binding Path=Comment}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <GroupBox Grid.Row="2" x:Name="ActualIncomeGP" Header="{x:Static res:Localized.New_monthly_income}"  Margin="10" Padding="10"
+                              DataContext="{Binding ElementName=mainWindow, Path=Model.ActualIncomeItem}"
+                              >
+                        <StackPanel>
+                            <Grid>
+                                <Grid.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                    </Style>
+                                    <Style TargetType="Control" >
+                                        <Setter Property="Margin" Value="0,3,0,3" />
+                                    </Style>
+                                    <Style TargetType="utils:ClickSelectTextBox" BasedOn="{StaticResource {x:Type Control}}" />
+                                    <Style TargetType="ComboBox" BasedOn="{StaticResource {x:Type Control}}" />
+                                </Grid.Resources>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!--Column 0-->
+                                <TextBlock Text="{x:Static res:Localized.Title_}" Grid.Row="0" Grid.Column="0" TextAlignment="Right" />
+                                <TextBlock Text="{x:Static res:Localized.Amount_}" Grid.Row="1" Grid.Column="0" TextAlignment="Right" />
+                                <TextBlock Text="{x:Static res:Localized.Comment_}" Grid.Row="2" Grid.Column="0" TextAlignment="Right" />
+
+                                <!--Column 1-->
+                                <utils:ClickSelectTextBox x:Name="NewIncomeTitleTB" Text="{validation:Binding Path=Title}" Grid.Row="0" Grid.Column="1" />
+                                <utils:ClickSelectTextBox Text="{validation:Binding Path=Amount}" Grid.Row="1" Grid.Column="1" />
+                                <utils:ClickSelectTextBox Text="{validation:Binding Path=Comment}" Grid.Row="2" Grid.Column="1" />
+                            </Grid>
+                            <WrapPanel Margin="0,10,0,0" FlowDirection="RightToLeft">
+                                <WrapPanel.Resources>
+                                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                        <Setter Property="Margin" Value="0,0,10,0"></Setter>
+                                    </Style>
+                                </WrapPanel.Resources>
+                                <Button Content="{x:Static res:Localized.Save}" Click="SaveMonthlyIncomesButton_OnClick" 
+                                        IsEnabled="{Binding ElementName=MonthlyIncomesPanel, Path=DataContext.IsModified}" 
+                                />
+                                <Button Content="{x:Static res:Localized.Add}" Click="AddIncomeButton_OnClick" IsDefault="True"
+                                        IsEnabled="{Binding Path=HasErrors, Converter={StaticResource negateBoolConverter}}" 
+                                        />
+                                <Button Content="{x:Static res:Localized.Remove}" Click="RemoveIncomeButton_OnClick"
+                                        IsEnabled="{Binding ElementName=MonthlyIncomesLW, Path=SelectedIndex, Converter={StaticResource removeButtonConverter}}" 
+                                        />
+                                <Button Content="{x:Static res:Localized.New}" Click="NewIncomeButton_OnClick" />
+                            </WrapPanel>
+                        </StackPanel>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="{x:Static res:Localized.Statistics}">
+                <Grid x:Name="StatisticsPanel" 
+                            DataContext="{Binding Path=Statistics}"
+                    >
+                    <Grid.Resources>
+                        <ResourceDictionary Source="ResourceDictionaries/ChartResources.xaml" />
+                    </Grid.Resources>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Margin="10 10 0 0">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel.Resources>
+                                <valueConverters:ChartYAxisMaxConverter x:Key="ChartYAxisMaxConverter" />
+                            </StackPanel.Resources>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{x:Static res:Localized.Y_axis_max__}" />
+                                <utils:ClickSelectTextBox Text="{Binding Maximum, ElementName=YAxis, Converter={StaticResource ChartYAxisMaxConverter}, UpdateSourceTrigger=PropertyChanged}" Width="30" />
+                            </StackPanel>
+                        </StackPanel>
+                        <WrapPanel FlowDirection="RightToLeft">
+                            <WrapPanel.Resources>
+                                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                    <Setter Property="Margin" Value="10,0,0,0"></Setter>
+                                </Style>
+                            </WrapPanel.Resources>
+                            <Button Content="{x:Static res:Localized.Again}" Click="RedoStatisticsButton_OnClick"/>
+                        </WrapPanel>
+                    </Grid>
+                    <DVC:Chart Grid.Row="1" BorderThickness="0" Padding="10,0" LegendStyle="{StaticResource LegendStyle}" >
+                        <DVC:Chart.Axes>
+                            <DVC:LinearAxis Orientation="Y" Minimum="0" Maximum="200000" x:Name="YAxis" ShowGridLines="True" 
+                                            AxisLabelStyle="{StaticResource NumericAxisLabelStyle}" />
+                        </DVC:Chart.Axes>
+                        <DVC:Chart.Series>
+                            <DVC:ColumnSeries 
+                                ItemsSource="{Binding Path=IncomesAndExpenses}"
+                                IndependentValueBinding="{Binding Path=Key.DisplayName, Converter={StaticResource stringTruncate}}"
+                                DependentValueBinding="{Binding Path=Value}"
+                                DataPointStyle="{StaticResource ColumnDataPointStyle}"
+                                />
+                        </DVC:Chart.Series>
+                    </DVC:Chart>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Grid Grid.Column="1" Grid.Row="1"  >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <DatePicker Grid.Row="0" x:Name="SummaryDate" SelectedDateChanged="SummaryDate_SelectedDateChanged" Margin="10, 10, 10, 0" />
+            <RichTextBox Grid.Row="1" x:Name="LogTB" VerticalScrollBarVisibility="Visible" IsReadOnly="True" IsReadOnlyCaretVisible="False" Margin="10" />
+            <Button Grid.Row="2" Margin="10" Content="{x:Static res:Localized.Remove}" Click="ClearLogButton_OnClick" HorizontalAlignment="Right" />
+        </Grid>
+    </Grid>
+</Window>
