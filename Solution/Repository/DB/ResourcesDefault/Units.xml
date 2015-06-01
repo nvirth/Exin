@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<!-- Helpers -->
+	<Unit>
+		<ID>0</ID>
+		<Name>None</Name>
+		<DisplayName>Nincs</DisplayName>
+	</Unit>
+	<!-- Valid Units -->
+	<Unit>
+		<ID>101</ID>
+		<Name>Db</Name>
+		<DisplayName>db</DisplayName>
+	</Unit>	
+	<Unit>
+		<ID>102</ID>
+		<Name>Kg</Name>
+		<DisplayName>kg</DisplayName>
+	</Unit>
+	<Unit>
+		<ID>103</ID>
+		<Name>Dkg</Name>
+		<DisplayName>dkg</DisplayName>
+	</Unit>
+	<Unit>
+		<ID>104</ID>
+		<Name>Gram</Name>
+		<DisplayName>g</DisplayName>
+	</Unit>
+	<Unit>
+		<ID>105</ID>
+		<Name>Liter</Name>
+		<DisplayName>liter</DisplayName>
+	</Unit>
+</root>
