@@ -1,0 +1,695 @@
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Menu_Shortcuts" xml:space="preserve">
+    <value>
+
+-------------------
+Keyboard shortcuts:
+-------------------
+
+Alt + Right/Left: Step 1 day forth/back
+Alt + Up/Down: Step 1 month forth/back
+Alt + Shift + Up/Down: Step 1 year forth/back
+Alt + End: Jump to today
+Ctrl + S: Save
+(Shift) + Tab: Jump (backwards) among control elements
+Ctrl + (Shift) + Tab: Jump (backwards) among tabs
+
+--------------------------
+Accessable plus functions:
+--------------------------
+
+In lists:
+- The columns can be resorted
+- The columns can be resized
+- The lists are sorted by amount by default. You can change this via clicking the column headers. (Also secondary/more sorting order can be set)
+- The selected items can be deleted with button 'Remove', as well as with key 'Del'
+
+In input fields:
+- Enter: Equivalent with button 'Add'
+------------------------
+</value>
+  </data>
+  <data name="Options_menuitem_is_not_implemented_yet" xml:space="preserve">
+    <value>Options menuitem is not implemented yet</value>
+  </data>
+  <data name="Copy_menuitem_is_not_implemented_yet" xml:space="preserve">
+    <value>Copy menuitem is not implemented yet</value>
+  </data>
+  <data name="Menu_Search" xml:space="preserve">
+    <value>
+There is no search functionality implemented in the Exin application at present.
+However, you can search among your expneses/incomes in the file system (eg using Total Commander: Alt+F7); 
+or if you are familiar with SQL queries, you can also use the SQLite database file for this.</value>
+  </data>
+  <data name="Daily_expenses" xml:space="preserve">
+    <value>Daily expenses</value>
+  </data>
+  <data name="Daily_sum" xml:space="preserve">
+    <value>Daily summary: </value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="New_daily_expense" xml:space="preserve">
+    <value>New daily expense</value>
+  </data>
+  <data name="Title_" xml:space="preserve">
+    <value>Title: </value>
+  </data>
+  <data name="Amount_" xml:space="preserve">
+    <value>Amount: </value>
+  </data>
+  <data name="Category_" xml:space="preserve">
+    <value>Category: </value>
+  </data>
+  <data name="Quantity_" xml:space="preserve">
+    <value>Quantity: </value>
+  </data>
+  <data name="Unit_" xml:space="preserve">
+    <value>Unit: </value>
+  </data>
+  <data name="Comment_" xml:space="preserve">
+    <value>Comment: </value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="Monthly_expenses" xml:space="preserve">
+    <value>Monthly expenses</value>
+  </data>
+  <data name="Monthly_sum" xml:space="preserve">
+    <value>Monthly summary: </value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="Monthly_incomes" xml:space="preserve">
+    <value>Monthly incomes</value>
+  </data>
+  <data name="New_monthly_income" xml:space="preserve">
+    <value>New monthly income</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
+  <data name="Y_axis_max__" xml:space="preserve">
+    <value>Y axis max (thousands): </value>
+  </data>
+  <data name="Again" xml:space="preserve">
+    <value>Again</value>
+  </data>
+  <data name="Todays_" xml:space="preserve">
+    <value>Today's </value>
+  </data>
+  <data name="_daily_" xml:space="preserve">
+    <value> daily </value>
+  </data>
+  <data name="DateFormat_full" xml:space="preserve">
+    <value>yyyy.MM.dd</value>
+  </data>
+  <data name="loading_expenses__" xml:space="preserve">
+    <value>loading expenses...</value>
+  </data>
+  <data name="_daily_expenses_successfully_saved_into_database" xml:space="preserve">
+    <value> daily expenses successfully saved into database. </value>
+  </data>
+  <data name="The_saving_of_the_daily_expenses_into_database_was_unsuccessful" xml:space="preserve">
+    <value>The saving of the daily expenses into database was unsuccessful. </value>
+  </data>
+  <data name="_daily_expense_statistics_successfully_saved_into_database" xml:space="preserve">
+    <value> daily expense statistics successfully saved into database. </value>
+  </data>
+  <data name="The_saving_of_daily_expense_statistics_into_database_was_unsuccessful" xml:space="preserve">
+    <value>The saving of daily expense statistics into database was unsuccessful. </value>
+  </data>
+  <data name="Monthly_summary_" xml:space="preserve">
+    <value>Monthly summary: </value>
+  </data>
+  <data name="DateFormat_year_month" xml:space="preserve">
+    <value>yyyy.MM</value>
+  </data>
+  <data name="Instant_" xml:space="preserve">
+    <value>Instant </value>
+  </data>
+  <data name="_monthly_" xml:space="preserve">
+    <value> monthly </value>
+  </data>
+  <data name="incomes_loading__" xml:space="preserve">
+    <value>incomes loading...</value>
+  </data>
+  <data name="Monthly_incomes_successfully_saved_into_database" xml:space="preserve">
+    <value>Monthly incomes successfully saved into database. </value>
+  </data>
+  <data name="The_saving_of_the_monthly_incomes_into_database_was_unsuccessful" xml:space="preserve">
+    <value>The saving of the monthly incomes into database was unsuccessful. </value>
+  </data>
+  <data name="Monthly_income_statistics_successfully_saved_into_database" xml:space="preserve">
+    <value>Monthly income statistics successfully saved into database. </value>
+  </data>
+  <data name="The_saving_of_the_monthly_income_statistics_into_database_was_unsuccessful" xml:space="preserve">
+    <value>The saving of the monthly income statistics into database was unsuccessful. </value>
+  </data>
+  <data name="The_reading_of_data_is_not_implemented_for_this_" xml:space="preserve">
+    <value>The reading of data is not implemented for this: </value>
+  </data>
+  <data name="The_saving_of_the_data_was_unsuccessful__there_were_invalid_values_among_them__Fix_them__then_save_again" xml:space="preserve">
+    <value>The saving of the data was unsuccessful, there were invalid values among them. Fix them, then save again! </value>
+  </data>
+  <data name="Could_not_find_the_root_directory" xml:space="preserve">
+    <value>Could not find the monthly directory:
+</value>
+  </data>
+  <data name="The_Exin_expenses_incomes_summarizer_application_welcomes_you_" xml:space="preserve">
+    <value>The Exin expense-income summarizer application welcomes you :)</value>
+  </data>
+  <data name="The_application_s_configuration_" xml:space="preserve">
+    <value>The application's configuration is the following:</value>
+  </data>
+  <data name="The_following_enum_is_probably_not_localized_yet" xml:space="preserve">
+    <value>The following enum is probably not localized yet</value>
+  </data>
+  <data name="Enum_ReadMode_FromFile" xml:space="preserve">
+    <value>Read data: from file repository</value>
+  </data>
+  <data name="Enum_ReadMode_FromDb" xml:space="preserve">
+    <value>Read data: from database</value>
+  </data>
+  <data name="Enum_SaveMode_OnlyToFile" xml:space="preserve">
+    <value>Save data: only to file system</value>
+  </data>
+  <data name="Enum_SaveMode_FileAndDb" xml:space="preserve">
+    <value>Save data: to file system and database</value>
+  </data>
+  <data name="Enum_DbAccessMode_None" xml:space="preserve">
+    <value>Null value, only for internal use</value>
+  </data>
+  <data name="Enum_DbAccessMode_AdoNet" xml:space="preserve">
+    <value>Database access mode: AdoNet</value>
+  </data>
+  <data name="Enum_DbAccessMode_EntityFramework" xml:space="preserve">
+    <value>Database access mode: EntityFramework</value>
+  </data>
+  <data name="Enum_DbType_MsSql" xml:space="preserve">
+    <value>Database type: MS SQL Server</value>
+  </data>
+  <data name="Enum_DbType_SQLite" xml:space="preserve">
+    <value>Database type: SQLite</value>
+  </data>
+  <data name="CategoryManagerAdoNetFactory_is_not_implemented_for_this_DbType__FORMAT__" xml:space="preserve">
+    <value>CategoryManagerAdoNetFactory is not implemented for this DbType: {0}</value>
+  </data>
+  <data name="Could_not_insert_the_Category_record" xml:space="preserve">
+    <value>Could not insert the Category record. </value>
+  </data>
+  <data name="SummaryItemManagerAdoNetBase_is_not_implemented_for_this_DbType__FORMAT__" xml:space="preserve">
+    <value>SummaryItemManagerAdoNetBase is not implemented for this DbType: {0}</value>
+  </data>
+  <data name="SummaryItem_InsertOrUpdate_failed_SQLite_" xml:space="preserve">
+    <value>SummaryItem InsertOrUpdate failed (SQLite)</value>
+  </data>
+  <data name="SummaryItem_InsertOrUpdate_failed__MS_SQL_" xml:space="preserve">
+    <value>SummaryItem InsertOrUpdate failed (MS SQL)</value>
+  </data>
+  <data name="TransactionItemManagerAdoNetFactory_is_not_implemented_for_this_DbType__FORMAT__" xml:space="preserve">
+    <value>TransactionItemManagerAdoNetFactory is not implemented for this DbType: {0}</value>
+  </data>
+  <data name="Could_not_insert_the_transaction_item_" xml:space="preserve">
+    <value>Could not insert the transaction item:</value>
+  </data>
+  <data name="Could_not_insert_the_transaction_items_" xml:space="preserve">
+    <value>Could not insert the transaction items (</value>
+  </data>
+  <data name="_pc_" xml:space="preserve">
+    <value> pc)</value>
+  </data>
+  <data name="Could_not_update_the_transaction_record__TransactionItem__ID_" xml:space="preserve">
+    <value>Could not update the transaction record (TransactionItem, ID: </value>
+  </data>
+  <data name="So_these_modifications_did_not_apply_in_the_database" xml:space="preserve">
+    <value>So these modifications did not apply in the database: </value>
+  </data>
+  <data name="Could_not_remove_the_transaction_record__TransactionItem__ID_" xml:space="preserve">
+    <value>Could not remove the transaction record (TransactionItem, ID: </value>
+  </data>
+  <data name="Could_not_remove_the_daily_0_at_1__FORMAT__" xml:space="preserve">
+    <value>Could not remove the daily {0} at {1}</value>
+  </data>
+  <data name="expenses" xml:space="preserve">
+    <value>expenses</value>
+  </data>
+  <data name="incomes" xml:space="preserve">
+    <value>incomes</value>
+  </data>
+  <data name="transaction_items" xml:space="preserve">
+    <value>transaction items</value>
+  </data>
+  <data name="UnitManagerAdoNetFactory_is_not_implemented_for_this_DbType__FORMAT__" xml:space="preserve">
+    <value>UnitManagerAdoNetFactory is not implemented for this DbType: {0}</value>
+  </data>
+  <data name="Could_not_insert_the_Unit_record" xml:space="preserve">
+    <value>Could not insert the Unit record. </value>
+  </data>
+  <data name="ExinEfContextFactory_is_not_implemented_for_this_DbType__FORMAT__" xml:space="preserve">
+    <value>ExinEfContextFactory is not implemented for this DbType: {0}</value>
+  </data>
+  <data name="Could_not_open_the_database_connection" xml:space="preserve">
+    <value>Could not open the database connection. </value>
+  </data>
+  <data name="CategoryManagerEfFactory_is_not_implemented_for_this_DbType__FORMAT__" xml:space="preserve">
+    <value>CategoryManagerEfFactory is not implemented for this DbType: {0}</value>
+  </data>
+  <data name="SummaryItemManagerEfBase_is_not_implemented_for_this_DbType__FORMAT__" xml:space="preserve">
+    <value>SummaryItemManagerEfBase is not implemented for this DbType: {0}</value>
+  </data>
+  <data name="SummaryItem_InsertOrUpdate_failed__" xml:space="preserve">
+    <value>SummaryItem InsertOrUpdate failed. </value>
+  </data>
+  <data name="TransactionItemManagerEfFactory_is_not_implemented_for_this_DbType__FORMAT__" xml:space="preserve">
+    <value>TransactionItemManagerEfFactory is not implemented for this DbType: {0}</value>
+  </data>
+  <data name="ReplaceDailyItems_method_needs_a_not_null_list__" xml:space="preserve">
+    <value>ReplaceDailyItems method needs a not null list. </value>
+  </data>
+  <data name="ReplaceDailyItems_method_replaces_only_1_day__the_item_s_dates_must_be_the_same__day_" xml:space="preserve">
+    <value>ReplaceDailyItems method replaces only 1 day, the item's dates must be the same (day)</value>
+  </data>
+  <data name="UnitManagerEfFactory_is_not_implemented_for_this_DbType__FORMAT__" xml:space="preserve">
+    <value>UnitManagerEfFactory is not implemented for this DbType: {0}</value>
+  </data>
+  <data name="ExinAdoNetContextFactory_is_not_implemented_for_this_DbType__FORMAT__" xml:space="preserve">
+    <value>ExinAdoNetContextFactory is not implemented for this DbType: {0}</value>
+  </data>
+  <data name="Identity_insert_using_MS_SQL_with_EntityFramework_is_not_implemented__Use_the__simple__Ado_Net_version_instead__" xml:space="preserve">
+    <value>Identity insert using MS SQL with EntityFramework is not implemented. Use the (simple) Ado.Net version instead. </value>
+  </data>
+  <data name="Identity_insert_using_SQLite_with_EntityFramework_is_not_implemented__Use_the__simple__Ado_Net_version_instead__" xml:space="preserve">
+    <value>Identity insert using SQLite with EntityFramework is not implemented. Use the (simple) Ado.Net version instead. </value>
+  </data>
+  <data name="_0__is_not_implemented_for_context_type___1___using_DbType_configuration___2_" xml:space="preserve">
+    <value>{0} is not implemented for context type: {1}, using DbType configuration: {2}</value>
+  </data>
+  <data name="ManagerFactory_is_not_implemented_for__" xml:space="preserve">
+    <value>ManagerFactory is not implemented for: </value>
+  </data>
+  <data name="CategoryManagerCommonBase_RefreshCache_is_not_implemented_for_ReadMode__" xml:space="preserve">
+    <value>CategoryManagerCommonBase.RefreshCache is not implemented for ReadMode: </value>
+  </data>
+  <data name="Could_not_find_the_Category__ID_0__in_the_database__FORMAT__" xml:space="preserve">
+    <value>Could not find the Category (ID: {0}) in the database</value>
+  </data>
+  <data name="Could_not_find_the_Category__Name_0__in_the_database__FORMAT__" xml:space="preserve">
+    <value>Could not find the Category (Name: {0}) in the database</value>
+  </data>
+  <data name="Could_not_find_the_Category__DisplayName_0__in_the_database__FORMAT__" xml:space="preserve">
+    <value>Could not find the Category (DisplayName: {0}) in the database</value>
+  </data>
+  <data name="Category_already_exists_with_the_specified_name" xml:space="preserve">
+    <value>Category already exists with the specified name. </value>
+  </data>
+  <data name="Could_not_save_into_database_the_daily_expense_statistics" xml:space="preserve">
+    <value>Could not save into database the daily expense statistics. </value>
+  </data>
+  <data name="UnitManagerCommonBase_RefreshCache_is_not_implemented_for_ReadMode__" xml:space="preserve">
+    <value>UnitManagerCommonBase.RefreshCache is not implemented for ReadMode: </value>
+  </data>
+  <data name="Could_not_find_the_Unit__ID_0__in_the_database__FORMAT__" xml:space="preserve">
+    <value>Could not find the Unit (ID: {0}) in the database</value>
+  </data>
+  <data name="Could_not_find_the_Unit__Name_0__in_the_database__FORMAT__" xml:space="preserve">
+    <value>Could not find the Unit (Name: {0}) in the database</value>
+  </data>
+  <data name="Could_not_find_the_Unit__DisplayName_0__in_the_database__FORMAT__" xml:space="preserve">
+    <value>Could not find the Unit (DisplayName: {0}) in the database</value>
+  </data>
+  <data name="Unit_already_exists_with_the_specified_name" xml:space="preserve">
+    <value>Unit already exists with the specified name. </value>
+  </data>
+  <data name="Empty_" xml:space="preserve">
+    <value>Empty</value>
+  </data>
+  <data name="Read_successfully" xml:space="preserve">
+    <value>Read successfully.</value>
+  </data>
+  <data name="Reading_error_" xml:space="preserve">
+    <value>Reading error!</value>
+  </data>
+  <data name="Daily_files_read_successfully" xml:space="preserve">
+    <value>Daily files read successfully</value>
+  </data>
+  <data name="There_was_error_while_reading_the_daily_files_" xml:space="preserve">
+    <value>There was error while reading the daily files:</value>
+  </data>
+  <data name="There_are_no_incomes_in_this_month" xml:space="preserve">
+    <value>There are no incomes in this month. </value>
+  </data>
+  <data name="Monthly_incomes_read_successfully" xml:space="preserve">
+    <value>Monthly incomes read successfully. </value>
+  </data>
+  <data name="_daily_expenses" xml:space="preserve">
+    <value> daily expenses</value>
+  </data>
+  <data name="___Successfully_saved_into_files" xml:space="preserve">
+    <value> - Successfully saved into files</value>
+  </data>
+  <data name="___Save_error_" xml:space="preserve">
+    <value> - Saving error!</value>
+  </data>
+  <data name="DateFormat_year_" xml:space="preserve">
+    <value>yyyy </value>
+  </data>
+  <data name="_monthly_incomes" xml:space="preserve">
+    <value> monthly incomes</value>
+  </data>
+  <data name="Saving_Monthly_summary_file___Successfully" xml:space="preserve">
+    <value>Saving monthly summary file - Successfully</value>
+  </data>
+  <data name="Saving_Monthly_summary_file___Error_" xml:space="preserve">
+    <value>Saving monthly summary file - Error!</value>
+  </data>
+  <data name="Sum_" xml:space="preserve">
+    <value>Sum:</value>
+  </data>
+  <data name="Copying_summary_file_into_the_summary_directory___OK" xml:space="preserve">
+    <value>Copying summary file into the summary directory - OK</value>
+  </data>
+  <data name="Copying_summary_file_into_the_summary_directory___Error_" xml:space="preserve">
+    <value>Copying summary file into the summary directory - Error!</value>
+  </data>
+  <data name="Saving_0__statistics___OK__FORMAT__" xml:space="preserve">
+    <value>Saving {0} statistics - OK</value>
+  </data>
+  <data name="Saving_0__statistics___Error__FORMAT__" xml:space="preserve">
+    <value>Saving {0} statistics - Error!</value>
+  </data>
+  <data name="ExinConnectionString_s_ctor_is_not_implemented_for__0_" xml:space="preserve">
+    <value>ExinConnectionString's ctor is not implemented for {0}</value>
+  </data>
+  <data name="ExinConnectionStringManagerBase_s_ctor_is_not_implemented_for__0_" xml:space="preserve">
+    <value>ExinConnectionStringManagerBase's ctor is not implemented for {0}</value>
+  </data>
+  <data name="Creating_DbParameter_to_DbType___0__is_not_implemented_" xml:space="preserve">
+    <value>Creating DbParameter to DbType: {0} is not implemented. </value>
+  </data>
+  <data name="Could_not_find_the_SQLite_database_file__here__0__FORMAT__" xml:space="preserve">
+    <value>Could not find the SQLite database file (here: {0})</value>
+  </data>
+  <data name="The_application_will_now_create_the_database_file__this_can_take_even_a_few_minutes_" xml:space="preserve">
+    <value>The application will now create the database file, this can take even a few minutes.</value>
+  </data>
+  <data name="Please__wait_until_it_s_done" xml:space="preserve">
+    <value>Please, wait until it's done!</value>
+  </data>
+  <data name="The_SQLite_database_file_is_ready" xml:space="preserve">
+    <value>The SQLite database file is ready!</value>
+  </data>
+  <data name="You_can_start_your_work_" xml:space="preserve">
+    <value>You can start your work now ;)</value>
+  </data>
+  <data name="Error_occured_while_creating_the_SQLite_database_file" xml:space="preserve">
+    <value>Error occured while creating the SQLite database file. </value>
+  </data>
+  <data name="Try_with_another_database_access_mode" xml:space="preserve">
+    <value>Try with another database access mode. </value>
+  </data>
+  <data name="Command_line_arguments_are_not_implemented_yet" xml:space="preserve">
+    <value>Command line arguments are not implemented yet</value>
+  </data>
+  <data name="ImportData_ClearAllTables_is_not_implemented_to_this_DbType___0_" xml:space="preserve">
+    <value>ImportData.ClearAllTables is not implemented to this DbType: {0}</value>
+  </data>
+  <data name="The_database_tables_are_ready__have_been_emptied" xml:space="preserve">
+    <value>The database tables are ready/have been emptied!</value>
+  </data>
+  <data name="_end_" xml:space="preserve">
+    <value> -- end -- </value>
+  </data>
+  <data name="Press_any_key_to_continue_" xml:space="preserve">
+    <value>Press any key to continue...</value>
+  </data>
+  <data name="The_ImportData_project_need_to_be_configured_to_use_AdoNet_to_db_access___" xml:space="preserve">
+    <value>The ImportData project need to be configured to use AdoNet to db access, because there are methods directly using AdoNet.
+&lt;add key="DbAccessMode" value="AdoNet" /&gt;</value>
+  </data>
+  <data name="The_ImportData_project_need_to_be_configured_to_read_data_from_database___" xml:space="preserve">
+    <value>The ImportData project need to be configured to read data from database. You must not use the filesystem for it this time.
+&lt;add key="ReadMode" value="FromDb" /&gt;</value>
+  </data>
+  <data name="RequiredErrorMessageFormat" xml:space="preserve">
+    <value>{0} is required</value>
+  </data>
+  <data name="StringLengthMinMaxErrorMessageFormat" xml:space="preserve">
+    <value>The {0} have to be at least {2}, at most {1} characters long</value>
+  </data>
+  <data name="StringLengthMaxErrorMessageFormat" xml:space="preserve">
+    <value>The {0} have to be at most {1} characters long</value>
+  </data>
+  <data name="RangeMinMaxErrorMessageFormat" xml:space="preserve">
+    <value>The {0} have to be between {2} and {1}</value>
+  </data>
+  <data name="RangeMinErrorMessageFormat" xml:space="preserve">
+    <value>The {0} have to be at least {1}</value>
+  </data>
+  <data name="RegEx_notEmptyOrWhiteSpace_errMsg" xml:space="preserve">
+    <value>{0}: It can't be empty. It have to contain at least 1 character!</value>
+  </data>
+  <data name="RegEx_onlyNumbers_errMsg" xml:space="preserve">
+    <value>{0}: This is a numeric field, can only contain numbers!</value>
+  </data>
+  <data name="RegExErrMsg_START_EnChar_EnCharOrDigit_0Ti_END" xml:space="preserve">
+    <value>{0}: Only english letters and numbers are permitted (it also have to start with a letter)</value>
+  </data>
+  <data name="RegExErrMsg_START_HuChar_HuCharOrDigitOrSeparator_0Ti_END" xml:space="preserve">
+    <value>{0}: Only hungarian letters are permitted (it also have to start with a letter), the space character and these: , ; .</value>
+  </data>
+  <data name="RegExErrMsg_START_HuChar_HuCharOrSpace_0Ti_END" xml:space="preserve">
+    <value>{0}: Only hungarian letters are permitted (it also have to start with a letter), and the space character</value>
+  </data>
+  <data name="RegExErrMsg_START_HuChar_HuCharOrSpaceOrComma_0Ti_END" xml:space="preserve">
+    <value>{0}: Only hungarian letters are permitted (it also have to start with a letter), and the space and the comma (,) characters</value>
+  </data>
+  <data name="Unit" xml:space="preserve">
+    <value>Unit</value>
+  </data>
+  <data name="Configuration_error__can_t_use_ReadMode_FromDb_and_SaveMode_OnlyToFile_together__" xml:space="preserve">
+    <value>Configuration error: can't use ReadMode.FromDb and SaveMode.OnlyToFile together. </value>
+  </data>
+  <data name="Error__More_than_one_exists_from_files_starting_with__{0}__FORMAT__" xml:space="preserve">
+    <value>Error! More than one exists from files starting with '{0}':</value>
+  </data>
+  <data name="DateFormat_month_day" xml:space="preserve">
+    <value>MM.dd</value>
+  </data>
+  <data name="last_written_at__" xml:space="preserve">
+    <value>last written at: </value>
+  </data>
+  <data name="The_file_choosen_for_use_" xml:space="preserve">
+    <value>The file choosen for use: </value>
+  </data>
+  <data name="Directory_not_found" xml:space="preserve">
+    <value>Directory not found</value>
+  </data>
+  <data name="Could_not_find_the_monthly_directory_" xml:space="preserve">
+    <value>Could not find the monthly directory: </value>
+  </data>
+  <data name="The_monthly_directory_created_" xml:space="preserve">
+    <value>The monthly directory created. </value>
+  </data>
+  <data name="Creating_the_monthly_files_" xml:space="preserve">
+    <value>Creating the monthly files: </value>
+  </data>
+  <data name="All_created_successfully" xml:space="preserve">
+    <value>All created successfully. </value>
+  </data>
+  <data name="The_SerializeToLog_is_not_implemented_to_this_log_mode__" xml:space="preserve">
+    <value>The SerializeToLog is not implemented to this log mode: </value>
+  </data>
+  <data name="The_ChangeSummaryDateFromCode_class_can_not_access_null_value_in_ctor__" xml:space="preserve">
+    <value>The ChangeSummaryDateFromCode class can not access null value in ctor. </value>
+  </data>
+  <data name="The_value_to_convert_must_be_of_type_Enum__" xml:space="preserve">
+    <value>The value to convert must be of type Enum. </value>
+  </data>
+  <data name="EnumDescriptionConverter_ConvertBack_is_not_supported__" xml:space="preserve">
+    <value>EnumDescriptionConverter.ConvertBack is not supported. </value>
+  </data>
+  <data name="GetEnumValues_needs_an_enum_input__" xml:space="preserve">
+    <value>GetEnumValues needs an enum input. </value>
+  </data>
+  <data name="The_EnumValues_class_needs_an_enum_input__" xml:space="preserve">
+    <value>The EnumValues class needs an enum input. </value>
+  </data>
+  <data name="Could_not_find_the_Solution_s_root_directory_" xml:space="preserve">
+    <value>Could not find the Solution's root directory. </value>
+  </data>
+  <data name="The_theoretically_later_date_is_earlier_than_the_theoretically_earlier_date_" xml:space="preserve">
+    <value>The theoretically later date is earlier than the theoretically earlier date. </value>
+  </data>
+  <data name="TProperty_must_be_a_member_of_a_class" xml:space="preserve">
+    <value>TProperty must be a member of a class</value>
+  </data>
+  <data name="T_must_be_of_Enum_type__" xml:space="preserve">
+    <value>T must be of Enum type. </value>
+  </data>
+  <data name="The__0__enumeration_does_not_have_any_value_for__1__FORMAT__" xml:space="preserve">
+    <value>The {0} enumeration does not have any value for {1}</value>
+  </data>
+  <data name="The__RootDir__config_entry_either_have_to_be_empty_or_contain_a_full_path__" xml:space="preserve">
+    <value>The 'RootDir' config entry either have to be empty or contain a full path. </value>
+  </data>
+  <data name="Created___0__FORMAT__" xml:space="preserve">
+    <value>{0} - OK</value>
+  </data>
+  <data name="Could_not_find_the_Exin_s_work_directory_here__0__FORMAT__" xml:space="preserve">
+    <value>Could not find the Exin's work directory here: {0}</value>
+  </data>
+  <data name="The_app_will_now_create_the_necessary_directories" xml:space="preserve">
+    <value>The app will now create the necessary directories. </value>
+  </data>
+  <data name="All_created_successfully_" xml:space="preserve">
+    <value>All created successfully. </value>
+  </data>
+  <data name="Today_s_expenses_loading__" xml:space="preserve">
+    <value>Today's expenses loading...</value>
+  </data>
+  <data name="__0__loading_daily_expenses__FORMAT__" xml:space="preserve">
+    <value>{0}: loading daily expenses...</value>
+  </data>
+</root>
