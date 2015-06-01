@@ -1,0 +1,11 @@
+﻿WinForms-os hibái
+- Nem rendezi újra a listát, ha módosul az ár
+- Ablak átméretezés lassú és villogó, szaggató
+- Lehet h a Tab gombra össze-vissza reagál...
+- Nincs margó az "Új mai kiadás" groupBox fölött (dockPanel jelleg miatt)
+- Ha új elemet adok a listához, az nem mindig a végére kerül (és így nem is lesz kiválasztva rögtön)
+- Validation
+	- Egyrészt, mindig csak azt tudja validálni, amelyik épp ki van választva, és így alul is megjelenik
+	- Amikor számot validál, és azt írja ki (a mezőből való távozás után), hogy szám kéne, nem szöveg; akkor valójában a mező visszaíródik az utolsó szám jellegű értékére (0-ból indul new hatására); de ez a felületen addig nem látszik, amíg újra ki nincs választva a mező
+		- Emiatt pl engedi majd menteni
+- Üres listánál hozzáad egy új elemet alapból, hogy az legyen kiválasztva. Viszont engedi kitörölni. Utána a ténylegesen üres lista lesz fenn; lenne viszont a textbox-okba lehet írni. Ha beírás után az "Új" gombra kattint, a beírt tartalom elveszik; és egy tök üres új elem lesz a helyén. Mivel az új gomb hozzáad a listához egy új elemet, és kiválasztja az utolsót (ami az új elem lesz); viszont amit alul beírt adatot, azok csak adat-kötve voltak a lista aktuálisan kiválasztott eleméhez - üres lista esetén tehát semmihez
