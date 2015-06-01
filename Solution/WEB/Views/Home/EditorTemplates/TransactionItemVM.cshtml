@@ -1,0 +1,30 @@
+﻿@using Common
+@model Common.UiModels.WEB.TransactionItemVM
+<tr>
+    <td>
+        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "stringIn" } })
+    </td>
+    <td>
+        @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "numberIn" } })
+    </td>
+    @if(Model.Type == TransactionItemType.Expense)
+    {
+        <td>
+            @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "numberIn quantity" } })
+            @Html.DropDownListFor(model => model.UnitID, new List<SelectListItem>(), new { @class = "unit-list selectIn" })
+            @Html.HiddenFor(model => model.UnitID, new { @class = "unit-list-hidden" })
+        </td>
+        <td>
+            @Html.DropDownListFor(model => model.CategoryID, new List<SelectListItem>(), new { @class = "category-list selectIn" })
+            @Html.HiddenFor(model => model.CategoryID, new { @class = "category-list-hidden" })
+        </td>
+    }
+    <td>
+        @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "stringIn" } })
+    </td>
+    <td>
+        <input type="button" value="Törlés" name="remove-item-row-button" onclick="removeItemRow(this)" />
+        @Html.HiddenFor(model => model.Type)
+        @Html.HiddenFor(model => model.Date)
+    </td>
+</tr>

@@ -1,0 +1,46 @@
+﻿@using Common
+@using Common.UiModels.WEB
+@using Config = Common.Config.Config
+@model IList<TransactionItemVM>
+@{
+    ViewBag.Title = string.Format("{0} - {1}", Config.MainTitleOfSite, ViewBag.SiteTitle);
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var modelForLabel = new TransactionItemVM();
+}
+<h2>@ViewBag.SiteTitle (@ViewBag.Date.ToString("yyyy.MM"))</h2>
+@using(Html.BeginForm(ViewBag.ActionName as string, "Home", FormMethod.Post, new { id = "transaction-form" }))
+{
+    @Html.ValidationSummary(excludePropertyErrors: false)
+    <div>
+        Összesen: <span class="sum-amount"></span>
+        <input type="button" value="Frissítés" onclick="refreshSumAmount()" />
+    </div>
+    <table>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => modelForLabel.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => modelForLabel.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => modelForLabel.Comment)
+            </th>
+            <th>
+                <!-- Buttons -->
+            </th>
+        </tr>
+        @Html.EditorForModel()
+    </table>
+    <p>
+        <input class="add-new-item-row-button" type="button" value="Új egység felvétele" onclick="addNewItemRow()" />
+        <input type="submit" value="Változások mentése" />
+        @Html.Partial("Partials/HiddenDate")
+    </p>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/TransactionItem")
+}

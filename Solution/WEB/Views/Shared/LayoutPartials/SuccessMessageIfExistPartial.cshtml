@@ -1,0 +1,7 @@
+﻿@if(ViewData.Keys.Contains("Success") || TempData.Keys.Contains("Success"))
+{
+	<div class="success-message">
+		@ViewBag.Success
+		@TempData["Success"]
+	</div>
+}

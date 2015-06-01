@@ -1,0 +1,150 @@
+.box
+{
+	border: 1px solid #32A434;
+	background: #05F00A;
+	margin-top: 10px;
+	width: 207px;
+}
+.box-title
+{
+	height: 25px;
+	font: bold large / 1em Verdana;
+	text-align: center;
+	padding-top: 5px;
+	border-bottom: 1px solid #32A434;
+	cursor: pointer;
+}
+.box-main
+{
+	padding: 10px;
+	height: auto;
+}
+#leftMenu
+{
+	float: left;
+	width: 210px;
+	min-height: 1150px;
+}
+#leftMenu A:link, #leftMenu A:visited
+{
+	color: inherit;
+}
+#leftMenu A:hover, #leftMenu A:active
+{
+	color: #0000FF;
+}
+#loginBox
+{
+	font: small / 1.5em "Times New Roman";
+}
+#loginBox INPUT[type="password"]
+{
+	width: 100px;
+	font: small / 1em "Times New Roman";
+	height: 15px;
+}
+#loginBox INPUT[type="text"]
+{
+	width: 144px;
+	font: small / 1em "Times New Roman";
+	height: 15px;
+}
+#loginBox INPUT[type="submit"][value="OK"]
+{
+	width: 42px;
+	height: 24px;
+	vertical-align: middle;
+}
+#loginBox .user-name
+{
+	font: medium / 1em sans-serif;
+}
+#loginBox IMG
+{
+	max-width: 85px;
+	max-height: 80px;
+}
+#loginBox .left-column
+{
+	float: left;
+	width: 85px;
+	height: 100px;
+	text-align: center;
+}
+#loginBox .right-column
+{
+	height: 85px;
+	width: 85px;
+	margin: 15px 0 0 92px;
+	font: medium / 1em sans-serif;
+	text-align: center;
+}
+#loginBox .right-column INPUT
+{
+	margin-top: 14px;
+}
+#main-menu-box
+{
+}
+#category-box
+{
+}
+#category-box .box-main, #main-menu-box .box-main
+{
+	padding-left: 0;
+	padding-right: 0;
+}
+#leftMenu UL
+{
+	padding: 0;
+	margin: 0;
+}
+#leftMenu UL LI
+{
+	list-style: none;
+	cursor: pointer;
+	padding-left: 10px;
+	font: 1em sans-serif;
+}
+#leftMenu .opened:before
+{
+	content: "-";
+}
+#leftMenu .closed:before
+{
+	content: "+";
+}
+#leftMenu .opened:before, #leftMenu .closed:before
+{
+	margin-left: -13px;
+	font: normal 1em Consolas;
+	float: left;
+}
+#leftMenu .ul-openable
+{
+}
+#leftMenu .level1
+{
+	font: bold 1em sans-serif;
+	padding-left: 20px;
+}
+#leftMenu .selected > A
+{
+	background: #32A434;
+	padding: 1px 3px;
+	margin-left: -3px;
+}
+#leftMenu .deactive
+{
+	color: #3BA63B;
+	cursor: default;
+}
+#leftMenu .deactive A:hover
+{
+	text-decoration: none;
+	color: #3BA63B;
+}
+/* JQuery UI DatePicker */
+.ui-datepicker {
+    font-size: 12px;
+}

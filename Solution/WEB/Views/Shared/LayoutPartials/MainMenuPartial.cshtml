@@ -1,0 +1,51 @@
+﻿@{
+    string boxOpenedCookieValue = (Request.Cookies["main-menu-box"] ?? new HttpCookie("", "true")).Value;
+    string boxDisplay = boxOpenedCookieValue == "true" ? "block" : "none";
+
+    string menusOpenedCookieValue = (Request.Cookies["main-menu-opened"] ?? new HttpCookie("", "")).Value;
+    string[] openedMenuIds = menusOpenedCookieValue.Split(',');
+    bool isOpened = false;
+
+    //string menuSelectedCookieValue = (Request.Cookies["main-menu-selected"] ?? new HttpCookie("", "")).Value;
+    //string selectedMenuId = menuSelectedCookieValue;
+
+    string controller = ViewContext.RouteData.Values["controller"].ToString();
+    string action = ViewContext.RouteData.Values["action"].ToString();
+
+    var queryDate = ViewBag.Date != null ? new { date = ((DateTime)ViewBag.Date).ToString("yyyy-MM-dd") } : null;
+
+    <div id="main-menu-box" class="box">
+        <div class="box-title">
+            Főmenü
+        </div>
+        <div class="box-main" style="display: @boxDisplay">
+            <ul>
+
+                <!-- ADD MENU ITEM -->
+                @{ isOpened = openedMenuIds.Contains("mmo01"); }
+                <li class="level1 @(isOpened ? "opened" : "closed")">
+                    <a id="mmo01" class="ul-openable">Új elem felvétele</a>
+                    <ul style="display: @(isOpened ? "block" : "none")">
+                        <li @(action == "DailyExpenses" && controller == "Home" ? "class=selected" : "")>
+                            @Html.ActionLink("Napi kiadás", "DailyExpenses", "Home", queryDate, new { id = "mmo01.01" })
+                        </li>
+                        <li @(action == "MonthlyIncomes" && controller == "Home" ? "class=selected" : "")>
+                            @Html.ActionLink("Havi bevétel", "MonthlyIncomes", "Home", queryDate, new { id = "mmo01.02" })
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- SUMMARY MENU ITEM -->
+                @{ isOpened = openedMenuIds.Contains("mmo02"); }
+                <li class="level1 @(isOpened ? "opened" : "closed")">
+                    <a id="mmo02" class="ul-openable">Összesítések</a>
+                    <ul style="display: @(isOpened ? "block" : "none")">
+                        <li @(action == "MonthlySummaries" && controller == "Home" ? "class=selected" : "")>
+                            @Html.ActionLink("Havi összesítés", "MonthlySummaries", "Home", queryDate, new { id = "mmo02.01" })
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+}

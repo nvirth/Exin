@@ -62,7 +62,7 @@ namespace DAL
 					var startInfo = new ProcessStartInfo
 					{
 						//WorkingDirectory = Paths.Play_publicPath,
-						FileName = "ImportDataToDb.exe",
+						FileName = Path.Combine(RepoPaths.AppExecDir, "ImportDataToDb.exe"),
 						//Arguments = command.ToString(),
 						//WindowStyle = ProcessWindowStyle.Hidden,
 						//RedirectStandardOutput = true,

@@ -1,0 +1,96 @@
+﻿@using Common
+@using DAL.DataBase.Managers
+@using Common.UiModels.WEB
+@using Common.Utils.Helpers
+@using Config = Common.Config.Config
+@model IEnumerable<TransactionItemVM>
+@{
+    ViewBag.Title = string.Format("{0} - {1}", Config.MainTitleOfSite, ViewBag.SiteTitle);
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>@ViewBag.SiteTitle (@ViewBag.Date.ToString("yyyy.MM"))</h2>
+@Html.Partial("Partials/HiddenDate")
+
+@if(Model == null || !Model.Any())
+{
+    @:Ez a hónap üres
+}
+else
+{
+    <div align="center">
+        <img src="@Url.Action("MonthlySummariesChart", new { date = ViewBag.Date })" />
+    </div>
+    <table align="center">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+                @*@Html.DisplayNameFor(model => model.UnitID)*@
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment)
+            </th>
+        </tr>
+        @foreach(var item in Model)
+        {
+            if(item.Type == TransactionItemType.Expense)
+            {
+                <tr>
+                    <td>
+                        @item.Date.ToString("dd")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        -&nbsp;@item.Amount.ToHuCurrency()
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                        @UnitManager.Get(item.UnitID).DisplayName
+                    </td>
+                    <td>
+                        @CategoryManager.Get(item.CategoryID).DisplayName
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Comment)
+                    </td>
+                </tr>
+            }
+            else //if(item.Type == TransactionItemType.Income)
+            {
+                <tr class="income-item-in-summary">
+                    <td>
+                        @*Date*@ -
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        +&nbsp;@item.Amount.ToHuCurrency()
+                    </td>
+                    <td>
+                        @*Quantity+Unit*@ -
+                    </td>
+                    <td>
+                        @*Category*@ -
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Comment)
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+}

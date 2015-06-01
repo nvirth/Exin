@@ -1,0 +1,6 @@
+﻿@{
+    var date = ViewBag.Date != null ? ((DateTime)ViewBag.Date).ToString("yyyy-MM-dd") : null;
+}
+<input type="hidden" name="dateFromHidden" value="@date">
+<input type="hidden" id="action-name" value="@ViewContext.RouteData.GetRequiredString("action")">
+<input type="hidden" id="controller-name" value="@ViewContext.RouteData.GetRequiredString("controller")">

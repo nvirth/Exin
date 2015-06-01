@@ -1,0 +1,10 @@
+.menu-row
+{
+	margin: 5px 0 0 215px;
+	max-width: 85%;
+	text-align: center;
+}
+.menu-row DIV
+{
+	display: inline-block;
+}

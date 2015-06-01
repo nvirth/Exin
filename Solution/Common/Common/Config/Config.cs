@@ -18,7 +18,9 @@ namespace Common.Config
 		public static readonly ReadMode ReadMode = (ReadMode)Enum.Parse(typeof(ReadMode), ConfigurationManager.AppSettings["ReadMode"], ignoreCase: true);
 		public static readonly SaveMode SaveMode = (SaveMode)Enum.Parse(typeof(SaveMode), ConfigurationManager.AppSettings["SaveMode"], ignoreCase: true);
 
-		static Config()
+        public static readonly string MainTitleOfSite = ConfigurationManager.AppSettings["MainTitleOfSite"];
+
+        static Config()
 		{
 			if(ReadMode == ReadMode.FromDb && SaveMode == SaveMode.OnlyToFile)
 			{

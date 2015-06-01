@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
@@ -10,139 +11,184 @@ using Localization;
 
 namespace Common.Config
 {
-	/// <summary>
-	/// Provides full paths of the used directories/files. <para/>
-	/// The repository's structure looks like this: <para>&nbsp;</para>
-	/// 
-	/// [Root] <para/>
-	/// --Summaries <para/>
-	/// ----Monthly <para/>
-	/// ----Categorised <para/>
-	/// --ExpensesAndIncomes <para/>
-	/// --Data <para/>
-	/// ----Units.xml <para/>
-	/// ----Categories.xml <para/>
-	/// ----Exin.sqlite <para/>
-	/// --Backup <para>&nbsp;</para>
-	/// 
-	/// [AppExecDir] <para/>
-	/// --ResourcesDefault <para/>
-	/// ----Units.xml <para/>
-	/// ----Categories.xml <para/>
-	/// --SQLite full.sql <para/>
-	/// </summary>
-	public static class RepoPaths
-	{
-		/// <summary>
-		/// Provides the concrete file/dir names
-		/// </summary>
-		public static class Names
-		{
-			//-- Directories
-			public const string Summaries = "Summaries";
-			public const string Monthly = "Monthly";
-			public const string Categorised = "Categorised";
-			public const string ExpensesAndIncomes = "ExpensesAndIncomes";
-			public const string Data = "Data";
-			public const string Backup = "Backup";
+    /// <summary>
+    /// Provides full paths of the used directories/files. <para/>
+    /// The repository's structure looks like this: <para>&nbsp;</para>
+    /// 
+    /// [Root] <para/>
+    /// --Summaries <para/>
+    /// ----Monthly <para/>
+    /// ----Categorised <para/>
+    /// --ExpensesAndIncomes <para/>
+    /// --Data <para/>
+    /// ----Units.xml <para/>
+    /// ----Categories.xml <para/>
+    /// ----Exin.sqlite <para/>
+    /// --Backup <para>&nbsp;</para>
+    /// 
+    /// [AppExecDir] <para/>
+    /// --ResourcesDefault <para/>
+    /// ----Units.xml <para/>
+    /// ----Categories.xml <para/>
+    /// --SQLite full.sql <para/>
+    /// </summary>
+    public static class RepoPaths
+    {
+        /// <summary>
+        /// Provides the concrete file/dir names
+        /// </summary>
+        public static class Names
+        {
+            //-- Directories
+            public const string Summaries = "Summaries";
+            public const string Monthly = "Monthly";
+            public const string Categorised = "Categorised";
+            public const string ExpensesAndIncomes = "ExpensesAndIncomes";
+            public const string Data = "Data";
+            public const string Backup = "Backup";
 
-			internal const string ResourcesDefault = "ResourcesDefault";
+            internal const string ResourcesDefault = "ResourcesDefault";
 
-			//-- Files
-			public const string Units = "Units.xml";
-			public const string Categories = "Categories.xml";
-			public const string SqliteDbFile = "Exin.sqlite";
-			public const string SqliteDbCreateFile = "SQLite full.sql";
+            //-- Files
+            public const string Units = "Units.xml";
+            public const string Categories = "Categories.xml";
+            public const string SqliteDbFile = "Exin.sqlite";
+            public const string SqliteDbCreateFile = "SQLite full.sql";
 
-			//-- Files (not singletons)
-			public const string MonthlyExpensesSum = "Sum." + Config.FileExtension;
-			public const string MonthlyIncomesSum = "Incomes." + Config.FileExtension;
-		}
+            //-- Files (not singletons)
+            public const string MonthlyExpensesSum = "Sum." + Config.FileExtension;
+            public const string MonthlyIncomesSum = "Incomes." + Config.FileExtension;
+        }
 
-		public static class DirectoryInfos
-		{
-			public static readonly DirectoryInfo Root = new DirectoryInfo(RootDir);
-			public static readonly DirectoryInfo Summaries = new DirectoryInfo(SummariesDir);
-			public static readonly DirectoryInfo MonthlySummaries = new DirectoryInfo(MonthlySummariesDir);
-			public static readonly DirectoryInfo CategorisedSummaries = new DirectoryInfo(CategorisedSummariesDir);
-			public static readonly DirectoryInfo ExpensesAndIncomes = new DirectoryInfo(ExpensesAndIncomesDir);
-			public static readonly DirectoryInfo Data = new DirectoryInfo(DataDir);
-			public static readonly DirectoryInfo Backup = new DirectoryInfo(BackupDir);
-		}
+        public static class DirectoryInfos
+        {
+            public static readonly DirectoryInfo Root = new DirectoryInfo(RootDir);
+            public static readonly DirectoryInfo Summaries = new DirectoryInfo(SummariesDir);
+            public static readonly DirectoryInfo MonthlySummaries = new DirectoryInfo(MonthlySummariesDir);
+            public static readonly DirectoryInfo CategorisedSummaries = new DirectoryInfo(CategorisedSummariesDir);
+            public static readonly DirectoryInfo ExpensesAndIncomes = new DirectoryInfo(ExpensesAndIncomesDir);
+            public static readonly DirectoryInfo Data = new DirectoryInfo(DataDir);
+            public static readonly DirectoryInfo Backup = new DirectoryInfo(BackupDir);
+        }
 
-		//-- Directories
-		public static readonly string AppExecDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-		public static readonly string RootDir = SetupRootDir();
+        //-- Directories
+        private static string appExecDir;
+        public static string AppExecDir
+        {
+            get
+            {
+                if (appExecDir == null)
+                {
+                    var a = System.Web.HttpRuntime.BinDirectory;
+                    var b = System.Web.HttpRuntime.AppDomainAppPath;
+                    var c = System.AppDomain.CurrentDomain.BaseDirectory;
 
-		public static readonly string SummariesDir = RootDir + "\\" + Names.Summaries;
-		public static readonly string MonthlySummariesDir = SummariesDir + "\\" + Names.Monthly;
-		public static readonly string CategorisedSummariesDir = SummariesDir + "\\" + Names.Categorised;
-		public static readonly string ExpensesAndIncomesDir = RootDir + "\\" + Names.ExpensesAndIncomes;
-		public static readonly string DataDir = RootDir + "\\" + Names.Data;
-		public static readonly string BackupDir = RootDir + "\\" + Names.Backup;
+                    // Normal use case: WPF, WinForms
+                    var execDir = Assembly.GetEntryAssembly()?.Location;
 
-		private static readonly string ResourcesDefaultDir = AppExecDir + "\\" + Names.ResourcesDefault;
+                    // We use the WEB project (ASP.NET MVC 4)
+                    if (execDir == null &&
+                        System.Web.HttpContext.Current != null &&
+                        System.Web.HttpContext.Current.ApplicationInstance != null)
+                    {
+                        // The WEB project exists only in Debug mode - never meant to be used in production!
+                        execDir = System.Web.HttpRuntime.BinDirectory;
+                    }
 
-		//-- Files
-		public static readonly string UnitsFile = DataDir + "\\" + Names.Units;
-		public static readonly string CategoriesFile = DataDir + "\\" + Names.Categories;
-		public static readonly string SqliteDbFile = DataDir + "\\" + Names.SqliteDbFile;
+                    appExecDir = Path.GetDirectoryName(execDir);
+                }
+                return appExecDir;
+            }
+        }
 
-		public static readonly string SqliteDbCreateFile = AppExecDir + "\\" + Names.SqliteDbCreateFile;
+        public static readonly string RootDir = SetupRootDir();
 
-		private static readonly string CategoriesDefaultFile = ResourcesDefaultDir + "\\" + Names.Categories;
-		private static readonly string UnitsDefaultFile = ResourcesDefaultDir + "\\" + Names.Units;
+        public static readonly string SummariesDir = RootDir + "\\" + Names.Summaries;
+        public static readonly string MonthlySummariesDir = SummariesDir + "\\" + Names.Monthly;
+        public static readonly string CategorisedSummariesDir = SummariesDir + "\\" + Names.Categorised;
+        public static readonly string ExpensesAndIncomesDir = RootDir + "\\" + Names.ExpensesAndIncomes;
+        public static readonly string DataDir = RootDir + "\\" + Names.Data;
+        public static readonly string BackupDir = RootDir + "\\" + Names.Backup;
 
-		// -- Methods
-		private static string SetupRootDir()
-		{
-			var rootDir = ConfigurationManager.AppSettings["RootDir"];
-			if(string.IsNullOrWhiteSpace(rootDir))
-				rootDir = AppExecDir;
-			else if(!Path.IsPathRooted(rootDir))
-				throw new ConfigurationErrorsException(Localized.The__RootDir__config_entry_either_have_to_be_empty_or_contain_a_full_path__);
+        private static readonly string ResourcesDefaultDir = AppExecDir + "\\" + Names.ResourcesDefault;
 
-			return rootDir;
-		}
+        //-- Files
+        public static readonly string UnitsFile = DataDir + "\\" + Names.Units;
+        public static readonly string CategoriesFile = DataDir + "\\" + Names.Categories;
+        public static readonly string SqliteDbFile = DataDir + "\\" + Names.SqliteDbFile;
 
-		/// <summary>
-		/// For debug purposes
-		/// </summary>
-		public static void PrintRepoStructure()
-		{
-			MessagePresenter.WriteLine("The app's directory structure: ");
-			DirsToCreate.ForEach(MessagePresenter.WriteLine);
-		}
+        public static readonly string SqliteDbCreateFile = AppExecDir + "\\" + Names.SqliteDbCreateFile;
 
-		/// <summary>
-		/// Initializes the repo structure, and copies the default (Unit, Category) resources
-		/// to their newly created place. The initialization is not full in case of using
-		/// SQLite db, then a call to SQLiteSpecific.InitSqliteFileIfNeeded() is also necessary
-		/// </summary>
-		public static void InitRepo()
-		{
-			foreach(var dir in DirsToCreate)
-			{
-				Directory.CreateDirectory(dir);
-				MessagePresenter.WriteLine(string.Format(Localized.Created___0__FORMAT__, dir));
-			}
+        private static readonly string CategoriesDefaultFile = ResourcesDefaultDir + "\\" + Names.Categories;
+        private static readonly string UnitsDefaultFile = ResourcesDefaultDir + "\\" + Names.Units;
 
-			File.Copy(UnitsDefaultFile, UnitsFile);
-			File.Copy(CategoriesDefaultFile, CategoriesFile);
-		}
+        // -- Methods
+        private static string SetupRootDir()
+        {
+            var rootDir = ConfigurationManager.AppSettings["RootDir"];
+            if (string.IsNullOrWhiteSpace(rootDir))
+                rootDir = AppExecDir;
+            else if (!Path.IsPathRooted(rootDir))
+                throw new ConfigurationErrorsException(Localized.The__RootDir__config_entry_either_have_to_be_empty_or_contain_a_full_path__);
 
-		private static IEnumerable<string> DirsToCreate
-		{
-			get
-			{
-				yield return RootDir;
-				yield return SummariesDir;
-				yield return MonthlySummariesDir;
-				yield return CategorisedSummariesDir;
-				yield return ExpensesAndIncomesDir;
-				yield return DataDir;
-				yield return BackupDir;
-			}
-		}
-	}
+            return rootDir;
+        }
+
+        /// <summary>
+        /// For debug purposes
+        /// </summary>
+        public static void PrintRepoStructure()
+        {
+            MessagePresenter.WriteLine("The app's directory structure: ");
+            DirsToCreate.ForEach(MessagePresenter.WriteLine);
+        }
+
+        /// <summary>
+        /// Initializes the repo structure, and copies the default (Unit, Category) resources
+        /// to their newly created place. The initialization is not full in case of using
+        /// SQLite db, then a call to SQLiteSpecific.InitSqliteFileIfNeeded() is also necessary
+        /// </summary>
+        public static void InitRepo()
+        {
+            foreach (var dir in DirsToCreate)
+            {
+                Directory.CreateDirectory(dir);
+                MessagePresenter.WriteLine(string.Format(Localized.Created___0__FORMAT__, dir));
+            }
+
+            File.Copy(UnitsDefaultFile, UnitsFile);
+            File.Copy(CategoriesDefaultFile, CategoriesFile);
+        }
+
+        private static IEnumerable<string> DirsToCreate
+        {
+            get
+            {
+                yield return RootDir;
+                yield return SummariesDir;
+                yield return MonthlySummariesDir;
+                yield return CategorisedSummariesDir;
+                yield return ExpensesAndIncomesDir;
+                yield return DataDir;
+                yield return BackupDir;
+            }
+        }
+
+        private static Assembly GetWebEntryAssembly()
+        {
+            if (System.Web.HttpContext.Current == null ||
+                System.Web.HttpContext.Current.ApplicationInstance == null)
+            {
+                return null;
+            }
+
+            var type = System.Web.HttpContext.Current.ApplicationInstance.GetType();
+            while (type != null && type.Namespace == "ASP")
+            {
+                type = type.BaseType;
+            }
+
+            return type == null ? null : type.Assembly;
+        }
+    }
 }

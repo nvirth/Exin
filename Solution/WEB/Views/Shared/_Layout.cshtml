@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>@ViewBag.Title</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/jqueryui") @*This must be before*@
+    @Styles.Render("~/Content/themes/main") @*This must be after*@
+    @Scripts.Render("~/bundles/modernizr")
+	@RenderSection("styles", required: false)
+</head>
+    <body>
+        @Html.Partial("LayoutPartials/GlobalHiddens")
+        <div id="under-header">
+            <!-- left-menu-container would be a better name for this div, instead of under-header -->
+            <div id="leftMenu">
+                <header>
+                    @Html.Partial("LayoutPartials/MainTitlePartial")
+                </header>
+                @Html.Partial("LayoutPartials/DatePicker")
+                @Html.Partial("LayoutPartials/MainMenuPartial")
+            </div>
+            <div id="main">
+                @Html.Partial("LayoutPartials/SuccessMessageIfExistPartial")
+                @RenderBody()
+            </div>
+        </div>
+        <footer>
+            @Html.Partial("LayoutPartials/FooterPartial")
+        </footer>
+	
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryui")
+        @Scripts.Render("~/bundles/LayoutBoxes")
+        @Scripts.Render("~/bundles/DatePicker")
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

@@ -1,0 +1,176 @@
+/*HTML elements*/
+BODY {
+    background-image: url("../../Images/background.png");
+}
+
+H2, H3 {
+    text-align: center;
+}
+
+TABLE, TBODY {
+    border-collapse: separate;
+    border-spacing: 10px;
+}
+
+TH, TD {
+    text-align: center;
+}
+
+A:link, A:visited {
+    text-decoration: none;
+    color: #0000FF;
+}
+
+A IMG {
+    border: 0;
+}
+
+INPUT[disabled="disabled"] {
+    background: #EBEBE4 !important;
+    cursor: default !important;
+}
+
+    INPUT[disabled="disabled"]:hover {
+        background: #EBEBE4 !important;
+    }
+
+INPUT[type=button], INPUT[type=submit] {
+    border: 1px solid #7D7D7D;
+    cursor: pointer;
+    background-color: #F0F0F0;
+}
+
+    INPUT[type=button]:hover, INPUT[type=submit]:hover {
+        background-color: #BBBBBB;
+    }
+
+INPUT[type=text].numberIn {
+    width: 55px;
+}
+
+    INPUT[type=text].numberIn.quantity {
+        width: 25px;
+    }
+
+INPUT[type=text].stringIn, INPUT[type=password], INPUT[type=email], INPUT[type=file], TEXTAREA {
+    width: 300px;
+}
+
+TEXTAREA {
+    height: 150px;
+    max-width: 300px;
+    max-height: 200px;
+}
+
+SELECT {
+    width: 304px;
+}
+
+    SELECT.unit-list {
+        width: 60px;
+    }
+
+    SELECT.category-list {
+        width: 120px;
+    }
+
+FIELDSET {
+    display: inline-block;
+}
+/*OTHERS*/
+#main {
+    min-height: 1100px;
+    margin: 0 0 0 210px;
+    padding: 10px;
+}
+
+.small-gray-number {
+    color: #808080;
+    font: small / 1em sans-serif;
+}
+
+.select-option-level-1 {
+    font: bold larger / 1em sans-serif;
+}
+
+.select-option-level-2 {
+}
+
+.select-option-level-3 {
+    font: small / 1em sans-serif;
+}
+
+.select-option-level-4 {
+    font: smaller / 1em sans-serif;
+}
+
+INPUT.input-validation-error {
+    border: 2px solid #FF0000;
+}
+
+.validation-summary-errors, .field-validation-error {
+    color: #FF0000;
+    font-weight: bold;
+}
+
+.success-message {
+    color: #06C40A;
+    font-weight: bold;
+}
+
+.users-group .user-group-name {
+    background: #05F00A;
+}
+
+.transaction-summary {
+    clear: both;
+}
+
+.order-buttons {
+    float: right;
+}
+
+.delete-all-carts-button {
+    margin: 10px;
+}
+
+INPUT[name=quantity] {
+    width: 25px;
+}
+
+.successful-text {
+    font-weight: bold;
+    color: #008000;
+}
+
+.unsuccessful-text {
+    font-weight: bold;
+    color: #FF0000;
+}
+
+.product-upload-fieldset FIELDSET {
+    float: left;
+    width: 310px;
+}
+/* OTHERS */
+.exin-date-picker {
+}
+
+.category-list-hidden {
+}
+
+.category-list {
+}
+
+.selectIn {
+}
+
+.add-new-item-row-button {
+}
+
+.sum-amount {
+}
+/* TRANSACTION ITEM */
+.income-item-in-summary {
+    font-weight: bold;
+}

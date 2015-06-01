@@ -14,6 +14,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
+using System.Web.Mvc;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -602,11 +603,27 @@ namespace Common.Utils.Helpers
 			//return value.ToString("c0", Constants.CultureInfoHu).Replace(' ', (char)160); // char 160 <-- &nbsp;
 		}
 
-		#endregion
+        #endregion
 
-		#region Object
+        #region ModelStateDictionary
 
-		public static string ToJson(this object value)
+        public static KeyValuePair<string, ModelState>[] CopyToArray(this ModelStateDictionary modelState)
+        {
+            var modelStates = new KeyValuePair<string, ModelState>[modelState.Count];
+            modelState.CopyTo(modelStates, 0);
+            return modelStates;
+        }
+
+        public static ModelError[] CopyModelErrors(this ModelStateDictionary modelState)
+        {
+            return modelState.Values.SelectMany(v => v.Errors).ToArray();
+        }
+
+        #endregion
+
+        #region Object
+
+        public static string ToJson(this object value)
 		{
 			return JsonConvert.SerializeObject(value, Formatting.Indented);
 		}

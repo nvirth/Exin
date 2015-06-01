@@ -1,0 +1,13 @@
+﻿@using Common
+@using Config = Common.Config.Config
+@model HandleErrorInfo
+
+@{
+    ViewBag.Title = Config.MainTitleOfSite + " - Hiba";
+    Layout = "_Layout.cshtml";
+}
+
+<hgroup class="title">
+    <h1 class="error">Hiba!</h1>
+    <h2 class="error">Hiba történt a kérés feldolgozása közben. Próbáld újra később. </h2>
+</hgroup>

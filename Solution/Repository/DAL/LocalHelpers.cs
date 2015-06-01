@@ -6,6 +6,7 @@ using Common;
 using Common.Config;
 using Common.DbEntities;
 using Common.UiModels;
+using Common.UiModels.WEB;
 using Common.UiModels.WPF;
 using DAL.DataBase.Managers;
 using Localization;
@@ -38,6 +39,22 @@ namespace DAL
 			};
 			return transactionItem;
 		}
+		public static TransactionItemVM ToTransactionItemVm(this ExpenseItem expenseItem)
+		{
+			var transactionItemVm = new TransactionItemVM()
+			{
+				Amount = expenseItem.Amount,
+				Quantity = expenseItem.Quantity,
+				Title = expenseItem.Title,
+				Comment = expenseItem.Comment,
+				Date = expenseItem.Date,
+
+				CategoryID = expenseItem.Category.ID,
+				UnitID = expenseItem.Unit.ID,
+				Type = TransactionItemType.Expense,
+			};
+			return transactionItemVm;
+		}
 
 		#endregion
 
@@ -62,6 +79,22 @@ namespace DAL
 				IsIncomeItem = true,
 			};
 			return transactionItem;
+		}
+		public static TransactionItemVM ToTransactionItemVm(this IncomeItem incomeItem)
+		{
+			var transactionItemVm = new TransactionItemVM()
+			{
+				Amount = incomeItem.Amount,
+				Quantity = incomeItem.Quantity,
+				Title = incomeItem.Title,
+				Comment = incomeItem.Comment,
+				Date = incomeItem.Date,
+
+				CategoryID = CategoryManager.GetCategoryNone.ID,
+				UnitID = incomeItem.Unit.ID,
+				Type = TransactionItemType.Income,
+			};
+			return transactionItemVm;
 		}
 
 		#endregion
@@ -94,6 +127,50 @@ namespace DAL
 				Unit = transactionItem.Unit, // Unit.None
 			};
 			return incomeItem;
+		}
+		public static TransactionItemVM ToTransactionItemVm(this TransactionItem transactionItem)
+		{
+			var transactionItemVm = new TransactionItemVM()
+			{
+				Amount = transactionItem.Amount,
+				Quantity = transactionItem.Quantity,
+				Title = transactionItem.Title,
+				Comment = transactionItem.Comment,
+				Date = transactionItem.Date,
+				CategoryID = transactionItem.CategoryID,
+				UnitID = transactionItem.UnitID,
+				Type = transactionItem.IsExpenseItem ? TransactionItemType.Expense : TransactionItemType.Income,
+			};
+			return transactionItemVm;
+		}
+
+		#endregion
+
+		#region TransactionItemVM helpers
+
+		public static TransactionItem ToTransactionItem(this TransactionItemVM transactionItemVm)
+		{
+			return transactionItemVm.ToTransactionItem(transactionItemVm.Type, transactionItemVm.Date);
+		}
+		public static TransactionItem ToTransactionItem(this TransactionItemVM transactionItemVm, TransactionItemType type, DateTime date)
+		{
+			var transactionItem = new TransactionItem()
+			{
+				//ID = 0,
+
+				Amount = transactionItemVm.Amount,
+				Quantity = transactionItemVm.Quantity,
+				Title = transactionItemVm.Title,
+				Comment = transactionItemVm.Comment,
+				Date = date,
+				CategoryID = transactionItemVm.CategoryID,
+				UnitID = transactionItemVm.UnitID,
+				IsExpenseItem = type == TransactionItemType.Expense,
+				IsIncomeItem = type == TransactionItemType.Income,
+				Category = CategoryManager.Get(transactionItemVm.CategoryID),
+				Unit = UnitManager.Get(transactionItemVm.UnitID),
+			};
+			return transactionItem;
 		}
 
 		#endregion
