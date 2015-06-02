@@ -1,0 +1,7 @@
+RESHARPER - GENERATE - EQUALITY MEMBERS (/COMPARER)
+
+Very helpful, speed up a lot; generates the Equals and GetHashCode fns (overridden).
+Notes:
+- The Resharperes Equality Comparer generation is not perfect. It does not deal with the base class...
+	(worth to generate the IEquatable, and then mimic the Equals and GetHashCode methods from there; because there it's also dealed with the base class)
+- We need it by XAML UI models however, because if we don't implement IEquatable in them, we'll get very magic errors in the surface... (this info is the result of 4-5 hours of sufferring)

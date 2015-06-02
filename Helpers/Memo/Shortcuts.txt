@@ -1,0 +1,25 @@
+-------------------
+Keyboard shortcuts:
+-------------------
+
+Alt + Right/Left: Step 1 day forth/back
+Alt + Up/Down: Step 1 month forth/back
+Alt + Shift + Up/Down: Step 1 year forth/back
+Alt + End: Jump to today
+Ctrl + S: Save
+(Shift) + Tab: Jump (backwards) among control elements
+Ctrl + (Shift) + Tab: Jump (backwards) among tabs
+
+--------------------------
+Accessable plus functions:
+--------------------------
+
+In lists:
+- The columns can be resorted
+- The columns can be resized
+- The lists are sorted by amount by default. You can change this via clicking the column headers. (Also secondary/more sorting order can be set)
+- The selected items can be deleted with button 'Remove', as well as with key 'Del'
+
+In input fields:
+- Enter: Equivalent with button 'Add'
+------------------------

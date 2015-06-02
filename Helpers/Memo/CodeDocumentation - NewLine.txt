@@ -1,0 +1,3 @@
+To add new lines to C# documentations, use this: <para/>
+To add a blank line: <para>&nbsp;</para>
+* you could use the ASCII char 255 (invisible char, press Alt+255) instead of &nbsp;

@@ -1,0 +1,16 @@
+﻿- There are no Stored Procedures in it
+- There are some crap around the Foreig Keys; it does not check them automatically, instead it seems like it would have to be written into every query this check mechanism... So instead we use triggers
+- There is an awesome open source project to convert MS SQL databases completely into SQLite:
+http://www.codeproject.com/Articles/26932/Convert-SQL-Server-DB-to-SQLite-DB
+
+- This stuff is pretty "lite"... Especially it's .NET providers...
+	- When I open a Connection, I'm immediately in a transaction (like I'd have written "BEGIN"). This is shit because if I run a new query (with commit) after the previous one is committed, that would be ok; but if I don't close the connection (e.g. in unfortunate case of inserting in foreach), than in the 2. case, a commit would end up with an error, because there wasn't any BEGIN yet.
+		- This would not be so big a problem if I would open the connections manually, not the framework automatically.
+		- The solution is to call a commit immediately after Connection.Open().
+			- Yes, because calling a BEGIN immediately after Connection.Open() would not work, would end up with and exception; because I'm already in a transaction!
+	- Interesting, by ImportDataToDb, by importing the summaries, the tool uses DAL fns; so the whole is in transaction. Here it first deletes the current daily summary, than inserts the new one. Here it has caused ERRORS RANDOMLY (after ~400-1200 records) if I've done it so:
+		" BEGIN; ...delete section...; " --> This is the 1. ExecNonQuery
+		" ...insert section...; COMMIT; " --> This is the 2. Exec section
+		- The random error was that by the next sequent of summary, the Connection.Open() ended up with some error like this: "this operation can't be executed in this transactional state"
+		- If instead of the above I only use 1 Exec (here I can do so; even better though), there won't be any error (at least not up to 3600 records :D).
+			- So I reckon SQLite "likes it better" if it can see BEGIN and COMMIT together. The other way, maybe it would want to open some larger scaled transaction, or I don't know...
