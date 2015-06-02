@@ -7,7 +7,7 @@ namespace Common.Config
 {
 	public static class Config
 	{
-		public const string SqliteDbFullpathPlaceholder = "#SQLITE_REPO_FULLPATH#";	// In config files (it affects only the release mode)
+		public const string SqliteDbFullpathPlaceholder = "#SQLITE_REPO_FULLPATH#";	// In config files
 		public const int CategoryValidFrom = 100;
 		public const int UnitValidFrom = 100;
 		public static readonly object StringNull = ""; // Other choice: DBNull.Value
