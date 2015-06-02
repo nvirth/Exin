@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -9,7 +8,6 @@ using Common.Log;
 using Common.Utils;
 using Common.Utils.Helpers;
 using Localization;
-using UtilsShared;
 
 namespace Common
 {
@@ -171,7 +169,7 @@ namespace Common
 				catch(Exception e)
 				{
 					var stringBuilder = new StringBuilder();
-					stringBuilder.AppendLine(string.Format(Localized.Error__More_than_one_exists_from_files_starting_with___0___FORMAT__, startsWith));
+					stringBuilder.AppendLine(string.Format(Localized.Error__More_than_one_exists_from_files_starting_with__0__FORMAT__, startsWith));
 
 					var fileInfos = possibleFiles.ToArray();
 					var result = fileInfos[0];

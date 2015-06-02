@@ -1,18 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Data.SQLite;
 using System.Linq;
-using System.Text;
 using System.Transactions;
-using AutoMapper;
 using Common;
-using Common.DbEntities;
 using Common.Log;
-using Common.Utils;
 using Common.Utils.Helpers;
 using DAL.DataBase.EntityFramework.EntitiesMsSql;
 using DAL.DataBase.EntityFramework.EntitiesSqlite;
@@ -20,7 +11,6 @@ using DAL.DataBase.Managers;
 using EntityFramework.Extensions;
 using Localization;
 using Config = Common.Config.Config;
-using DbType = Common.DbType;
 using TransactionItemCommon = Common.DbEntities.TransactionItem;
 
 namespace DAL.DataBase.EntityFramework.Managers

@@ -2,6 +2,7 @@
 using System.Threading;
 using Common.Utils;
 using log4net;
+using log4net.Config;
 
 namespace Common.Log
 {
@@ -16,7 +17,7 @@ namespace Common.Log
 			name = name ?? MAIN_TITLE;
 
 			_logger = LogManager.GetLogger(name);
-			log4net.Config.XmlConfigurator.Configure();
+			XmlConfigurator.Configure();
 		}
 
 		public void AddUserIdentityToLog(Exception e)

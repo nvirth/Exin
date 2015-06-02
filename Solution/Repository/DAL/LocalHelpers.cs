@@ -5,7 +5,6 @@ using System.Data.SQLite;
 using Common;
 using Common.Config;
 using Common.DbEntities;
-using Common.UiModels;
 using Common.UiModels.WPF;
 using DAL.DataBase.Managers;
 using Localization;

@@ -115,8 +115,8 @@ namespace ImportDataToDb
 
 		private static void ImportExpensesAndIncomes(string[] args)
 		{
-			string year = "";
-			string month = "";
+			//string year = "";
+			//string month = "";
 			string day = "";
 			string searchPattern = "*";
 			Regex directoryFilter = new Regex(".*");

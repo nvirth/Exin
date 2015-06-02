@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Common.DbEntities;
 using Common.Utils;
 using DAL.DataBase.EntityFramework.EntitiesMsSql;

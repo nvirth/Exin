@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Data;
-using System.Data.Common;
 using System.Data.Entity;
-using System.Data.SqlClient;
-using System.Data.SQLite;
+using Common;
 using Common.Config;
 using DAL.DataBase.EntityFramework.EntitiesMsSql;
 using DAL.DataBase.EntityFramework.EntitiesSqlite;
 using Localization;
-using DbType = Common.DbType;
 
 namespace DAL.DataBase.EntityFramework
 {

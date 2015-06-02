@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Common;
 using Common.Config;
 using Common.Utils;
-using DAL.DataBase.Managers;
 using Localization;
 
 namespace DAL

@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using Common.DbEntities;
 using Common.UiModels.WPF;
 using DAL.DataBase.Managers;
 
-namespace BLL.WpfManagers
+namespace BLL
 {
 	public static class SummaryManager
 	{

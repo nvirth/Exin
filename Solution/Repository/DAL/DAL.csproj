@@ -134,8 +134,6 @@
       <DependentUpon>ExinEf.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\EntityFramework\IdentityInsert.cs" />
-    <Compile Include="DataBase\EntityFramework\Managers\Base\IEfManagerBase.cs" />
-    <Compile Include="DataBase\EntityFramework\Managers\Base\EfManagerBase.cs" />
     <Compile Include="DataBase\EntityFramework\Managers\CategoryManagerEf.cs" />
     <Compile Include="DataBase\EntityFramework\Managers\SummaryItemManagerEf.cs" />
     <Compile Include="DataBase\EntityFramework\Managers\TransactionItemManagerEf.cs" />
@@ -144,7 +142,6 @@
     <Compile Include="DataBase\EntityFramework\Utils.cs" />
     <Compile Include="ExinConnectionString.cs" />
     <Compile Include="DataBase\AdoNet\IdentityInsert.cs" />
-    <Compile Include="DataBase\AdoNet\Managers\Base\AdoNetManagerBase.cs" />
     <Compile Include="DataBase\AdoNet\ExinAdoNetContext.cs" />
     <Compile Include="DataBase\AdoNet\Managers\CategoryManagerAdoNet.cs" />
     <Compile Include="DataBase\AdoNet\Managers\SummaryItemManagerAdoNet.cs" />

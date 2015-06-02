@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Threading;
+using Color = System.Drawing.Color;
 using H = Common.Utils.Helpers.Helpers;
 
 namespace Common.Utils
@@ -145,7 +146,7 @@ namespace Common.Utils
 			richTextBox.AppendText(msg);
 			richTextBox.SelectionStart = length;
 			richTextBox.SelectionLength = msg.Length;
-			richTextBox.SelectionColor = System.Drawing.Color.Red;
+			richTextBox.SelectionColor = Color.Red;
 
 			richTextBox.AppendText(Environment.NewLine);
 			richTextBox.ScrollToCaret();

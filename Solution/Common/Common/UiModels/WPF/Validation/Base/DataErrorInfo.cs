@@ -12,20 +12,11 @@ namespace Common.UiModels.WPF.Validation.Base
 	{
 		#region IDataErrorInfo members
 
-		public string this[string propertyName]
-		{
-			get
-			{
-				return DoValidation(propertyName);
-			}
-		}
+		public string this[string propertyName] => DoValidation(propertyName);
 
-		public string Error
-		{
-			get { return null; }
-		}
+	    public string Error => null;
 
-		#endregion
+	    #endregion
 
 		#region DoValidation
 
@@ -78,15 +69,9 @@ namespace Common.UiModels.WPF.Validation.Base
 
 		#region HandleRaw
 
-		public UpdateSourceExceptionFilterCallback HandleRaw
-		{
-			get
-			{
-				return HandleRawProposedValue;
-			}
-		}
+		public UpdateSourceExceptionFilterCallback HandleRaw => HandleRawProposedValue;
 
-		private object HandleRawProposedValue(object bindExpressionObj, Exception exception)
+	    private object HandleRawProposedValue(object bindExpressionObj, Exception exception)
 		{
 			var bindingExpression = bindExpressionObj as BindingExpression;
 			if (bindingExpression == null)

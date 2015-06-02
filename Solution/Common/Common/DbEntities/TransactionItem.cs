@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Common.Utils;
 using Common.Utils.Helpers;
-using UtilsShared;
 
 namespace Common.DbEntities
 {

@@ -6,7 +6,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using Common.UiModels.WPF.Base;
-using Common.Utils;
 using Common.Utils.Helpers;
 
 namespace Common.UiModels.WPF.Validation.Base
@@ -43,12 +42,9 @@ namespace Common.UiModels.WPF.Validation.Base
 			return _validationErrors[propertyName];
 		}
 
-		public bool HasErrors
-		{
-			get { return _validationErrors.Count > 0; }
-		}
+		public bool HasErrors => _validationErrors.Count > 0;
 
-		[field: NonSerialized]
+	    [field: NonSerialized]
 		public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 		private void RaiseErrorsChanged(string propertyName)
 		{

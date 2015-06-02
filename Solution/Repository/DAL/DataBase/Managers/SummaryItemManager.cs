@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Common;
 using Common.DbEntities;
 using Common.Log;
-using Common.UiModels;
 using Common.UiModels.WPF;
-using DAL.DataBase.AdoNet.Managers.Base;
-using DAL.DataBase.EntityFramework.EntitiesSqlite;
 using DAL.DataBase.Managers.Factory;
 using Localization;
 

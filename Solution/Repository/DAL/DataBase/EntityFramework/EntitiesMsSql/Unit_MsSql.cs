@@ -9,9 +9,6 @@
 
 namespace DAL.DataBase.EntityFramework.EntitiesMsSql
 {
-    using System;
-    using System.Collections.Generic;
-    
     public partial class Unit_MsSql
     {
         public int ID { get; set; }

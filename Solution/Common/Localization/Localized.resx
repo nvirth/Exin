@@ -1,3 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -611,7 +612,7 @@ or if you are familiar with SQL queries, you can also use the SQLite database fi
   <data name="Configuration_error__can_t_use_ReadMode_FromDb_and_SaveMode_OnlyToFile_together__" xml:space="preserve">
     <value>Configuration error: can't use ReadMode.FromDb and SaveMode.OnlyToFile together. </value>
   </data>
-  <data name="Error__More_than_one_exists_from_files_starting_with__{0}__FORMAT__" xml:space="preserve">
+  <data name="Error__More_than_one_exists_from_files_starting_with__0__FORMAT__" xml:space="preserve">
     <value>Error! More than one exists from files starting with '{0}':</value>
   </data>
   <data name="DateFormat_month_day" xml:space="preserve">
@@ -691,5 +692,8 @@ or if you are familiar with SQL queries, you can also use the SQLite database fi
   </data>
   <data name="__0__loading_daily_expenses__FORMAT__" xml:space="preserve">
     <value>{0}: loading daily expenses...</value>
+  </data>
+  <data name="SummaryEngineBase_ReadData_failed_" xml:space="preserve">
+    <value>SummaryEngineBase.ReadData failed. </value>
   </data>
 </root>

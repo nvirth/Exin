@@ -3,9 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using Common.Utils;
 using Common.Utils.Helpers;
-using UtilsShared;
 
 namespace WPF.Utils
 {
@@ -81,7 +79,7 @@ namespace WPF.Utils
 			if(string.IsNullOrWhiteSpace(sortByProperty))
 			{
 				var binding = headerClicked.Column.DisplayMemberBinding as Binding;
-				if(binding == null || binding.Path == null)
+				if(binding?.Path == null)
 					return true;
 
 				sortByProperty = binding.Path.Path;

@@ -237,7 +237,7 @@ namespace Common.Utils.Helpers
 			if(indexes.Count != 0)
 			{
 				int? firstAfterCurrent = indexes.FirstOrDefault(index => comboBox.SelectedIndex < index);
-				comboBox.SelectedIndex = firstAfterCurrent.HasValue ? firstAfterCurrent.Value : indexes[0].Value;
+				comboBox.SelectedIndex = firstAfterCurrent ?? indexes[0].Value;
 			}
 
 			e.Handled = true;

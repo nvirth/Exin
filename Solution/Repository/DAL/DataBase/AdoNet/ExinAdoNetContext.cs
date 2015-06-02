@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Configuration;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Data.SQLite;
-using System.Transactions;
 using Common.Log;
 using Localization;
 using Config = Common.Config.Config;
@@ -127,13 +125,10 @@ namespace DAL.DataBase.AdoNet
 		{
 			if(!_isDisposed)
 			{
-				if(Connection != null)
-					Connection.Close();
+			    Connection?.Close();
+			    DataSet?.Dispose();
 
-				if(DataSet != null)
-					DataSet.Dispose();
-
-				GC.SuppressFinalize(this);
+			    GC.SuppressFinalize(this);
 				_isDisposed = true;
 			}
 		}

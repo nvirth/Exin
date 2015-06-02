@@ -7,12 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+
 namespace DAL.DataBase.EntityFramework.EntitiesMsSql
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Infrastructure;
-    
     public partial class ExinEfMsSqlContext : DbContext
     {
         public ExinEfMsSqlContext()

@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Common;
 using Common.Config;
 using Localization;
@@ -44,12 +39,9 @@ namespace DAL
 
 		#region Delegating members
 
-		public static string Get
-		{
-			get { return _core.Get; }
-		}
+		public static string Get => _core.Get;
 
-		#endregion
+	    #endregion
 	}
 
 	public abstract class ExinConnectionStringManagerBase
@@ -93,15 +85,9 @@ namespace DAL
 			}
 		}
 
-		protected override string _adoNetConnStrName
-		{
-			get { return "ExinConnectionString"; }
-		}
+		protected override string _adoNetConnStrName => "ExinConnectionString";
 
-		protected override string _efConnStrName
-		{
-			get { return "ExinEfMsSqlConnStr"; }
-		}
+	    protected override string _efConnStrName => "ExinEfMsSqlConnStr";
 	}
 
 	/// <summary>
@@ -128,15 +114,9 @@ namespace DAL
 			}
 		}
 
-		protected override string _adoNetConnStrName
-		{
-			get { return "ExinSQLiteConnectionString"; }
-		}
+		protected override string _adoNetConnStrName => "ExinSQLiteConnectionString";
 
-		protected override string _efConnStrName
-		{
-			get { return "ExinEfSqliteConnStr"; }
-		}
+	    protected override string _efConnStrName => "ExinEfSqliteConnStr";
 	}
 
 }

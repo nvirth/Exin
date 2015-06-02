@@ -1,8 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Navigation;
-using Common.Utils;
 using Common.Utils.Helpers;
-using UtilsShared;
 
 namespace WPF
 {

@@ -1,16 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using Common;
 using Common.DbEntities;
 using Common.Log;
-using Common.Utils;
 using Common.Utils.Helpers;
-using DAL.DataBase.AdoNet.Managers.Base;
 using DAL.DataBase.Managers;
-using DAL.FileRepo;
 using Localization;
 using Config = Common.Config.Config;
 using DbType = Common.DbType;

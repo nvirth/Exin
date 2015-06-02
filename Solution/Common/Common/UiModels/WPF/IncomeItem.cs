@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Xml.Linq;
 using Common.DbEntities;
-using Common.Utils;
 using Common.Utils.Helpers;
-using UtilsShared;
 
 namespace Common.UiModels.WPF
 {
@@ -24,7 +22,7 @@ namespace Common.UiModels.WPF
 
 		public override XElement ToXml()
 		{
-			return new XElement("IncomeItem", new[]
+			return new XElement("IncomeItem", new object[]
 			{
 				new XElement("Title", Title),
 				new XElement("Amount", Amount),

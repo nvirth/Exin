@@ -7,11 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
+
 namespace DAL.DataBase.EntityFramework.EntitiesMsSql
 {
-    using System;
-    using System.Collections.Generic;
-    
     public partial class TransactionItem_MsSql
     {
         public int ID { get; set; }
@@ -20,7 +19,7 @@ namespace DAL.DataBase.EntityFramework.EntitiesMsSql
         public int UnitID { get; set; }
         public string Title { get; set; }
         public string Comment { get; set; }
-        public System.DateTime Date { get; set; }
+        public DateTime Date { get; set; }
         public int CategoryID { get; set; }
         public bool IsExpenseItem { get; set; }
         public bool IsIncomeItem { get; set; }

@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using Common.DbEntities;
-using Common.Utils;
 using Common.Utils.Helpers;
-using UtilsShared;
 
 namespace Common.UiModels.WPF
 {
@@ -61,7 +59,7 @@ namespace Common.UiModels.WPF
 
 		public override XElement ToXml()
 		{
-			return new XElement("ExpenseItem", new[]
+			return new XElement("ExpenseItem", new object[]
 			{
 				new XElement("Title", Title),
 				new XElement("Amount", Amount),

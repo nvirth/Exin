@@ -1,24 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Transactions;
 using Common;
 using Common.DbEntities;
 using Common.Log;
-using Common.UiModels;
 using Common.UiModels.WPF;
-using Common.Utils;
 using Common.Utils.Helpers;
-using DAL.DataBase.AdoNet.Managers.Base;
 using DAL.DataBase.Managers;
 using Localization;
 using Config = Common.Config.Config;
 using DbType = Common.DbType;
-using IsolationLevel = System.Data.IsolationLevel;
 
 namespace DAL.DataBase.AdoNet.Managers
 {

@@ -1,8 +1,6 @@
-﻿using System.Data.Entity;
-using Common.DbEntities;
+﻿using Common.DbEntities;
 using Common.Utils;
 using Common.Utils.Helpers;
-using DAL.DataBase.EntityFramework.EntitiesSqlite;
 
 namespace DAL.DataBase.EntityFramework.EntitiesMsSql
 {

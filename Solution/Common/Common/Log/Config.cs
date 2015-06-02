@@ -5,6 +5,6 @@
 		public const int JSON = 0;
 		public const int XML = 1;
 
-		public const int LogDataMode = JSON;
+        public static int LogDataMode => JSON;
 	}
 }

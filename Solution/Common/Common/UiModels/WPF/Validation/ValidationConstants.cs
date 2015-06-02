@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Common.UiModels.WPF.Validation
+﻿namespace Common.UiModels.WPF.Validation
 {
 	/// <summary>
 	/// Before localization, the messages contained fix string messages. Now, they contain resource keys. 

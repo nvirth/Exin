@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Transactions;
-using AutoMapper;
 using Common;
 using Common.DbEntities;
 using Common.Log;
@@ -14,10 +10,9 @@ using Common.UiModels.WPF;
 using DAL.DataBase.EntityFramework.EntitiesMsSql;
 using DAL.DataBase.EntityFramework.EntitiesSqlite;
 using DAL.DataBase.Managers;
-using Localization;
 using EntityFramework.Extensions;
+using Localization;
 using Config = Common.Config.Config;
-using DbType = Common.DbType;
 using SummaryItemCommon = Common.DbEntities.SummaryItem;
 
 namespace DAL.DataBase.EntityFramework.Managers

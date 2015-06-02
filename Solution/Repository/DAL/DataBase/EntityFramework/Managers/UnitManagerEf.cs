@@ -1,22 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
-using System.Linq;
-using AutoMapper;
 using Common;
 using Common.Log;
-using Common.UiModels.WinForms;
-using Common.UiModels.WPF;
-using DAL.DataBase.AdoNet;
 using DAL.DataBase.EntityFramework.EntitiesMsSql;
 using DAL.DataBase.EntityFramework.EntitiesSqlite;
-using DAL.DataBase.EntityFramework.Managers.Base;
 using DAL.DataBase.Managers;
-using DAL.FileRepo;
 using Localization;
 using Config = Common.Config.Config;
-using DbType = Common.DbType;
 using UnitCommon = Common.DbEntities.Unit;
 
 namespace DAL.DataBase.EntityFramework.Managers

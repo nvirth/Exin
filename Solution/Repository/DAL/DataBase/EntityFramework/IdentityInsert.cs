@@ -1,5 +1,4 @@
 ﻿using System;
-using DAL.DataBase.AdoNet;
 using DAL.DataBase.EntityFramework.EntitiesMsSql;
 using DAL.DataBase.EntityFramework.EntitiesSqlite;
 using Localization;
@@ -12,7 +11,7 @@ namespace DAL.DataBase.EntityFramework
 		private readonly bool _activate;
 
 		/// <summary>
-		/// In ctr it activates the identity insert for a specific table. 
+		/// In ctor it activates the identity insert for a specific table. 
 		/// In dtor it deactivates it. 
 		/// So it can be used in a 'using(...){...}' context. 
 		/// 

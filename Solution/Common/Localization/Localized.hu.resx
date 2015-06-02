@@ -1,3 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
 		Microsoft ResX Schema
@@ -388,9 +389,6 @@
   <data name="EnumDescriptionConverter_ConvertBack_is_not_supported__" xml:space="preserve">
     <value>EnumDescriptionConverter.ConvertBack is not supported. </value>
   </data>
-  <data name="Error__More_than_one_exists_from_files_starting_with__{0}__FORMAT__" xml:space="preserve">
-    <value>Hiba! Több is található a '{0}' kezdetű fájlokból:</value>
-  </data>
   <data name="Error_occured_while_creating_the_SQLite_database_file" xml:space="preserve">
     <value>Hiba történt az SQLite adatbázis fájl létrehozása közben. </value>
   </data>
@@ -671,5 +669,11 @@ A beviteli mezőkben:
   </data>
   <data name="Today_s_expenses_loading__" xml:space="preserve">
     <value>Mai kiadások betöltése...</value>
+  </data>
+  <data name="Error__More_than_one_exists_from_files_starting_with__0__FORMAT__" xml:space="preserve">
+    <value>Hiba! Több is található a '{0}' kezdetű fájlokból:</value>
+  </data>
+  <data name="SummaryEngineBase_ReadData_failed_" xml:space="preserve">
+    <value>SummaryEngineBase.ReadData failed. </value>
   </data>
 </root>

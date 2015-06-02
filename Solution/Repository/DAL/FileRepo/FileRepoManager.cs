@@ -663,7 +663,7 @@ namespace DAL.FileRepo
 				else
 					statisticsData.Insert(~dataIndex, newDataRow);	// If not, insert it
 			}
-			catch(Exception e) // Did not exist statistics file
+			catch(Exception) // Did not exist statistics file
 			{
 				var lastFile = RepoPaths.DirectoryInfos.CategorisedSummaries.EnumerateFiles().LastOrDefault();
 

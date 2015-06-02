@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Common;
 using Common.DbEntities;
 using Common.Log;
-using DAL.DataBase.AdoNet;
-using DAL.DataBase.EntityFramework;
 using DAL.DataBase.Managers.Factory;
 using DAL.FileRepo;
 using Localization;
-using UtilsShared;
 using Config = Common.Config.Config;
 
 namespace DAL.DataBase.Managers
@@ -183,12 +179,12 @@ namespace DAL.DataBase.Managers
 	{
 		private static readonly ICategoryManager Manager = ManagerFactory.ICategoryManager;
 
-		public static Category GetCategoryOthers { get { return Manager.GetByName("Others"); } }
-		public static Category GetCategoryNone { get { return Manager.Get(0); } }
-		public static Category GetCategoryFullExpenseSummary { get { return Manager.Get(1); } }
-		public static Category GetCategoryFullIncomeSummary { get { return Manager.Get(2); } }
+		public static Category GetCategoryOthers => Manager.GetByName("Others");
+	    public static Category GetCategoryNone => Manager.Get(0);
+	    public static Category GetCategoryFullExpenseSummary => Manager.Get(1);
+	    public static Category GetCategoryFullIncomeSummary => Manager.Get(2);
 
-		public static void ClearCache()
+	    public static void ClearCache()
 		{
 			Manager.ClearCache();
 		}

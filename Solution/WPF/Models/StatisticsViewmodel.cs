@@ -1,21 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using BLL.WpfManagers;
+using BLL;
 using Common.DbEntities;
-using Common.UiModels;
 using Common.UiModels.WPF;
 using Common.UiModels.WPF.Base;
-using Common.Utils;
 using Common.Utils.Helpers;
 using DAL.DataBase.Managers;
 
-namespace WPF
+namespace WPF.Models
 {
 	public class StatisticsViewmodel : ChainedCommonBase
 	{

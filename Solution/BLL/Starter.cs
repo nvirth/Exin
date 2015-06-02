@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using BLL.WpfManagers;
-using Common;
 using Common.Config;
-using Common.Log;
 using Common.Utils;
 using Common.Utils.Helpers;
 using DAL;
 using Localization;
-using UtilsShared;
-using Config = Common.Config.Config;
 
 namespace BLL
 {
@@ -20,7 +16,7 @@ namespace BLL
 		/// </summary>
 		public static async Task<DailyExpenses> Start(DateTime? date = null)
 		{
-			var dateTime = date.HasValue ? date.Value : DateTime.Now;
+			var dateTime = date ?? DateTime.Now;
 			await CheckSystem();
 			return new DailyExpenses(dateTime, /*doWork*/ true);
 		}
@@ -44,8 +40,8 @@ namespace BLL
 			MessagePresenter.WriteError(string.Format(Localized.Could_not_find_the_Exin_s_work_directory_here__0__FORMAT__, RepoPaths.DirectoryInfos.Root));
 			MessagePresenter.WriteLine(Localized.The_app_will_now_create_the_necessary_directories);
 			MessagePresenter.WriteLine("");
-			
-			RepoPaths.InitRepo();
+
+		    RepoPaths.InitRepo();
 			
 			MessagePresenter.WriteLine("");
 			MessagePresenter.WriteLine(Localized.All_created_successfully_);

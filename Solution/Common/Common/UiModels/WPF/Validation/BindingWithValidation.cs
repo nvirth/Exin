@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
-using System.Xaml;
 using Common.UiModels.WPF.Validation.Base;
 using Common.Utils;
-using UtilsShared;
 
 namespace Common.UiModels.WPF.Validation
 {

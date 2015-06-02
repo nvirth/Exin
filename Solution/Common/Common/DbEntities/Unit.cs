@@ -1,7 +1,5 @@
 ﻿using System;
-using Common.Utils;
 using Common.Utils.Helpers;
-using UtilsShared;
 
 namespace Common.DbEntities
 {

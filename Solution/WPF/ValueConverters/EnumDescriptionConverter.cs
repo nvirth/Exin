@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
-using Common.Utils;
 using Common.Utils.Helpers;
 using Localization;
 

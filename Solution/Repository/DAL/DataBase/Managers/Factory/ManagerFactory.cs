@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using Common;
 using Common.Log;
 using DAL.DataBase.AdoNet.Managers;

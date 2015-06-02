@@ -1,25 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SqlClient;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Xml.Linq;
 using Common;
 using Common.Config;
-using Common.DbEntities;
-using Common.UiModels;
-using Common.UiModels.WPF;
 using Common.Utils;
-using DAL;
-using DAL.DataBase.AdoNet;
-using DAL.DataBase.AdoNet.Managers;
-using DAL.DataBase.Managers;
-using DAL.FileRepo;
 using Localization;
-using UtilsShared;
 
 namespace ImportDataToDb
 {

@@ -1,18 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Transactions;
 using Common;
 using Common.DbEntities;
-using DAL.DataBase.AdoNet;
-using DAL.DataBase.AdoNet.Managers.Base;
 using DAL.DataBase.Managers.Factory;
-using Config = Common.Config.Config;
 
 namespace DAL.DataBase.Managers
 {

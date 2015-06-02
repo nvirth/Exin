@@ -1,13 +1,5 @@
-﻿using System;
-using System.Data.Entity;
-using System.IO;
-using System.Runtime.CompilerServices;
-using Common;
-using Common.Config;
+﻿using Common.Config;
 using Common.DbEntities;
-using DAL.DataBase.EntityFramework;
-using DAL.DataBase.EntityFramework.EntitiesMsSql;
-using DAL.DataBase.EntityFramework.EntitiesSqlite;
 
 namespace DAL.DataBase.AdoNet
 {

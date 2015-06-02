@@ -18,10 +18,10 @@ namespace Common.Utils
 		/// <returns></returns>
 		public static IMappingExpression InitializeIfNeeded(out bool wasNew, TSource sourceProxy = default(TSource), TDestination destinationProxy = default(TDestination))
 		{
-			var isSourceProxy = !object.Equals(sourceProxy, default(TSource));
+			var isSourceProxy = !Equals(sourceProxy, default(TSource));
 			var sourceType = isSourceProxy ? sourceProxy.GetType() : typeof(TSource);
 
-			var isDestinationProxy = !object.Equals(destinationProxy, default(TDestination));
+			var isDestinationProxy = !Equals(destinationProxy, default(TDestination));
 			var destinationType = isDestinationProxy ? destinationProxy.GetType() : typeof(TDestination);
 
 			var key = new Tuple<Type, Type>(sourceType, destinationType);

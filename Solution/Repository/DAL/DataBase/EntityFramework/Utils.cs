@@ -4,15 +4,10 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
-using Common;
 using Common.Config;
-using Common.DbEntities;
 using DAL.DataBase.EntityFramework.EntitiesMsSql;
 using DAL.DataBase.EntityFramework.EntitiesSqlite;
-using EntityFramework.Extensions;
 using Localization;
 
 namespace DAL.DataBase.EntityFramework

@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Common.DbEntities;
 using Common.UiModels.WPF.Base;
-using Common.UiModels.WPF.Validation;
-using Common.Utils;
 using Common.Utils.Helpers;
-using UtilsShared;
 
 namespace Common.UiModels.WPF
 {

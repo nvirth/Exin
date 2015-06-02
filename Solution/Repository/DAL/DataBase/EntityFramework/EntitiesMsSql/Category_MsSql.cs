@@ -7,11 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+
 namespace DAL.DataBase.EntityFramework.EntitiesMsSql
 {
-    using System;
-    using System.Collections.Generic;
-    
     public partial class Category_MsSql
     {
         public Category_MsSql()

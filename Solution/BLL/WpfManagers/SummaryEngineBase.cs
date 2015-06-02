@@ -2,13 +2,13 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Common;
-using Common.Config;
-using Common.UiModels.WinForms;
+using Common.Log;
 using Common.UiModels.WPF;
 using Common.UiModels.WPF.Base;
 using Common.Utils;
 using Common.Utils.Helpers;
 using Localization;
+using Config = Common.Config.Config;
 
 namespace BLL.WpfManagers
 {
@@ -149,6 +149,7 @@ namespace BLL.WpfManagers
 			}
 			catch(Exception e)
 			{
+                ExinLog.ger.LogException(Localized.SummaryEngineBase_ReadData_failed_, e);
 				HasError = true;
 			}
 			IsReady = true;

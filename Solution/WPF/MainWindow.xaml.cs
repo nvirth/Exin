@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
-using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,23 +9,19 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using BLL;
 using BLL.WpfManagers;
 using Common;
+using Common.Annotations;
 using Common.Config;
 using Common.DbEntities;
-using Common.UiModels;
 using Common.UiModels.WPF;
 using Common.Utils;
 using Common.Utils.Helpers;
 using DAL;
 using DAL.DataBase.Managers;
-using UtilsShared;
-using WPF.Annotations;
-using Localization;
+using WPF.Models;
 using WPF.Utils;
 
 namespace WPF
@@ -341,7 +335,7 @@ namespace WPF
 		private void RedoMonthlyExpensesButton_OnClick(object sender, RoutedEventArgs e)
 		{
 			var selectedDate = SummaryDate.SelectedDate ?? DateTime.Now;
-			Model.MonthlyExpenses = new MonthlyExpenses(selectedDate, /* doWork */ true, /* forceRedo */ true);
+			Model.MonthlyExpenses = new MonthlyExpenses(selectedDate, /* doWork */ true);
 		}
 
 		private void MonthlyExpensesLW_MouseDoubleClick(object sender, MouseButtonEventArgs e)

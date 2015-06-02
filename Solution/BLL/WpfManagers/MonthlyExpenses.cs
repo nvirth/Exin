@@ -30,9 +30,9 @@ namespace BLL.WpfManagers
 		// THAT IT WILL BE CALLED ON A CLASS WHOSE CONSTRUCTOR HAS NOT BEEN RUN, 
 		// and therefore may not be in a suitable state to have that method called. 
 
-		public MonthlyExpenses(bool doWork = true, bool forceRedo = false) : this(DateTime.Now, doWork, forceRedo) { }
-		public MonthlyExpenses(DateTime dateTime, bool doWork = true, bool forceRedo = false) : this(new DatePaths(dateTime), doWork, forceRedo) { }
-		public MonthlyExpenses(DatePaths datePaths, bool doWork = true, bool forceRedo = false) : base(datePaths, doWork) { }
+		public MonthlyExpenses(bool doWork = true) : this(DateTime.Now, doWork) { }
+		public MonthlyExpenses(DateTime dateTime, bool doWork = true) : this(new DatePaths(dateTime), doWork) { }
+		public MonthlyExpenses(DatePaths datePaths, bool doWork = true) : base(datePaths, doWork) { }
 
 		#endregion
 

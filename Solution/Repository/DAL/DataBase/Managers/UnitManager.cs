@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
 using Common;
+using Common.DbEntities;
 using Common.Log;
-using DAL.DataBase.AdoNet;
 using DAL.DataBase.Managers.Factory;
 using DAL.FileRepo;
 using Localization;
 using Config = Common.Config.Config;
-using Unit = Common.DbEntities.Unit;
 
 namespace DAL.DataBase.Managers
 {
@@ -181,10 +178,10 @@ namespace DAL.DataBase.Managers
 	public static class UnitManager
 	{
 		private static readonly IUnitManager Manager = ManagerFactory.IUnitManager;
-		public static Unit GetUnitDb { get { return Manager.GetByName("Db"); } }
-		public static Unit GetUnitNone { get { return Manager.Get(0); } }
+		public static Unit GetUnitDb => Manager.GetByName("Db");
+	    public static Unit GetUnitNone => Manager.Get(0);
 
-		public static void ClearCache()
+	    public static void ClearCache()
 		{
 			Manager.ClearCache();
 		}

@@ -1,20 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+﻿using System.Collections.ObjectModel;
 using BLL.WpfManagers;
 using Common.DbEntities;
-using Common.UiModels;
 using Common.UiModels.WPF;
 using Common.UiModels.WPF.Base;
 using DAL.DataBase.Managers;
-using UtilsShared;
 using WPF.Utils;
 
-namespace WPF
+namespace WPF.Models
 {
 	public class MainWindowViewmodel : ChainedCommonBase
 	{
@@ -95,31 +87,12 @@ namespace WPF
 		}
 
 		private ObservableCollection<Category> _allCategories;
-		public ObservableCollection<Category> AllCategories
-		{
-			get
-			{
-				if(_allCategories == null)
-					_allCategories = new ObservableCollection<Category>(CategoryManager.GetAllValid());
+		public ObservableCollection<Category> AllCategories => _allCategories ?? (_allCategories = new ObservableCollection<Category>(CategoryManager.GetAllValid()));
 
-				return _allCategories;
-			}
-		}
+	    private ObservableCollection<Unit> _allUnits;
+		public ObservableCollection<Unit> AllUnits => _allUnits ?? (_allUnits = new ObservableCollection<Unit>(UnitManager.GetAllValid()));
 
-		private ObservableCollection<Unit> _allUnits;
-		public ObservableCollection<Unit> AllUnits
-		{
-			get
-			{
-				if(_allUnits == null)
-					_allUnits = new ObservableCollection<Unit>(UnitManager.GetAllValid());
-
-				return _allUnits;
-
-			}
-		}
-
-		public DatePickerFromCodeDateChanger DateChanger;
+	    public DatePickerFromCodeDateChanger DateChanger;
 
 		// ---
 

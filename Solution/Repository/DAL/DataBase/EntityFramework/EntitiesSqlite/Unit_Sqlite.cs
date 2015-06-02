@@ -9,9 +9,6 @@
 
 namespace DAL.DataBase.EntityFramework.EntitiesSqlite
 {
-    using System;
-    using System.Collections.Generic;
-    
     public partial class Unit_Sqlite
     {
         public long ID { get; set; }
