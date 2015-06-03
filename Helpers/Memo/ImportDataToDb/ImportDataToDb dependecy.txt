@@ -5,9 +5,3 @@
     <Copy SourceFiles="..\Repository\ImportDataToDb\bin\$(Configuration)\ImportDataToDb.exe.config" 
           DestinationFolder="$(TargetDir)" />
   </Target>
-  
-Projects, where this is in use:
-+ WPF
-- WEB
-- WinForms
-? UnitTests
