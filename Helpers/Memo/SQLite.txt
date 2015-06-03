@@ -1,7 +1,10 @@
 ﻿- There are no Stored Procedures in it
 - There are some crap around the Foreig Keys; it does not check them automatically, instead it seems like it would have to be written into every query this check mechanism... So instead we use triggers
+
 - There is an awesome open source project to convert MS SQL databases completely into SQLite:
 http://www.codeproject.com/Articles/26932/Convert-SQL-Server-DB-to-SQLite-DB
+- This is the SQLite .NET Provider:
+http://system.data.sqlite.org/index.html/doc/trunk/www/downloads.wiki
 
 - This stuff is pretty "lite"... Especially it's .NET providers...
 	- When I open a Connection, I'm immediately in a transaction (like I'd have written "BEGIN"). This is shit because if I run a new query (with commit) after the previous one is committed, that would be ok; but if I don't close the connection (e.g. in unfortunate case of inserting in foreach), than in the 2. case, a commit would end up with an error, because there wasn't any BEGIN yet.
