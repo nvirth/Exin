@@ -16,7 +16,6 @@
         SaveMode
         DbAccessMode
         DbType
-
 -->
   <appSettings>
     <add key="SolutionName" value="Exin" />
@@ -44,9 +43,4 @@
 
     <!-- Possible values: SQLite, MsSql />-->
     <add key="DbType" value="SQLite" />
-
-    <!-- TODO remove this as soon as possible.
-            http://stackoverflow.com/questions/11963270/purpose-of-clientsettingsprovider-serviceuri-in-app-config
-    -->
-    <add key="ClientSettingsProvider.ServiceUri" value="" />
   </appSettings>
