@@ -1,1 +1,6 @@
-App.config - config transfor <-- To add App.Debug.config and App.Release.config, install the extension Slow Cheetah; then right click on the App.config, and select "add transform"
+App.config - config transfor <-- To add App.Debug.config and App.Release.config, install the VS extension Slow Cheetah; then right click on the App.config, and select "add transform"
+
+Here is the extension:
+https://visualstudiogallery.msdn.microsoft.com/69023d00-a4f9-4a34-a6cd-7e854ba318b5
+
+It's not for VS2015 yet (2015.06.03)

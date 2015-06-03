@@ -1,0 +1,6 @@
+You need to create a local copy of all the template files/folders, so the files ending with .template.
+Never commit these local copies! There are in the git ignore list, so they won't be commited by accident.
+
+The complate list of these templates:
+
+An example:
