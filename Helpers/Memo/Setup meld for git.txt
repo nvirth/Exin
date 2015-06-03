@@ -1,0 +1,13 @@
+Setup meld for git (on Windows)
+
+You need to add the below lines to ~/.gitconfig (which is at c:\Users\<UserName>\.gitconfig in Windows by default)
+
+[merge]
+	tool = meld
+[mergetool "meld"]
+    prompt = false
+    keepBackup = true
+    keepTemporaries = true
+	path = c:/Program Files (x86)/Meld/Meld.exe
+[difftool]
+	prompt = false

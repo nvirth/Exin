@@ -163,7 +163,6 @@
     <Compile Include="SQLiteSpecific.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
     <EntityDeploy Include="DataBase\EntityFramework\EntitiesMsSql\ExinEfMsSql.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ExinEfMsSql.Designer.cs</LastGenOutput>

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+    THIS IS A TRACKED TEMPLATE FILE.
+    NEVER MODIFY THIS DIRECTLY!
+
+    Create a copy of this file named "ConnectionStrings.config",
+    and only modify that file! That one is present in the .gitignore, so
+    never will be committed. Not like this one. 
+-->
+<!--
+    You don't need to modify anything in this file's local copy when creating it.
+
+    Description of the placeholders:
+
+    COMES FROM CONFIG TRANSFORM
+    -> This only marks the attribute, that its value will be the result of a config transform (compile time)
+
+    #SQLITE_REPO_FULLPATH#
+    -> This is a placeholder, its value will only be replaced runtime by code (to the appSettings member "RootDir")
+-->
+  <connectionStrings>
+    <clear />
+
+    <!--Ado.Net-->
+    <add name="ExinConnectionString" connectionString="COMES FROM CONFIG TRANSFORM" />
+    <add name="ExinSQLiteConnectionString" connectionString="data source=#SQLITE_REPO_FULLPATH#" />
+    
+    <!--EntityFramework-->
+    <add name="ExinEfSqliteConnStr" connectionString="metadata=res://*/DataBase.EntityFramework.EntitiesSqlite.ExinEf.csdl|res://*/DataBase.EntityFramework.EntitiesSqlite.ExinEf.ssdl|res://*/DataBase.EntityFramework.EntitiesSqlite.ExinEf.msl;provider=System.Data.SQLite;provider connection string=&quot;data source=#SQLITE_REPO_FULLPATH#&quot;" providerName="System.Data.EntityClient" />
+    <add name="ExinEfMsSqlConnStr" connectionString="COMES FROM CONFIG TRANSFORM" providerName="COMES FROM CONFIG TRANSFORM" />
+  </connectionStrings>

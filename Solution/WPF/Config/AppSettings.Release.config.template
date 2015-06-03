@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+    THIS IS A TRACKED TEMPLATE FILE.
+    NEVER MODIFY THIS DIRECTLY!
+
+    Create a copy of this file named "AppSettings.Release.config",
+    and only modify that file! That one is present in the .gitignore, so
+    never will be committed. Not like this one. 
+-->
+<!--
+	You need to give here the (full or relative) path of the repository, where
+	your data will be stored in production. You have to type the path in place of this:
+	[[REPO'S PATH HERE]]
+
+	Future plan is to make it by default "", so the data repo will be deployed under
+	the installation folder. During development, this'll mean bin\Release\[repo]\
+-->
+<!-- For more information on using transformations 
+     see the web.config examples at http://go.microsoft.com/fwlink/?LinkId=214134. -->
+<appSettings xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+    <add key="RootDir" value="[[REPO'S PATH HERE]]"
+          xdt:Transform="SetAttributes" xdt:Locator="Match(key)" />
+</appSettings>

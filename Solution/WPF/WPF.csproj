@@ -144,12 +144,26 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="App.Debug.config">
-      <DependentUpon>App.config</DependentUpon>
+    <None Include="Config\AppSettings.config">
+      <TransformOnBuild>true</TransformOnBuild>
+    </None>
+    <None Include="Config\AppSettings.Debug.config">
+      <DependentUpon>AppSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
-    <None Include="App.Release.config">
-      <DependentUpon>App.config</DependentUpon>
+    <None Include="Config\AppSettings.Release.config">
+      <DependentUpon>AppSettings.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="Config\ConnectionStrings.config">
+      <TransformOnBuild>true</TransformOnBuild>
+    </None>
+    <None Include="Config\ConnectionStrings.Debug.config">
+      <DependentUpon>ConnectionStrings.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="Config\ConnectionStrings.Release.config">
+      <DependentUpon>ConnectionStrings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
     <None Include="packages.config" />

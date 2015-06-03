@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+    THIS IS A TRACKED TEMPLATE FILE.
+    NEVER MODIFY THIS DIRECTLY!
+
+    Create a copy of this file named "AppSettings.config",
+    and only modify that file! That one is present in the .gitignore, so
+    never will be committed. Not like this one. 
+-->
+<!--
+    You don't need to modify anything in this file's local copy when creating it.
+
+    The section DATA REPOSITORY SETTINGS usually does not need any modification.
+    These members may have multiple values:
+        ReadMode
+        SaveMode
+        DbAccessMode
+        DbType
+
+-->
+  <appSettings>
+    <add key="SolutionName" value="Exin" />
+
+    <!-- DATA REPOSITORY SETTINGS (START) -->
+        <add key="RootDir" value="COMES FROM CONFIG TRANSFORM" />
+        <add key="ResourcesRelativePath" value="" />
+        <add key="MonthlyExpenseSummariesDir" value="0_Összesen" />
+        <add key="MonthlyExpenseStatisticsDir" value="0_Összesen - Kategóriák" />
+        <add key="MonthlyExpensesFileName" value="Összesen" />
+        <add key="MonthlyIncomesFileName" value="Bevételek" />
+        <add key="UnitResources" value="Units.xml" />
+        <add key="CategoryResources" value="Categories.xml" />
+        <add key="FileExtension" value="xml" />
+    <!-- DATA REPOSITORY SETTINGS (END) -->
+    
+    <!-- Possible values: FromFile, FromDb />-->
+    <add key="ReadMode" value="FromDb" />
+    
+    <!-- Possible values: OnlyToFile, FileAndDb />-->
+    <add key="SaveMode" value="FileAndDb" />
+
+    <!-- Possible values: AdoNet, EntityFramework />-->
+    <add key="DbAccessMode" value="EntityFramework" />
+
+    <!-- Possible values: SQLite, MsSql />-->
+    <add key="DbType" value="SQLite" />
+
+    <!-- TODO remove this as soon as possible.
+            http://stackoverflow.com/questions/11963270/purpose-of-clientsettingsprovider-serviceuri-in-app-config
+    -->
+    <add key="ClientSettingsProvider.ServiceUri" value="" />
+  </appSettings>
