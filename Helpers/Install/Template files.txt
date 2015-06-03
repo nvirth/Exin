@@ -11,3 +11,9 @@ Solution/WPF/Config/AppSettings.config.template
 Solution/WPF/Config/ConnectionStrings.Debug.config.template
 Solution/WPF/Config/ConnectionStrings.Release.config.template
 Solution/WPF/Config/ConnectionStrings.config.template
+
+--------
+Optional
+--------
+Solution/Repository/FileRepoDeveloper.template/
+-> This folder contains sandbox data for Debug mode. Creating a local copy of it is optional, because the app will init an empty repo if does not find any. Only that case, the DeveloperRepo will be empty.
