@@ -23,5 +23,11 @@ namespace WPF
 			// The exceptions' message will be english 
 			Helpers.SetDefaultCultureToEnglish();
 		}
-	}
+
+	    protected override void OnStartup(StartupEventArgs e)
+	    {
+            // Do not run multiple instances from the app
+            ApplicationRunningHelper.SwitchToRunningInstanceIfExists();
+        }
+    }
 }

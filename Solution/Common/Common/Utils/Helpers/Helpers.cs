@@ -176,6 +176,25 @@ namespace Common.Utils.Helpers
 
 		#endregion
 
+		#region PrintCurrentProcessMemoryUsage
+
+		/// <summary>
+		/// Prints all kind of memory usage of the current process
+		/// </summary>
+		public static void PrintCurrentProcessMemoryUsage()
+		{
+			var currentProcess = Process.GetCurrentProcess();
+			MessagePresenter.WriteLine("currentProcess.NonpagedSystemMemorySize64: " + currentProcess.NonpagedSystemMemorySize64);
+			MessagePresenter.WriteLine("currentProcess.PagedMemorySize64: " + currentProcess.PagedMemorySize64);
+			MessagePresenter.WriteLine("currentProcess.PagedSystemMemorySize64: " + currentProcess.PagedSystemMemorySize64);
+			MessagePresenter.WriteLine("currentProcess.PeakPagedMemorySize64: " + currentProcess.PeakPagedMemorySize64);
+			MessagePresenter.WriteLine("currentProcess.PeakVirtualMemorySize64: " + currentProcess.PeakVirtualMemorySize64);
+			MessagePresenter.WriteLine("currentProcess.PrivateMemorySize64: " + currentProcess.PrivateMemorySize64);
+			MessagePresenter.WriteLine("currentProcess.VirtualMemorySize64: " + currentProcess.VirtualMemorySize64);
+		}
+
+		#endregion
+
 		#endregion
 
 		#region Extension methods

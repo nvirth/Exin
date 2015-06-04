@@ -85,6 +85,7 @@
     <Compile Include="UiModels\WPF\TransactionItemBase.cs" />
     <Compile Include="UiModels\WPF\Validation\Entities\TransactionItemBase.cs" />
     <Compile Include="UiModels\WPF\Validation\ValidationConstants.cs" />
+    <Compile Include="Utils\ApplicationRunningHelper.cs" />
     <Compile Include="Utils\Helpers\Helpers.cs" />
     <Compile Include="Log\Config.cs" />
     <Compile Include="Log\ExceptionHelpers.cs" />
