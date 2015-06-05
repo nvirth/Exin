@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Common;
 using Common.DbEntities;
 using Common.Log;
+using Common.UiModels.WPF.DefaultValues;
 using DAL.DataBase.Managers.Factory;
 using DAL.FileRepo;
 using Localization;
@@ -179,10 +180,16 @@ namespace DAL.DataBase.Managers
 	{
 		private static readonly ICategoryManager Manager = ManagerFactory.ICategoryManager;
 
+		public static Category GetDefaultCategory => GetCategoryOthers;
 		public static Category GetCategoryOthers => Manager.GetByName("Others");
 	    public static Category GetCategoryNone => Manager.Get(0);
 	    public static Category GetCategoryFullExpenseSummary => Manager.Get(1);
 	    public static Category GetCategoryFullIncomeSummary => Manager.Get(2);
+
+		static CategoryManager()
+		{
+				DefaultValueProvider.Instance.InitDefaultCategory(() => GetDefaultCategory);
+		}
 
 	    public static void ClearCache()
 		{

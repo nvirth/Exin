@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Common;
 using Common.DbEntities;
 using Common.Log;
+using Common.UiModels.WPF.DefaultValues;
 using DAL.DataBase.Managers.Factory;
 using DAL.FileRepo;
 using Localization;
@@ -178,10 +179,16 @@ namespace DAL.DataBase.Managers
 	public static class UnitManager
 	{
 		private static readonly IUnitManager Manager = ManagerFactory.IUnitManager;
+		public static Unit GetDefaultUnit => GetUnitDb;
 		public static Unit GetUnitDb => Manager.GetByName("Db");
 	    public static Unit GetUnitNone => Manager.Get(0);
 
-	    public static void ClearCache()
+		static UnitManager()
+		{
+			DefaultValueProvider.Instance.InitDefaultUnit(() => GetDefaultUnit);
+		}
+
+		public static void ClearCache()
 		{
 			Manager.ClearCache();
 		}

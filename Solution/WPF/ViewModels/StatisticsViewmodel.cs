@@ -8,7 +8,7 @@ using Common.UiModels.WPF.Base;
 using Common.Utils.Helpers;
 using DAL.DataBase.Managers;
 
-namespace WPF.Models
+namespace WPF.ViewModels
 {
 	public class StatisticsViewmodel : ChainedCommonBase
 	{

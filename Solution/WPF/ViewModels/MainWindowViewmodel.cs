@@ -6,7 +6,7 @@ using Common.UiModels.WPF.Base;
 using DAL.DataBase.Managers;
 using WPF.Utils;
 
-namespace WPF.Models
+namespace WPF.ViewModels
 {
 	public class MainWindowViewmodel : ChainedCommonBase
 	{

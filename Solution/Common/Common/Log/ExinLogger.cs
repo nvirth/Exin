@@ -28,7 +28,7 @@ namespace Common.Log
 			e.AddData(USERNAME_LOGENTRY, userName);
 		}
 
-		public void LogException(string msg, Exception e, object data = null)
+		public Exception LogException(string msg, Exception e, object data = null)
 		{
 			MessagePresenter.WriteError(msg);
 			if(data != null)
@@ -39,6 +39,8 @@ namespace Common.Log
 			}
 			MessagePresenter.WriteException(e);
 			Error(msg, e);
+
+			return e;
 		}
 
 		public void LogError(string msg, object data = null)

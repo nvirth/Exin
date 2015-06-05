@@ -809,6 +809,31 @@ namespace Common.Utils.Helpers
 			throw new Exception(string.Format(Localized.The__0__enumeration_does_not_have_any_value_for__1__FORMAT__, enumType.Name, stringValue));
 		}
 
+		#region String.Format
+
+		public static string Formatted(this string format, object arg0)
+		{
+			return string.Format(format, arg0);
+		}
+		public static string Formatted(this string format, object arg0, object arg1)
+		{
+			return string.Format(format, arg0, arg1);
+		}
+		public static string Formatted(this string format, object arg0, object arg1, object arg2)
+		{
+			return string.Format(format, arg0, arg1, arg2);
+		}
+		public static string Formatted(this string format, params object[] args)
+		{
+			return string.Format(format, args);
+		}
+		public static string Formatted(this string format, IFormatProvider provider, params object[] args)
+		{
+			return string.Format(provider, format, args);
+		}
+
+		#endregion
+
 		#endregion
 
 		#region StringBuilder

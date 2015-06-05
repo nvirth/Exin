@@ -106,6 +106,8 @@
     <Compile Include="ValueConverters\NegateBoolConverter.cs" />
     <Compile Include="ValueConverters\RemoveButtonConverter.cs" />
     <Compile Include="ValueConverters\StringTruncateConverter.cs" />
+    <Compile Include="ViewModels\MainWindowViewmodel.cs" />
+    <Compile Include="ViewModels\StatisticsViewmodel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -124,8 +126,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\StatisticsViewmodel.cs" />
-    <Compile Include="Models\MainWindowViewmodel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

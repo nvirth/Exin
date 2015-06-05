@@ -21,7 +21,7 @@ using Common.Utils;
 using Common.Utils.Helpers;
 using DAL;
 using DAL.DataBase.Managers;
-using WPF.Models;
+using WPF.ViewModels;
 using WPF.Utils;
 
 namespace WPF

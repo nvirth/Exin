@@ -74,6 +74,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UiModels\WPF\Base\ChainedValidationBase.cs" />
     <Compile Include="UiModels\WPF\Base\ChainedCommonBase.cs" />
+    <Compile Include="UiModels\WPF\DefaultValues\DefaultValueProvider.cs" />
     <Compile Include="UiModels\WPF\Validation\BindingWithValidation.cs" />
     <Compile Include="UiModels\WPF\Validation\ObjectSaverValidationRule.cs" />
     <Compile Include="UiModels\WPF\Validation\Base\DataErrorInfo.cs" />

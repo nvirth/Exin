@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml.Linq;
 using Common.DbEntities;
+using Common.UiModels.WPF.DefaultValues;
 using Common.Utils.Helpers;
 
 namespace Common.UiModels.WPF
@@ -11,13 +12,7 @@ namespace Common.UiModels.WPF
 		{
 			Quantity = 1;
 
-			// Here, in the Common.dll, we can not reach DAL methods...
-			Unit = new Unit()
-			{
-				ID = 0,
-				Name = "None",
-				DisplayName = "Nincs",
-			};
+			Unit = DefaultValueProvider.Instance.DefaultUnit;
 		}
 
 		public override XElement ToXml()

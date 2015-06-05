@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using Common.DbEntities;
+using Common.UiModels.WPF.DefaultValues;
 using Common.Utils.Helpers;
 
 namespace Common.UiModels.WPF
@@ -38,19 +39,8 @@ namespace Common.UiModels.WPF
 		{
 			Quantity = 1;
 
-			// Here, in the Common.dll, we can not reach DAL methods...
-			Unit = new Unit()
-			{
-				ID = 101,
-				Name = "Db",
-				DisplayName = "db",
-			};
-			Category = new Category()
-			{
-				ID = 108,
-				Name = "Others",
-				DisplayName = "Egyéb",
-			};
+			Unit = DefaultValueProvider.Instance.DefaultUnit;
+			Category = DefaultValueProvider.Instance.DefaultCategory;
 		}
 
 		#endregion
