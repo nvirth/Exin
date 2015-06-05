@@ -696,4 +696,10 @@ or if you are familiar with SQL queries, you can also use the SQLite database fi
   <data name="SummaryEngineBase_ReadData_failed_" xml:space="preserve">
     <value>SummaryEngineBase.ReadData failed. </value>
   </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>Exin - Expenses/Incomes</value>
+  </data>
 </root>

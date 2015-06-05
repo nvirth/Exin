@@ -676,4 +676,10 @@ A beviteli mezőkben:
   <data name="SummaryEngineBase_ReadData_failed_" xml:space="preserve">
     <value>SummaryEngineBase.ReadData failed. </value>
   </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Ürít</value>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>Exin - Kiadások/Bevételek</value>
+  </data>
 </root>

@@ -1,1 +1,0 @@
-﻿Majd amikor nyelvet vált, akkor állítsuk át a mappák neveit is?

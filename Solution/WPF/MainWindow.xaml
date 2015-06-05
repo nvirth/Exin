@@ -8,7 +8,7 @@
         xmlns:validation="clr-namespace:Common.UiModels.WPF.Validation;assembly=Common"
         xmlns:res="clr-namespace:Localization;assembly=Localization"
         xmlns:utils="clr-namespace:WPF.Utils"
-        Title="Kiadások/Bevételek" Height="600" Width="800" WindowStartupLocation="CenterScreen"
+        Title="{x:Static res:Localized.WindowTitle}" Height="600" Width="800" WindowStartupLocation="CenterScreen"
         Closing="MainWindow_OnClosing"
         DataContext="{Binding Path=Model, RelativeSource={RelativeSource Self}}"
         PreviewKeyUp="MainWindow_PreviewKeyUp"
@@ -361,7 +361,7 @@
             </Grid.RowDefinitions>
             <DatePicker Grid.Row="0" x:Name="SummaryDate" SelectedDateChanged="SummaryDate_SelectedDateChanged" Margin="10, 10, 10, 0" />
             <RichTextBox Grid.Row="1" x:Name="LogTB" VerticalScrollBarVisibility="Visible" IsReadOnly="True" IsReadOnlyCaretVisible="False" Margin="10" />
-            <Button Grid.Row="2" Margin="10" Content="{x:Static res:Localized.Remove}" Click="ClearLogButton_OnClick" HorizontalAlignment="Right" />
+            <Button Grid.Row="2" Margin="10" Content="{x:Static res:Localized.Clear}" Click="ClearLogButton_OnClick" HorizontalAlignment="Right" />
         </Grid>
     </Grid>
 </Window>
