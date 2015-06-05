@@ -4,7 +4,7 @@ using Common.Log;
 using DAL.DataBase.AdoNet.Managers;
 using DAL.DataBase.EntityFramework.Managers;
 using Localization;
-using Config = Common.Config.Config;
+using Config = Common.Configuration.Config;
 
 namespace DAL.DataBase.Managers.Factory
 {

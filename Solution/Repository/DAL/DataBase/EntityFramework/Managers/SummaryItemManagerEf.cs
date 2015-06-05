@@ -12,7 +12,7 @@ using DAL.DataBase.EntityFramework.EntitiesSqlite;
 using DAL.DataBase.Managers;
 using EntityFramework.Extensions;
 using Localization;
-using Config = Common.Config.Config;
+using Config = Common.Configuration.Config;
 using SummaryItemCommon = Common.DbEntities.SummaryItem;
 
 namespace DAL.DataBase.EntityFramework.Managers

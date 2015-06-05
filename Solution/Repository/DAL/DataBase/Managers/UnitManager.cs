@@ -7,7 +7,8 @@ using Common.UiModels.WPF.DefaultValues;
 using DAL.DataBase.Managers.Factory;
 using DAL.FileRepo;
 using Localization;
-using Config = Common.Config.Config;
+using Config = Common.Configuration.Config;
+using C = Common.Configuration.Constants.Resources.DefaultUnits;
 
 namespace DAL.DataBase.Managers
 {
@@ -180,7 +181,7 @@ namespace DAL.DataBase.Managers
 	{
 		private static readonly IUnitManager Manager = ManagerFactory.IUnitManager;
 		public static Unit GetDefaultUnit => GetUnitDb;
-		public static Unit GetUnitDb => Manager.GetByName("Db");
+		public static Unit GetUnitDb => Manager.GetByName(C.Db);
 	    public static Unit GetUnitNone => Manager.Get(0);
 
 		static UnitManager()

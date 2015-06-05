@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using BLL.WpfManagers;
-using Common.Config;
+using Common.Configuration;
 using Common.Utils;
 using Common.Utils.Helpers;
 using DAL;

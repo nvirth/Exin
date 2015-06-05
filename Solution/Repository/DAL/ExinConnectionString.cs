@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Configuration;
 using Common;
-using Common.Config;
+using Common.Configuration;
 using Localization;
+using C = Common.Configuration.Constants.Db;
 
 namespace DAL
 {
@@ -85,9 +86,8 @@ namespace DAL
 			}
 		}
 
-		protected override string _adoNetConnStrName => "ExinConnectionString";
-
-	    protected override string _efConnStrName => "ExinEfMsSqlConnStr";
+		protected override string _adoNetConnStrName => C.MsSql_AdoNet;
+	    protected override string _efConnStrName => C.MsSql_Ef;
 	}
 
 	/// <summary>
@@ -106,7 +106,7 @@ namespace DAL
 				if(string.IsNullOrEmpty(_connStr))
 				{
 					_connStr = ConfigurationManager.ConnectionStrings[_connStrName].ConnectionString;
-					_connStr = _connStr.Replace(Config.SqliteDbFullpathPlaceholder, RepoPaths.SqliteDbFile);
+					_connStr = _connStr.Replace(C.SqliteDbFullpathPlaceholder, RepoPaths.SqliteDbFile);
 					_connStr = _connStr.Replace("\\\\", "\\");
 				}
 
@@ -114,9 +114,8 @@ namespace DAL
 			}
 		}
 
-		protected override string _adoNetConnStrName => "ExinSQLiteConnectionString";
-
-	    protected override string _efConnStrName => "ExinEfSqliteConnStr";
+		protected override string _adoNetConnStrName => C.SQLite_AdoNet;
+	    protected override string _efConnStrName => C.SQLite_Ef;
 	}
 
 }

@@ -11,7 +11,7 @@ using Common.UiModels.WPF;
 using Common.Utils.Helpers;
 using DAL.DataBase.Managers;
 using Localization;
-using Config = Common.Config.Config;
+using Config = Common.Configuration.Config;
 using DbType = Common.DbType;
 
 namespace DAL.DataBase.AdoNet.Managers

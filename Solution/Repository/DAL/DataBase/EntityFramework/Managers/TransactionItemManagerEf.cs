@@ -10,7 +10,7 @@ using DAL.DataBase.EntityFramework.EntitiesSqlite;
 using DAL.DataBase.Managers;
 using EntityFramework.Extensions;
 using Localization;
-using Config = Common.Config.Config;
+using Config = Common.Configuration.Config;
 using TransactionItemCommon = Common.DbEntities.TransactionItem;
 
 namespace DAL.DataBase.EntityFramework.Managers

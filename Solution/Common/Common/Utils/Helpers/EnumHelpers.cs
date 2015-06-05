@@ -47,4 +47,13 @@ namespace Common.Utils.Helpers
 			return _enumValues;
 		}
 	}
+
+	public static class EnumHelpers
+	{
+		public static T Parse<T>(string enumStr, bool ignoreCase = true)
+		{
+			var res = (T)Enum.Parse(typeof(T), enumStr, ignoreCase);
+			return res;
+		}
+	}
 }

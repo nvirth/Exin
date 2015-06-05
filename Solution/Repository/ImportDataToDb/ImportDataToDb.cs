@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using Common;
-using Common.Config;
+using Common.Configuration;
 using Common.Utils;
 using Localization;
 

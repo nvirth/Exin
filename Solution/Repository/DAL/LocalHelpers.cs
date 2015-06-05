@@ -3,7 +3,7 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Data.SQLite;
 using Common;
-using Common.Config;
+using Common.Configuration;
 using Common.DbEntities;
 using Common.UiModels.WPF;
 using DAL.DataBase.Managers;

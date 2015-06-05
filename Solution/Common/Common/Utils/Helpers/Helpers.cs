@@ -22,6 +22,7 @@ using System.Xml.Linq;
 using Common.Log;
 using Localization;
 using Newtonsoft.Json;
+using C = Common.Configuration.Constants.XmlTags;
 
 namespace Common.Utils.Helpers
 {
@@ -341,8 +342,7 @@ namespace Common.Utils.Helpers
 			//If we have no description attribute, just return the ToString of the enum
 			return enumerationValue.ToString();
 		}
-
-
+		
 		public static string ToLocalizedDescriptionString(this Enum enumerationValue)
 		{
 			return enumerationValue.GetLocalizedDescription();
@@ -505,7 +505,7 @@ namespace Common.Utils.Helpers
 
 		#region IEnumerable
 
-		public static XElement ToXmlShallow<T>(this IEnumerable<T> listToConvert, Func<T, bool> filter = null, string rootName = "root")
+		public static XElement ToXmlShallow<T>(this IEnumerable<T> listToConvert, Func<T, bool> filter = null, string rootName = C.root)
 		{
 			var list = (filter == null) ? listToConvert : listToConvert.Where(filter);
 			return new XElement(rootName,
@@ -633,7 +633,7 @@ namespace Common.Utils.Helpers
 		/// <summary>
 		/// Don't use this; the ToXml is a better version
 		/// </summary>
-		public static XElement ToShallowXml(this object obj)
+		public static XElement ToXmlShallow(this object obj)
 		{
 			IEnumerable<XElement> xElements =
 				from property in obj.GetType().GetRuntimeProperties()

@@ -8,7 +8,7 @@ using DAL.DataBase.EntityFramework.EntitiesSqlite;
 using DAL.DataBase.Managers;
 using Localization;
 using CategoryCommon = Common.DbEntities.Category;
-using Config = Common.Config.Config;
+using Config = Common.Configuration.Config;
 
 namespace DAL.DataBase.EntityFramework.Managers
 {

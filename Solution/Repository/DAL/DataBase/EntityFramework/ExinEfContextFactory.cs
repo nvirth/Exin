@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using Common;
-using Common.Config;
+using Common.Configuration;
 using DAL.DataBase.EntityFramework.EntitiesMsSql;
 using DAL.DataBase.EntityFramework.EntitiesSqlite;
 using Localization;

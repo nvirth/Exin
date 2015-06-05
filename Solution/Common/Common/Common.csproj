@@ -62,8 +62,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\Config.cs" />
-    <Compile Include="Config\RepoPaths.cs" />
+    <Compile Include="Configuration\Config.cs" />
+    <Compile Include="Configuration\RepoPaths.cs" />
+    <Compile Include="Configuration\Constants.cs" />
     <Compile Include="DbEntities\Category.cs" />
     <Compile Include="DbEntities\SummaryItem.cs" />
     <Compile Include="DbEntities\TransactionItem.cs" />

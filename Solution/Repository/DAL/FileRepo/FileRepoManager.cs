@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using Common;
-using Common.Config;
+using Common.Configuration;
 using Common.DbEntities;
 using Common.Log;
 using Common.UiModels.WPF;
@@ -14,7 +14,8 @@ using Common.Utils;
 using Common.Utils.Helpers;
 using DAL.DataBase.Managers;
 using Localization;
-using Config = Common.Config.Config;
+using Config = Common.Configuration.Config;
+using C = Common.Configuration.Constants.XmlTags;
 
 namespace DAL.FileRepo
 {
@@ -131,24 +132,27 @@ namespace DAL.FileRepo
 		}
 		private IEnumerable<ExpenseItem> ParseDailyExpenseFile(XElement xmlDoc, DateTime date)
 		{
-			return xmlDoc.Elements("ExpenseItem").Select(xmlEi => ParseDailyExpenseFile_FetchOne(date, xmlEi));
+			// C <--> Constants.XmlTags
+			return xmlDoc.Elements(C.ExpenseItem).Select(xmlEi => ParseDailyExpenseFile_FetchOne(date, xmlEi));
 		}
 		private ExpenseItem ParseDailyExpenseFile_FetchOne(DateTime date, XElement xmlEi)
 		{
-			var unitString = (string)xmlEi.Element("Unit");
+			// C <--> Constants.XmlTags
+
+			var unitString = (string)xmlEi.Element(C.Unit);
 			var unit = UnitManager.GetByDisplayName(unitString, nullIfNotFound: true)
 				?? UnitManager.GetByName(unitString, nullIfNotFound: false);
 
-			var categoryString = (string)xmlEi.Element("Category");
+			var categoryString = (string)xmlEi.Element(C.Category);
 			var category = CategoryManager.GetByDisplayName(categoryString, nullIfNotFound: true)
 				?? CategoryManager.GetByName(categoryString, nullIfNotFound: false);
 
 			var expenseItem = new ExpenseItem
 			{
-				Amount = ((int)xmlEi.Element("Amount")),
-				Quantity = ((int)xmlEi.Element("Quantity")),
-				Title = ((string)xmlEi.Element("Title")).Trim(),
-				Comment = ((string)xmlEi.Element("Comment") ?? "").Trim(),
+				Amount = ((int)xmlEi.Element(C.Amount)),
+				Quantity = ((int)xmlEi.Element(C.Quantity)),
+				Title = ((string)xmlEi.Element(C.Title)).Trim(),
+				Comment = ((string)xmlEi.Element(C.Comment) ?? "").Trim(),
 				Unit = unit,
 				Category = category,
 				Date = date,
@@ -313,16 +317,18 @@ namespace DAL.FileRepo
 		}
 		private IEnumerable<IncomeItem> ParseMonthlyIncomeFile(XElement xmlDoc, DateTime date)
 		{
-			return xmlDoc.Elements("IncomeItem").Select(xmlEi => ParseMonthlyIncomeFile_FetchOne(date, xmlEi));
+			// C <--> Constants.XmlTags
+			return xmlDoc.Elements(C.IncomeItem).Select(xmlEi => ParseMonthlyIncomeFile_FetchOne(date, xmlEi));
 		}
 		private IncomeItem ParseMonthlyIncomeFile_FetchOne(DateTime date, XElement xmlEi)
 		{
+			// C <--> Constants.XmlTags
 			date = new DateTime(date.Year, date.Month, 1);
 			var incomeItem = new IncomeItem
 			{
-				Title = ((string)xmlEi.Element("Title")).Trim(),
-				Amount = ((int)xmlEi.Element("Amount")),
-				Comment = ((string)xmlEi.Element("Comment") ?? "").Trim(),
+				Title = ((string)xmlEi.Element(C.Title)).Trim(),
+				Amount = ((int)xmlEi.Element(C.Amount)),
+				Comment = ((string)xmlEi.Element(C.Comment) ?? "").Trim(),
 				Date = date,
 			};
 			return incomeItem;
@@ -335,11 +341,11 @@ namespace DAL.FileRepo
 		public List<Unit> GetUnits()
 		{
 			var xmlDoc = XElement.Load(RepoPaths.UnitsFile);
-			var units = xmlDoc.Elements("Unit").Select(xml => new Unit
+			var units = xmlDoc.Elements(C.Unit).Select(xml => new Unit
 			{
-				ID = ((int)xml.Element("ID")),
-				Name = ((string)xml.Element("Name")).Trim(),
-				DisplayName = ((string)xml.Element("DisplayName")).Trim(),
+				ID = ((int)xml.Element(C.ID)),
+				Name = ((string)xml.Element(C.Name)).Trim(),
+				DisplayName = ((string)xml.Element(C.DisplayName)).Trim(),
 			}).ToList();
 			return units;
 		}
@@ -347,11 +353,11 @@ namespace DAL.FileRepo
 		public List<Category> GetCategories()
 		{
 			var xmlDoc = XElement.Load(RepoPaths.CategoriesFile);
-			var categories = xmlDoc.Elements("Category").Select(xml => new Category
+			var categories = xmlDoc.Elements(C.Category).Select(xml => new Category
 			{
-				ID = ((int)xml.Element("ID")),
-				Name = ((string)xml.Element("Name")).Trim(),
-				DisplayName = ((string)xml.Element("DisplayName")).Trim(),
+				ID = ((int)xml.Element(C.ID)),
+				Name = ((string)xml.Element(C.Name)).Trim(),
+				DisplayName = ((string)xml.Element(C.DisplayName)).Trim(),
 			}).ToList();
 			return categories;
 		}

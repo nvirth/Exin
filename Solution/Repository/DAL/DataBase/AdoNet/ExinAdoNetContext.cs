@@ -5,8 +5,9 @@ using System.Data.SqlClient;
 using System.Data.SQLite;
 using Common.Log;
 using Localization;
-using Config = Common.Config.Config;
+using Config = Common.Configuration.Config;
 using DbType = Common.DbType;
+using C = Common.Configuration.Constants.Db;
 
 namespace DAL.DataBase.AdoNet
 {
@@ -144,7 +145,7 @@ namespace DAL.DataBase.AdoNet
 			Connection = new SqlConnection(ExinConnectionString.Get);
 			Command = Connection.CreateCommand();
 			Adapter = new SqlDataAdapter();
-			DataSet = new DataSet("ExinDataSet");
+			DataSet = new DataSet(C.ExinDataSet);
 		}
 
 		protected override void AfterConnectionOpened()
@@ -183,7 +184,7 @@ namespace DAL.DataBase.AdoNet
 			Connection = new SQLiteConnection(ExinConnectionString.Get);
 			Command = Connection.CreateCommand();
 			Adapter = new SQLiteDataAdapter();
-			DataSet = new DataSet("ExinDataSet");
+			DataSet = new DataSet(C.ExinDataSet);
 		}
 
 		protected override void AfterConnectionOpened()

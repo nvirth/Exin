@@ -10,7 +10,7 @@ using Common.Log;
 using Common.Utils.Helpers;
 using DAL.DataBase.Managers;
 using Localization;
-using Config = Common.Config.Config;
+using Config = Common.Configuration.Config;
 using DbType = Common.DbType;
 
 namespace DAL.DataBase.AdoNet.Managers
@@ -381,7 +381,7 @@ namespace DAL.DataBase.AdoNet.Managers
 			for(int i = fromRecord; i <= toRecord; i++)
 			{
 				var transactionItem = transactionItems[i - 1];
-				var comment = string.IsNullOrWhiteSpace(transactionItem.Comment) ? Config.StringNull : transactionItem.Comment;
+				var comment = string.IsNullOrWhiteSpace(transactionItem.Comment) ? Config.DbStringNull : transactionItem.Comment;
 
 				//ctx.Command.Parameters.AddWithValue("@Amount" + i, transactionItem.Amount);
 				//ctx.Command.Parameters.AddWithValue("@Quantity" + i, transactionItem.Quantity);

@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using Common.Config;
+using Common.Configuration;
 using Common.Log;
 using Common.Utils;
 using Common.Utils.Helpers;
@@ -129,7 +129,7 @@ namespace Common
 					MonthDirName = value.CalculateMonthDirName();
 
 				if(isNewDay)
-					DayFileName = value.CalculateDayFileName(Config.Config.FileExtension);
+					DayFileName = value.CalculateDayFileName(Configuration.Config.FileExtension);
 			}
 		}
 
@@ -213,7 +213,7 @@ namespace Common
 			for(int i = 1; i <= DaysInMonth; i++)
 			{
 				var fileName = (i < 10 ? "0" : "") + i;
-				fileName = Path.ChangeExtension(fileName, Config.Config.FileExtension);
+				fileName = Path.ChangeExtension(fileName, Configuration.Config.FileExtension);
 
 				var fileInfo = new FileInfo(Path.Combine(MonthDirPath, fileName));
 				fileInfo.Create();
@@ -236,7 +236,7 @@ namespace Common
 			else
 				newFileName = start + " - " + dailySum.ToExinStringDailyFileName();
 
-			newFileName = Path.ChangeExtension(newFileName, Config.Config.FileExtension);
+			newFileName = Path.ChangeExtension(newFileName, Configuration.Config.FileExtension);
 			SetDayFileName(newFileName, /*searchIfNotExist*/ false);
 
 			newFile = DayFile;
@@ -254,7 +254,7 @@ namespace Common
 			else
 				newFileName = start + " - " + sum.ToExinStringDailyFileName();
 
-			newFileName = Path.ChangeExtension(newFileName, Config.Config.FileExtension);
+			newFileName = Path.ChangeExtension(newFileName, Configuration.Config.FileExtension);
 
 			MonthlyIncomesFilePath = Path.Combine(MonthDirPath, newFileName);
 			MonthlyIncomesFile = new FileInfo(MonthlyIncomesFilePath);
@@ -270,7 +270,7 @@ namespace Common
 
 			var newFileName = start + " - " + monthlySum.ToExinStringMonthlyFileName();
 
-			newFileName = Path.ChangeExtension(newFileName, Config.Config.FileExtension);
+			newFileName = Path.ChangeExtension(newFileName, Configuration.Config.FileExtension);
 
 			MonthlyExpensesFilePath = Path.Combine(MonthDirPath, newFileName);
 			MonthlyExpensesFile = new FileInfo(MonthlyExpensesFilePath);

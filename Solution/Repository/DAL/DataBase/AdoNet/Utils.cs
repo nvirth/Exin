@@ -1,4 +1,4 @@
-﻿using Common.Config;
+﻿using Common.Configuration;
 using Common.DbEntities;
 
 namespace DAL.DataBase.AdoNet
@@ -9,7 +9,7 @@ namespace DAL.DataBase.AdoNet
 
 		internal static void CopyStandardParams(this TransactionItem transactionItem, ExinAdoNetContextBase ctx)
 		{
-			var comment = string.IsNullOrWhiteSpace(transactionItem.Comment) ? Config.StringNull : transactionItem.Comment;
+			var comment = string.IsNullOrWhiteSpace(transactionItem.Comment) ? Config.DbStringNull : transactionItem.Comment;
 
 			ctx.Command.Parameters.AddWithValue("@ID", transactionItem.ID);
 			ctx.Command.Parameters.AddWithValue("@Amount", transactionItem.Amount);

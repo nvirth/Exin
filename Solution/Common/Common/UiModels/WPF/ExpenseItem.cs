@@ -4,6 +4,7 @@ using System.Xml.Linq;
 using Common.DbEntities;
 using Common.UiModels.WPF.DefaultValues;
 using Common.Utils.Helpers;
+using C = Common.Configuration.Constants.XmlTags;
 
 namespace Common.UiModels.WPF
 {
@@ -49,14 +50,15 @@ namespace Common.UiModels.WPF
 
 		public override XElement ToXml()
 		{
-			return new XElement("ExpenseItem", new object[]
+			// C <--> Constants.XmlTags
+			return new XElement(C.ExpenseItem, new object[]
 			{
-				new XElement("Title", Title),
-				new XElement("Amount", Amount),
-				new XElement("Quantity", Quantity),
-				new XElement("Unit", Unit.DisplayName),
-				new XElement("Category", Category.DisplayName),
-				new XElement("Comment", Comment),
+				new XElement(C.Title, Title),
+				new XElement(C.Amount, Amount),
+				new XElement(C.Quantity, Quantity),
+				new XElement(C.Unit, Unit.DisplayName),
+				new XElement(C.Category, Category.DisplayName),
+				new XElement(C.Comment, Comment),
 			});
 		}
 

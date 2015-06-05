@@ -5,8 +5,9 @@ using System.Reflection;
 using Common.Utils;
 using Common.Utils.Helpers;
 using Localization;
+using C = Common.Configuration.Constants.AppSettingsKeys;
 
-namespace Common.Config
+namespace Common.Configuration
 {
 	/// <summary>
 	/// Provides full paths of the used directories/files. <para/>
@@ -94,7 +95,7 @@ namespace Common.Config
 		// -- Methods
 		private static string SetupRootDir()
 		{
-			var rootDir = ConfigurationManager.AppSettings["RootDir"];
+			var rootDir = ConfigurationManager.AppSettings[C.RootDir];
 			if(string.IsNullOrWhiteSpace(rootDir))
 				rootDir = AppExecDir;
 			else if(!Path.IsPathRooted(rootDir))

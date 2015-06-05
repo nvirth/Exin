@@ -2,7 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using Common;
-using Common.Config;
+using Common.Configuration;
 using Common.Utils;
 using Localization;
 

@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Common;
-using Common.Config;
+using Common.Configuration;
 using Common.DbEntities;
 using Common.UiModels.WPF;
 using Common.Utils;
