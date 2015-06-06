@@ -19,6 +19,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Xml.Linq;
+using Common.Configuration;
 using Common.Log;
 using Localization;
 using Newtonsoft.Json;

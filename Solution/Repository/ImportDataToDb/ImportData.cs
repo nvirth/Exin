@@ -64,7 +64,7 @@ namespace ImportDataToDb
 			//var unit = new Unit();
 			//XElement xmlDoc = XElement.Load(Paths.UnitResourcesFullPath);
 			//var units =
-			//	from xmlUnit in xmlDoc.Elements("Unit")
+			//	from xmlUnit in xmlDoc.Elements(C.Unit)
 			//	select new Unit
 			//	{
 			//		ID = ((int)xmlUnit.Element(unit.Property(u => u.ID))),
@@ -91,7 +91,7 @@ namespace ImportDataToDb
 			//var category = new Category();
 			//XElement xmlDoc = XElement.Load(Paths.CategoryResourcesFullPath);
 			//var categories =
-			//	from xmlCategory in xmlDoc.Elements("Category")
+			//	from xmlCategory in xmlDoc.Elements(C.Category)
 			//	select new Category
 			//	{
 			//		ID = ((int)xmlCategory.Element(category.Property(u => u.ID))),

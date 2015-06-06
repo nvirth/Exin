@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace Common.Utils.Helpers
+namespace Common.Configuration
 {
 	public static class Cultures
 	{

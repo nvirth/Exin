@@ -413,13 +413,13 @@ namespace DAL.FileRepo
 				// -- Data to write out
 
 				var cData = new XCData(CreateOldSummaryCData(transactionItems, summary, isExpense));
-				var sumOut = isExpense ? new XElement("DailySummary", summary.SumOut) : new XElement("IncomeSummary", summary.SumIn);
+				var sumOut = isExpense ? new XElement(C.DailySummary, summary.SumOut) : new XElement(C.IncomeSummary, summary.SumIn);
 				var expenseItemsXml = transactionItems.Select(tib => tib.ToXml());
 
 				// -- Building the output string
 
 				stringBuilder.AppendLine("<?xml version=\"1.0\"?>");
-				stringBuilder.AppendLine("<root>");
+				stringBuilder.Append("<").Append(C.root).AppendLine(">");
 
 				stringBuilder.AppendLine(cData.ToString());
 				stringBuilder.AppendLine(sumOut.ToString());
@@ -427,7 +427,7 @@ namespace DAL.FileRepo
 				foreach(var xElement in expenseItemsXml)
 					stringBuilder.AppendLine(xElement.ToString());
 
-				stringBuilder.AppendLine("</root>");
+				stringBuilder.Append("</").Append(C.root).AppendLine(">");
 			}
 
 			// -- Writing out the output string
@@ -480,7 +480,7 @@ namespace DAL.FileRepo
 				// -- Data to write out
 
 				var cData = new XCData(CreateOldSummaryCData(summary, transactionItems));
-				var sumOut = new XElement("MonthlySummary", summary.SumOut);
+				var sumOut = new XElement(C.MonthlySummary, summary.SumOut);
 
 				var categorySummariesXml =
 					from key in CategoryManager.GetAllValid()
@@ -492,7 +492,7 @@ namespace DAL.FileRepo
 				var stringBuilder = new StringBuilder();
 
 				stringBuilder.AppendLine("<?xml version=\"1.0\"?>");
-				stringBuilder.AppendLine("<root>");
+				stringBuilder.Append("<").Append(C.root).AppendLine(">");
 
 				stringBuilder.AppendLine(cData.ToString());
 				stringBuilder.AppendLine(sumOut.ToString());
@@ -500,7 +500,7 @@ namespace DAL.FileRepo
 				foreach(var xElement in categorySummariesXml)
 					stringBuilder.AppendLine(xElement.ToString());
 
-				stringBuilder.AppendLine("</root>");
+				stringBuilder.Append("</").Append(C.root).AppendLine(">");
 
 				// -- Writing out the output string
 

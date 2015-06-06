@@ -5,6 +5,7 @@ using Common;
 using Common.Configuration;
 using Common.Utils;
 using Localization;
+using C = Common.Configuration.Constants.Resources.AssemblyNames;
 
 namespace DAL
 {
@@ -57,7 +58,7 @@ namespace DAL
 					var startInfo = new ProcessStartInfo
 					{
 						//WorkingDirectory = Paths.Play_publicPath,
-						FileName = "ImportDataToDb.exe",
+						FileName = C.ImportDataToDb_exe,
 						//Arguments = command.ToString(),
 						//WindowStyle = ProcessWindowStyle.Hidden,
 						//RedirectStandardOutput = true,

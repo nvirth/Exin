@@ -31,11 +31,6 @@
 			public const string SQLite_AdoNet = "ExinSQLiteConnectionString";
 			public const string SQLite_Ef = "ExinEfSqliteConnStr";
 
-			//TODO removed
-			// These are auto generated ones
-			public const string name_ExinEfSqliteContext = "name=ExinEfSqliteContext";
-			public const string name_ExinEfMsSqlContext = "name=ExinEfMsSqlContext";
-
 			// etc
 			public const string SqliteDbFullpathPlaceholder = "#SQLITE_REPO_FULLPATH#";
 			public const string ExinDataSet = "ExinDataSet";
@@ -73,12 +68,22 @@
 				public const string Gram = "Gram";
 				public const string Liter = "Liter";
 			}
+
+			public static class AssemblyNames
+			{
+				public const string ImportDataToDb_exe = "ImportDataToDb.exe";
+
+			}
 		}
 
 		public static class XmlTags
 		{
 			public const string ExpenseItem = "ExpenseItem";
 			public const string IncomeItem = "IncomeItem";
+
+			public const string DailySummary = "DailySummary";
+			public const string IncomeSummary = "IncomeSummary";
+			public const string MonthlySummary = "MonthlySummary";
 
 			public const string ID = "ID";
 			public const string Name = "Name";
