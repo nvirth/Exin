@@ -590,7 +590,7 @@ namespace DAL.FileRepo
 
 				//var s = Paths.Date.Year + " - " + Paths.Date.Month.ToString().PadLeft(2, '0') + " - ";
 				//s += SummaryItem.SumOut.ToExinStringMonthlyFileName() + " - ";
-				//s += "█".Repeat(SummaryItem.SumOut / 5000) + ".xml";
+				//s += "█".Repeat(SummaryItem.SumOut / 5000) + "." + Config.FileExtension;
 
 				var oldFile = RepoPaths.DirectoryInfos.MonthlySummaries.EnumerateFiles()
 					.FirstOrDefault(file => file.Name.StartsWith(actualYearAndMonthLocal));

@@ -18,6 +18,6 @@
 <!-- For more information on using transformations 
      see the web.config examples at http://go.microsoft.com/fwlink/?LinkId=214134. -->
 <appSettings xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
-    <add key="RootDir" value="[[REPO'S PATH HERE]]"
+    <add key="RepoRootDir" value="[[REPO'S PATH HERE]]"
           xdt:Transform="SetAttributes" xdt:Locator="Match(key)" />
 </appSettings>

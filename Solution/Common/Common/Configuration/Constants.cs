@@ -7,20 +7,11 @@
 	{
 		public static class AppSettingsKeys
 		{
-			public const string RootDir = "RootDir";
-			public const string FileExtension = "FileExtension";
-			public const string MonthlyExpensesFileName = "MonthlyExpensesFileName";
-			public const string MonthlyIncomesFileName = "MonthlyIncomesFileName";
-			public const string MonthlyExpenseSummariesDir = "MonthlyExpenseSummariesDir";
-			public const string MonthlyExpenseStatisticsDir = "MonthlyExpenseStatisticsDir";
+			public const string RepoRootDir = "RepoRootDir";
 			public const string ReadMode = "ReadMode";
 			public const string SaveMode = "SaveMode";
 			public const string DbAccessMode = "DbAccessMode";
 			public const string DbType = "DbType";
-			public const string SolutionName = "SolutionName";
-			public const string ResourcesRelativePath = "ResourcesRelativePath";
-			public const string UnitResources = "UnitResources";
-			public const string CategoryResources = "CategoryResources";
 		}
 
 		public static class Db

@@ -95,7 +95,7 @@ namespace Common.Configuration
 		// -- Methods
 		private static string SetupRootDir()
 		{
-			var rootDir = ConfigurationManager.AppSettings[C.RootDir];
+			var rootDir = ConfigurationManager.AppSettings[C.RepoRootDir];
 			if(string.IsNullOrWhiteSpace(rootDir))
 				rootDir = AppExecDir;
 			else if(!Path.IsPathRooted(rootDir))

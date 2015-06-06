@@ -18,19 +18,7 @@
         DbType
 -->
   <appSettings>
-    <add key="SolutionName" value="Exin" />
-
-    <!-- DATA REPOSITORY SETTINGS (START) -->
-        <add key="RootDir" value="COMES FROM CONFIG TRANSFORM" />
-        <add key="ResourcesRelativePath" value="" />
-        <add key="MonthlyExpenseSummariesDir" value="0_Összesen" />
-        <add key="MonthlyExpenseStatisticsDir" value="0_Összesen - Kategóriák" />
-        <add key="MonthlyExpensesFileName" value="Összesen" />
-        <add key="MonthlyIncomesFileName" value="Bevételek" />
-        <add key="UnitResources" value="Units.xml" />
-        <add key="CategoryResources" value="Categories.xml" />
-        <add key="FileExtension" value="xml" />
-    <!-- DATA REPOSITORY SETTINGS (END) -->
+    <add key="RepoRootDir" value="COMES FROM CONFIG TRANSFORM" />
     
     <!-- Possible values: FromFile, FromDb />-->
     <add key="ReadMode" value="FromDb" />

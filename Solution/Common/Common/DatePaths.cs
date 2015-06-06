@@ -8,6 +8,7 @@ using Common.Log;
 using Common.Utils;
 using Common.Utils.Helpers;
 using Localization;
+using Config = Common.Configuration.Config;
 
 namespace Common
 {
@@ -129,7 +130,7 @@ namespace Common
 					MonthDirName = value.CalculateMonthDirName();
 
 				if(isNewDay)
-					DayFileName = value.CalculateDayFileName(Configuration.Config.FileExtension);
+					DayFileName = value.CalculateDayFileName(Config.FileExtension);
 			}
 		}
 
@@ -213,7 +214,7 @@ namespace Common
 			for(int i = 1; i <= DaysInMonth; i++)
 			{
 				var fileName = (i < 10 ? "0" : "") + i;
-				fileName = Path.ChangeExtension(fileName, Configuration.Config.FileExtension);
+				fileName = Path.ChangeExtension(fileName, Config.FileExtension);
 
 				var fileInfo = new FileInfo(Path.Combine(MonthDirPath, fileName));
 				fileInfo.Create();
@@ -236,7 +237,7 @@ namespace Common
 			else
 				newFileName = start + " - " + dailySum.ToExinStringDailyFileName();
 
-			newFileName = Path.ChangeExtension(newFileName, Configuration.Config.FileExtension);
+			newFileName = Path.ChangeExtension(newFileName, Config.FileExtension);
 			SetDayFileName(newFileName, /*searchIfNotExist*/ false);
 
 			newFile = DayFile;
@@ -254,7 +255,7 @@ namespace Common
 			else
 				newFileName = start + " - " + sum.ToExinStringDailyFileName();
 
-			newFileName = Path.ChangeExtension(newFileName, Configuration.Config.FileExtension);
+			newFileName = Path.ChangeExtension(newFileName, Config.FileExtension);
 
 			MonthlyIncomesFilePath = Path.Combine(MonthDirPath, newFileName);
 			MonthlyIncomesFile = new FileInfo(MonthlyIncomesFilePath);
@@ -270,7 +271,7 @@ namespace Common
 
 			var newFileName = start + " - " + monthlySum.ToExinStringMonthlyFileName();
 
-			newFileName = Path.ChangeExtension(newFileName, Configuration.Config.FileExtension);
+			newFileName = Path.ChangeExtension(newFileName, Config.FileExtension);
 
 			MonthlyExpensesFilePath = Path.Combine(MonthDirPath, newFileName);
 			MonthlyExpensesFile = new FileInfo(MonthlyExpensesFilePath);
