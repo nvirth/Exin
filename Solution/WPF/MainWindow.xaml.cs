@@ -21,6 +21,7 @@ using Common.Utils;
 using Common.Utils.Helpers;
 using DAL;
 using DAL.DataBase.Managers;
+using Localization;
 using WPF.ViewModels;
 using WPF.Utils;
 
@@ -349,7 +350,7 @@ namespace WPF
 				var equalExpenseItem = Model.DailyExpenses.GetTheEqual(selectedExpenseItem);
 				if(equalExpenseItem == null)
 				{
-					MessagePresenter.WriteError("A kiválasztott kiadás egység már nem létezik. ");
+					MessagePresenter.WriteError(Localized.The_chosen_expense_item_already_exists__);
 					return;
 				}
 
@@ -490,7 +491,7 @@ namespace WPF
 		public SummaryEngineBase ListView2SummaryEngineBase(ListView listView, bool returnNull = false)
 		{
 			if(listView == null)
-				throw new NullReferenceException("listView");
+				throw new ArgumentNullException("listView", "MainWindow.ListView2SummaryEngineBase: Argument 'listView' cannot be null. ");
 
 			if(listView == DailyExpensesLW)
 				return Model.DailyExpenses;
@@ -514,7 +515,7 @@ namespace WPF
 		public ListView SummaryEngineBase2ListView(string summaryEngineBaseName, bool returnNull = false)
 		{
 			if(summaryEngineBaseName == null)
-				throw new NullReferenceException("summaryEngineBaseName");
+				throw new ArgumentNullException("summaryEngineBaseName");
 
 			if(summaryEngineBaseName == Model.Property(vm => vm.DailyExpenses))
 				return DailyExpensesLW;
@@ -533,7 +534,7 @@ namespace WPF
 
 		private MessageBoxResult PromptErrorWindow(string errorMsg)
 		{
-			return MessageBox.Show(errorMsg, "Hiba!", MessageBoxButton.OK, MessageBoxImage.Error);
+			return MessageBox.Show(errorMsg, Localized.Error_, MessageBoxButton.OK, MessageBoxImage.Error);
 		}
 
 		private void SwitchMainTab()
@@ -585,13 +586,13 @@ namespace WPF
 				var needSaveDailyExpenses = saveDailyExpenses && Model.DailyExpenses.IsModified;
 				var needSaveMonthlyIncomes = saveMonthlyIncomes && Model.MonthlyIncomes.IsModified;
 
-				var msg = "Változások mentése? (";
-				msg += needSaveDailyExpenses ? "napi kiadások" : "";
+				var msg = Localized.Save_changes_ + " (";
+				msg += needSaveDailyExpenses ? Localized.daily_expenses__LowerCase : "";
 				msg += needSaveDailyExpenses && needSaveMonthlyIncomes ? ", " : "";
-				msg += needSaveMonthlyIncomes ? "havi bevételek" : "";
+				msg += needSaveMonthlyIncomes ? Localized.monthly_incomes__LowerCase : "";
 				msg += ')';
 
-				return MessageBox.Show(msg, "Mentés", buttons, MessageBoxImage.Question);
+				return MessageBox.Show(msg, Localized.Save, buttons, MessageBoxImage.Question);
 			}
 
 			return MessageBoxResult.None;
@@ -607,11 +608,11 @@ namespace WPF
 				try
 				{
 					Model.DailyExpenses.Save();
-					MessagePresenter.WriteLine("Napi kiadások mentése sikeres. ");
+					MessagePresenter.WriteLine(Localized.Daily_expenses_saved_successfully__);
 				}
 				catch(Exception ex)
 				{
-					var msg = "Nem sikerült menteni a napi kiadásokat!\r\n" + ex.Message + "\r\n";
+					var msg = Localized.Could_not_save_the_daily_expenses_ + ex.Message + "\r\n";
 					MessagePresenter.WriteError(msg);
 					MessagePresenter.WriteException(ex);
 					errorMsg += msg;
@@ -623,11 +624,11 @@ namespace WPF
 				try
 				{
 					Model.MonthlyIncomes.Save();
-					MessagePresenter.WriteLine("Havi bevételek mentése sikeres. ");
+					MessagePresenter.WriteLine(Localized.Monthly_incomes_saved_successfully__);
 				}
 				catch(Exception ex)
 				{
-					var msg = "Nem sikerült menteni a havi bevételeket!\r\n" + ex.Message + "\r\n";
+					var msg = Localized.Could_not_save_the_monthly_incomes_ + ex.Message + "\r\n";
 					MessagePresenter.WriteError(msg);
 					MessagePresenter.WriteException(ex);
 					errorMsg += msg;

@@ -726,4 +726,33 @@ or if you are familiar with SQL queries, you can also use the SQLite database fi
   <data name="_from_this__database_" xml:space="preserve">
     <value>┌-(from this, database)</value>
   </data>
+  <data name="The_chosen_expense_item_already_exists__" xml:space="preserve">
+    <value>The chosen expense item already exists. </value>
+  </data>
+  <data name="Error_" xml:space="preserve">
+    <value>Error!</value>
+  </data>
+  <data name="Save_changes_" xml:space="preserve">
+    <value>Save changes?</value>
+  </data>
+  <data name="daily_expenses__LowerCase" xml:space="preserve">
+    <value>daily expenses</value>
+  </data>
+  <data name="monthly_incomes__LowerCase" xml:space="preserve">
+    <value>monthly incomes</value>
+  </data>
+  <data name="Daily_expenses_saved_successfully__" xml:space="preserve">
+    <value>Daily expenses saved successfully. </value>
+  </data>
+  <data name="Could_not_save_the_daily_expenses_" xml:space="preserve">
+    <value>Could not save the daily expenses!
+</value>
+  </data>
+  <data name="Monthly_incomes_saved_successfully__" xml:space="preserve">
+    <value>Monthly incomes saved successfully. </value>
+  </data>
+  <data name="Could_not_save_the_monthly_incomes_" xml:space="preserve">
+    <value>Could not save the monthly incomes!
+</value>
+  </data>
 </root>

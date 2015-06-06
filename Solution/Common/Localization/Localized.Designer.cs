@@ -540,6 +540,26 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not save the daily expenses!
+        ///.
+        /// </summary>
+        public static string Could_not_save_the_daily_expenses_ {
+            get {
+                return ResourceManager.GetString("Could_not_save_the_daily_expenses_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not save the monthly incomes!
+        ///.
+        /// </summary>
+        public static string Could_not_save_the_monthly_incomes_ {
+            get {
+                return ResourceManager.GetString("Could_not_save_the_monthly_incomes_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not update the transaction record (TransactionItem, ID: .
         /// </summary>
         public static string Could_not_update_the_transaction_record__TransactionItem__ID_ {
@@ -590,6 +610,24 @@ namespace Localization {
         public static string Daily_expenses {
             get {
                 return ResourceManager.GetString("Daily_expenses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to daily expenses.
+        /// </summary>
+        public static string daily_expenses__LowerCase {
+            get {
+                return ResourceManager.GetString("daily_expenses__LowerCase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Daily expenses saved successfully. .
+        /// </summary>
+        public static string Daily_expenses_saved_successfully__ {
+            get {
+                return ResourceManager.GetString("Daily_expenses_saved_successfully__", resourceCulture);
             }
         }
         
@@ -761,6 +799,15 @@ namespace Localization {
         public static string EnumDescriptionConverter_ConvertBack_is_not_supported__ {
             get {
                 return ResourceManager.GetString("EnumDescriptionConverter_ConvertBack_is_not_supported__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error!.
+        /// </summary>
+        public static string Error_ {
+            get {
+                return ResourceManager.GetString("Error_", resourceCulture);
             }
         }
         
@@ -1025,11 +1072,29 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to monthly incomes.
+        /// </summary>
+        public static string monthly_incomes__LowerCase {
+            get {
+                return ResourceManager.GetString("monthly_incomes__LowerCase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Monthly incomes read successfully. .
         /// </summary>
         public static string Monthly_incomes_read_successfully {
             get {
                 return ResourceManager.GetString("Monthly_incomes_read_successfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monthly incomes saved successfully. .
+        /// </summary>
+        public static string Monthly_incomes_saved_successfully__ {
+            get {
+                return ResourceManager.GetString("Monthly_incomes_saved_successfully__", resourceCulture);
             }
         }
         
@@ -1278,6 +1343,15 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save changes?.
+        /// </summary>
+        public static string Save_changes_ {
+            get {
+                return ResourceManager.GetString("Save_changes_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Saving {0} statistics - Error!.
         /// </summary>
         public static string Saving_0__statistics___Error__FORMAT__ {
@@ -1473,6 +1547,15 @@ namespace Localization {
         public static string The_ChangeSummaryDateFromCode_class_can_not_access_null_value_in_ctor__ {
             get {
                 return ResourceManager.GetString("The_ChangeSummaryDateFromCode_class_can_not_access_null_value_in_ctor__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The chosen expense item already exists. .
+        /// </summary>
+        public static string The_chosen_expense_item_already_exists__ {
+            get {
+                return ResourceManager.GetString("The_chosen_expense_item_already_exists__", resourceCulture);
             }
         }
         

@@ -706,4 +706,33 @@ A beviteli mezőkben:
   <data name="Importing_data_from_File_Repository_into___0___DataBase" xml:space="preserve">
     <value>Adatok importálása fájlrendszer alapú tárolóból ({0}) adatbázisba...</value>
   </data>
+  <data name="Error_" xml:space="preserve">
+    <value>Hiba!</value>
+  </data>
+  <data name="The_chosen_expense_item_already_exists__" xml:space="preserve">
+    <value>A kiválasztott kiadás egység már nem létezik. </value>
+  </data>
+  <data name="Save_changes_" xml:space="preserve">
+    <value>Változások mentése?</value>
+  </data>
+  <data name="daily_expenses__LowerCase" xml:space="preserve">
+    <value>napi kiadások</value>
+  </data>
+  <data name="monthly_incomes__LowerCase" xml:space="preserve">
+    <value>havi bevételek</value>
+  </data>
+  <data name="Daily_expenses_saved_successfully__" xml:space="preserve">
+    <value>Napi kiadások mentése sikeres. </value>
+  </data>
+  <data name="Could_not_save_the_daily_expenses_" xml:space="preserve">
+    <value>Nem sikerült menteni a napi kiadásokat!
+</value>
+  </data>
+  <data name="Monthly_incomes_saved_successfully__" xml:space="preserve">
+    <value>Havi bevételek mentése sikeres. </value>
+  </data>
+  <data name="Could_not_save_the_monthly_incomes_" xml:space="preserve">
+    <value>Nem sikerült menteni a havi bevételeket!
+</value>
+  </data>
 </root>
