@@ -22,10 +22,10 @@
     <clear />
 
     <!--Ado.Net-->
-    <add name="ExinConnectionString" connectionString="COMES FROM CONFIG TRANSFORM" />
-    <add name="ExinSQLiteConnectionString" connectionString="data source=#SQLITE_REPO_FULLPATH#" />
+    <add name="Exin_MsSql_AdoNet_ConnStr" connectionString="COMES FROM CONFIG TRANSFORM" />
+    <add name="Exin_SQLite_AdoNet_ConnStr" connectionString="data source=#SQLITE_REPO_FULLPATH#" />
     
     <!--EntityFramework-->
-    <add name="ExinEfSqliteConnStr" connectionString="metadata=res://*/DataBase.EntityFramework.EntitiesSqlite.ExinEf.csdl|res://*/DataBase.EntityFramework.EntitiesSqlite.ExinEf.ssdl|res://*/DataBase.EntityFramework.EntitiesSqlite.ExinEf.msl;provider=System.Data.SQLite;provider connection string=&quot;data source=#SQLITE_REPO_FULLPATH#&quot;" providerName="System.Data.EntityClient" />
-    <add name="ExinEfMsSqlConnStr" connectionString="COMES FROM CONFIG TRANSFORM" providerName="COMES FROM CONFIG TRANSFORM" />
+    <add name="Exin_SQLite_EF_ConnStr" connectionString="metadata=res://*/DataBase.EntityFramework.EntitiesSqlite.ExinEf.csdl|res://*/DataBase.EntityFramework.EntitiesSqlite.ExinEf.ssdl|res://*/DataBase.EntityFramework.EntitiesSqlite.ExinEf.msl;provider=System.Data.SQLite;provider connection string=&quot;data source=#SQLITE_REPO_FULLPATH#&quot;" providerName="System.Data.EntityClient" />
+    <add name="Exin_MsSql_EF_ConnStr" connectionString="COMES FROM CONFIG TRANSFORM" providerName="COMES FROM CONFIG TRANSFORM" />
   </connectionStrings>

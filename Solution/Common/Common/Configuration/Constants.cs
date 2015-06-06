@@ -17,10 +17,10 @@
 		public static class Db
 		{
 			// ConnenctionString names
-			public const string MsSql_AdoNet = "ExinConnectionString";
-			public const string MsSql_Ef = "ExinEfMsSqlConnStr";
-			public const string SQLite_AdoNet = "ExinSQLiteConnectionString";
-			public const string SQLite_Ef = "ExinEfSqliteConnStr";
+			public const string MsSql_AdoNet_ConnStr = "Exin_MsSql_AdoNet_ConnStr";
+			public const string MsSql_EF_ConnStr = "Exin_MsSql_EF_ConnStr";
+			public const string SQLite_AdoNet_ConnStr = "Exin_SQLite_AdoNet_ConnStr";
+			public const string SQLite_EF_ConnStr = "Exin_SQLite_EF_ConnStr";
 
 			// etc
 			public const string SqliteDbFullpathPlaceholder = "#SQLITE_REPO_FULLPATH#";

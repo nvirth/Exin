@@ -4,8 +4,8 @@
     <section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
   </configSections>  
   <connectionStrings>
-    <add name="ExinEfSqliteConnStr" connectionString="metadata=res://*/DataBase.EntityFramework.EntitiesSqlite.ExinEf.csdl|res://*/DataBase.EntityFramework.EntitiesSqlite.ExinEf.ssdl|res://*/DataBase.EntityFramework.EntitiesSqlite.ExinEf.msl;provider=System.Data.SQLite;provider connection string=&quot;data source=#SQLITE_REPO_FULLPATH#&quot;" providerName="System.Data.SQLite" />
-    <add name="ExinEfMsSqlConnStr" connectionString="metadata=res://*/DataBase.EntityFramework.EntitiesMsSql.ExinEfMsSql.csdl|res://*/DataBase.EntityFramework.EntitiesMsSql.ExinEfMsSql.ssdl|res://*/DataBase.EntityFramework.EntitiesMsSql.ExinEfMsSql.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=.;initial catalog=Exin;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+    <add name="Exin_SQLite_EF_ConnStr" connectionString="metadata=res://*/DataBase.EntityFramework.EntitiesSqlite.ExinEf.csdl|res://*/DataBase.EntityFramework.EntitiesSqlite.ExinEf.ssdl|res://*/DataBase.EntityFramework.EntitiesSqlite.ExinEf.msl;provider=System.Data.SQLite;provider connection string=&quot;data source=#SQLITE_REPO_FULLPATH#&quot;" providerName="System.Data.SQLite" />
+    <add name="Exin_MsSql_EF_ConnStr" connectionString="metadata=res://*/DataBase.EntityFramework.EntitiesMsSql.ExinEfMsSql.csdl|res://*/DataBase.EntityFramework.EntitiesMsSql.ExinEfMsSql.ssdl|res://*/DataBase.EntityFramework.EntitiesMsSql.ExinEfMsSql.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=.;initial catalog=Exin;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />
   </connectionStrings>
 
   <system.data>

@@ -86,8 +86,8 @@ namespace DAL
 			}
 		}
 
-		protected override string _adoNetConnStrName => C.MsSql_AdoNet;
-	    protected override string _efConnStrName => C.MsSql_Ef;
+		protected override string _adoNetConnStrName => C.MsSql_AdoNet_ConnStr;
+	    protected override string _efConnStrName => C.MsSql_EF_ConnStr;
 	}
 
 	/// <summary>
@@ -114,8 +114,8 @@ namespace DAL
 			}
 		}
 
-		protected override string _adoNetConnStrName => C.SQLite_AdoNet;
-	    protected override string _efConnStrName => C.SQLite_Ef;
+		protected override string _adoNetConnStrName => C.SQLite_AdoNet_ConnStr;
+	    protected override string _efConnStrName => C.SQLite_EF_ConnStr;
 	}
 
 }
