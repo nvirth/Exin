@@ -682,4 +682,28 @@ A beviteli mezőkben:
   <data name="WindowTitle" xml:space="preserve">
     <value>Exin - Kiadások/Bevételek</value>
   </data>
+  <data name="_from_this__database_" xml:space="preserve">
+    <value>┌-(ebből adatbázis)</value>
+  </data>
+  <data name="Calculating_summaries" xml:space="preserve">
+    <value>Összesítések kiszámolása</value>
+  </data>
+  <data name="Creating_or_emptying_tables" xml:space="preserve">
+    <value>Táblák elkészítése vagy kiürítése</value>
+  </data>
+  <data name="Importing_categories" xml:space="preserve">
+    <value>Kategóriák importálása</value>
+  </data>
+  <data name="Importing_expenses_and_incomes" xml:space="preserve">
+    <value>Kiadások és bevételek importálása</value>
+  </data>
+  <data name="Importing_units" xml:space="preserve">
+    <value>Mértékegységek importálása</value>
+  </data>
+  <data name="Operation_finished_successfully__" xml:space="preserve">
+    <value>A művelet sikeresen végrehajtva! </value>
+  </data>
+  <data name="Importing_data_from_File_Repository_into___0___DataBase" xml:space="preserve">
+    <value>Adatok importálása fájlrendszer alapú tárolóból ({0}) adatbázisba...</value>
+  </data>
 </root>

@@ -142,6 +142,15 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ┌-(from this, database).
+        /// </summary>
+        public static string _from_this__database_ {
+            get {
+                return ResourceManager.GetString("_from_this__database_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  monthly .
         /// </summary>
         public static string _monthly_ {
@@ -219,6 +228,15 @@ namespace Localization {
         public static string Amount_ {
             get {
                 return ResourceManager.GetString("Amount_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calculating summaries.
+        /// </summary>
+        public static string Calculating_summaries {
+            get {
+                return ResourceManager.GetString("Calculating_summaries", resourceCulture);
             }
         }
         
@@ -549,6 +567,15 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Creating or emptying tables.
+        /// </summary>
+        public static string Creating_or_emptying_tables {
+            get {
+                return ResourceManager.GetString("Creating_or_emptying_tables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Creating the monthly files: .
         /// </summary>
         public static string Creating_the_monthly_files_ {
@@ -839,6 +866,42 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Importing categories.
+        /// </summary>
+        public static string Importing_categories {
+            get {
+                return ResourceManager.GetString("Importing_categories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Importing data from File Repository into ({0}) DataBase....
+        /// </summary>
+        public static string Importing_data_from_File_Repository_into___0___DataBase {
+            get {
+                return ResourceManager.GetString("Importing_data_from_File_Repository_into___0___DataBase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Importing expenses and incomes.
+        /// </summary>
+        public static string Importing_expenses_and_incomes {
+            get {
+                return ResourceManager.GetString("Importing_expenses_and_incomes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Importing units.
+        /// </summary>
+        public static string Importing_units {
+            get {
+                return ResourceManager.GetString("Importing_units", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to incomes.
         /// </summary>
         public static string incomes {
@@ -1021,6 +1084,15 @@ namespace Localization {
         public static string New_monthly_income {
             get {
                 return ResourceManager.GetString("New_monthly_income", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Operation finished successfully! .
+        /// </summary>
+        public static string Operation_finished_successfully__ {
+            get {
+                return ResourceManager.GetString("Operation_finished_successfully__", resourceCulture);
             }
         }
         

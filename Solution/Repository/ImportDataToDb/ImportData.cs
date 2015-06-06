@@ -37,7 +37,14 @@ namespace ImportDataToDb
 
 		public static void ImportDataFromFileRepoToDb(string[] args = null)
 		{
+			MessagePresenter.WriteLine(Localized.Importing_data_from_File_Repository_into___0___DataBase.Formatted(Config.DbType));
+			MessagePresenter.WriteLine("");
+
 			DoWork(args);
+
+			MessagePresenter.WriteLine(Localized._end_);
+			MessagePresenter.WriteLine("");
+			MessagePresenter.WriteLine(Localized.Operation_finished_successfully__);
 		}
 
 		private static void DoWork(string[] args)
@@ -48,11 +55,11 @@ namespace ImportDataToDb
 			Action importExpensesAction = () => ImportExpensesAndIncomes(args);
 			Action calculateSummaries = CalculateSummaries;
 
-			clearAllTablesAction.ExecuteWithTimeMeasuring("ClearAllTables");
-			importUnitsAction.ExecuteWithTimeMeasuring("ImportUnits");
-			importCategoriesAction.ExecuteWithTimeMeasuring("ImportCategories");
-			importExpensesAction.ExecuteWithTimeMeasuring("ImportExpensesAndIncomes");
-			calculateSummaries.ExecuteWithTimeMeasuring("CalculateSummaries");
+			clearAllTablesAction.ExecuteWithTimeMeasuring(Localized.Creating_or_emptying_tables);
+			importUnitsAction.ExecuteWithTimeMeasuring(Localized.Importing_units);
+			importCategoriesAction.ExecuteWithTimeMeasuring(Localized.Importing_categories);
+			importExpensesAction.ExecuteWithTimeMeasuring(Localized.Importing_expenses_and_incomes);
+			calculateSummaries.ExecuteWithTimeMeasuring(Localized.Calculating_summaries);
 		}
 
 		#endregion
@@ -180,7 +187,7 @@ namespace ImportDataToDb
 			// -- To DataBase
 
 			Action toDbAction = ImportExpensesAndIncomes_ToDb_OneByOne;
-			toDbAction.ExecuteWithTimeMeasuring("  DB");
+			toDbAction.ExecuteWithTimeMeasuring(Localized._from_this__database_);
 		}
 
 		private static void ImportExpensesAndIncomes_ToDb_OneByOne()
@@ -311,8 +318,8 @@ namespace ImportDataToDb
 					throw new NotImplementedException(string.Format(Localized.ImportData_ClearAllTables_is_not_implemented_to_this_DbType___0_, Config.DbType));
 			}
 
-			MessagePresenter.WriteLine(Localized.The_database_tables_are_ready__have_been_emptied);
-			MessagePresenter.WriteLine("");
+			//MessagePresenter.WriteLine(Localized.The_database_tables_are_ready__have_been_emptied);
+			//MessagePresenter.WriteLine("");
 
 			//UnitManager.RefreshCache();
 			//CategoryManager.RefreshCache();
