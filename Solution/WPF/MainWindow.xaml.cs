@@ -49,6 +49,7 @@ namespace WPF
 			InitializeComponent();
 			MessagePresenterManager.WireToRichTextBox(LogTB, Dispatcher);
 			InitOptimize();
+			InitStatic();
 
 			WpfHelper.Dispatcher = Dispatcher;
 			LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
@@ -72,6 +73,14 @@ namespace WPF
 					this.IsEnabled = true;
 					NewExpenseTitleTB.Focus();
 				};
+		}
+
+		// Makes static class' initialization (more) determinable
+		// TODO InitStatic
+		private static void InitStatic()
+		{
+			var useLess1 = CategoryManager.GetCategoryNone;
+			var useLess2 = UnitManager.GetUnitNone;
 		}
 
 		private static void InitOptimize()
