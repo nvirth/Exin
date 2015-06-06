@@ -528,7 +528,8 @@ namespace Common.Utils.Helpers
 		#region IList
 
 		/// <summary>
-		/// Insert sorted into already sorted list
+		/// Insert sorted into already sorted list. <para />
+		/// Works also with WPF non-UI Thread
 		/// </summary>
 		public static void InsertIntoSorted<T>(this IList<T> list, T newItem) where T : IComparable<T>
 		{
@@ -538,7 +539,12 @@ namespace Common.Utils.Helpers
 				if(!(list[i].CompareTo(newItem) > 0))
 					break;
 			}
-			list.Insert(i, newItem);
+
+			var dispatcher = Application.Current.Dispatcher; // alias
+			if(dispatcher != null)
+				dispatcher.Invoke(() => list.Insert(i, newItem));
+			else
+				list.Insert(i, newItem);
 		}
 
 		public static bool SequenceEqual<T>(this IList<T> left, IList<T> right, IEqualityComparer<T> equalityComparer)

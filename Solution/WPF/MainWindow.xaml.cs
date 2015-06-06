@@ -51,7 +51,6 @@ namespace WPF
 			InitOptimize();
 			InitStatic();
 
-			WpfHelper.Dispatcher = Dispatcher;
 			LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
 
 			// For init, these have to be off. These will be turned on again at the end of ContentRendered

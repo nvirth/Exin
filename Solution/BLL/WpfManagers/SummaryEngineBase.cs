@@ -87,7 +87,7 @@ namespace BLL.WpfManagers
 				{
 					Summary.Update(item, plusAmount);
 					TransactionItems.Remove(tib);
-					WpfHelper.InsertIntoSorted(TransactionItems, tib);
+					TransactionItems.InsertIntoSorted(tib);
 				};
 
 			item.PropertyChanged +=
@@ -111,10 +111,10 @@ namespace BLL.WpfManagers
 					Summary.Update(mockEiForAdd);
 
 					TransactionItems.Remove(expenseItem);
-					WpfHelper.InsertIntoSorted(TransactionItems, expenseItem);
+					TransactionItems.InsertIntoSorted(expenseItem);
 				};
 
-			WpfHelper.InsertIntoSorted(TransactionItems, item);
+			TransactionItems.InsertIntoSorted(item);
 			Summary.Update(item);
 		}
 

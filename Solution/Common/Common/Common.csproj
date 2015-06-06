@@ -94,7 +94,6 @@
     <Compile Include="Log\ExinLogger.cs" />
     <Compile Include="Log\LoggerInstances.cs" />
     <Compile Include="Log\LogRenderer.cs" />
-    <Compile Include="Utils\Helpers\WpfHelper.cs" />
     <Compile Include="Configuration\Cultures.cs" />
     <Compile Include="Utils\Helpers\EnumHelpers.cs" />
     <Compile Include="Utils\MessagePresenter.cs" />
