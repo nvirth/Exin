@@ -4,14 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ExinModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ExinModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="DisplayName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DisplayNames" Type="nvarchar" MaxLength="450" Nullable="false" />
         </EntityType>
         <EntityType Name="SummaryItem">
           <Key>
@@ -43,7 +43,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="DisplayName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="DisplayNames" Type="nvarchar" MaxLength="450" Nullable="false" />
         </EntityType>
         <Association Name="FK_SummaryItem_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
@@ -127,9 +127,9 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SummaryItems" Relationship="DAL.DataBase.EntityFramework.EntitiesMsSql.FK_SummaryItem_Category" FromRole="Category" ToRole="SummaryItem" />
           <NavigationProperty Name="TransactionItems" Relationship="DAL.DataBase.EntityFramework.EntitiesMsSql.FK_TransactionItem_Category" FromRole="Category" ToRole="TransactionItem" />
+          <Property Name="DisplayNames" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="SummaryItem_MsSql">
           <Key>
@@ -164,7 +164,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DisplayNames" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_SummaryItem_Category">
           <End Type="DAL.DataBase.EntityFramework.EntitiesMsSql.Category_MsSql" Role="Category" Multiplicity="1" />
@@ -211,7 +211,7 @@
           <EntitySetMapping Name="Category">
             <EntityTypeMapping TypeName="DAL.DataBase.EntityFramework.EntitiesMsSql.Category_MsSql">
               <MappingFragment StoreEntitySet="Category">
-                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="DisplayNames" ColumnName="DisplayNames" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
@@ -246,7 +246,7 @@
           <EntitySetMapping Name="Unit">
             <EntityTypeMapping TypeName="DAL.DataBase.EntityFramework.EntitiesMsSql.Unit_MsSql">
               <MappingFragment StoreEntitySet="Unit">
-                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="DisplayNames" ColumnName="DisplayNames" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
@@ -268,7 +268,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>

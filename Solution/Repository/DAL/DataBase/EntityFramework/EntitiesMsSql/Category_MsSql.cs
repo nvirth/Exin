@@ -7,10 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Collections.Generic;
-
 namespace DAL.DataBase.EntityFramework.EntitiesMsSql
 {
+    using System;
+    using System.Collections.Generic;
+    
     public partial class Category_MsSql
     {
         public Category_MsSql()
@@ -21,7 +22,7 @@ namespace DAL.DataBase.EntityFramework.EntitiesMsSql
     
         public int ID { get; set; }
         public string Name { get; set; }
-        public string DisplayName { get; set; }
+        public string DisplayNames { get; set; }
     
         public virtual ICollection<SummaryItem_MsSql> SummaryItems { get; set; }
         public virtual ICollection<TransactionItem_MsSql> TransactionItems { get; set; }

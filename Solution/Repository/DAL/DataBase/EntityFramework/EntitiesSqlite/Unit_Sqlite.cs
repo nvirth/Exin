@@ -9,10 +9,13 @@
 
 namespace DAL.DataBase.EntityFramework.EntitiesSqlite
 {
+    using System;
+    using System.Collections.Generic;
+    
     public partial class Unit_Sqlite
     {
         public long ID { get; set; }
         public string Name { get; set; }
-        public string DisplayName { get; set; }
+        public string DisplayNames { get; set; }
     }
 }

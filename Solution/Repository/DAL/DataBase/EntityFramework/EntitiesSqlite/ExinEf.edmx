@@ -11,7 +11,7 @@
           </Key>
           <Property Name="ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="DisplayName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DisplayNames" Type="nvarchar" MaxLength="450" Nullable="false" />
         </EntityType>
         <EntityType Name="SummaryItem">
           <Key>
@@ -43,7 +43,7 @@
           </Key>
           <Property Name="ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="DisplayName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="DisplayNames" Type="nvarchar" MaxLength="450" Nullable="false" />
         </EntityType>
         <Association Name="FK_SummaryItem_0_0">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
@@ -110,7 +110,7 @@
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DisplayName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DisplayNames" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="SummaryItems" Relationship="Self.FK_SummaryItem_0_0" FromRole="Category" ToRole="SummaryItem" />
           <NavigationProperty Name="TransactionItems" Relationship="Self.FK_TransactionItem_1_0" FromRole="Category" ToRole="TransactionItem" />
         </EntityType>
@@ -147,7 +147,7 @@
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DisplayName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DisplayNames" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <Association Name="FK_SummaryItem_0_0">
           <End Role="Category" Type="DAL.DataBase.EntityFramework.Entites.Category_Sqlite" Multiplicity="1" />
@@ -214,7 +214,7 @@
               <MappingFragment StoreEntitySet="Category">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="DisplayNames" ColumnName="DisplayNames" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -249,7 +249,7 @@
               <MappingFragment StoreEntitySet="Unit">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="DisplayNames" ColumnName="DisplayNames" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

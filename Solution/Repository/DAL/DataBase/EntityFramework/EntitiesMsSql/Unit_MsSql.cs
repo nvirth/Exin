@@ -9,10 +9,13 @@
 
 namespace DAL.DataBase.EntityFramework.EntitiesMsSql
 {
+    using System;
+    using System.Collections.Generic;
+    
     public partial class Unit_MsSql
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public string DisplayName { get; set; }
+        public string DisplayNames { get; set; }
     }
 }
