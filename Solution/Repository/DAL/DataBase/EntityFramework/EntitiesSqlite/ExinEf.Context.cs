@@ -7,11 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-
 namespace DAL.DataBase.EntityFramework.EntitiesSqlite
 {
+    using System;
+    using System.Data.Entity;
+    using System.Data.Entity.Infrastructure;
+    
     public partial class ExinEfSqliteContext : DbContext
     {
         public ExinEfSqliteContext()

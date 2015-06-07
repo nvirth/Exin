@@ -167,6 +167,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ExinEfMsSql.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="App.Config" />
     <None Include="DataBase\EntityFramework\EntitiesMsSql\ExinEfMsSql.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ExinEfMsSql.edmx</DependentUpon>

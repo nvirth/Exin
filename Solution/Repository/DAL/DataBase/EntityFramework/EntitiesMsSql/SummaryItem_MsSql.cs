@@ -7,16 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-
 namespace DAL.DataBase.EntityFramework.EntitiesMsSql
 {
+    using System;
+    using System.Collections.Generic;
+    
     public partial class SummaryItem_MsSql
     {
         public int ID { get; set; }
         public int Amount { get; set; }
         public int CategoryID { get; set; }
-        public DateTime Date { get; set; }
+        public System.DateTime Date { get; set; }
     
         public virtual Category_MsSql Category { get; set; }
     }

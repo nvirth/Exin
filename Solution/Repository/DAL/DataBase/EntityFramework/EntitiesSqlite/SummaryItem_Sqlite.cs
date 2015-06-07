@@ -7,16 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-
 namespace DAL.DataBase.EntityFramework.EntitiesSqlite
 {
+    using System;
+    using System.Collections.Generic;
+    
     public partial class SummaryItem_Sqlite
     {
         public long ID { get; set; }
         public long Amount { get; set; }
         public long CategoryID { get; set; }
-        public DateTime Date { get; set; }
+        public System.DateTime Date { get; set; }
     
         public virtual Category_Sqlite Category { get; set; }
     }

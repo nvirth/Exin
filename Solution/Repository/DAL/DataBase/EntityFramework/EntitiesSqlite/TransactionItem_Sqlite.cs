@@ -7,10 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-
 namespace DAL.DataBase.EntityFramework.EntitiesSqlite
 {
+    using System;
+    using System.Collections.Generic;
+    
     public partial class TransactionItem_Sqlite
     {
         public long ID { get; set; }
@@ -19,7 +20,7 @@ namespace DAL.DataBase.EntityFramework.EntitiesSqlite
         public long UnitID { get; set; }
         public string Title { get; set; }
         public string Comment { get; set; }
-        public DateTime Date { get; set; }
+        public System.DateTime Date { get; set; }
         public long CategoryID { get; set; }
         public bool IsExpenseItem { get; set; }
         public bool IsIncomeItem { get; set; }
