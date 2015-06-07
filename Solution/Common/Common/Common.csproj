@@ -65,6 +65,7 @@
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Configuration\RepoPaths.cs" />
     <Compile Include="Configuration\Constants.cs" />
+    <Compile Include="DbEntities\Base\LocalizedEntityBase.cs" />
     <Compile Include="DbEntities\Category.cs" />
     <Compile Include="DbEntities\SummaryItem.cs" />
     <Compile Include="DbEntities\TransactionItem.cs" />

@@ -18,7 +18,7 @@ namespace ImportDataToDb
 		public static void Main(string[] args)
 		{
 			//StartDebugger();
-			Helpers.SetDefaultCultureToEnglish();
+			Cultures.SetToEnglish();
 
 			MessagePresenterManager.WireToConsole();
 

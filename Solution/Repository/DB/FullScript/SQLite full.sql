@@ -1,7 +1,7 @@
 CREATE TABLE [Category] (
 	[ID]	integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	[Name]	nvarchar(50) NOT NULL COLLATE NOCASE,
-	[DisplayName]	nvarchar(50) NOT NULL COLLATE NOCASE
+	[DisplayNames]	nvarchar(450) NOT NULL COLLATE NOCASE
 
 );
 CREATE TABLE [SummaryItem] (
@@ -33,7 +33,7 @@ CREATE TABLE [TransactionItem] (
 CREATE TABLE [Unit] (
 	[ID]	integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	[Name]	nvarchar(20) NOT NULL COLLATE NOCASE,
-	[DisplayName]	nvarchar(20) NOT NULL COLLATE NOCASE
+	[DisplayNames]	nvarchar(450) NOT NULL COLLATE NOCASE
 
 );
 CREATE TRIGGER [fkd_SummaryItem_CategoryID_Category_ID] Before Delete ON [Category] BEGIN SELECT RAISE(ROLLBACK, 'delete on table Category violates foreign key constraint fkd_SummaryItem_CategoryID_Category_ID') WHERE (SELECT CategoryID FROM SummaryItem WHERE CategoryID = OLD.ID) IS NOT NULL;  END;
@@ -47,7 +47,7 @@ CREATE TRIGGER [fku_TransactionItem_CategoryID_Category_ID] Before Update ON [Tr
 CREATE TRIGGER [fku_TransactionItem_UnitID_Unit_ID] Before Update ON [TransactionItem] BEGIN SELECT RAISE(ROLLBACK, 'update on table TransactionItem violates foreign key constraint fku_TransactionItem_UnitID_Unit_ID') WHERE (SELECT ID FROM Unit WHERE ID = NEW.UnitID) IS NULL;  END;
 CREATE UNIQUE INDEX [Category_UK_Category_DisplayName]
 ON [Category]
-([DisplayName] DESC);
+([DisplayNames] DESC);
 CREATE UNIQUE INDEX [Category_UK_Category_Name]
 ON [Category]
 ([Name] DESC);
@@ -59,7 +59,7 @@ ON [TransactionItem]
 ([Date] DESC);
 CREATE INDEX [Unit_UK_Unit_DisplayName]
 ON [Unit]
-([DisplayName] DESC);
+([DisplayNames] DESC);
 CREATE UNIQUE INDEX [Unit_UK_Unit_Name]
 ON [Unit]
 ([Name] DESC);

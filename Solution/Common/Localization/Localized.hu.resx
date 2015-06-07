@@ -735,4 +735,7 @@ A beviteli mezőkben:
     <value>Nem sikerült menteni a havi bevételeket!
 </value>
   </data>
+  <data name="This__0__entity_does_not_contain_any_DisplayName_value___" xml:space="preserve">
+    <value>Ez a {0} entitás nem tartalmaz DisplayName értéket. A Name érték kerül használatra helyette. </value>
+  </data>
 </root>

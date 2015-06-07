@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Navigation;
+using Common.Configuration;
 using Common.Utils.Helpers;
 
 namespace WPF
@@ -12,8 +13,8 @@ namespace WPF
 		public App()
 		{
 			// The controls will init with hungarian CultureInfo
-			//Helpers.SetDefaultCultureToHungarian();
-			Helpers.SetDefaultCultureToEnglish();
+			//Cultures.SetDefaultCultureToHungarian();
+			Cultures.SetToEnglish();
 		}
 		
 		protected override void OnLoadCompleted(NavigationEventArgs e)
@@ -21,7 +22,7 @@ namespace WPF
 			base.OnLoadCompleted(e);
 
 			// The exceptions' message will be english 
-			Helpers.SetDefaultCultureToEnglish();
+			Cultures.SetToEnglish();
 		}
 
 	    protected override void OnStartup(StartupEventArgs e)

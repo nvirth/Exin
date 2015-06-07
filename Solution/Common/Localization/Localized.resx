@@ -755,4 +755,7 @@ or if you are familiar with SQL queries, you can also use the SQLite database fi
     <value>Could not save the monthly incomes!
 </value>
   </data>
+  <data name="This__0__entity_does_not_contain_any_DisplayName_value___" xml:space="preserve">
+    <value>This {0} entity does not contain any DisplayName value. It's Name value will be used instead. </value>
+  </data>
 </root>

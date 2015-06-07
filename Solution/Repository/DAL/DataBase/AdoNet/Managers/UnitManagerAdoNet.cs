@@ -62,7 +62,7 @@ namespace DAL.DataBase.AdoNet.Managers
 				{
 					ID = Convert.ToInt32(dr[unit.Property(c => c.ID)]),
 					Name = dr.Field<string>(unit.Property(c => c.Name)),
-					DisplayName = dr.Field<string>(unit.Property(c => c.DisplayName)),
+					DisplayNames = dr.Field<string>(unit.Property(c => c.DisplayNames)),
 				});
 			return units;
 		}
@@ -83,13 +83,13 @@ namespace DAL.DataBase.AdoNet.Managers
 		protected virtual void BuildInserQueryWithParams(Unit unit, ExinAdoNetContextBase ctx)
 		{
 			ctx.Command.CommandText = @"INSERT INTO " + TableName + @" 
-												  ([ID], [Name], [DisplayName])
-											VALUES(@ID, @Name, @DisplayName);";
+												  ([ID], [Name], [DisplayNames])
+											VALUES(@ID, @Name, @DisplayNames);";
 
 			ctx.Command.Parameters.Clear();
 			ctx.Command.Parameters.AddWithValue("@ID", unit.ID);
 			ctx.Command.Parameters.AddWithValue("@Name", unit.Name);
-			ctx.Command.Parameters.AddWithValue("@DisplayName", unit.DisplayName);
+			ctx.Command.Parameters.AddWithValue("@DisplayNames", unit.DisplayNames);
 		}
 
 		protected virtual void ExecInsertQuery(ExinAdoNetContextBase ctx)

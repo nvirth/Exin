@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Unit](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [nvarchar](20) NOT NULL,
-	[DisplayName] [nvarchar](20) NOT NULL,
+	[DisplayNames] [nvarchar](450) NOT NULL,
  CONSTRAINT [PK_Unit] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
@@ -13,7 +13,10 @@
 ) ON [PRIMARY]
 GO
 /****** Object:  Index [UK_Unit_DisplayName]    Script Date: 2014.02.01. 11:22:38 ******/
+/****** Object:  Index [UK_Unit_DisplayName]    Script Date: 6/7/2015 9:39:53 PM ******/
 CREATE NONCLUSTERED INDEX [UK_Unit_DisplayName] ON [dbo].[Unit]
 (
-	[DisplayName] ASC
+	[DisplayNames] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Expects localized display names, like: "en-US:liter;hu-HU:liter;". So, the maximum lenght of a DisplayName value is 20 char long; +7 chars come in per language => 27 char per lang. There are currently 2 languages in use (54 char); so 450 (which is the max index size) would be enough for 16 languages.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Unit', @level2type=N'COLUMN',@level2name=N'DisplayNames'

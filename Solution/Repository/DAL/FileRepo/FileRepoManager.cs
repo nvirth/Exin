@@ -343,9 +343,9 @@ namespace DAL.FileRepo
 			var xmlDoc = XElement.Load(RepoPaths.UnitsFile);
 			var units = xmlDoc.Elements(C.Unit).Select(xml => new Unit
 			{
-				ID = ((int)xml.Element(C.ID)),
-				Name = ((string)xml.Element(C.Name)).Trim(),
-				DisplayName = ((string)xml.Element(C.DisplayName)).Trim(),
+				ID = ((int) xml.Element(C.ID)),
+				Name = ((string) xml.Element(C.Name)).Trim(),
+				DisplayNames = ParseLocalizedDisplayNames(xml),
 			}).ToList();
 			return units;
 		}
@@ -357,9 +357,22 @@ namespace DAL.FileRepo
 			{
 				ID = ((int)xml.Element(C.ID)),
 				Name = ((string)xml.Element(C.Name)).Trim(),
-				DisplayName = ((string)xml.Element(C.DisplayName)).Trim(),
+				DisplayNames = ParseLocalizedDisplayNames(xml),
 			}).ToList();
 			return categories;
+		}
+
+		private string ParseLocalizedDisplayNames(XElement xml)
+		{
+			var displayNames =
+				xml.Element(C.DisplayNames)
+					.Descendants()
+					.Select(displayNameXml => "{0}:{1};".Formatted(
+						displayNameXml.Name.LocalName, ((string)displayNameXml).Trim()
+					))
+					.Join("");
+
+			return displayNames;
 		}
 
 		#endregion

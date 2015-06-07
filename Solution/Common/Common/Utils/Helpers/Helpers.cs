@@ -75,38 +75,6 @@ namespace Common.Utils.Helpers
 
 		#endregion
 
-		#region CultureInfo
-
-		public static void SetDefaultCultureToEnglish()
-		{
-			Thread.CurrentThread.CurrentCulture = Cultures.en_US;
-			Thread.CurrentThread.CurrentUICulture = Cultures.en_US;
-
-			SetDefaultCultureToEnglish_OnlyCultureInfo();
-		}
-
-		public static void SetDefaultCultureToHungarian()
-		{
-			Thread.CurrentThread.CurrentCulture = Cultures.hu_HU;
-			Thread.CurrentThread.CurrentUICulture = Cultures.hu_HU;
-
-			SetDefaultCultureToHungarian_OnlyCultureInfo();
-		}
-
-		public static void SetDefaultCultureToEnglish_OnlyCultureInfo()
-		{
-			CultureInfo.DefaultThreadCurrentCulture = Cultures.en_US;
-			CultureInfo.DefaultThreadCurrentUICulture = Cultures.en_US;
-		}
-
-		public static void SetDefaultCultureToHungarian_OnlyCultureInfo()
-		{
-			CultureInfo.DefaultThreadCurrentCulture = Cultures.hu_HU;
-			CultureInfo.DefaultThreadCurrentUICulture = Cultures.hu_HU;
-		}
-
-		#endregion
-
 		#region File
 
 		public static void CreateNewFileDeleteOld(FileInfo newFile, FileInfo oldFile, StringBuilder stringBuilder)
@@ -475,6 +443,46 @@ namespace Common.Utils.Helpers
 
 		#region IDictionary
 
+		public static TValue GetLocalizedValue<TValue>(this IDictionary<string, TValue> localizedDictionary) where TValue : class
+		{
+			if (localizedDictionary == null || localizedDictionary.Count == 0)
+				return null;
+
+			var localizedValue = GetLocalizedValueImpl(localizedDictionary, Cultures.CurrentCulture.Name);
+			if(localizedValue != null)
+				return localizedValue;
+
+			var defaultLangValue = GetLocalizedValueImpl(localizedDictionary, Cultures.DefaultCulture.Name);
+			if (defaultLangValue != null)
+				return defaultLangValue;
+
+			ExinLog.ger.LogError(
+				"This localized dictionary did not contain any value nor for the current, nor for the default culture.",
+				new {
+					CurrentCulture = Cultures.CurrentCulture,
+					DefaultCulture = Cultures.DefaultCulture,
+					Dictionary = localizedDictionary
+				});
+
+			return localizedDictionary.Values.First();
+		}
+
+		private static TValue GetLocalizedValueImpl<TValue>(this IDictionary<string, TValue> localizedDictionary, string cultureName) where TValue : class
+		{
+			if(localizedDictionary.ContainsKey(cultureName)) //"en-US" or "hu-HU"
+				return localizedDictionary[cultureName];
+
+			if(cultureName.Length <= 2)
+				return null;
+
+			var parentCultureName = cultureName.Substring(0, 2); //"en" or "hu"
+			var parentCultureKey = localizedDictionary.Keys.FirstOrDefault(key => key.StartsWith(parentCultureName));
+			if(parentCultureKey != null)
+				return localizedDictionary[parentCultureKey];
+
+			return null;
+		}
+
 		public static void RenameKeyIfExist<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey fromKey, TKey toKey)
 		{
 			if(dictionary.ContainsKey(fromKey))
@@ -725,6 +733,11 @@ namespace Common.Utils.Helpers
 		#endregion
 
 		#region String
+
+		public static string Join<T>(this IEnumerable<T> strings, string separator)
+		{
+			return string.Join(separator, strings);
+		}
 
 		public static string Repeat(this string stringToRepeat, int repeat)
 		{

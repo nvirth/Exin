@@ -3,6 +3,10 @@
 
 - There is an awesome open source project to convert MS SQL databases completely into SQLite:
 http://www.codeproject.com/Articles/26932/Convert-SQL-Server-DB-to-SQLite-DB
+- There is a Firefox plugin named SQLiteManager:
+https://github.com/lazierthanthou/sqlite-manager
+	- With it, one can create the SQLite scripts for the db:
+		Menu: Database/Export Database Structure
 - This is the SQLite .NET Provider:
 http://system.data.sqlite.org/index.html/doc/trunk/www/downloads.wiki
 

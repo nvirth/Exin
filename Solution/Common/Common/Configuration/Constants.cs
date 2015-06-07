@@ -79,6 +79,7 @@
 			public const string ID = "ID";
 			public const string Name = "Name";
 			public const string DisplayName = "DisplayName";
+			public const string DisplayNames = "DisplayNames";
 			public const string Title = "Title";
 			public const string Amount = "Amount";
 			public const string Quantity = "Quantity";

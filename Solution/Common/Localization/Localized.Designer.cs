@@ -1743,6 +1743,15 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This {0} entity does not contain any DisplayName value. It&apos;s Name value will be used instead. .
+        /// </summary>
+        public static string This__0__entity_does_not_contain_any_DisplayName_value___ {
+            get {
+                return ResourceManager.GetString("This__0__entity_does_not_contain_any_DisplayName_value___", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
         public static string Title {
