@@ -45,7 +45,7 @@ namespace BLL.WpfManagers
 
 		protected override void ReadDataFromFile()
 		{
-			FileRepoManager.GetDailyExpenses(DatePaths, Add);
+			FileRepoManager.Instance.GetDailyExpenses(DatePaths).ForEach(Add);
 		}
 
 		protected override void SaveToDb()
@@ -86,7 +86,7 @@ namespace BLL.WpfManagers
 
 		protected override void SaveToFile()
 		{
-			FileRepoManager.WriteOutDailyExpenses(TransactionItems, DatePaths, Summary);
+			FileRepoManager.Instance.WriteOutDailyExpenses(TransactionItems, DatePaths, Summary);
 		}
 
 		public ExpenseItem GetTheEqual(ExpenseItem expenseItem)

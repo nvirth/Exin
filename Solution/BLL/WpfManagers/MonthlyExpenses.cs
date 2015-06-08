@@ -73,7 +73,7 @@ namespace BLL.WpfManagers
 
 		protected override void ReadDataFromFile()
 		{
-			FileRepoManager.GetMonthlyExpenses(DatePaths, Add);
+			FileRepoManager.Instance.GetMonthlyExpenses(DatePaths).ForEach(Add);
 		}
 
 		protected override void SaveToDb()
@@ -88,7 +88,7 @@ namespace BLL.WpfManagers
 
 		protected override void SaveToFile()
 		{
-			FileRepoManager.WriteOutMonthlySummaries(Summary, DatePaths, TransactionItems);
+			FileRepoManager.Instance.WriteOutMonthlySummaries(Summary, DatePaths, TransactionItems);
 		}
 
 		#endregion

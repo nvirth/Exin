@@ -716,7 +716,7 @@ namespace Common.Utils.Helpers
 		#region Property
 
 		/// <summary>
-		///  Visszaadja a beadott property nevét string-ben (így erősen típusosan lehet leírni)
+		///  Returns the given property's name as a string, so it can be used strongly typed
 		/// </summary>
 		public static string Property<TClass, TProperty>(this TClass tClass, Expression<Func<TClass, TProperty>> property)
 		{

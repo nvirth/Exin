@@ -21,189 +21,55 @@ namespace DAL.FileRepo
 {
 	public interface IFileRepoManager
 	{
-		/// <summary>
-		/// !!! The given 'date' parameter's value will be the ExpenseItems Date 
-		/// (independently of their real date, what comes from the 'path' param 
-		/// [from the structure of directories and the file name]) !!! 
-		/// This function is faster, than the overload without the 'string path' parameter, 
-		/// but so unsafer
-		/// </summary>
-		IEnumerable<ExpenseItem> ParseDailyExpenseFile(string path, DateTime date);
-
-		/// <summary>
-		/// This function is slower than the overload with the 'string path' parameter, 
-		/// but also safer; the ExpenseItems' Date property can not be invalid
-		/// </summary>
-		IEnumerable<ExpenseItem> ParseDailyExpenseFile(DateTime date);
-
-		/// <summary>
-		/// !!! The given 'date' parameter's value will be the ExpenseItems Date 
-		/// (independently of their real date, what comes from the 'path' param 
-		/// [from the structure of directories and the file name]) !!! 
-		/// This function is faster, than the overload without the 'string path' parameter, 
-		/// but so unsafer
-		/// </summary>
-		void ParseDailyExpenseFile(string path, DateTime date, Action<ExpenseItem> toDoWithEach);
-
-		/// <summary>
-		/// This function is slower than the overload with the 'string path' parameter, 
-		/// but also safer; the ExpenseItems' Date property can not be invalid
-		/// </summary>
-		void ParseDailyExpenseFile(DateTime date, Action<ExpenseItem> toDoWithEach);
-
+		IEnumerable<ExpenseItem> ParseDailyExpenseFile(DateTime date, string cachedPath = null);
 		List<ExpenseItem> GetDailyExpenses(DateTime date);
 		List<ExpenseItem> GetDailyExpenses(DatePaths datePaths);
-		void GetDailyExpenses(DateTime date, Action<ExpenseItem> toDoWithEach);
-		void GetDailyExpenses(DatePaths datePaths, Action<ExpenseItem> toDoWithEach);
+
 		List<ExpenseItem> GetMonthlyExpenses(DateTime date);
 		List<ExpenseItem> GetMonthlyExpenses(DatePaths datePaths);
-		void GetMonthlyExpenses(DateTime date, Action<ExpenseItem> toDoWithEach);
-		void GetMonthlyExpenses(DatePaths datePaths, Action<ExpenseItem> toDoWithEach);
+
 		List<IncomeItem> GetMonthlyIncomes(DateTime date);
 		List<IncomeItem> GetMonthlyIncomes(DatePaths datePaths);
-		void GetMonthlyIncomes(DatePaths datePaths, Action<IncomeItem> toDoWithEach);
-		void ParseMonthlyIncomeFile(string path, DateTime date, Action<IncomeItem> toDoWithEach);
+
 		List<Unit> GetUnits();
+		void AddUnit(Unit unit);
+
 		List<Category> GetCategories();
+		void AddCategory(Category category);
+
 		void WriteOutDailyExpenses(ICollection<TransactionItemBase> transactionItems, DatePaths datePaths, Summary summary);
 		void WriteOutMonthlyIncomes(ICollection<TransactionItemBase> transactionItems, DatePaths datePaths, Summary summary);
 		void WriteOutMonthlySummaries(Summary summary, DatePaths datePaths, IEnumerable<TransactionItemBase> transactionItems);
-		void AddCategory(Category category);
-		void AddUnit(Unit unit);
 	}
 
-	public class FileRepoManagerCore : IFileRepoManager
+	public class FileRepoManager : IFileRepoManager
 	{
+		public static readonly FileRepoManager Instance = new FileRepoManager();
+
 		#region READ
-
-		#region ParseDailyExpenseFile
-
-		/// <summary>
-		/// !!! The given 'date' parameter's value will be the ExpenseItems Date 
-		/// (independently of their real date, what comes from the 'path' param 
-		/// [from the structure of directories and the file name]) !!! 
-		/// This function is faster, than the overload without the 'string path' parameter, 
-		/// but so unsafer
-		/// </summary>
-		public IEnumerable<ExpenseItem> ParseDailyExpenseFile(string path, DateTime date)
-		{
-			XElement xmlDoc = XElement.Load(path);
-			var items = ParseDailyExpenseFile(xmlDoc, date);
-			return items;
-		}
-		/// <summary>
-		/// This function is slower than the overload with the 'string path' parameter, 
-		/// but also safer; the ExpenseItems' Date property can not be invalid
-		/// </summary>
-		public IEnumerable<ExpenseItem> ParseDailyExpenseFile(DateTime date)
-		{
-			return ParseDailyExpenseFile(new DatePaths(date).DayFilePath, date);
-		}
-
-		/// <summary>
-		/// !!! The given 'date' parameter's value will be the ExpenseItems Date 
-		/// (independently of their real date, what comes from the 'path' param 
-		/// [from the structure of directories and the file name]) !!! 
-		/// This function is faster, than the overload without the 'string path' parameter, 
-		/// but so unsafer
-		/// </summary>
-		public void ParseDailyExpenseFile(string path, DateTime date, Action<ExpenseItem> toDoWithEach)
-		{
-			XElement xmlDoc = XElement.Load(path);
-			ParseDailyExpenseFile(xmlDoc, date, toDoWithEach);
-		}
-		/// <summary>
-		/// This function is slower than the overload with the 'string path' parameter, 
-		/// but also safer; the ExpenseItems' Date property can not be invalid
-		/// </summary>
-		public void ParseDailyExpenseFile(DateTime date, Action<ExpenseItem> toDoWithEach)
-		{
-			ParseDailyExpenseFile(new DatePaths(date).DayFilePath, date, toDoWithEach);
-		}
-
-		private void ParseDailyExpenseFile(XElement xmlDoc, DateTime date, Action<ExpenseItem> toDoWithEach)
-		{
-			if(toDoWithEach != null)
-			{
-				var items = ParseDailyExpenseFile(xmlDoc, date);
-				foreach(var expenseItem in items)
-					toDoWithEach(expenseItem);
-			}
-		}
-		private IEnumerable<ExpenseItem> ParseDailyExpenseFile(XElement xmlDoc, DateTime date)
-		{
-			// C <--> Constants.XmlTags
-			return xmlDoc.Elements(C.ExpenseItem).Select(xmlEi => ParseDailyExpenseFile_FetchOne(date, xmlEi));
-		}
-		private ExpenseItem ParseDailyExpenseFile_FetchOne(DateTime date, XElement xmlEi)
-		{
-			// C <--> Constants.XmlTags
-
-			var unitString = (string)xmlEi.Element(C.Unit);
-			var unit = UnitManager.GetByDisplayName(unitString, nullIfNotFound: true)
-				?? UnitManager.GetByName(unitString, nullIfNotFound: false);
-
-			var categoryString = (string)xmlEi.Element(C.Category);
-			var category = CategoryManager.GetByDisplayName(categoryString, nullIfNotFound: true)
-				?? CategoryManager.GetByName(categoryString, nullIfNotFound: false);
-
-			var expenseItem = new ExpenseItem
-			{
-				Amount = ((int)xmlEi.Element(C.Amount)),
-				Quantity = ((int)xmlEi.Element(C.Quantity)),
-				Title = ((string)xmlEi.Element(C.Title)).Trim(),
-				Comment = ((string)xmlEi.Element(C.Comment) ?? "").Trim(),
-				Unit = unit,
-				Category = category,
-				Date = date,
-			};
-			return expenseItem;
-		}
-
-		#endregion
 
 		#region GetDailyExpenses
 
 		public List<ExpenseItem> GetDailyExpenses(DateTime date)
 		{
-			var list = new List<ExpenseItem>();
-			GetDailyExpenses(date, list.Add);
-
-			return list;
+			return GetDailyExpenses(new DatePaths(date));
 		}
 		public List<ExpenseItem> GetDailyExpenses(DatePaths datePaths)
 		{
-			var list = new List<ExpenseItem>();
-			GetDailyExpenses(datePaths, list.Add);
+			var msg = datePaths.DayFileName + " - ";
 
-			return list;
-		}
-		public void GetDailyExpenses(DateTime date, Action<ExpenseItem> toDoWithEach)
-		{
-			GetDailyExpenses(new DatePaths(date), toDoWithEach);
-		}
-		public void GetDailyExpenses(DatePaths datePaths, Action<ExpenseItem> toDoWithEach)
-		{
-			Action parserAction =
-				() => ParseDailyExpenseFile(datePaths.DayFilePath, datePaths.Date, toDoWithEach);
-
-			GetDailyExpenses_Core_WithMessages(datePaths.DayFileName, datePaths.DayFile.Length, parserAction);
-		}
-		private void GetDailyExpenses_Core_WithMessages(string fileName, long fileLength, Action parserAction)
-		{
-			var msg = fileName + " - ";
-
-			if(fileLength == 0)
+			if(datePaths.DayFile.Length == 0)
 			{
 				MessagePresenter.WriteLine(msg + Localized.Empty_);
-				return;
+				return new List<ExpenseItem>();
 			}
 
 			try
 			{
-				parserAction();
-
+				var dailyExpenses = ParseDailyExpenseFile(datePaths.Date, datePaths.DayFilePath).ToList();
 				MessagePresenter.WriteLine(msg + Localized.Read_successfully);
+
+				return dailyExpenses;
 			}
 			catch(Exception e)
 			{
@@ -212,48 +78,50 @@ namespace DAL.FileRepo
 			}
 		}
 
+		#region ParseDailyExpenseFile
+
+		/// <param name="date">The DailyExpenseFile's date, which uniquely identificates it. </param>
+		/// <param name="cachedPath">
+		///		The path to the file. Only provide if you have it calculated already.
+		///		Default value: new DatePaths(date).DayFilePath
+		/// </param>
+		public IEnumerable<ExpenseItem> ParseDailyExpenseFile(DateTime date, string cachedPath = null)
+		{
+			cachedPath = cachedPath ?? new DatePaths(date).DayFilePath;
+
+			XElement xmlDoc = XElement.Load(cachedPath);
+			var items = xmlDoc.Elements(C.ExpenseItem).Select(xmlEi => ExpenseItem.FromXml(date, xmlEi));
+			return items;
+		}
+
+		#endregion
+
 		#endregion
 
 		#region GetMonthlyExpenses
 
 		public List<ExpenseItem> GetMonthlyExpenses(DateTime date)
 		{
-			var list = new List<ExpenseItem>();
-			GetMonthlyExpenses(date, list.Add);
-
-			return list;
+			return GetMonthlyExpenses(new DatePaths(date));
 		}
 		public List<ExpenseItem> GetMonthlyExpenses(DatePaths datePaths)
 		{
-			var list = new List<ExpenseItem>();
-			GetMonthlyExpenses(datePaths, list.Add);
-
-			return list;
-		}
-		public void GetMonthlyExpenses(DateTime date, Action<ExpenseItem> toDoWithEach)
-		{
-			GetMonthlyExpenses(new DatePaths(date), toDoWithEach);
-		}
-		public void GetMonthlyExpenses(DatePaths datePaths, Action<ExpenseItem> toDoWithEach)
-		{
-			Action parserAction =
-				() => GetDailyExpenses(datePaths, toDoWithEach);
-			//() => ParseDailyExpenseFile(paths.DayFilePath, paths.Date, toDoWithEach);
-
-			GetMonthlyExpenses_Core_WithMessages(datePaths, parserAction);
-		}
-		private void GetMonthlyExpenses_Core_WithMessages(DatePaths datePaths, Action parserAction)
-		{
 			try
 			{
+				var monthlyExpenses = Enumerable.Empty<ExpenseItem>();
+
 				for(int i = 1; i <= datePaths.DaysInMonth; i++)
 				{
 					var actualDay = new DateTime(datePaths.Date.Year, datePaths.Date.Month, i);
 					datePaths.Date = actualDay;
 
-					parserAction();
+					//TODO have we every time logged for the user?
+					monthlyExpenses = monthlyExpenses.Union(GetDailyExpenses(datePaths));
 				}
+				var res = monthlyExpenses.ToList();
 				MessagePresenter.WriteLine(Localized.Daily_files_read_successfully);
+
+				return res;
 			}
 			catch(Exception e)
 			{
@@ -273,30 +141,18 @@ namespace DAL.FileRepo
 		}
 		public List<IncomeItem> GetMonthlyIncomes(DatePaths datePaths)
 		{
-			var incomeItems = new List<IncomeItem>();
-			GetMonthlyIncomes(datePaths, incomeItems.Add);
-			return incomeItems;
-		}
-		public void GetMonthlyIncomes(DatePaths datePaths, Action<IncomeItem> toDoWithEach)
-		{
-			Action parserAction =
-				() => ParseMonthlyIncomeFile(datePaths.MonthlyIncomesFilePath, datePaths.Date, toDoWithEach);
-
-			GetMonthlyIncomes_Core_WithMessages(datePaths.MonthlyIncomesFile, parserAction);
-		}
-		private void GetMonthlyIncomes_Core_WithMessages(FileInfo fileInfo, Action parserAction)
-		{
-			if(!fileInfo.Exists || fileInfo.Length == 0)
+			if(!datePaths.MonthlyIncomesFile.Exists || datePaths.MonthlyIncomesFile.Length == 0)
 			{
 				MessagePresenter.WriteLine(Localized.There_are_no_incomes_in_this_month);
-				return;
+				return new List<IncomeItem>();
 			}
 
 			try
 			{
-				parserAction();
-
+				var monthlyIncomes = ParseMonthlyIncomeFile(datePaths.Date, datePaths.MonthlyIncomesFilePath).ToList();
 				MessagePresenter.WriteLine(Localized.Monthly_incomes_read_successfully);
+
+				return monthlyIncomes;
 			}
 			catch(Exception e)
 			{
@@ -304,35 +160,24 @@ namespace DAL.FileRepo
 				throw;
 			}
 		}
-		public void ParseMonthlyIncomeFile(string path, DateTime date, Action<IncomeItem> toDoWithEach)
-		{
-			var xmlDoc = XElement.Load(path);
 
-			if(toDoWithEach != null)
-			{
-				var items = ParseMonthlyIncomeFile(xmlDoc, date);
-				foreach(var incomeItem in items)
-					toDoWithEach(incomeItem);
-			}
-		}
-		private IEnumerable<IncomeItem> ParseMonthlyIncomeFile(XElement xmlDoc, DateTime date)
+		#region ParseMonthlyIncomeFile
+
+		/// <param name="date">The MonthlyIncomeFile's date, which uniquely identificates it. </param>
+		/// <param name="cachedPath">
+		///		The path to the file. Only provide if you have it calculated already.
+		///		Default value: new DatePaths(date).MonthlyIncomesFilePath
+		/// </param>
+		public IEnumerable<IncomeItem> ParseMonthlyIncomeFile(DateTime date, string cachedPath = null)
 		{
-			// C <--> Constants.XmlTags
-			return xmlDoc.Elements(C.IncomeItem).Select(xmlEi => ParseMonthlyIncomeFile_FetchOne(date, xmlEi));
+			cachedPath = cachedPath ?? new DatePaths(date).MonthlyIncomesFilePath;
+
+			var xmlDoc = XElement.Load(cachedPath);
+			var items = xmlDoc.Elements(C.IncomeItem).Select(xmlEi => IncomeItem.FromXml(date, xmlEi));
+			return items;
 		}
-		private IncomeItem ParseMonthlyIncomeFile_FetchOne(DateTime date, XElement xmlEi)
-		{
-			// C <--> Constants.XmlTags
-			date = new DateTime(date.Year, date.Month, 1);
-			var incomeItem = new IncomeItem
-			{
-				Title = ((string)xmlEi.Element(C.Title)).Trim(),
-				Amount = ((int)xmlEi.Element(C.Amount)),
-				Comment = ((string)xmlEi.Element(C.Comment) ?? "").Trim(),
-				Date = date,
-			};
-			return incomeItem;
-		}
+
+		#endregion
 
 		#endregion
 
@@ -627,7 +472,7 @@ namespace DAL.FileRepo
 				try
 				{
 					var newDataRow = SaveToStatistics_CreateNewDataRow(expenseCategory, summary, actualYearAndMonth);
-					SaveToStatistics_InsertIntoStatistics(expenseCategory.DisplayName, newDataRow, actualYearAndMonth);
+					SaveToStatistics_InsertIntoStatistics(expenseCategory.Name, newDataRow, actualYearAndMonth);
 
 					MessagePresenter.WriteLine(string.Format(Localized.Saving_0__statistics___OK__FORMAT__, expenseCategory.DisplayName));
 				}
@@ -747,152 +592,6 @@ namespace DAL.FileRepo
 					return string.Compare(x, y, StringComparison.InvariantCulture);
 				//return x.CompareTo(y);
 			}
-		}
-
-		#endregion
-	}
-
-	public static class FileRepoManager
-	{
-		private static readonly FileRepoManagerCore Manager = new FileRepoManagerCore();
-
-		#region Helpers
-
-		public static void ToOldFormat(this TransactionItemBase tib, StringBuilder stringBuilder)
-		{
-			if(tib.Quantity != 1 || (tib.Unit != UnitManager.GetUnitDb && tib.Unit != UnitManager.GetUnitNone))
-				stringBuilder.Append(tib.Quantity).Append(' ')
-					.Append(tib.Unit.DisplayName).Append(' ');
-
-			stringBuilder.Append(tib.Title);
-
-			if(!string.IsNullOrWhiteSpace(tib.Comment))
-				stringBuilder.Append(" (").Append(tib.Comment).Append(')');
-
-			stringBuilder.Append(": ").AppendLine(tib.Amount.ToExinStringInFile());
-
-			//stringBuilder.Append(": ")
-			//	.Append(tib.Amount.ToString("N0", new CultureInfo("is-IS")))
-			//	.AppendLine(",-");
-		}
-
-		#endregion
-
-		#region Delegated members
-
-		public static IEnumerable<ExpenseItem> ParseDailyExpenseFile(string path, DateTime date)
-		{
-			return Manager.ParseDailyExpenseFile(path, date);
-		}
-
-		public static IEnumerable<ExpenseItem> ParseDailyExpenseFile(DateTime date)
-		{
-			return Manager.ParseDailyExpenseFile(date);
-		}
-
-		public static void ParseDailyExpenseFile(string path, DateTime date, Action<ExpenseItem> toDoWithEach)
-		{
-			Manager.ParseDailyExpenseFile(path, date, toDoWithEach);
-		}
-
-		public static void ParseDailyExpenseFile(DateTime date, Action<ExpenseItem> toDoWithEach)
-		{
-			Manager.ParseDailyExpenseFile(date, toDoWithEach);
-		}
-
-		public static List<ExpenseItem> GetDailyExpenses(DateTime date)
-		{
-			return Manager.GetDailyExpenses(date);
-		}
-
-		public static List<ExpenseItem> GetDailyExpenses(DatePaths datePaths)
-		{
-			return Manager.GetDailyExpenses(datePaths);
-		}
-
-		public static void GetDailyExpenses(DateTime date, Action<ExpenseItem> toDoWithEach)
-		{
-			Manager.GetDailyExpenses(date, toDoWithEach);
-		}
-
-		public static void GetDailyExpenses(DatePaths datePaths, Action<ExpenseItem> toDoWithEach)
-		{
-			Manager.GetDailyExpenses(datePaths, toDoWithEach);
-		}
-
-		public static List<ExpenseItem> GetMonthlyExpenses(DateTime date)
-		{
-			return Manager.GetMonthlyExpenses(date);
-		}
-
-		public static List<ExpenseItem> GetMonthlyExpenses(DatePaths datePaths)
-		{
-			return Manager.GetMonthlyExpenses(datePaths);
-		}
-
-		public static void GetMonthlyExpenses(DateTime date, Action<ExpenseItem> toDoWithEach)
-		{
-			Manager.GetMonthlyExpenses(date, toDoWithEach);
-		}
-
-		public static void GetMonthlyExpenses(DatePaths datePaths, Action<ExpenseItem> toDoWithEach)
-		{
-			Manager.GetMonthlyExpenses(datePaths, toDoWithEach);
-		}
-
-		public static List<IncomeItem> GetMonthlyIncomes(DateTime date)
-		{
-			return Manager.GetMonthlyIncomes(date);
-		}
-
-		public static List<IncomeItem> GetMonthlyIncomes(DatePaths datePaths)
-		{
-			return Manager.GetMonthlyIncomes(datePaths);
-		}
-
-		public static void GetMonthlyIncomes(DatePaths datePaths, Action<IncomeItem> toDoWithEach)
-		{
-			Manager.GetMonthlyIncomes(datePaths, toDoWithEach);
-		}
-
-		public static void ParseMonthlyIncomeFile(string path, DateTime date, Action<IncomeItem> toDoWithEach)
-		{
-			Manager.ParseMonthlyIncomeFile(path, date, toDoWithEach);
-		}
-
-		public static List<Unit> GetUnits()
-		{
-			return Manager.GetUnits();
-		}
-
-		public static List<Category> GetCategories()
-		{
-			return Manager.GetCategories();
-		}
-
-		public static void WriteOutDailyExpenses(ICollection<TransactionItemBase> transactionItems, DatePaths datePaths, Summary summary)
-		{
-			Manager.WriteOutDailyExpenses(transactionItems, datePaths, summary);
-		}
-
-		public static void WriteOutMonthlyIncomes(ICollection<TransactionItemBase> transactionItems, DatePaths datePaths, Summary summary)
-		{
-			Manager.WriteOutMonthlyIncomes(transactionItems, datePaths, summary);
-		}
-
-		public static void WriteOutMonthlySummaries(Summary summary, DatePaths datePaths, IEnumerable<TransactionItemBase> transactionItems)
-		{
-			Manager.WriteOutMonthlySummaries(summary, datePaths, transactionItems);
-		}
-
-		public static void AddCategory(Category category)
-		{
-			Manager.AddCategory(category);
-		}
-
-		public static void AddUnit(Unit unit)
-		{
-			Manager.AddUnit(unit);
 		}
 
 		#endregion

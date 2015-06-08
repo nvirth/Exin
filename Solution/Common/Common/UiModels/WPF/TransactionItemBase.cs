@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Xml.Linq;
+using Common.Db;
 using Common.DbEntities;
+using Common.Db.ManagersRelief;
 using Common.UiModels.WPF.Base;
 using Common.Utils.Helpers;
 
@@ -160,6 +163,24 @@ namespace Common.UiModels.WPF
 		public virtual object Clone()
 		{
 			return this.DeepClone();
+		}
+
+		public void ToOldFormat(StringBuilder stringBuilder)
+		{
+			if(Quantity != 1 || (Unit != ManagersRelief.UnitManager.GetDefaultUnit))
+				stringBuilder.Append(Quantity).Append(' ')
+					.Append(Unit.DisplayName).Append(' ');
+
+			stringBuilder.Append(Title);
+
+			if(!string.IsNullOrWhiteSpace(Comment))
+				stringBuilder.Append(" (").Append(Comment).Append(')');
+
+			stringBuilder.Append(": ").AppendLine(Amount.ToExinStringInFile());
+
+			//stringBuilder.Append(": ")
+			//	.Append(Amount.ToString("N0", new CultureInfo("is-IS")))
+			//	.AppendLine(",-");
 		}
 	}
 

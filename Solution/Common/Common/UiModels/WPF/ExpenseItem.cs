@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using Common.Db;
 using Common.DbEntities;
-using Common.UiModels.WPF.DefaultValues;
-using Common.Utils.Helpers;
+using Common.Db.ManagersRelief;
 using C = Common.Configuration.Constants.XmlTags;
 
 namespace Common.UiModels.WPF
@@ -40,26 +40,8 @@ namespace Common.UiModels.WPF
 		{
 			Quantity = 1;
 
-			Unit = DefaultValueProvider.Instance.DefaultUnit;
-			Category = DefaultValueProvider.Instance.DefaultCategory;
-		}
-
-		#endregion
-
-		#region ToXml
-
-		public override XElement ToXml()
-		{
-			// C <--> Constants.XmlTags
-			return new XElement(C.ExpenseItem, new object[]
-			{
-				new XElement(C.Title, Title),
-				new XElement(C.Amount, Amount),
-				new XElement(C.Quantity, Quantity),
-				new XElement(C.Unit, Unit.DisplayName),
-				new XElement(C.Category, Category.DisplayName),
-				new XElement(C.Comment, Comment),
-			});
+			Unit = ManagersRelief.UnitManager.GetDefaultUnit;
+			Category = ManagersRelief.CategoryManager.GetDefaultCategory;
 		}
 
 		#endregion
@@ -68,9 +50,38 @@ namespace Common.UiModels.WPF
 	[Serializable]
 	public partial class ExpenseItem
 	{
-		public override object Clone()
+		public override XElement ToXml()
 		{
-			return this.DeepClone();
+			return new XElement(C.ExpenseItem, new object[]
+			{
+				new XElement(C.Title, Title),
+				new XElement(C.Amount, Amount),
+				new XElement(C.Quantity, Quantity),
+				new XElement(C.Unit, Unit.Name),
+				new XElement(C.Category, Category.Name),
+				new XElement(C.Comment, Comment),
+			});
+		}
+
+		public static ExpenseItem FromXml(DateTime date, XElement xmlEi)
+		{
+			var unitString = (string)xmlEi.Element(C.Unit);
+			var unit = UnitManager.GetByName(unitString, nullIfNotFound: false);
+
+			var categoryString = (string)xmlEi.Element(C.Category);
+			var category = CategoryManager.GetByName(categoryString, nullIfNotFound: false);
+
+			var expenseItem = new ExpenseItem
+			{
+				Amount = ((int)xmlEi.Element(C.Amount)),
+				Quantity = ((int)xmlEi.Element(C.Quantity)),
+				Title = ((string)xmlEi.Element(C.Title)).Trim(),
+				Comment = ((string)xmlEi.Element(C.Comment) ?? "").Trim(),
+				Unit = unit,
+				Category = category,
+				Date = date,
+			};
+			return expenseItem;
 		}
 	}
 

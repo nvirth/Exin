@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Linq;
+using Common.Db;
 using Common.DbEntities;
-using Common.UiModels.WPF.DefaultValues;
 using Common.Utils.Helpers;
 using C = Common.Configuration.Constants.XmlTags;
 
@@ -13,9 +13,13 @@ namespace Common.UiModels.WPF
 		{
 			Quantity = 1;
 
-			Unit = DefaultValueProvider.Instance.DefaultUnit;
+			Unit = ManagersRelief.UnitManager.GetDefaultUnit;
 		}
+	}
 
+	[Serializable]
+	public partial class IncomeItem
+	{
 		public override XElement ToXml()
 		{
 			// C <--> Constants.XmlTags
@@ -26,14 +30,18 @@ namespace Common.UiModels.WPF
 				new XElement(C.Comment, Comment),
 			});
 		}
-	}
 
-	[Serializable]
-	public partial class IncomeItem
-	{
-		public override object Clone()
+		public static IncomeItem FromXml(DateTime date, XElement xmlEi)
 		{
-			return this.DeepClone();
+			date = new DateTime(date.Year, date.Month, 1);
+			var incomeItem = new IncomeItem
+			{
+				Title = ((string)xmlEi.Element(C.Title)).Trim(),
+				Amount = ((int)xmlEi.Element(C.Amount)),
+				Comment = ((string)xmlEi.Element(C.Comment) ?? "").Trim(),
+				Date = date,
+			};
+			return incomeItem;
 		}
 	}
 }

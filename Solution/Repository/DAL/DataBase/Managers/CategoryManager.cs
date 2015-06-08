@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common;
+using Common.Db;
 using Common.DbEntities;
 using Common.Log;
-using Common.UiModels.WPF.DefaultValues;
 using DAL.DataBase.Managers.Factory;
 using DAL.FileRepo;
 using Localization;
@@ -21,7 +21,6 @@ namespace DAL.DataBase.Managers
 		List<Category> GetAllValid();
 		Category Get(int ID);
 		Category GetByName(string name, bool nullIfNotFound = false);
-		Category GetByDisplayName(string displayName, bool nullIfNotFound = false);
 
 		void Add(Category category);
 	}
@@ -63,7 +62,7 @@ namespace DAL.DataBase.Managers
 
 		private void RefreshCache_FromFile()
 		{
-			var categories = FileRepoManager.GetCategories();
+			var categories = FileRepoManager.Instance.GetCategories();
 			RefreshCache_Refresh(categories);
 		}
 
@@ -131,20 +130,6 @@ namespace DAL.DataBase.Managers
 			return category;
 		}
 
-		public Category GetByDisplayName(string displayName, bool nullIfNotFound = false)
-		{
-			var category = _cacheFull.Find(c => c.DisplayName.Equals(displayName, StringComparison.InvariantCultureIgnoreCase));
-			if(category == null && !nullIfNotFound)
-			{
-				var msg = string.Format(Localized.Could_not_find_the_Category__DisplayName_0__in_the_database__FORMAT__, displayName);
-				var e = new Exception(msg);
-				ExinLog.ger.LogException(msg, e);
-				throw e;
-			}
-
-			return category;
-		}
-
 		#endregion
 
 		#region CREATE
@@ -153,11 +138,7 @@ namespace DAL.DataBase.Managers
 
 		protected void CheckExistsInCache(Category category)
 		{
-			var existingWithSameName =
-				GetByDisplayName(category.DisplayName, nullIfNotFound: true)
-				?? GetByDisplayName(category.Name, nullIfNotFound: true)
-				?? GetByName(category.DisplayName, nullIfNotFound: true)
-				?? GetByName(category.Name, nullIfNotFound: true);
+			var existingWithSameName = GetByName(category.Name, nullIfNotFound: true);
 			if(existingWithSameName != null)
 			{
 				string msg = Localized.Category_already_exists_with_the_specified_name;
@@ -183,13 +164,14 @@ namespace DAL.DataBase.Managers
 
 		public static Category GetDefaultCategory => GetCategoryOthers;
 		public static Category GetCategoryOthers => Manager.GetByName(C.Others);
-	    public static Category GetCategoryNone => Manager.Get(0);
-	    public static Category GetCategoryFullExpenseSummary => Manager.Get(1);
-	    public static Category GetCategoryFullIncomeSummary => Manager.Get(2);
+	    public static Category GetCategoryNone => Manager.GetByName(C.None);
+	    public static Category GetCategoryFullExpenseSummary => Manager.GetByName(C.FullExpenseSummary);
+	    public static Category GetCategoryFullIncomeSummary => Manager.GetByName(C.FullIncomeSummary);
 
 		static CategoryManager()
 		{
-				DefaultValueProvider.Instance.InitDefaultCategory(() => GetDefaultCategory);
+				ManagersRelief.CategoryManager.InitDefaultCategory(() => GetDefaultCategory);
+				ManagersRelief.CategoryManager.InitGetByName(GetByName);
 		}
 
 	    public static void ClearCache()
@@ -220,11 +202,6 @@ namespace DAL.DataBase.Managers
 		public static Category GetByName(string name, bool nullIfNotFound = false)
 		{
 			return Manager.GetByName(name, nullIfNotFound);
-		}
-
-		public static Category GetByDisplayName(string displayName, bool nullIfNotFound = false)
-		{
-			return Manager.GetByDisplayName(displayName, nullIfNotFound);
 		}
 
 		public static void Add(Category category)

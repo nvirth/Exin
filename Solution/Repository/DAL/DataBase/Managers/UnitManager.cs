@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common;
+using Common.Db;
 using Common.DbEntities;
 using Common.Log;
-using Common.UiModels.WPF.DefaultValues;
 using DAL.DataBase.Managers.Factory;
 using DAL.FileRepo;
 using Localization;
@@ -21,7 +21,6 @@ namespace DAL.DataBase.Managers
 		List<Unit> GetAllValid();
 		Unit Get(int ID);
 		Unit GetByName(string name, bool nullIfNotFound = false);
-		Unit GetByDisplayName(string displayName, bool nullIfNotFound = false);
 
 		void Add(Unit unit);
 	}
@@ -63,7 +62,7 @@ namespace DAL.DataBase.Managers
 
 		private void RefreshCache_FromFile()
 		{
-			var units = FileRepoManager.GetUnits();
+			var units = FileRepoManager.Instance.GetUnits();
 			RefreshCache_Refresh(units);
 		}
 
@@ -131,20 +130,6 @@ namespace DAL.DataBase.Managers
 			return unit;
 		}
 
-		public Unit GetByDisplayName(string displayName, bool nullIfNotFound = false)
-		{
-			var unit = _cacheFull.Find(c => c.DisplayName.Equals(displayName, StringComparison.InvariantCultureIgnoreCase));
-			if(unit == null && !nullIfNotFound)
-			{
-				var msg = string.Format(Localized.Could_not_find_the_Unit__DisplayName_0__in_the_database__FORMAT__, displayName);
-				var e = new Exception(msg);
-				ExinLog.ger.LogException(msg, e);
-				throw e;
-			}
-
-			return unit;
-		}
-
 		#endregion
 
 		#region CREATE
@@ -153,11 +138,7 @@ namespace DAL.DataBase.Managers
 
 		protected void CheckExistsInCache(Unit unit)
 		{
-			var existingWithSameName =
-				GetByDisplayName(unit.DisplayName, nullIfNotFound: true)
-				?? GetByDisplayName(unit.Name, nullIfNotFound: true)
-				?? GetByName(unit.DisplayName, nullIfNotFound: true)
-				?? GetByName(unit.Name, nullIfNotFound: true);
+			var existingWithSameName = GetByName(unit.Name, nullIfNotFound: true);
 			if(existingWithSameName != null)
 			{
 				string msg = Localized.Unit_already_exists_with_the_specified_name;
@@ -180,13 +161,14 @@ namespace DAL.DataBase.Managers
 	public static class UnitManager
 	{
 		private static readonly IUnitManager Manager = ManagerFactory.IUnitManager;
-		public static Unit GetDefaultUnit => GetUnitDb;
-		public static Unit GetUnitDb => Manager.GetByName(C.Db);
-	    public static Unit GetUnitNone => Manager.Get(0);
+		public static Unit GetDefaultUnit => GetUnitPc;
+		public static Unit GetUnitPc => Manager.GetByName(C.Db);
+	    public static Unit GetUnitNone => Manager.GetByName(C.None);
 
 		static UnitManager()
 		{
-			DefaultValueProvider.Instance.InitDefaultUnit(() => GetDefaultUnit);
+			ManagersRelief.UnitManager.InitDefaultUnit(() => GetDefaultUnit);
+			ManagersRelief.UnitManager.InitGetByName(GetByName);
 		}
 
 		public static void ClearCache()
@@ -217,11 +199,6 @@ namespace DAL.DataBase.Managers
 		public static Unit GetByName(string name, bool nullIfNotFound = false)
 		{
 			return Manager.GetByName(name, nullIfNotFound);
-		}
-
-		public static Unit GetByDisplayName(string displayName, bool nullIfNotFound = false)
-		{
-			return Manager.GetByDisplayName(displayName, nullIfNotFound);
 		}
 
 		public static void Add(Unit unit)

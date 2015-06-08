@@ -68,18 +68,7 @@ namespace ImportDataToDb
 
 		private static void ImportUnits()
 		{
-			//var unit = new Unit();
-			//XElement xmlDoc = XElement.Load(Paths.UnitResourcesFullPath);
-			//var units =
-			//	from xmlUnit in xmlDoc.Elements(C.Unit)
-			//	select new Unit
-			//	{
-			//		ID = ((int)xmlUnit.Element(unit.Property(u => u.ID))),
-			//		Name = ((string)xmlUnit.Element(unit.Property(u => u.Name))).Trim(),
-			//		DisplayName = ((string)xmlUnit.Element(unit.Property(u => u.DisplayName))).Trim(),
-			//	};
-
-			var units = FileRepoManager.GetUnits();
+			var units = FileRepoManager.Instance.GetUnits();
 			var unitManager = UnitManagerAdoNetFactory.Create();
 
 			using(var ctx = ExinAdoNetContextFactory.Create())
@@ -95,18 +84,7 @@ namespace ImportDataToDb
 
 		private static void ImportCategories()
 		{
-			//var category = new Category();
-			//XElement xmlDoc = XElement.Load(Paths.CategoryResourcesFullPath);
-			//var categories =
-			//	from xmlCategory in xmlDoc.Elements(C.Category)
-			//	select new Category
-			//	{
-			//		ID = ((int)xmlCategory.Element(category.Property(u => u.ID))),
-			//		Name = ((string)xmlCategory.Element(category.Property(u => u.Name))).Trim(),
-			//		DisplayName = ((string)xmlCategory.Element(category.Property(u => u.DisplayName))).Trim(),
-			//	};
-
-			var categories = FileRepoManager.GetCategories();
+			var categories = FileRepoManager.Instance.GetCategories();
 			var categoryManager = CategoryManagerAdoNetFactory.Create();
 
 			using(var ctx = ExinAdoNetContextFactory.Create())
@@ -170,7 +148,7 @@ namespace ImportDataToDb
 					int actualDay = int.Parse(dayFile.Name.Substring(0, 2));
 					actualDate = new DateTime(actualYear, actualMonth, actualDay);
 
-					FileRepoManager.ParseDailyExpenseFile(dayFile.FullName, actualDate, ExpenseItems.Add);
+					ExpenseItems.AddRange(FileRepoManager.Instance.ParseDailyExpenseFile(actualDate, dayFile.FullName));
 				}
 
 				// -- Parse the MonthlyIncome file
@@ -181,7 +159,7 @@ namespace ImportDataToDb
 					.FirstOrDefault(fi => fi.Name.StartsWith(monthlyIncomesFileName));
 
 				if(monthlyIncomesFile != null && monthlyIncomesFile.Length > 0)
-					FileRepoManager.ParseMonthlyIncomeFile(monthlyIncomesFile.FullName, actualDate, IncomeItems.Add);
+					IncomeItems.AddRange(FileRepoManager.Instance.ParseMonthlyIncomeFile(actualDate, monthlyIncomesFile.FullName));
 			}
 
 			// -- To DataBase
