@@ -700,18 +700,15 @@ namespace Common.Utils.Helpers
 		}
 
 		/// <summary>
-		/// Creates a deep clone from the given object
+		/// Perform a deep Copy of the object, using Json as a serialisation method.
 		/// </summary>
-		/// <typeparam name="T">The param type must be marked with the [Serializable] attribute</typeparam>
-		public static T DeepClone<T>(this T a)
+		public static T DeepClone<T>(this T source)
 		{
-			using(MemoryStream stream = new MemoryStream())
-			{
-				BinaryFormatter formatter = new BinaryFormatter();
-				formatter.Serialize(stream, a);
-				stream.Position = 0;
-				return (T)formatter.Deserialize(stream);
-			}
+			// Don't serialize a null object, simply return the default for that object
+			if(Object.ReferenceEquals(source, null))
+				return default(T);
+
+			return JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(source));
 		}
 
 		#endregion

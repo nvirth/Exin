@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Data;
 using Common.Utils;
+using Newtonsoft.Json;
 
 namespace Common.UiModels.WPF.Validation.Base
 {
@@ -69,6 +70,7 @@ namespace Common.UiModels.WPF.Validation.Base
 
 		#region HandleRaw
 
+		[JsonIgnore]
 		public UpdateSourceExceptionFilterCallback HandleRaw => HandleRawProposedValue;
 
 	    private object HandleRawProposedValue(object bindExpressionObj, Exception exception)
