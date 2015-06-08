@@ -1,8 +1,6 @@
-﻿using System;
-using Common.DbEntities.Base;
-using Common.Utils.Helpers;
+﻿using Common.Db.Entities.Base;
 
-namespace Common.DbEntities
+namespace Common.Db.Entities
 {
 	public class Unit: LocalizedEntityBase
 	{

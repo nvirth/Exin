@@ -11,7 +11,7 @@ using DAL.DataBase.Managers;
 using EntityFramework.Extensions;
 using Localization;
 using Config = Common.Configuration.Config;
-using TransactionItemCommon = Common.DbEntities.TransactionItem;
+using TransactionItemCommon = Common.Db.Entities.TransactionItem;
 
 namespace DAL.DataBase.EntityFramework.Managers
 {

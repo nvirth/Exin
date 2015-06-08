@@ -1,5 +1,5 @@
 ﻿using Common.Configuration;
-using Common.DbEntities;
+using Common.Db.Entities;
 
 namespace DAL.DataBase.AdoNet
 {

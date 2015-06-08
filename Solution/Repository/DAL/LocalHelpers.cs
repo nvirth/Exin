@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 using System.Data.SQLite;
 using Common;
 using Common.Configuration;
-using Common.DbEntities;
+using Common.Db.Entities;
 using Common.UiModels.WPF;
 using DAL.DataBase.Managers;
 using Localization;

@@ -7,7 +7,7 @@ using DAL.DataBase.EntityFramework.EntitiesMsSql;
 using DAL.DataBase.EntityFramework.EntitiesSqlite;
 using DAL.DataBase.Managers;
 using Localization;
-using CategoryCommon = Common.DbEntities.Category;
+using CategoryCommon = Common.Db.Entities.Category;
 using Config = Common.Configuration.Config;
 
 namespace DAL.DataBase.EntityFramework.Managers

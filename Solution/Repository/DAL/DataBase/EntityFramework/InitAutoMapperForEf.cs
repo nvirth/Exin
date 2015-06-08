@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Common.DbEntities;
+using Common.Db.Entities;
 using Common.Utils;
 using DAL.DataBase.EntityFramework.EntitiesMsSql;
 using DAL.DataBase.EntityFramework.EntitiesSqlite;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using Common.DbEntities;
+using Common.Db.Entities;
 using Common.Log;
 using Common.Utils.Helpers;
 using DAL.DataBase.Managers;

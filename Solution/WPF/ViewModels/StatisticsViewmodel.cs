@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BLL;
-using Common.DbEntities;
+using Common.Db.Entities;
 using Common.UiModels.WPF;
 using Common.UiModels.WPF.Base;
 using Common.Utils.Helpers;

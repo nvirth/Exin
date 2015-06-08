@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Common;
 using Common.Configuration;
-using Common.DbEntities;
+using Common.Db.Entities;
 using Common.UiModels.WPF;
 using Common.Utils;
 using Common.Utils.Helpers;

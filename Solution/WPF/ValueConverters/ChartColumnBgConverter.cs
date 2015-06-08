@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
-using Common.DbEntities;
+using Common.Db.Entities;
 using DAL.DataBase.Managers;
 
 namespace WPF.ValueConverters

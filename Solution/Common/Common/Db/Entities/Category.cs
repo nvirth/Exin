@@ -1,7 +1,6 @@
-﻿using Common.DbEntities.Base;
-using Localization;
+﻿using Common.Db.Entities.Base;
 
-namespace Common.DbEntities
+namespace Common.Db.Entities
 {
 	public class Category : LocalizedEntityBase
 	{

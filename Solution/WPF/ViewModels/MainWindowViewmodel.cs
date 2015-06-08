@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using BLL.WpfManagers;
-using Common.DbEntities;
+using Common.Db.Entities;
 using Common.UiModels.WPF;
 using Common.UiModels.WPF.Base;
 using DAL.DataBase.Managers;

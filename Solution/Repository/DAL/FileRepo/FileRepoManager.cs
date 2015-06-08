@@ -7,7 +7,7 @@ using System.Text;
 using System.Xml.Linq;
 using Common;
 using Common.Configuration;
-using Common.DbEntities;
+using Common.Db.Entities;
 using Common.Log;
 using Common.UiModels.WPF;
 using Common.Utils;

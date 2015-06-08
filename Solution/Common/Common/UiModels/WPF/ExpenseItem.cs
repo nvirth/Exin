@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using Common.Db;
-using Common.DbEntities;
+using Common.Db.Entities;
 using Common.Db.ManagersRelief;
 using C = Common.Configuration.Constants.XmlTags;
 

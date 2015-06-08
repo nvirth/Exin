@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Transactions;
 using Common;
-using Common.DbEntities;
+using Common.Db.Entities;
 using Common.Log;
 using Common.UiModels.WPF;
 using DAL.DataBase.EntityFramework.EntitiesMsSql;
@@ -13,7 +13,7 @@ using DAL.DataBase.Managers;
 using EntityFramework.Extensions;
 using Localization;
 using Config = Common.Configuration.Config;
-using SummaryItemCommon = Common.DbEntities.SummaryItem;
+using SummaryItemCommon = Common.Db.Entities.SummaryItem;
 
 namespace DAL.DataBase.EntityFramework.Managers
 {

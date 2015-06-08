@@ -1,0 +1,3 @@
+# Turn out text wrapping (which is by default on in cmder)
+set textwidth=0 wrapmargin=0
+:set textwidth=0 wrapmargin=0

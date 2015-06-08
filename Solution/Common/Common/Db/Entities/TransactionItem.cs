@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Common.Utils.Helpers;
 
-namespace Common.DbEntities
+namespace Common.Db.Entities
 {
 	public partial class TransactionItem
 	{

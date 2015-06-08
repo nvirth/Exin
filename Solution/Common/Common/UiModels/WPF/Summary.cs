@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Common.DbEntities;
+using Common.Db.Entities;
 using Common.UiModels.WPF.Base;
 using Common.Utils.Helpers;
 

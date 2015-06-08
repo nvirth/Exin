@@ -7,7 +7,7 @@ using Common.Utils.Helpers;
 using Localization;
 using C = Common.Configuration.Constants.XmlTags;
 
-namespace Common.DbEntities.Base
+namespace Common.Db.Entities.Base
 {
 	public abstract partial class LocalizedEntityBase
 	{

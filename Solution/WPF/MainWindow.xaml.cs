@@ -15,7 +15,7 @@ using BLL.WpfManagers;
 using Common;
 using Common.Annotations;
 using Common.Configuration;
-using Common.DbEntities;
+using Common.Db.Entities;
 using Common.UiModels.WPF;
 using Common.Utils;
 using Common.Utils.Helpers;

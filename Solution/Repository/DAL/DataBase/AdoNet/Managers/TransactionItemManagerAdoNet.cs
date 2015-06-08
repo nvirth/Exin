@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Transactions;
 using Common;
-using Common.DbEntities;
+using Common.Db.Entities;
 using Common.Log;
 using Common.Utils.Helpers;
 using DAL.DataBase.Managers;

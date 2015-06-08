@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Common.DbEntities;
+using Common.Db.Entities;
 using Common.UiModels.WPF.Validation;
 using Localization;
 

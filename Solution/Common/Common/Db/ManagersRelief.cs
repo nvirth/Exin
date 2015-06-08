@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using Common.Log;
 using Common.Utils.Helpers;
-using Common.DbEntities;
+using Common.Db.Entities;
 
 namespace Common.Db
 {

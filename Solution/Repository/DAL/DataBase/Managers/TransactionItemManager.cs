@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common;
-using Common.DbEntities;
+using Common.Db.Entities;
 using DAL.DataBase.Managers.Factory;
 
 namespace DAL.DataBase.Managers

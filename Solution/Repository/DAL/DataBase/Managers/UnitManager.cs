@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Common;
 using Common.Db;
-using Common.DbEntities;
+using Common.Db.Entities;
 using Common.Log;
 using DAL.DataBase.Managers.Factory;
 using DAL.FileRepo;

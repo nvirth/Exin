@@ -1,4 +1,4 @@
-﻿using Common.DbEntities;
+﻿using Common.Db.Entities;
 using Common.Utils;
 using Common.Utils.Helpers;
 
