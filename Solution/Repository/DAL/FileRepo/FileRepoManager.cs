@@ -341,7 +341,7 @@ namespace DAL.FileRepo
 				var sumOut = new XElement(C.MonthlySummary, summary.SumOut);
 
 				var categorySummariesXml =
-					from key in CategoryManager.GetAllValid()
+					from key in CategoryManager.Instance.GetAllValid()
 					where summary.SumOutWithCategories.ContainsKey(key)
 					select new XElement(key.Name, summary.SumOutWithCategories[key]);
 
@@ -390,7 +390,7 @@ namespace DAL.FileRepo
 			stringBuilder.AppendLine();
 			stringBuilder.AppendLine("------------------------------------------------------");
 
-			foreach(var categoryKey in CategoryManager.GetAllValid())
+			foreach(var categoryKey in CategoryManager.Instance.GetAllValid())
 			{
 				if(summary.SumOutWithCategories.ContainsKey(categoryKey))
 				{
@@ -408,7 +408,7 @@ namespace DAL.FileRepo
 			}
 
 			var groupedExpenses = transactionItems.Cast<ExpenseItem>().GroupBy(ei => ei.Category).ToList();
-			foreach(var category in CategoryManager.GetAllValid())
+			foreach(var category in CategoryManager.Instance.GetAllValid())
 			{
 				var localizedCategory = category;
 				foreach(var groupedExpense in groupedExpenses.Where(group => group.Key == localizedCategory))
@@ -467,7 +467,7 @@ namespace DAL.FileRepo
 		}
 		private void SaveToStatistics(Summary summary, string actualYearAndMonth)
 		{
-			foreach(var expenseCategory in CategoryManager.GetAllValid())
+			foreach(var expenseCategory in CategoryManager.Instance.GetAllValid())
 			{
 				try
 				{

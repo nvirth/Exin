@@ -160,53 +160,18 @@ namespace DAL.DataBase.Managers
 	
 	public static class CategoryManager
 	{
-		private static readonly ICategoryManager Manager = ManagerFactory.ICategoryManager;
+		public static readonly ICategoryManager Instance = ManagerFactory.ICategoryManager;
 
 		public static Category GetDefaultCategory => GetCategoryOthers;
-		public static Category GetCategoryOthers => Manager.GetByName(C.Others);
-	    public static Category GetCategoryNone => Manager.GetByName(C.None);
-	    public static Category GetCategoryFullExpenseSummary => Manager.GetByName(C.FullExpenseSummary);
-	    public static Category GetCategoryFullIncomeSummary => Manager.GetByName(C.FullIncomeSummary);
+		public static Category GetCategoryOthers => Instance.GetByName(C.Others);
+	    public static Category GetCategoryNone => Instance.GetByName(C.None);
+	    public static Category GetCategoryFullExpenseSummary => Instance.GetByName(C.FullExpenseSummary);
+	    public static Category GetCategoryFullIncomeSummary => Instance.GetByName(C.FullIncomeSummary);
 
 		static CategoryManager()
 		{
 				ManagersRelief.CategoryManager.InitDefaultCategory(() => GetDefaultCategory);
-				ManagersRelief.CategoryManager.InitGetByName(GetByName);
-		}
-
-	    public static void ClearCache()
-		{
-			Manager.ClearCache();
-		}
-
-		public static void RefreshCache()
-		{
-			Manager.RefreshCache();
-		}
-
-		public static List<Category> GetAll()
-		{
-			return Manager.GetAll();
-		}
-
-		public static List<Category> GetAllValid()
-		{
-			return Manager.GetAllValid();
-		}
-
-		public static Category Get(int ID)
-		{
-			return Manager.Get(ID);
-		}
-
-		public static Category GetByName(string name, bool nullIfNotFound = false)
-		{
-			return Manager.GetByName(name, nullIfNotFound);
-		}
-
-		public static void Add(Category category)
-		{
-			Manager.Add(category);
+				ManagersRelief.CategoryManager.InitGetByName(Instance.GetByName);
 		}
 	}
 }

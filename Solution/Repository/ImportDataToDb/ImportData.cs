@@ -247,7 +247,7 @@ namespace ImportDataToDb
 					summary.Update(expenseItem);
 
 				var transactionItemType = summary.SumIn == 0 ? TransactionItemType.Expense : TransactionItemType.Income;
-				SummaryItemManager.InsertOrUpdateSummary(summary, grouping.Key, transactionItemType);
+				SummaryItemManager.Instance.InsertOrUpdateSummary(summary, grouping.Key, transactionItemType);
 			}
 		}
 

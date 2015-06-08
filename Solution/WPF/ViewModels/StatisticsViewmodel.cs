@@ -53,7 +53,7 @@ namespace WPF.ViewModels
 					CategoryManager.GetCategoryFullExpenseSummary, Summary.SumOut
 					);
 
-				foreach(var category in CategoryManager.GetAllValid())
+				foreach(var category in CategoryManager.Instance.GetAllValid())
 				{
 					int sum = Summary.SumOutWithCategories.ContainsKey(category)
 						? Summary.SumOutWithCategories[category]

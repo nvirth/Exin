@@ -78,57 +78,6 @@ namespace DAL.DataBase.Managers
 	
 	public static class TransactionItemManager
 	{
-		#region ITransactionItemManager singleton
-
-		// --
-		private static readonly ITransactionItemManager Manager = ManagerFactory.ITransactionItemManager;
-		// --
-
-		public static List<TransactionItem> GetDaily(DateTime date, TransactionItemType transactionItemType)
-		{
-			return Manager.GetDaily(date, transactionItemType);
-		}
-		public static List<TransactionItem> GetMontly(DateTime date, TransactionItemType transactionItemType)
-		{
-			return Manager.GetMontly(date, transactionItemType);
-		}
-		public static List<TransactionItem> GetYearly(DateTime date, TransactionItemType transactionItemType)
-		{
-			return Manager.GetYearly(date, transactionItemType);
-		}
-		public static List<TransactionItem> GetInterval(DateTime fromDate, DateTime toDate, TransactionItemType transactionItemType)
-		{
-			return Manager.GetInterval(fromDate, toDate, transactionItemType);
-		}
-		public static void Insert(TransactionItem transactionItem, bool withId = false)
-		{
-			Manager.Insert(transactionItem, withId);
-		}
-		public static void InsertMany(IList<TransactionItem> transactionItems, bool withId = false)
-		{
-			Manager.InsertMany(transactionItems, withId);
-		}
-		public static int UpdateFullRecord(TransactionItem transactionItem)
-		{
-			return Manager.UpdateFullRecord(transactionItem);
-		}
-		public static int Delete(int id)
-		{
-			return Manager.Delete(id);
-		}
-		public static int ClearDay(DateTime date, TransactionItemType transactionItemType)
-		{
-			return Manager.ClearDay(date, transactionItemType);
-		}
-		public static void ReplaceDailyItems(IList<TransactionItem> transactionItems, TransactionItemType transactionItemType, DateTime date)
-		{
-			Manager.ReplaceDailyItems(transactionItems, transactionItemType, date);
-		}
-		public static List<TransactionItem> GetAll(TransactionItemType? transactionItemType)
-		{
-			return Manager.GetAll(transactionItemType);
-		}
-
-		#endregion
+		public static readonly ITransactionItemManager Instance = ManagerFactory.ITransactionItemManager;
 	}
 }

@@ -64,7 +64,7 @@ namespace BLL.WpfManagers
 
 		protected override void ReadDataFromDb()
 		{
-			var transactionItems = TransactionItemManager.GetMontly(DatePaths.Date, TransactionItemType.Expense);
+			var transactionItems = TransactionItemManager.Instance.GetMontly(DatePaths.Date, TransactionItemType.Expense);
 			foreach(var transactionItem in transactionItems)
 			{
 				Add(transactionItem.ToExpenseItem());

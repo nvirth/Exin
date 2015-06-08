@@ -104,7 +104,7 @@ namespace DAL.DataBase.AdoNet.Managers
 			summaryItem.ID = Convert.ToInt32(dataRow[summaryItem.Property(y => y.ID)]);
 			summaryItem.Date = dataRow.Field<DateTime>(summaryItem.Property(x => x.Date));
 			summaryItem.CategoryID = Convert.ToInt32(dataRow[summaryItem.Property(y => y.CategoryID)]);
-			summaryItem.Category = CategoryManager.Get(summaryItem.CategoryID);
+			summaryItem.Category = CategoryManager.Instance.Get(summaryItem.CategoryID);
 			summaryItem.Amount = Convert.ToInt32(dataRow[summaryItem.Property(y => y.Amount)]);
 
 			return summaryItem;

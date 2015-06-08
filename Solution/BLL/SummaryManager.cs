@@ -64,7 +64,7 @@ namespace BLL
 			var endDate = key.Item2;
 
 			var summary = new Summary();
-			List<SummaryItem> summaryItems = SummaryItemManager.GetInterval(startDate, endDate);
+			List<SummaryItem> summaryItems = SummaryItemManager.Instance.GetInterval(startDate, endDate);
 
 			foreach (var summaryItem in summaryItems)
 			{

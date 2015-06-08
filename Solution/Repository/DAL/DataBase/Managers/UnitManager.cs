@@ -160,50 +160,16 @@ namespace DAL.DataBase.Managers
 
 	public static class UnitManager
 	{
-		private static readonly IUnitManager Manager = ManagerFactory.IUnitManager;
+		public static readonly IUnitManager Instance = ManagerFactory.IUnitManager;
+
 		public static Unit GetDefaultUnit => GetUnitPc;
-		public static Unit GetUnitPc => Manager.GetByName(C.Db);
-	    public static Unit GetUnitNone => Manager.GetByName(C.None);
+		public static Unit GetUnitPc => Instance.GetByName(C.Db);
+	    public static Unit GetUnitNone => Instance.GetByName(C.None);
 
 		static UnitManager()
 		{
 			ManagersRelief.UnitManager.InitDefaultUnit(() => GetDefaultUnit);
-			ManagersRelief.UnitManager.InitGetByName(GetByName);
-		}
-
-		public static void ClearCache()
-		{
-			Manager.ClearCache();
-		}
-
-		public static void RefreshCache()
-		{
-			Manager.RefreshCache();
-		}
-
-		public static List<Unit> GetAll()
-		{
-			return Manager.GetAll();
-		}
-
-		public static List<Unit> GetAllValid()
-		{
-			return Manager.GetAllValid();
-		}
-
-		public static Unit Get(int ID)
-		{
-			return Manager.Get(ID);
-		}
-
-		public static Unit GetByName(string name, bool nullIfNotFound = false)
-		{
-			return Manager.GetByName(name, nullIfNotFound);
-		}
-
-		public static void Add(Unit unit)
-		{
-			Manager.Add(unit);
+			ManagersRelief.UnitManager.InitGetByName(Instance.GetByName);
 		}
 	}
 }

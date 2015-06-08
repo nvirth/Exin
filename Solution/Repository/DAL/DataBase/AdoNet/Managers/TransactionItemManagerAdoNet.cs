@@ -120,8 +120,8 @@ namespace DAL.DataBase.AdoNet.Managers
 			transactionItem.UnitID = Convert.ToInt32(dataRow[transactionItem.Property(y => y.UnitID)]);
 			transactionItem.CategoryID = Convert.ToInt32(dataRow[transactionItem.Property(y => y.CategoryID)]);
 
-			transactionItem.Unit = UnitManager.Get(transactionItem.UnitID);
-			transactionItem.Category = CategoryManager.Get(transactionItem.CategoryID);
+			transactionItem.Unit = UnitManager.Instance.Get(transactionItem.UnitID);
+			transactionItem.Category = CategoryManager.Instance.Get(transactionItem.CategoryID);
 
 			return transactionItem;
 		}

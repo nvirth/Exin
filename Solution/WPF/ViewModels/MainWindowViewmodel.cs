@@ -87,10 +87,10 @@ namespace WPF.ViewModels
 		}
 
 		private ObservableCollection<Category> _allCategories;
-		public ObservableCollection<Category> AllCategories => _allCategories ?? (_allCategories = new ObservableCollection<Category>(CategoryManager.GetAllValid()));
+		public ObservableCollection<Category> AllCategories => _allCategories ?? (_allCategories = new ObservableCollection<Category>(CategoryManager.Instance.GetAllValid()));
 
 	    private ObservableCollection<Unit> _allUnits;
-		public ObservableCollection<Unit> AllUnits => _allUnits ?? (_allUnits = new ObservableCollection<Unit>(UnitManager.GetAllValid()));
+		public ObservableCollection<Unit> AllUnits => _allUnits ?? (_allUnits = new ObservableCollection<Unit>(UnitManager.Instance.GetAllValid()));
 
 	    public DatePickerFromCodeDateChanger DateChanger;
 

@@ -36,7 +36,7 @@ namespace BLL.WpfManagers
 
 		protected override void ReadDataFromDb()
 		{
-			var transactionItems = TransactionItemManager.GetDaily(DatePaths.Date, TransactionItemType.Expense);
+			var transactionItems = TransactionItemManager.Instance.GetDaily(DatePaths.Date, TransactionItemType.Expense);
 			foreach(var transactionItem in transactionItems)
 			{
 				Add(transactionItem.ToExpenseItem());
@@ -53,7 +53,7 @@ namespace BLL.WpfManagers
 			try
 			{
 				var transactionItems = TransactionItems.Cast<ExpenseItem>().Select(ei => ei.ToTransactionItem()).ToList();
-				TransactionItemManager.ReplaceDailyItems(transactionItems, TransactionItemType.Expense, DatePaths.Date);
+				TransactionItemManager.Instance.ReplaceDailyItems(transactionItems, TransactionItemType.Expense, DatePaths.Date);
 				MessagePresenter.Write(DatePaths.Date.ToString(Localized.DateFormat_full));
 				MessagePresenter.WriteLine(Localized._daily_expenses_successfully_saved_into_database);
 			}
@@ -73,7 +73,7 @@ namespace BLL.WpfManagers
 		{
 			try
 			{
-				SummaryItemManager.InsertOrUpdateSummary(Summary, DatePaths.Date, TransactionItemType.Expense);
+				SummaryItemManager.Instance.InsertOrUpdateSummary(Summary, DatePaths.Date, TransactionItemType.Expense);
 				MessagePresenter.Write(DatePaths.Date.ToString(Localized.DateFormat_full));
 				MessagePresenter.WriteLine(Localized._daily_expense_statistics_successfully_saved_into_database);
 			}

@@ -29,8 +29,8 @@ namespace DAL.DataBase.Managers
 		{
 			date = new DateTime(date.Year, date.Month, 1);
 
-			var monthlyIncomes = TransactionItemManager
-				.GetMontly(date, TransactionItemType.Income)
+			var monthlyIncomes = TransactionItemManager.Instance
+                .GetMontly(date, TransactionItemType.Income)
 				.Select(transactionItem => transactionItem.ToIncomeItem())
 				.ToList();
 
@@ -43,8 +43,8 @@ namespace DAL.DataBase.Managers
 
 		public void InsertOrUpdateDailyExpenseSummary(DateTime date)
 		{
-			var dailyExpenses = TransactionItemManager
-				.GetDaily(date, TransactionItemType.Expense)
+			var dailyExpenses = TransactionItemManager.Instance
+                .GetDaily(date, TransactionItemType.Expense)
 				.Select(transactionItem => transactionItem.ToExpenseItem())
 				.ToList();
 
@@ -160,42 +160,6 @@ namespace DAL.DataBase.Managers
 
 	public static class SummaryItemManager
 	{
-		#region ITransactionItemManager singleton
-
-		// --
-		private static readonly ISummaryItemManager Manager = ManagerFactory.ISummaryItemManager;
-		// --
-
-		public static void InsertOrUpdateDailyExpenseSummary(DateTime date)
-		{
-			Manager.InsertOrUpdateDailyExpenseSummary(date);
-		}
-
-		public static void InsertOrUpdateSummary(Summary summary, DateTime date, TransactionItemType transactionItemType)
-		{
-			Manager.InsertOrUpdateSummary(summary, date, transactionItemType);
-		}
-
-		public static List<SummaryItem> GetDaily(DateTime date)
-		{
-			return Manager.GetDaily(date);
-		}
-
-		public static List<SummaryItem> GetMontly(DateTime date)
-		{
-			return Manager.GetMontly(date);
-		}
-
-		public static List<SummaryItem> GetYearly(DateTime date)
-		{
-			return Manager.GetYearly(date);
-		}
-
-		public static List<SummaryItem> GetInterval(DateTime fromDate, DateTime toDate)
-		{
-			return Manager.GetInterval(fromDate, toDate);
-		}
-
-		#endregion
+		public static readonly ISummaryItemManager Instance = ManagerFactory.ISummaryItemManager;
 	}
 }
