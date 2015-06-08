@@ -1,6 +1,6 @@
 ﻿namespace Common.Log
 {
-	public class Config
+	public class LogConfig
 	{
 		public const int JSON = 0;
 		public const int XML = 1;

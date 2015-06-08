@@ -10,25 +10,24 @@ using DAL.DataBase.EntityFramework.EntitiesSqlite;
 using DAL.DataBase.Managers;
 using EntityFramework.Extensions;
 using Localization;
-using Config = Common.Configuration.Config;
 using TransactionItemCommon = Common.Db.Entities.TransactionItem;
 
 namespace DAL.DataBase.EntityFramework.Managers
 {
 	public static class TransactionItemManagerEfFactory
 	{
-		public static TransactionItemManagerEfBase Create()
+		public static TransactionItemManagerEfBase Create(DbType dbType, DbAccessMode dbAccessMode)
 		{
-			switch(Config.DbType)
+			switch(dbType)
 			{
 				case DbType.MsSql:
-					return new TransactionItemManagerEfMsSql();
+					return new TransactionItemManagerEfMsSql(dbType, dbAccessMode);
 
 				case DbType.SQLite:
-					return new TransactionItemManagerEfSQLite();
+					return new TransactionItemManagerEfSQLite(dbType, dbAccessMode);
 
 				default:
-					throw new NotImplementedException(string.Format(Localized.TransactionItemManagerEfFactory_is_not_implemented_for_this_DbType__FORMAT__, Config.DbType));
+					throw new NotImplementedException(string.Format(Localized.TransactionItemManagerEfFactory_is_not_implemented_for_this_DbType__FORMAT__, dbType));
 			}
 
 		}
@@ -36,10 +35,17 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 	public abstract class TransactionItemManagerEfBase : TransactionItemManagerCommonBase
 	{
+		protected TransactionItemManagerEfBase(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		{
+		}
 	}
 
 	public class TransactionItemManagerEfMsSql : TransactionItemManagerEfBase
 	{
+		public TransactionItemManagerEfMsSql(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		{
+		}
+
 		#region READ
 
 		public override List<TransactionItemCommon> GetInterval(DateTime fromDate, DateTime toDate, TransactionItemType transactionItemType)
@@ -47,7 +53,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 			fromDate = fromDate.Date;
 			toDate = toDate.Date;
 
-			using(var ctx = Utils.InitContextForMsSql())
+			using(var ctx = Utils.InitContextForMsSql(DbType, DbAccessMode))
 			{
 				var query = ctx.TransactionItem
 					.Where(ti => ti.Date >= fromDate)
@@ -66,7 +72,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		public override List<TransactionItemCommon> GetAll(TransactionItemType? transactionItemType = null)
 		{
-			using(var ctx = Utils.InitContextForMsSql())
+			using(var ctx = Utils.InitContextForMsSql(DbType, DbAccessMode))
 			{
 				IQueryable<TransactionItem_MsSql> query = ctx.TransactionItem;
 
@@ -91,7 +97,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		public override void Insert(TransactionItemCommon transactionItem, bool withId = false)
 		{
-			using(var ctx = Utils.InitContextForMsSql())
+			using(var ctx = Utils.InitContextForMsSql(DbType, DbAccessMode))
 			using(ctx.WithIdentityInsert(ctx.Property(c => c.TransactionItem), activate: withId))
 			{
 				Insert(ctx, transactionItem, withId);
@@ -117,7 +123,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		public override void InsertMany(IList<TransactionItemCommon> transactionItems, bool withId = false, bool forceOneByOne = false)
 		{
-			using(var ctx = Utils.InitContextForMsSql())
+			using(var ctx = Utils.InitContextForMsSql(DbType, DbAccessMode))
 			{
 				InsertMany(ctx, transactionItems, withId);
 			}
@@ -161,7 +167,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		public override int UpdateFullRecord(TransactionItemCommon transactionItem)
 		{
-			using(var ctx = Utils.InitContextForMsSql())
+			using(var ctx = Utils.InitContextForMsSql(DbType, DbAccessMode))
 			{
 				try
 				{
@@ -187,7 +193,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		public override int Delete(int id)
 		{
-			using(var ctx = Utils.InitContextForMsSql())
+			using(var ctx = Utils.InitContextForMsSql(DbType, DbAccessMode))
 			{
 				try
 				{
@@ -209,7 +215,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		public override int ClearDay(DateTime date, TransactionItemType transactionItemType)
 		{
-			using(var ctx = Utils.InitContextForMsSql())
+			using(var ctx = Utils.InitContextForMsSql(DbType, DbAccessMode))
 			{
 				return ClearDay(ctx, date, transactionItemType);
 			}
@@ -252,7 +258,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 		public override void ReplaceDailyItems(IList<TransactionItemCommon> transactionItems, TransactionItemType transactionItemType, DateTime date)
 		{
 			using(var transactionScope = new TransactionScope())
-			using(var ctx = Utils.InitContextForMsSql())
+			using(var ctx = Utils.InitContextForMsSql(DbType, DbAccessMode))
 			{
 				ReplaceDailyItems(ctx, transactionItems, transactionItemType, date);
 
@@ -287,6 +293,10 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 	public class TransactionItemManagerEfSQLite : TransactionItemManagerEfBase
 	{
+		public TransactionItemManagerEfSQLite(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		{
+		}
+
 		#region READ
 
 		public override List<TransactionItemCommon> GetInterval(DateTime fromDate, DateTime toDate, TransactionItemType transactionItemType)
@@ -294,7 +304,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 			fromDate = fromDate.Date;
 			toDate = toDate.Date;
 
-			using(var ctx = Utils.InitContextForSqlite())
+			using(var ctx = Utils.InitContextForSqlite(DbType, DbAccessMode))
 			{
 				var query = ctx.TransactionItem
 					.Where(ti => ti.Date >= fromDate)
@@ -313,7 +323,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		public override List<TransactionItemCommon> GetAll(TransactionItemType? transactionItemType = null)
 		{
-			using(var ctx = Utils.InitContextForSqlite())
+			using(var ctx = Utils.InitContextForSqlite(DbType, DbAccessMode))
 			{
 				IQueryable<TransactionItem_Sqlite> query = ctx.TransactionItem;
 
@@ -338,7 +348,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		public override void Insert(TransactionItemCommon transactionItem, bool withId = false)
 		{
-			using(var ctx = Utils.InitContextForSqlite())
+			using(var ctx = Utils.InitContextForSqlite(DbType, DbAccessMode))
 			using(ctx.WithIdentityInsert(ctx.Property(c => c.TransactionItem), activate: withId))
 			{
 				Insert(ctx, transactionItem, withId);
@@ -364,7 +374,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		public override void InsertMany(IList<TransactionItemCommon> transactionItems, bool withId = false, bool forceOneByOne = false)
 		{
-			using(var ctx = Utils.InitContextForSqlite())
+			using(var ctx = Utils.InitContextForSqlite(DbType, DbAccessMode))
 			using(var transaction = ctx.Database.BeginTransaction())
 			{
 				InsertMany(ctx, transactionItems, withId);
@@ -406,7 +416,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		public override int UpdateFullRecord(TransactionItemCommon transactionItem)
 		{
-			using(var ctx = Utils.InitContextForSqlite())
+			using(var ctx = Utils.InitContextForSqlite(DbType, DbAccessMode))
 			{
 				try
 				{
@@ -432,7 +442,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		public override int Delete(int id)
 		{
-			using(var ctx = Utils.InitContextForSqlite())
+			using(var ctx = Utils.InitContextForSqlite(DbType, DbAccessMode))
 			{
 				try
 				{
@@ -456,7 +466,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		public override int ClearDay(DateTime date, TransactionItemType transactionItemType)
 		{
-			using(var ctx = Utils.InitContextForSqlite())
+			using(var ctx = Utils.InitContextForSqlite(DbType, DbAccessMode))
 			using(var transacion = ctx.Database.BeginTransaction())
 			{
 				int result = ClearDay(ctx, date, transactionItemType);
@@ -504,7 +514,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 		/// <param name="transactionItems">If it's null, throws an exception. If it's empty, only clears the day. </param>
 		public override void ReplaceDailyItems(IList<TransactionItemCommon> transactionItems, TransactionItemType transactionItemType, DateTime date)
 		{
-			using(var ctx = Utils.InitContextForSqlite())
+			using(var ctx = Utils.InitContextForSqlite(DbType, DbAccessMode))
 			using(var transaction = ctx.Database.BeginTransaction())
 			{
 				ReplaceDailyItems(ctx, transactionItems, transactionItemType, date);

@@ -1,0 +1,5 @@
+* Eliminate singletons
+* InitAllStatic
+* Bring Managers to common interface
+* patch existing system to be compatible with the new one
+** rename categories

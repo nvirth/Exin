@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using AutoMapper;
+using Common;
 using Common.Configuration;
 using DAL.DataBase.EntityFramework.EntitiesMsSql;
 using DAL.DataBase.EntityFramework.EntitiesSqlite;
@@ -25,9 +26,9 @@ namespace DAL.DataBase.EntityFramework
 			throw new ArgumentException(errorMsg);
 		}
 
-		public static ExinEfMsSqlContext InitContextForMsSql()
+		public static ExinEfMsSqlContext InitContextForMsSql(DbType dbType, DbAccessMode dbAccessMode)
 		{
-			return InitContextForMsSql(ExinEfContextFactory.Create());
+			return InitContextForMsSql(ExinEfContextFactory.Create(dbType, dbAccessMode));
 		}
 		public static ExinEfMsSqlContext InitContextForMsSql(DbContext dbContext)
 		{
@@ -35,9 +36,9 @@ namespace DAL.DataBase.EntityFramework
 			return (ExinEfMsSqlContext)dbContext;
 		}
 
-		public static ExinEfSqliteContext InitContextForSqlite()
+		public static ExinEfSqliteContext InitContextForSqlite(DbType dbType, DbAccessMode dbAccessMode)
 		{
-			return InitContextForSqlite(ExinEfContextFactory.Create());
+			return InitContextForSqlite(ExinEfContextFactory.Create(dbType, dbAccessMode));
 		}
 		public static ExinEfSqliteContext InitContextForSqlite(DbContext dbContext)
 		{

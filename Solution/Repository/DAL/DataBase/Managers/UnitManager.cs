@@ -25,9 +25,9 @@ namespace DAL.DataBase.Managers
 		void Add(Unit unit);
 	}
 
-	public abstract class UnitManagerCommonBase : IUnitManager
+	public abstract class UnitManagerCommonBase : DbConfigurableBase, IUnitManager
 	{
-		protected UnitManagerCommonBase()
+		protected UnitManagerCommonBase(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
 		{
 			RefreshCache();
 		}
@@ -160,7 +160,8 @@ namespace DAL.DataBase.Managers
 
 	public static class UnitManager
 	{
-		public static readonly IUnitManager Instance = ManagerFactory.IUnitManager;
+		public static readonly IUnitManager Instance =
+			new ManagerFactory(Config.DbType, Config.DbAccessMode).UnitManager;
 
 		public static Unit GetDefaultUnit => GetUnitPc;
 		public static Unit GetUnitPc => Instance.GetByName(C.Db);

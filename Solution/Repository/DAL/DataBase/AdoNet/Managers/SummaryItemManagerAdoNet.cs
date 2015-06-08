@@ -11,25 +11,24 @@ using Common.UiModels.WPF;
 using Common.Utils.Helpers;
 using DAL.DataBase.Managers;
 using Localization;
-using Config = Common.Configuration.Config;
 using DbType = Common.DbType;
 
 namespace DAL.DataBase.AdoNet.Managers
 {
 	public static class SummaryItemManagerAdoNetFactory
 	{
-		public static SummaryItemManagerAdoNetBase Create()
+		public static SummaryItemManagerAdoNetBase Create(DbType dbType, DbAccessMode dbAccessMode)
 		{
-			switch(Config.DbType)
+			switch(dbType)
 			{
 				case DbType.MsSql:
-					return new SummaryItemManagerAdoNetMsSql();
+					return new SummaryItemManagerAdoNetMsSql(dbType, dbAccessMode);
 
 				case DbType.SQLite:
-					return new SummaryItemManagerAdoNetSQLite();
+					return new SummaryItemManagerAdoNetSQLite(dbType, dbAccessMode);
 
 				default:
-					throw new NotImplementedException(string.Format(Localized.SummaryItemManagerAdoNetBase_is_not_implemented_for_this_DbType__FORMAT__, Config.DbType));
+					throw new NotImplementedException(string.Format(Localized.SummaryItemManagerAdoNetBase_is_not_implemented_for_this_DbType__FORMAT__, dbType));
 			}
 
 		}
@@ -37,13 +36,17 @@ namespace DAL.DataBase.AdoNet.Managers
 
 	public abstract class SummaryItemManagerAdoNetBase : SummaryItemManagerCommonBase
 	{
+		protected SummaryItemManagerAdoNetBase(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		{
+		}
+
 		public const string TableName = "SummaryItem";
 
 		#region READ
 
 		public override List<SummaryItem> GetAll()
 		{
-			using(var ctx = ExinAdoNetContextFactory.Create())
+			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
 			{
 				ctx.Command.CommandText = BuildGetAllQuery();
 
@@ -57,7 +60,7 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		public override List<SummaryItem> GetInterval_Exec(DateTime fromDate, DateTime toDate)
 		{
-			using(var ctx = ExinAdoNetContextFactory.Create())
+			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
 			{
 				ctx.Command.CommandText = BuildGetIntervalQuery();
 
@@ -145,11 +148,15 @@ namespace DAL.DataBase.AdoNet.Managers
 
 	public class SummaryItemManagerAdoNetMsSql : SummaryItemManagerAdoNetBase
 	{
+		public SummaryItemManagerAdoNetMsSql(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		{
+		}
+
 		protected override void InserOrUpdateSummary_Exec(Summary summary, DateTime date, TransactionItemType transactionItemType)
 		{
 			var query = BuildMergeQuery(summary, date, transactionItemType);
 
-			using(var ctx = ExinAdoNetContextFactory.Create())
+			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
 			using(var transactionScope = new TransactionScope())
 			{
 				try
@@ -209,12 +216,16 @@ namespace DAL.DataBase.AdoNet.Managers
 
 	public class SummaryItemManagerAdoNetSQLite : SummaryItemManagerAdoNetBase
 	{
+		public SummaryItemManagerAdoNetSQLite(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		{
+		}
+
 		protected override void InserOrUpdateSummary_Exec(Summary summary, DateTime date, TransactionItemType transactionItemType)
 		{
 			var isExpense = transactionItemType == TransactionItemType.Expense;
 			var stringBuilder = new StringBuilder();
 
-			using(var ctx = ExinAdoNetContextFactory.Create())
+			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
 			{
 				try
 				{

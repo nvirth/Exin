@@ -2,59 +2,55 @@
 using System.Configuration;
 using Common;
 using Common.Configuration;
+using DAL.DataBase;
 using Localization;
 using C = Common.Configuration.Constants.Db;
 
 namespace DAL
 {
-	public interface IExinConnectionStringManager
+	public class ExinConnectionString : DbConfigurableBase
 	{
-		string Get { get; }
-	}
+		private ExinConnectionStringManagerBase _core;
 
-	public static class ExinConnectionString
-	{
-		private static IExinConnectionStringManager _core;
-
-		static ExinConnectionString()
+		public ExinConnectionString(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
 		{
-			ReloadManager();
+			Init();
 		}
 
-		private static void ReloadManager()
+		private void Init()
 		{
-			switch (Config.DbType)
+			switch(DbType)
 			{
 				case DbType.MsSql:
-					_core = new MsSqlExinConnectionStringManager();
+					_core = new MsSqlExinConnectionStringManager(DbType, DbAccessMode);
 					break;
 
 				case DbType.SQLite:
-					_core = new SQLiteExinConnectionStringManager();
+					_core = new SQLiteExinConnectionStringManager(DbType, DbAccessMode);
 					break;
 
 				default:
-					throw new NotImplementedException(string.Format(Localized.ExinConnectionString_s_ctor_is_not_implemented_for__0_, Config.DbType));
+					throw new NotImplementedException(string.Format(Localized.ExinConnectionString_s_ctor_is_not_implemented_for__0_, DbType));
 			}
 		}
 
 		#region Delegating members
 
-		public static string Get => _core.Get;
+		public string Get => _core.Get;
 
 	    #endregion
 	}
 
-	public abstract class ExinConnectionStringManagerBase
+	public abstract class ExinConnectionStringManagerBase : DbConfigurableBase
 	{
 		protected abstract string _adoNetConnStrName { get; }
 		protected abstract string _efConnStrName { get; }
 		protected string _connStrName;
 		protected string _connStr;
 
-		protected ExinConnectionStringManagerBase()
+		protected ExinConnectionStringManagerBase(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
 		{
-			switch(Config.DbAccessMode)
+			switch(DbAccessMode)
 			{
 				case DbAccessMode.AdoNet:
 					_connStrName = _adoNetConnStrName;
@@ -63,18 +59,24 @@ namespace DAL
 					_connStrName = _efConnStrName;
 					break;
 				default:
-					throw new NotImplementedException(string.Format(Localized.ExinConnectionStringManagerBase_s_ctor_is_not_implemented_for__0_, Config.DbType));
+					throw new NotImplementedException(string.Format(Localized.ExinConnectionStringManagerBase_s_ctor_is_not_implemented_for__0_, DbAccessMode));
 			}
 		}
-	}
+
+		public abstract string Get { get; }
+    }
 
 	/// <summary>
 	/// In Release and Debug mode, the connection string is set up by config transform.
 	/// By testing, the UnitTests project's config file contains the right value (no need to config transform)
 	/// </summary>
-	public class MsSqlExinConnectionStringManager : ExinConnectionStringManagerBase, IExinConnectionStringManager
+	public class MsSqlExinConnectionStringManager : ExinConnectionStringManagerBase
 	{
-		public string Get
+		public MsSqlExinConnectionStringManager(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		{
+		}
+
+		public override string Get
 		{
 			get
 			{
@@ -97,9 +99,13 @@ namespace DAL
 	/// replace these to the corresponding ones; but this is easy here, because the RootDir app setting
 	/// comes from config transform in tha case of Release and Debug modes...
 	/// </summary>
-	public class SQLiteExinConnectionStringManager : ExinConnectionStringManagerBase, IExinConnectionStringManager
+	public class SQLiteExinConnectionStringManager : ExinConnectionStringManagerBase
 	{
-		public string Get
+		public SQLiteExinConnectionStringManager(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		{
+		}
+
+		public override string Get
 		{
 			get
 			{

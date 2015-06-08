@@ -1,43 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using Common;
 using Common.Db.Entities;
 using Common.Log;
 using Common.Utils.Helpers;
 using DAL.DataBase.Managers;
 using Localization;
-using Config = Common.Configuration.Config;
 using DbType = Common.DbType;
 
 namespace DAL.DataBase.AdoNet.Managers
 {
 	public static class CategoryManagerAdoNetFactory
 	{
-		public static CategoryManagerAdoNetBase Create()
+		public static CategoryManagerAdoNetBase Create(DbType dbType, DbAccessMode dbAccessMode)
 		{
-			switch(Config.DbType)
+			switch(dbType)
 			{
 				case DbType.MsSql:
-					return new CategoryManagerAdoNetMsSql();
+					return new CategoryManagerAdoNetMsSql(dbType, dbAccessMode);
 
 				case DbType.SQLite:
-					return new CategoryManagerAdoNetSQLite();
+					return new CategoryManagerAdoNetSQLite(dbType, dbAccessMode);
 
 				default:
-					throw new NotImplementedException(string.Format(Localized.CategoryManagerAdoNetFactory_is_not_implemented_for_this_DbType__FORMAT__, Config.DbType));
+					throw new NotImplementedException(string.Format(Localized.CategoryManagerAdoNetFactory_is_not_implemented_for_this_DbType__FORMAT__, dbType));
 			}
 		}
 	}
 
 	public abstract class CategoryManagerAdoNetBase : CategoryManagerCommonBase
 	{
+		protected CategoryManagerAdoNetBase(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		{
+		}
+
 		public const string TableName = "Category";
 
 		#region Cache
 
 		protected override void RefreshCache_FromDb()
 		{
-			using(var ctx = ExinAdoNetContextFactory.Create())
+			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
 			{
 				var categories = RefreshCache_GetFromDb(ctx);
 				RefreshCache_Refresh(categories);
@@ -73,7 +77,7 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		public override void Add(Category category)
 		{
-			using(var ctx = ExinAdoNetContextFactory.Create())
+			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
 			{
 				Add(category, ctx);
 			}
@@ -121,10 +125,18 @@ namespace DAL.DataBase.AdoNet.Managers
 	public class CategoryManagerAdoNetMsSql : CategoryManagerAdoNetBase
 	{
 		// No need to override/expand anything
+
+		public CategoryManagerAdoNetMsSql(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		{
+		}
 	}
 
 	public class CategoryManagerAdoNetSQLite : CategoryManagerAdoNetBase
 	{
+		public CategoryManagerAdoNetSQLite(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		{
+		}
+
 		protected override void BuildInserQueryWithParams(Category category, ExinAdoNetContextBase ctx)
 		{
 			base.BuildInserQueryWithParams(category, ctx);

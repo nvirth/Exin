@@ -25,14 +25,14 @@ namespace WPF.ViewModels
 
 		public void Refresh()
 		{
-			SummaryManager.RefreshCache(StartDate, EndDate);
+			SummaryManager.Instance.RefreshCache(StartDate, EndDate);
 
 			OnPropertyChanged(this.Property(x => x.IncomesAndExpenses));
 		}
 
 		private Summary Summary
 		{
-			get { return SummaryManager.GetInterval(StartDate, EndDate); }
+			get { return SummaryManager.Instance.GetInterval(StartDate, EndDate); }
 		}
 
 		private IEnumerable<KeyValuePair<Category, int>> Incomes

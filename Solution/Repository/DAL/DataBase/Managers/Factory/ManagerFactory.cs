@@ -8,37 +8,111 @@ using Config = Common.Configuration.Config;
 
 namespace DAL.DataBase.Managers.Factory
 {
-	public static class ManagerFactory
+	public class ManagerFactory : DbConfigurableBase
 	{
-		public static readonly ICategoryManager ICategoryManager;
-		public static readonly IUnitManager IUnitManager;
-		public static readonly ITransactionItemManager ITransactionItemManager;
-		public static readonly ISummaryItemManager ISummaryItemManager;
-
-		static ManagerFactory()
+		public ManagerFactory(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
 		{
-			switch(Config.DbAccessMode)
+			switch(DbAccessMode)
 			{
 				case DbAccessMode.AdoNet:
-					ICategoryManager = CategoryManagerAdoNetFactory.Create();
-					IUnitManager = UnitManagerAdoNetFactory.Create();
-					ITransactionItemManager = TransactionItemManagerAdoNetFactory.Create();
-					ISummaryItemManager = SummaryItemManagerAdoNetFactory.Create();
-					break;
-
 				case DbAccessMode.EntityFramework:
-					ICategoryManager = CategoryManagerEfFactory.Create();
-					IUnitManager = UnitManagerEfFactory.Create();
-					ITransactionItemManager = TransactionItemManagerEfFactory.Create();
-					ISummaryItemManager = SummaryItemManagerEfFactory.Create();
+					// Config is ok, implemented
 					break;
 
 				default:
-				{
 					var msg = Localized.ManagerFactory_is_not_implemented_for__ + Config.DbAccessMode;
 					ExinLog.ger.LogError(msg);
 					throw new NotImplementedException(msg);
+			}
+		}
+
+		// --
+
+		private ICategoryManager _categoryManager;
+		public ICategoryManager CategoryManager
+		{
+			get
+			{
+				if(_categoryManager == null)
+				{
+					switch(DbAccessMode)
+					{
+						case DbAccessMode.AdoNet:
+							_categoryManager = CategoryManagerAdoNetFactory.Create(DbType, DbAccessMode);
+							break;
+
+						case DbAccessMode.EntityFramework:
+							_categoryManager = CategoryManagerEfFactory.Create(DbType, DbAccessMode);
+							break;
+					}
 				}
+				return _categoryManager;
+			}
+		}
+
+		private IUnitManager _unitManager;
+		public IUnitManager UnitManager
+		{
+			get
+			{
+				if(_unitManager == null)
+				{
+					switch(DbAccessMode)
+					{
+						case DbAccessMode.AdoNet:
+							_unitManager = UnitManagerAdoNetFactory.Create(DbType, DbAccessMode);
+							break;
+
+						case DbAccessMode.EntityFramework:
+							_unitManager = UnitManagerEfFactory.Create(DbType, DbAccessMode);
+							break;
+					}
+				}
+				return _unitManager;
+			}
+		}
+
+		private ITransactionItemManager _transactionItemManager;
+		public ITransactionItemManager TransactionItemManager
+		{
+			get
+			{
+				if(_transactionItemManager == null)
+				{
+					switch(DbAccessMode)
+					{
+						case DbAccessMode.AdoNet:
+							_transactionItemManager = TransactionItemManagerAdoNetFactory.Create(DbType, DbAccessMode);
+							break;
+
+						case DbAccessMode.EntityFramework:
+							_transactionItemManager = TransactionItemManagerEfFactory.Create(DbType, DbAccessMode);
+							break;
+					}
+				}
+				return _transactionItemManager;
+			}
+		}
+
+		private ISummaryItemManager _summaryItemManager;
+		public ISummaryItemManager SummaryItemManager
+		{
+			get
+			{
+				if(_summaryItemManager == null)
+				{
+					switch(DbAccessMode)
+					{
+						case DbAccessMode.AdoNet:
+							_summaryItemManager = SummaryItemManagerAdoNetFactory.Create(DbType, DbAccessMode);
+							break;
+
+						case DbAccessMode.EntityFramework:
+							_summaryItemManager = SummaryItemManagerEfFactory.Create(DbType, DbAccessMode);
+							break;
+					}
+				}
+				return _summaryItemManager;
 			}
 		}
 	}

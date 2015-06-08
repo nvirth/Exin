@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataBase\AdoNet\Utils.cs" />
+    <Compile Include="DataBase\DbConfigurableBase.cs" />
     <Compile Include="DataBase\EntityFramework\InitAutoMapperForEf.cs" />
     <Compile Include="DataBase\EntityFramework\EntitiesMsSql\Category_MsSql.cs">
       <DependentUpon>ExinEfMsSql.tt</DependentUpon>
@@ -138,7 +139,7 @@
     <Compile Include="DataBase\EntityFramework\Managers\SummaryItemManagerEf.cs" />
     <Compile Include="DataBase\EntityFramework\Managers\TransactionItemManagerEf.cs" />
     <Compile Include="DataBase\EntityFramework\Managers\UnitManagerEf.cs" />
-    <Compile Include="DataBase\EntityFramework\ExinEfContextFactory.cs" />
+    <Compile Include="DataBase\EntityFramework\ExinEfContext.cs" />
     <Compile Include="DataBase\EntityFramework\Utils.cs" />
     <Compile Include="ExinConnectionString.cs" />
     <Compile Include="DataBase\AdoNet\IdentityInsert.cs" />

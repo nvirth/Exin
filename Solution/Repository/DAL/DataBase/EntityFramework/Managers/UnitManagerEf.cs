@@ -7,25 +7,24 @@ using DAL.DataBase.EntityFramework.EntitiesMsSql;
 using DAL.DataBase.EntityFramework.EntitiesSqlite;
 using DAL.DataBase.Managers;
 using Localization;
-using Config = Common.Configuration.Config;
 using UnitCommon = Common.Db.Entities.Unit;
 
 namespace DAL.DataBase.EntityFramework.Managers
 {
 	public static class UnitManagerEfFactory
 	{
-		public static UnitManagerEfBase Create()
+		public static UnitManagerEfBase Create(DbType dbType, DbAccessMode dbAccessMode)
 		{
-			switch(Config.DbType)
+			switch(dbType)
 			{
 				case DbType.MsSql:
-					return new UnitManagerEfMsSql();
+					return new UnitManagerEfMsSql(dbType, dbAccessMode);
 
 				case DbType.SQLite:
-					return new UnitManagerEfSqlite();
+					return new UnitManagerEfSqlite(dbType, dbAccessMode);
 
 				default:
-					throw new NotImplementedException(string.Format(Localized.UnitManagerEfFactory_is_not_implemented_for_this_DbType__FORMAT__, Config.DbType));
+					throw new NotImplementedException(string.Format(Localized.UnitManagerEfFactory_is_not_implemented_for_this_DbType__FORMAT__, dbType));
 			}
 
 		}
@@ -33,11 +32,15 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 	public abstract class UnitManagerEfBase : UnitManagerCommonBase
 	{
+		protected UnitManagerEfBase(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		{
+		}
+
 		#region Cache
 
 		protected override void RefreshCache_FromDb()
 		{
-			using(var ctx = ExinEfContextFactory.Create())
+			using(var ctx = ExinEfContextFactory.Create(DbType, DbAccessMode))
 			{
 				var units = RefreshCache_GetFromDb(ctx);
 				RefreshCache_Refresh(units);
@@ -52,7 +55,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		public override void Add(UnitCommon unit)
 		{
-			using(var ctx = ExinEfContextFactory.Create())
+			using(var ctx = ExinEfContextFactory.Create(DbType, DbAccessMode))
 			{
 				Add(unit, ctx);
 			}
@@ -83,6 +86,10 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 	public class UnitManagerEfSqlite : UnitManagerEfBase
 	{
+		public UnitManagerEfSqlite(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		{
+		}
+
 		protected override IEnumerable<UnitCommon> RefreshCache_GetFromDb(DbContext dbContext)
 		{
 			var ctx = Utils.InitContextForSqlite(dbContext);
@@ -99,6 +106,10 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 	public class UnitManagerEfMsSql : UnitManagerEfBase
 	{
+		public UnitManagerEfMsSql(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		{
+		}
+
 		protected override IEnumerable<UnitCommon> RefreshCache_GetFromDb(DbContext dbContext)
 		{
 			var ctx = Utils.InitContextForMsSql(dbContext);

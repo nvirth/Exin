@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common;
+using Common.Configuration;
 using Common.Db.Entities;
 using DAL.DataBase.Managers.Factory;
 
@@ -25,8 +26,12 @@ namespace DAL.DataBase.Managers
 		void ReplaceDailyItems(IList<TransactionItem> transactionItems, TransactionItemType transactionItemType, DateTime date);
 	}
 
-	public abstract class TransactionItemManagerCommonBase : ITransactionItemManager
+	public abstract class TransactionItemManagerCommonBase : DbConfigurableBase, ITransactionItemManager
 	{
+		protected TransactionItemManagerCommonBase(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		{
+		}
+
 		#region READ
 
 		public List<TransactionItem> GetDaily(DateTime date, TransactionItemType transactionItemType)
@@ -78,6 +83,7 @@ namespace DAL.DataBase.Managers
 	
 	public static class TransactionItemManager
 	{
-		public static readonly ITransactionItemManager Instance = ManagerFactory.ITransactionItemManager;
+		public static readonly ITransactionItemManager Instance = 
+			new ManagerFactory(Config.DbType, Config.DbAccessMode).TransactionItemManager;
 	}
 }

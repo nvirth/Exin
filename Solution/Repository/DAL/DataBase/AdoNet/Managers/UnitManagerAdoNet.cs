@@ -1,30 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using Common;
 using Common.Db.Entities;
 using Common.Log;
 using Common.Utils.Helpers;
 using DAL.DataBase.Managers;
 using Localization;
-using Config = Common.Configuration.Config;
 using DbType = Common.DbType;
 
 namespace DAL.DataBase.AdoNet.Managers
 {
 	public static class UnitManagerAdoNetFactory
 	{
-		public static UnitManagerAdoNetBase Create()
+		public static UnitManagerAdoNetBase Create(DbType dbType, DbAccessMode dbAccessMode)
 		{
-			switch(Config.DbType)
+			switch(dbType)
 			{
 				case DbType.MsSql:
-					return new UnitManagerAdoNetMsSql();
+					return new UnitManagerAdoNetMsSql(dbType, dbAccessMode);
 
 				case DbType.SQLite:
-					return new UnitManagerAdoNetSQLite();
+					return new UnitManagerAdoNetSQLite(dbType, dbAccessMode);
 
 				default:
-					throw new NotImplementedException(string.Format(Localized.UnitManagerAdoNetFactory_is_not_implemented_for_this_DbType__FORMAT__, Config.DbType));
+					throw new NotImplementedException(string.Format(Localized.UnitManagerAdoNetFactory_is_not_implemented_for_this_DbType__FORMAT__, dbType));
 			}
 
 		}
@@ -32,13 +32,17 @@ namespace DAL.DataBase.AdoNet.Managers
 
 	public abstract class UnitManagerAdoNetBase : UnitManagerCommonBase
 	{
+		protected UnitManagerAdoNetBase(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		{
+		}
+
 		public const string TableName = "Unit";
 
 		#region Cache
 
 		protected override void RefreshCache_FromDb()
 		{
-			using(var ctx = ExinAdoNetContextFactory.Create())
+			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
 			{
 				var units = RefreshCache_GetFromDb(ctx);
 				RefreshCache_Refresh(units);
@@ -73,7 +77,7 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		public override void Add(Unit unit)
 		{
-			using(var ctx = ExinAdoNetContextFactory.Create())
+			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
 			{
 				Add(unit, ctx);
 			}
@@ -121,10 +125,18 @@ namespace DAL.DataBase.AdoNet.Managers
 	public class UnitManagerAdoNetMsSql : UnitManagerAdoNetBase
 	{
 		// No need to override/expand anything
+
+		public UnitManagerAdoNetMsSql(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		{
+		}
 	}
 
 	public class UnitManagerAdoNetSQLite : UnitManagerAdoNetBase
 	{
+		public UnitManagerAdoNetSQLite(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		{
+		}
+
 		protected override void BuildInserQueryWithParams(Unit unit, ExinAdoNetContextBase ctx)
 		{
 			base.BuildInserQueryWithParams(unit, ctx);

@@ -68,18 +68,18 @@ namespace Common.Log
 			}
 			else // If the object value is a complex type, serialize it (normally)
 			{
-				switch(Config.LogDataMode)
+				switch(LogConfig.LogDataMode)
 				{
-					case Config.JSON:
+					case LogConfig.JSON:
 						stringValue = JsonConvert.SerializeObject(value, Formatting.Indented, _stringEnumConverter);
 						break;
 
-					case Config.XML:
+					case LogConfig.XML:
 						stringValue = value.ToXml().ToString();
 						break;
 
 					default:
-						throw new NotImplementedException(Localized.The_SerializeToLog_is_not_implemented_to_this_log_mode__ + Config.LogDataMode);
+						throw new NotImplementedException(Localized.The_SerializeToLog_is_not_implemented_to_this_log_mode__ + LogConfig.LogDataMode);
 				}
 			}
 

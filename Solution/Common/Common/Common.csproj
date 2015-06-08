@@ -90,7 +90,7 @@
     <Compile Include="UiModels\WPF\Validation\ValidationConstants.cs" />
     <Compile Include="Utils\ApplicationRunningHelper.cs" />
     <Compile Include="Utils\Helpers\Helpers.cs" />
-    <Compile Include="Log\Config.cs" />
+    <Compile Include="Log\LogConfig.cs" />
     <Compile Include="Log\ExceptionHelpers.cs" />
     <Compile Include="Log\ExinLogger.cs" />
     <Compile Include="Log\LoggerInstances.cs" />

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using Common.Db;
 using Common.Db.Entities;
-using Common.Db.ManagersRelief;
 using C = Common.Configuration.Constants.XmlTags;
 
 namespace Common.UiModels.WPF
@@ -66,10 +65,10 @@ namespace Common.UiModels.WPF
 		public static ExpenseItem FromXml(DateTime date, XElement xmlEi)
 		{
 			var unitString = (string)xmlEi.Element(C.Unit);
-			var unit = UnitManager.GetByName(unitString, nullIfNotFound: false);
+			var unit = ManagersRelief.UnitManager.GetByName(unitString, nullIfNotFound: false);
 
 			var categoryString = (string)xmlEi.Element(C.Category);
-			var category = CategoryManager.GetByName(categoryString, nullIfNotFound: false);
+			var category = ManagersRelief.CategoryManager.GetByName(categoryString, nullIfNotFound: false);
 
 			var expenseItem = new ExpenseItem
 			{

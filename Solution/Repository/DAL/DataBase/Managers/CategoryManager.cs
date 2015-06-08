@@ -25,9 +25,9 @@ namespace DAL.DataBase.Managers
 		void Add(Category category);
 	}
 
-	public abstract class CategoryManagerCommonBase : ICategoryManager
+	public abstract class CategoryManagerCommonBase : DbConfigurableBase, ICategoryManager
 	{
-		protected CategoryManagerCommonBase()
+		protected CategoryManagerCommonBase(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
 		{
 			RefreshCache();
 		}
@@ -160,7 +160,8 @@ namespace DAL.DataBase.Managers
 	
 	public static class CategoryManager
 	{
-		public static readonly ICategoryManager Instance = ManagerFactory.ICategoryManager;
+		public static readonly ICategoryManager Instance = 
+			new ManagerFactory(Config.DbType, Config.DbAccessMode).CategoryManager;
 
 		public static Category GetDefaultCategory => GetCategoryOthers;
 		public static Category GetCategoryOthers => Instance.GetByName(C.Others);
@@ -170,8 +171,8 @@ namespace DAL.DataBase.Managers
 
 		static CategoryManager()
 		{
-				ManagersRelief.CategoryManager.InitDefaultCategory(() => GetDefaultCategory);
-				ManagersRelief.CategoryManager.InitGetByName(Instance.GetByName);
+			ManagersRelief.CategoryManager.InitDefaultCategory(() => GetDefaultCategory);
+			ManagersRelief.CategoryManager.InitGetByName(Instance.GetByName);
 		}
 	}
 }

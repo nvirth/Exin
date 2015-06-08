@@ -69,9 +69,9 @@ namespace ImportDataToDb
 		private static void ImportUnits()
 		{
 			var units = FileRepoManager.Instance.GetUnits();
-			var unitManager = UnitManagerAdoNetFactory.Create();
+			var unitManager = UnitManagerAdoNetFactory.Create(Config.DbType, DbAccessMode.AdoNet);
 
-			using(var ctx = ExinAdoNetContextFactory.Create())
+			using(var ctx = ExinAdoNetContextFactory.Create(Config.DbType, DbAccessMode.AdoNet))
 			using(new IdentityInsert(ctx, UnitManagerAdoNetBase.TableName))
 			{
 				foreach(var u in units)
@@ -85,9 +85,9 @@ namespace ImportDataToDb
 		private static void ImportCategories()
 		{
 			var categories = FileRepoManager.Instance.GetCategories();
-			var categoryManager = CategoryManagerAdoNetFactory.Create();
+			var categoryManager = CategoryManagerAdoNetFactory.Create(Config.DbType, DbAccessMode.AdoNet);
 
-			using(var ctx = ExinAdoNetContextFactory.Create())
+			using(var ctx = ExinAdoNetContextFactory.Create(Config.DbType, DbAccessMode.AdoNet))
 			using(new IdentityInsert(ctx, CategoryManagerAdoNetBase.TableName))
 			{
 				foreach(var c in categories)
@@ -176,7 +176,7 @@ namespace ImportDataToDb
 			// And this section works with MsSql and SQLite db as well
 			//
 
-			using(var ctx = ExinAdoNetContextFactory.Create())
+			using(var ctx = ExinAdoNetContextFactory.Create(Config.DbType, DbAccessMode.AdoNet))
 			using(ctx.WithTransaction())
 			{
 				const string insertSql = @"INSERT INTO [TransactionItem]
@@ -260,7 +260,7 @@ namespace ImportDataToDb
 			switch(Config.DbType)
 			{
 				case DbType.MsSql:
-					using(var ctx = ExinAdoNetContextFactory.Create())
+					using(var ctx = ExinAdoNetContextFactory.Create(Config.DbType, DbAccessMode.AdoNet))
 					{
 						ctx.Command.CommandText = "EXEC sp_MSForEachTable 'DISABLE TRIGGER ALL ON ?'";
 						ctx.Command.ExecuteNonQuery();
@@ -284,7 +284,7 @@ namespace ImportDataToDb
 
 					var sqliteCreateScript = File.ReadAllText(RepoPaths.SqliteDbCreateFile);
 
-					using(var ctx = ExinAdoNetContextFactory.Create())
+					using(var ctx = ExinAdoNetContextFactory.Create(Config.DbType, DbAccessMode.AdoNet))
 					{
 						ctx.Command.CommandText = sqliteCreateScript;
 						ctx.ExecInTransactionWithCommit();

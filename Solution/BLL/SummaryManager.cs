@@ -6,34 +6,11 @@ using DAL.DataBase.Managers;
 
 namespace BLL
 {
-	public static class SummaryManager
+	public class SummaryManager
 	{
-		private static readonly SummaryManagerCore Manager = new SummaryManagerCore();
+		public static readonly SummaryManager Instance = new SummaryManager();
 
-		#region Delegated member
-
-		public static Summary GetInterval(DateTime startDate, DateTime endDate)
-		{
-			return Manager.GetInterval(startDate, endDate);
-		}
-
-		public static void RefreshCache(DateTime startDate, DateTime endDate)
-		{
-			Manager.RefreshCache(startDate, endDate);
-		}
-
-		#endregion
-
-	}
-
-	class SummaryManagerCore
-	{
-		private Dictionary<Tuple<DateTime, DateTime>, Summary> _cache;
-
-		public SummaryManagerCore()
-		{
-			_cache = new Dictionary<Tuple<DateTime, DateTime>, Summary>();
-		}
+		private Dictionary<Tuple<DateTime, DateTime>, Summary> _cache = new Dictionary<Tuple<DateTime, DateTime>, Summary>();
 
 		public Summary GetInterval(DateTime startDate, DateTime endDate)
 		{

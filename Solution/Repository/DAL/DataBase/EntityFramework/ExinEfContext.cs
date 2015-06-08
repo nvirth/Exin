@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
 using Common;
-using Common.Configuration;
 using DAL.DataBase.EntityFramework.EntitiesMsSql;
 using DAL.DataBase.EntityFramework.EntitiesSqlite;
 using Localization;
@@ -10,18 +9,18 @@ namespace DAL.DataBase.EntityFramework
 {
 	public static class ExinEfContextFactory
 	{
-		public static DbContext Create()
+		public static DbContext Create(DbType dbType, DbAccessMode dbAccessMode)
 		{
-			switch(Config.DbType)
+			switch(dbType)
 			{
 				case DbType.SQLite:
-					return new ExinEfSqliteContext(ExinConnectionString.Get);
+					return new ExinEfSqliteContext(new ExinConnectionString(dbType, dbAccessMode).Get);
 
 				case DbType.MsSql:
-					return new ExinEfMsSqlContext(ExinConnectionString.Get);
+					return new ExinEfMsSqlContext(new ExinConnectionString(dbType, dbAccessMode).Get);
 
 				default:
-					throw new NotImplementedException(string.Format(Localized.ExinEfContextFactory_is_not_implemented_for_this_DbType__FORMAT__, Config.DbType));
+					throw new NotImplementedException(string.Format(Localized.ExinEfContextFactory_is_not_implemented_for_this_DbType__FORMAT__, dbType));
 			}
 		}
 	}

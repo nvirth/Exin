@@ -1,8 +1,17 @@
+------------------
+No more singletons
+------------------
+
+Exin\Solution\Repository\DAL\DataBase\Managers\CategoryManager.cs
+Exin\Solution\Repository\DAL\DataBase\Managers\SummaryItemManager.cs
+Exin\Solution\Repository\DAL\DataBase\Managers\TransactionItemManager.cs
+Exin\Solution\Repository\DAL\DataBase\Managers\UnitManager.cs
+
 Exin\Solution\BLL\SummaryManager.cs
 
-Exin\Solution\Repository\DAL\ExinConnectionString.cs
-Exin\Solution\Repository\DAL\DataBase\AdoNet\ExinAdoNetContext.cs
-Exin\Solution\Repository\DAL\DataBase\EntityFramework\ExinEfContextFactory.cs
+------------------
+DbConfigurableBase
+------------------
 
 Exin\Solution\Repository\DAL\DataBase\AdoNet\Managers\CategoryManagerAdoNet.cs
 Exin\Solution\Repository\DAL\DataBase\AdoNet\Managers\SummaryItemManagerAdoNet.cs
@@ -14,13 +23,13 @@ Exin\Solution\Repository\DAL\DataBase\EntityFramework\Managers\SummaryItemManage
 Exin\Solution\Repository\DAL\DataBase\EntityFramework\Managers\TransactionItemManagerEf.cs
 Exin\Solution\Repository\DAL\DataBase\EntityFramework\Managers\UnitManagerEf.cs
 
+Exin\Solution\Repository\DAL\DataBase\AdoNet\ExinAdoNetContext.cs
+Exin\Solution\Repository\DAL\DataBase\EntityFramework\ExinEfContext.cs
+
+--------------------
+Deeper modifications
+--------------------
+
+Exin\Solution\Repository\DAL\ExinConnectionString.cs
+
 Exin\Solution\Repository\DAL\DataBase\Managers\Factory\ManagerFactory.cs
-
-----
-Done
-----
-
-Exin\Solution\Repository\DAL\DataBase\Managers\CategoryManager.cs
-Exin\Solution\Repository\DAL\DataBase\Managers\SummaryItemManager.cs
-Exin\Solution\Repository\DAL\DataBase\Managers\TransactionItemManager.cs
-Exin\Solution\Repository\DAL\DataBase\Managers\UnitManager.cs

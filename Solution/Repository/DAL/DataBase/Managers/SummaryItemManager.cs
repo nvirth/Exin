@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Common;
+using Common.Configuration;
 using Common.Db.Entities;
 using Common.Log;
 using Common.UiModels.WPF;
@@ -21,8 +22,12 @@ namespace DAL.DataBase.Managers
 		List<SummaryItem> GetInterval(DateTime fromDate, DateTime toDate);
 	}
 
-	public abstract class SummaryItemManagerCommonBase : ISummaryItemManager
+	public abstract class SummaryItemManagerCommonBase : DbConfigurableBase, ISummaryItemManager
 	{
+		protected SummaryItemManagerCommonBase(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		{
+		}
+		
 		#region CREATE, UPDATE
 
 		public void InsertOrUpdateMonthlyIncomeSummary(DateTime date)
@@ -110,7 +115,6 @@ namespace DAL.DataBase.Managers
 			return insertItems;
 		}
 
-
 		protected abstract void InserOrUpdateSummary_Exec(Summary summary, DateTime date, TransactionItemType transactionItemType);
 
 		#endregion
@@ -160,6 +164,7 @@ namespace DAL.DataBase.Managers
 
 	public static class SummaryItemManager
 	{
-		public static readonly ISummaryItemManager Instance = ManagerFactory.ISummaryItemManager;
+		public static readonly ISummaryItemManager Instance =
+			new ManagerFactory(Config.DbType, Config.DbAccessMode).SummaryItemManager;
 	}
 }

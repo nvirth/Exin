@@ -8,35 +8,38 @@ using DAL.DataBase.EntityFramework.EntitiesSqlite;
 using DAL.DataBase.Managers;
 using Localization;
 using CategoryCommon = Common.Db.Entities.Category;
-using Config = Common.Configuration.Config;
 
 namespace DAL.DataBase.EntityFramework.Managers
 {
 	public static class CategoryManagerEfFactory
 	{
-		public static CategoryManagerEfBase Create()
+		public static CategoryManagerEfBase Create(DbType dbType, DbAccessMode dbAccessMode)
 		{
-			switch(Config.DbType)
+			switch(dbType)
 			{
 				case DbType.MsSql:
-					return new CategoryManagerEfMsSql();
+					return new CategoryManagerEfMsSql(dbType, dbAccessMode);
 
 				case DbType.SQLite:
-					return new CategoryManagerEfSqlite();
+					return new CategoryManagerEfSqlite(dbType, dbAccessMode);
 
 				default:
-					throw new NotImplementedException(string.Format(Localized.CategoryManagerEfFactory_is_not_implemented_for_this_DbType__FORMAT__, Config.DbType));
+					throw new NotImplementedException(string.Format(Localized.CategoryManagerEfFactory_is_not_implemented_for_this_DbType__FORMAT__, dbType));
 			}
 		}
 	}
 
 	public abstract	class CategoryManagerEfBase : CategoryManagerCommonBase
 	{
+		protected CategoryManagerEfBase(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		{
+		}
+		
 		#region Cache
 
 		protected override void RefreshCache_FromDb()
 		{
-			using(var ctx = ExinEfContextFactory.Create())
+			using(var ctx = ExinEfContextFactory.Create(DbType, DbAccessMode))
 			{
 				var categories = RefreshCache_GetFromDb(ctx);
 				RefreshCache_Refresh(categories);
@@ -51,7 +54,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		public override void Add(CategoryCommon category)
 		{
-			using(var ctx = ExinEfContextFactory.Create())
+			using(var ctx = ExinEfContextFactory.Create(DbType, DbAccessMode))
 			{
 				Add(category, ctx);
 			}
@@ -82,6 +85,10 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 	public class CategoryManagerEfSqlite : CategoryManagerEfBase
 	{
+		public CategoryManagerEfSqlite(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		{
+		}
+
 		protected override IEnumerable<CategoryCommon> RefreshCache_GetFromDb(DbContext dbContext)
 		{
 			var ctx = Utils.InitContextForSqlite(dbContext);
@@ -98,6 +105,10 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 	public class CategoryManagerEfMsSql : CategoryManagerEfBase
 	{
+		public CategoryManagerEfMsSql(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		{
+		}
+
 		protected override IEnumerable<CategoryCommon> RefreshCache_GetFromDb(DbContext dbContext)
 		{
 			var ctx = Utils.InitContextForMsSql(dbContext);

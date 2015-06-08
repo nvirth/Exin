@@ -17,24 +17,28 @@ namespace DAL.DataBase.AdoNet.Managers
 {
 	public static class TransactionItemManagerAdoNetFactory
 	{
-		public static TransactionItemManagerAdoNetBase Create()
+		public static TransactionItemManagerAdoNetBase Create(DbType dbType, DbAccessMode dbAccessMode)
 		{
-			switch(Config.DbType)
+			switch(dbType)
 			{
 				case DbType.MsSql:
-					return new TransactionItemManagerAdoNetMsSql();
+					return new TransactionItemManagerAdoNetMsSql(dbType, dbAccessMode);
 
 				case DbType.SQLite:
-					return new TransactionItemManagerAdoNetSQLite();
+					return new TransactionItemManagerAdoNetSQLite(dbType, dbAccessMode);
 
 				default:
-					throw new NotImplementedException(string.Format(Localized.TransactionItemManagerAdoNetFactory_is_not_implemented_for_this_DbType__FORMAT__, Config.DbType));
+					throw new NotImplementedException(string.Format(Localized.TransactionItemManagerAdoNetFactory_is_not_implemented_for_this_DbType__FORMAT__, dbType));
 			}
 		}
 	}
 
 	public abstract class TransactionItemManagerAdoNetBase : TransactionItemManagerCommonBase
 	{
+		protected TransactionItemManagerAdoNetBase(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		{
+		}
+
 		public const string TableName = "TransactionItem";
 
 		#region READ
@@ -44,7 +48,7 @@ namespace DAL.DataBase.AdoNet.Managers
 			fromDate = fromDate.Date;
 			toDate = toDate.Date;
 
-			using(var ctx = ExinAdoNetContextFactory.Create())
+			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
 			{
 				BuildGetIntervalQuery(transactionItemType, ctx);
 
@@ -60,7 +64,7 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		public override List<TransactionItem> GetAll(TransactionItemType? transactionItemType = null)
 		{
-			using(var ctx = ExinAdoNetContextFactory.Create())
+			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
 			{
 				BuildGetAllQuery(transactionItemType, ctx);
 
@@ -138,7 +142,7 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		public override void Insert(TransactionItem transactionItem, bool withId = false)
 		{
-			using(var ctx = ExinAdoNetContextFactory.Create())
+			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
 			using(ctx.WithIdentityInsert(TableName, activate: withId))
 			{
 				Insert(ctx, transactionItem, withId);
@@ -204,7 +208,7 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		public override void InsertMany(IList<TransactionItem> transactionItems, bool withId = false, bool forceOneByOne = false)
 		{
-			using(var ctx = ExinAdoNetContextFactory.Create())
+			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
 			{
 				InsertMany(ctx, transactionItems, withId, forceOneByOne);
 			}
@@ -406,7 +410,7 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		public override int UpdateFullRecord(TransactionItem transactionItem)
 		{
-			using(var ctx = ExinAdoNetContextFactory.Create())
+			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
 			{
 				ctx.Command.CommandText = BuildUpdateFullRecordQuery();
 
@@ -456,7 +460,7 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		public override int Delete(int id)
 		{
-			using(var ctx = ExinAdoNetContextFactory.Create())
+			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
 			{
 				ctx.Command.CommandText = BuildDeleteQuery();
 
@@ -494,7 +498,7 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		public override int ClearDay(DateTime date, TransactionItemType transactionItemType)
 		{
-			using(var ctx = ExinAdoNetContextFactory.Create())
+			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
 			{
 				return ClearDay(ctx, date, transactionItemType);
 			}
@@ -552,7 +556,7 @@ namespace DAL.DataBase.AdoNet.Managers
 		public override void ReplaceDailyItems(IList<TransactionItem> transactionItems, TransactionItemType transactionItemType, DateTime date)
 		{
 			using(var transactionScope = new TransactionScope())
-			using(var ctx = ExinAdoNetContextFactory.Create())
+			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
 			{
 				ReplaceDailyItems(ctx, transactionItems, transactionItemType, date);
 
@@ -591,10 +595,18 @@ namespace DAL.DataBase.AdoNet.Managers
 	public class TransactionItemManagerAdoNetMsSql : TransactionItemManagerAdoNetBase
 	{
 		// No need to changed anything
+
+		public TransactionItemManagerAdoNetMsSql(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		{
+		}
 	}
 
 	public class TransactionItemManagerAdoNetSQLite : TransactionItemManagerAdoNetBase
 	{
+		public TransactionItemManagerAdoNetSQLite(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		{
+		}
+
 		protected override void ExecInsertQuery(ExinAdoNetContextBase ctx)
 		{
 			if(_calledFromReplaceDaily)
