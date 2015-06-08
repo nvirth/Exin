@@ -1,0 +1,34 @@
+Modify the MS SQL one using SQL Server Management Studio, save your changes
+	* Note: Consider unchecking this checkbox:
+		Tools/Options/Designers/Prevent saving changes that require tablre recreation
+
+------------
+Save: MS SQL
+------------
+1. Select the database (ExinDeveloper), right click/Tasks/Generate Scripts...
+2. Copy (and overwrite) the generated script file: 
+	Exin\Solution\Repository\DB\FullScript\MsSql full.sql
+3. Import it into the DB project: Visual Studio, go to Repository\DB project, right click on the project/Import/Script (*.sql)...
+4. Modify the edmx files (Update model from database)
+
+------------
+Save: SQLite
+------------
+0. SQLite tools:
+- There is an awesome open source project to convert MS SQL databases completely into SQLite:
+http://www.codeproject.com/Articles/26932/Convert-SQL-Server-DB-to-SQLite-DB
+- There is a Firefox plugin named SQLiteManager:
+https://github.com/lazierthanthou/sqlite-manager
+	- With it, one can create the SQLite scripts for the db:
+		Menu: Database/Export Database Structure
+- This is the SQLite .NET Provider:
+http://system.data.sqlite.org/index.html/doc/trunk/www/downloads.wiki
+
+1. Use the tool named "Convert-SQL-Server-DB-to-SQLite-DB" to generate the SQLite database file from the MS SQL database.
+	* Check the "Create trigger enforcing foreing keys" checkbox
+	* Note: better do it without data in the database
+2. Open the sqlite db file with SQLite Manager (Firefox/Tools/SQLite Manager); then select Database/Export Database Structure
+3. Copy (and overwrite) the generated script file: 
+	Exin\Solution\Repository\DB\FullScript\SQLite full.sql
+4. Modify the edmx files
+	* Note: If the "Update model from database" method would not work, because no SQLite Provider is available, you can manually edit the edmx files; following the changes in the MS SQL edmx files (which can observed via git now)

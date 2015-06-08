@@ -176,7 +176,7 @@ namespace Common.Utils.Helpers
 			var stopwatch = new Stopwatch();
 			stopwatch.Start();
 
-			action(); // Itt hajtódik végre a valódi munka!
+			action(); // Here will be executed the real operation!
 
 			stopwatch.Stop();
 
