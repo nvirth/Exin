@@ -700,15 +700,43 @@ namespace Common.Utils.Helpers
 		}
 
 		/// <summary>
+		/// Creates a deep clone from the given object
+		/// </summary>
+		/// <typeparam name="T">The param type must be marked with the [Serializable] attribute</typeparam>
+		public static T DeepClone<T>(this T a)
+		{
+			using(MemoryStream stream = new MemoryStream())
+			{
+				BinaryFormatter formatter = new BinaryFormatter();
+				formatter.Serialize(stream, a);
+				stream.Position = 0;
+				return (T)formatter.Deserialize(stream);
+			}
+		}
+
+		/// <summary>
 		/// Perform a deep Copy of the object, using Json as a serialisation method.
 		/// </summary>
-		public static T DeepClone<T>(this T source)
+		private static T DeepClone_JsonMethod<T>(this T source)
 		{
+			// The problem with this now:
+			// Serializes an ExpenseItem, which has a Unit (eg kg)
+			// By deserialization, it creates a new ExpenseItem, so calls the ctor.
+			// In ctor, the default Unit (pc) will be assigned to the ExpenseItem.Unit
+			// After that, the deserializer won't drop that instance! Instead overwrites
+			// (some of) its properties.
+			// The problem with this is, that we use now references, and not deep clones
+			// from the Units, and so, the default unit in the cache will be (half-)
+			// overwritten
+			//
+			// So don't use this until that problem gets a solution
+
 			// Don't serialize a null object, simply return the default for that object
 			if(Object.ReferenceEquals(source, null))
 				return default(T);
 
-			return JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(source));
+			var serializedObj = JsonConvert.SerializeObject(source);
+			return JsonConvert.DeserializeObject<T>(serializedObj);
 		}
 
 		#endregion
