@@ -13,7 +13,7 @@ namespace DAL
 	{
 		public static bool IsDbOk(DbType dbType = 0)
 		{
-			dbType = dbType == 0 ? Config.DbType : dbType;
+			dbType = dbType == 0 ? Config.Repo.DbType : dbType;
 
 			if(dbType != DbType.SQLite)
 				return true;
@@ -26,7 +26,7 @@ namespace DAL
 
 		public static async Task InitSqliteFileIfNeeded(DbType dbType = 0)
 		{
-			if (IsDbOk(dbType == 0 ? Config.DbType : dbType))
+			if (IsDbOk(dbType == 0 ? Config.Repo.DbType : dbType))
 				return;
 
 			MessagePresenter.WriteError(string.Format(Localized.Could_not_find_the_SQLite_database_file__here__0__FORMAT__, RepoPaths.SqliteDbFile));

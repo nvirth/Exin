@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common;
+using Common.Configuration;
 using Common.Db;
 using Common.Db.Entities;
 using Common.Log;
@@ -27,7 +28,7 @@ namespace DAL.DataBase.Managers
 
 	public abstract class UnitManagerCommonBase : DbConfigurableBase, IUnitManager
 	{
-		protected UnitManagerCommonBase(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		protected UnitManagerCommonBase(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 			RefreshCache();
 		}
@@ -45,7 +46,7 @@ namespace DAL.DataBase.Managers
 
 		public void RefreshCache()
 		{
-			switch(Config.ReadMode)
+			switch(Config.Repo.ReadMode)
 			{
 				case ReadMode.FromFile:
 					RefreshCache_FromFile();
@@ -54,7 +55,7 @@ namespace DAL.DataBase.Managers
 					RefreshCache_FromDb();
 					break;
 				default:
-					var msg = Localized.UnitManagerCommonBase_RefreshCache_is_not_implemented_for_ReadMode__ + Config.ReadMode;
+					var msg = Localized.UnitManagerCommonBase_RefreshCache_is_not_implemented_for_ReadMode__ + Config.Repo.ReadMode;
 					ExinLog.ger.LogError(msg);
 					throw new NotImplementedException(msg);
 			}

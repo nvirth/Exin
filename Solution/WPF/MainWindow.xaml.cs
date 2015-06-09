@@ -89,7 +89,7 @@ namespace WPF
 			// (it's independent form the DB type, so MsSql and Sqlite also do the same)
 			// And somehow, if we force the app to get the Categories from the DB before
 			// entering the eventhandler, we will get them faster
-			if(Config.ReadMode != ReadMode.FromDb || Config.DbAccessMode != DbAccessMode.EntityFramework)
+			if(Config.Repo.ReadMode != ReadMode.FromDb || Config.Repo.DbAccessMode != DbAccessMode.EntityFramework)
 				return;
 
 			// In case we use SQLite and do not have the DB file yet, first we need to init that...

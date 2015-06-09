@@ -11,26 +11,26 @@ namespace DAL
 	public class ExinConnectionString : DbConfigurableBase
 	{
 		private ExinConnectionStringManagerBase _core;
-
-		public ExinConnectionString(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		
+		public ExinConnectionString(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 			Init();
 		}
 
 		private void Init()
 		{
-			switch(DbType)
+			switch(LocalConfig.DbType)
 			{
 				case DbType.MsSql:
-					_core = new MsSqlExinConnectionStringManager(DbType, DbAccessMode);
+					_core = new MsSqlExinConnectionStringManager(LocalConfig);
 					break;
 
 				case DbType.SQLite:
-					_core = new SQLiteExinConnectionStringManager(DbType, DbAccessMode);
+					_core = new SQLiteExinConnectionStringManager(LocalConfig);
 					break;
 
 				default:
-					throw new NotImplementedException(string.Format(Localized.ExinConnectionString_s_ctor_is_not_implemented_for__0_, DbType));
+					throw new NotImplementedException(string.Format(Localized.ExinConnectionString_s_ctor_is_not_implemented_for__0_, LocalConfig.DbType));
 			}
 		}
 
@@ -48,9 +48,9 @@ namespace DAL
 		protected string _connStrName;
 		protected string _connStr;
 
-		protected ExinConnectionStringManagerBase(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		protected ExinConnectionStringManagerBase(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
-			switch(DbAccessMode)
+			switch(LocalConfig.DbAccessMode)
 			{
 				case DbAccessMode.AdoNet:
 					_connStrName = _adoNetConnStrName;
@@ -59,7 +59,7 @@ namespace DAL
 					_connStrName = _efConnStrName;
 					break;
 				default:
-					throw new NotImplementedException(string.Format(Localized.ExinConnectionStringManagerBase_s_ctor_is_not_implemented_for__0_, DbAccessMode));
+					throw new NotImplementedException(string.Format(Localized.ExinConnectionStringManagerBase_s_ctor_is_not_implemented_for__0_, LocalConfig.DbAccessMode));
 			}
 		}
 
@@ -72,7 +72,7 @@ namespace DAL
 	/// </summary>
 	public class MsSqlExinConnectionStringManager : ExinConnectionStringManagerBase
 	{
-		public MsSqlExinConnectionStringManager(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		public MsSqlExinConnectionStringManager(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 		}
 
@@ -101,7 +101,7 @@ namespace DAL
 	/// </summary>
 	public class SQLiteExinConnectionStringManager : ExinConnectionStringManagerBase
 	{
-		public SQLiteExinConnectionStringManager(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		public SQLiteExinConnectionStringManager(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 		}
 

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Transactions;
 using Common;
+using Common.Configuration;
 using Common.Db.Entities;
 using Common.Log;
 using Common.Utils.Helpers;
@@ -17,25 +18,25 @@ namespace DAL.DataBase.AdoNet.Managers
 {
 	public static class TransactionItemManagerAdoNetFactory
 	{
-		public static TransactionItemManagerAdoNetBase Create(DbType dbType, DbAccessMode dbAccessMode)
+		public static TransactionItemManagerAdoNetBase Create(IRepoConfiguration repoConfiguration)
 		{
-			switch(dbType)
+			switch(repoConfiguration.DbType)
 			{
 				case DbType.MsSql:
-					return new TransactionItemManagerAdoNetMsSql(dbType, dbAccessMode);
+					return new TransactionItemManagerAdoNetMsSql(repoConfiguration);
 
 				case DbType.SQLite:
-					return new TransactionItemManagerAdoNetSQLite(dbType, dbAccessMode);
+					return new TransactionItemManagerAdoNetSQLite(repoConfiguration);
 
 				default:
-					throw new NotImplementedException(string.Format(Localized.TransactionItemManagerAdoNetFactory_is_not_implemented_for_this_DbType__FORMAT__, dbType));
+					throw new NotImplementedException(string.Format(Localized.TransactionItemManagerAdoNetFactory_is_not_implemented_for_this_DbType__FORMAT__, repoConfiguration.DbType));
 			}
 		}
 	}
 
 	public abstract class TransactionItemManagerAdoNetBase : TransactionItemManagerCommonBase
 	{
-		protected TransactionItemManagerAdoNetBase(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		protected TransactionItemManagerAdoNetBase(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 		}
 
@@ -48,12 +49,12 @@ namespace DAL.DataBase.AdoNet.Managers
 			fromDate = fromDate.Date;
 			toDate = toDate.Date;
 
-			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
+			using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
 			{
 				BuildGetIntervalQuery(transactionItemType, ctx);
 
-				ctx.Command.Parameters.AddWithValue("@fromDate", fromDate, DbType);
-				ctx.Command.Parameters.AddWithValue("@toDate", toDate, DbType);
+				ctx.Command.Parameters.AddWithValue("@fromDate", fromDate, LocalConfig.DbType);
+				ctx.Command.Parameters.AddWithValue("@toDate", toDate, LocalConfig.DbType);
 				ctx.Adapter.SelectCommand = ctx.Command;
 				ctx.Adapter.Fill(ctx.DataSet);
 
@@ -64,7 +65,7 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		public override List<TransactionItem> GetAll(TransactionItemType? transactionItemType = null)
 		{
-			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
+			using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
 			{
 				BuildGetAllQuery(transactionItemType, ctx);
 
@@ -142,7 +143,7 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		public override void Insert(TransactionItem transactionItem, bool withId = false)
 		{
-			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
+			using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
 			using(ctx.WithIdentityInsert(TableName, activate: withId))
 			{
 				Insert(ctx, transactionItem, withId);
@@ -152,7 +153,7 @@ namespace DAL.DataBase.AdoNet.Managers
 		public void Insert(ExinAdoNetContextBase ctx, TransactionItem transactionItem, bool withId = false)
 		{
 			ctx.Command.CommandText = BuildInsertQuery(withId);
-			transactionItem.CopyStandardParams(ctx, DbType);
+			transactionItem.CopyStandardParams(ctx, LocalConfig.DbType);
 
 			try
 			{
@@ -208,7 +209,7 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		public override void InsertMany(IList<TransactionItem> transactionItems, bool withId = false, bool forceOneByOne = false)
 		{
-			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
+			using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
 			{
 				InsertMany(ctx, transactionItems, withId, forceOneByOne);
 			}
@@ -245,7 +246,7 @@ namespace DAL.DataBase.AdoNet.Managers
 					foreach(var transactionItem in transactionItems)
 					{
 						ctx.Command.Parameters.Clear();
-						transactionItem.CopyStandardParams(ctx, DbType);
+						transactionItem.CopyStandardParams(ctx, LocalConfig.DbType);
 						ctx.Command.ExecuteNonQuery();
 					}
 					transactionScope.Complete();
@@ -387,18 +388,18 @@ namespace DAL.DataBase.AdoNet.Managers
 				var transactionItem = transactionItems[i - 1];
 				var comment = string.IsNullOrWhiteSpace(transactionItem.Comment) ? Config.DbStringNull : transactionItem.Comment;
 
-				//ctx.Command.Parameters.AddWithValue("@Amount" + i, transactionItem.Amount, DbType);
-				//ctx.Command.Parameters.AddWithValue("@Quantity" + i, transactionItem.Quantity, DbType);
-				//ctx.Command.Parameters.AddWithValue("@UnitID" + i, transactionItem.UnitID, DbType);
-				ctx.Command.Parameters.AddWithValue("@Title" + i, transactionItem.Title, DbType);
-				ctx.Command.Parameters.AddWithValue("@Comment" + i, comment, DbType);
-				//ctx.Command.Parameters.AddWithValue("@Date" + i, transactionItem.Date, DbType);
-				//ctx.Command.Parameters.AddWithValue("@CategoryID" + i, transactionItem.CategoryID, DbType);
-				//ctx.Command.Parameters.AddWithValue("@IsExpenseItem" + i, transactionItem.IsExpenseItem, DbType);
-				//ctx.Command.Parameters.AddWithValue("@IsIncomeItem" + i, transactionItem.IsIncomeItem, DbType);
+				//ctx.Command.Parameters.AddWithValue("@Amount" + i, transactionItem.Amount, LocalConfig.DbType);
+				//ctx.Command.Parameters.AddWithValue("@Quantity" + i, transactionItem.Quantity, LocalConfig.DbType);
+				//ctx.Command.Parameters.AddWithValue("@UnitID" + i, transactionItem.UnitID, LocalConfig.DbType);
+				ctx.Command.Parameters.AddWithValue("@Title" + i, transactionItem.Title, LocalConfig.DbType);
+				ctx.Command.Parameters.AddWithValue("@Comment" + i, comment, LocalConfig.DbType);
+				//ctx.Command.Parameters.AddWithValue("@Date" + i, transactionItem.Date, LocalConfig.DbType);
+				//ctx.Command.Parameters.AddWithValue("@CategoryID" + i, transactionItem.CategoryID, LocalConfig.DbType);
+				//ctx.Command.Parameters.AddWithValue("@IsExpenseItem" + i, transactionItem.IsExpenseItem, LocalConfig.DbType);
+				//ctx.Command.Parameters.AddWithValue("@IsIncomeItem" + i, transactionItem.IsIncomeItem, LocalConfig.DbType);
 
 				//if(withId)
-				//	ctx.Command.Parameters.AddWithValue("@ID" + i, transactionItem.ID, DbType);
+				//	ctx.Command.Parameters.AddWithValue("@ID" + i, transactionItem.ID, LocalConfig.DbType);
 			}
 		}
 
@@ -410,11 +411,11 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		public override int UpdateFullRecord(TransactionItem transactionItem)
 		{
-			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
+			using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
 			{
 				ctx.Command.CommandText = BuildUpdateFullRecordQuery();
 
-				transactionItem.CopyStandardParams(ctx, DbType);
+				transactionItem.CopyStandardParams(ctx, LocalConfig.DbType);
 
 				try
 				{
@@ -460,11 +461,11 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		public override int Delete(int id)
 		{
-			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
+			using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
 			{
 				ctx.Command.CommandText = BuildDeleteQuery();
 
-				ctx.Command.Parameters.AddWithValue("@ID", id, DbType);
+				ctx.Command.Parameters.AddWithValue("@ID", id, LocalConfig.DbType);
 
 				try
 				{
@@ -498,7 +499,7 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		public override int ClearDay(DateTime date, TransactionItemType transactionItemType)
 		{
-			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
+			using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
 			{
 				return ClearDay(ctx, date, transactionItemType);
 			}
@@ -516,9 +517,9 @@ namespace DAL.DataBase.AdoNet.Managers
 
 			ctx.Command.CommandText = BuildClearDayQuery();
 
-			ctx.Command.Parameters.AddWithValue("@Date", date, DbType);
-			ctx.Command.Parameters.AddWithValue("@IsExpenseItem", isExpense, DbType);
-			ctx.Command.Parameters.AddWithValue("@IsIncomeItem", isIncome, DbType);
+			ctx.Command.Parameters.AddWithValue("@Date", date, LocalConfig.DbType);
+			ctx.Command.Parameters.AddWithValue("@IsExpenseItem", isExpense, LocalConfig.DbType);
+			ctx.Command.Parameters.AddWithValue("@IsIncomeItem", isIncome, LocalConfig.DbType);
 
 			try
 			{
@@ -556,7 +557,7 @@ namespace DAL.DataBase.AdoNet.Managers
 		public override void ReplaceDailyItems(IList<TransactionItem> transactionItems, TransactionItemType transactionItemType, DateTime date)
 		{
 			using(var transactionScope = new TransactionScope())
-			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
+			using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
 			{
 				ReplaceDailyItems(ctx, transactionItems, transactionItemType, date);
 
@@ -596,14 +597,14 @@ namespace DAL.DataBase.AdoNet.Managers
 	{
 		// No need to changed anything
 
-		public TransactionItemManagerAdoNetMsSql(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		public TransactionItemManagerAdoNetMsSql(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 		}
 	}
 
 	public class TransactionItemManagerAdoNetSQLite : TransactionItemManagerAdoNetBase
 	{
-		public TransactionItemManagerAdoNetSQLite(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		public TransactionItemManagerAdoNetSQLite(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 		}
 

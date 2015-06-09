@@ -7,6 +7,22 @@ using C = Common.Configuration.Constants.AppSettingsKeys;
 
 namespace Common.Configuration
 {
+	public interface IRepoConfiguration
+	{
+		DbType DbType { get; }
+		DbAccessMode DbAccessMode { get; }
+		ReadMode ReadMode { get; }
+		SaveMode SaveMode { get; }
+	}
+
+	public class RepoConfiguration : IRepoConfiguration
+	{
+		public DbType DbType { get; set; } = 0;
+		public DbAccessMode DbAccessMode { get; set; } = 0;
+		public ReadMode ReadMode { get; set; } = 0;
+		public SaveMode SaveMode { get; set; } = 0;
+	}
+
 	public static class Config
 	{
 		public const int CategoryValidFrom = 100;
@@ -14,14 +30,17 @@ namespace Common.Configuration
 		public static readonly object DbStringNull = ""; // Other choice: DBNull.Value
 		public const string FileExtension = "xml";
 
-		public static readonly DbAccessMode DbAccessMode = EnumHelpers.Parse<DbAccessMode>(ConfigurationManager.AppSettings[C.DbAccessMode], ignoreCase: true);
-		public static readonly DbType DbType = EnumHelpers.Parse<DbType>(ConfigurationManager.AppSettings[C.DbType], ignoreCase: true);
-		public static readonly ReadMode ReadMode = EnumHelpers.Parse<ReadMode>(ConfigurationManager.AppSettings[C.ReadMode], ignoreCase: true);
-		public static readonly SaveMode SaveMode = EnumHelpers.Parse<SaveMode>(ConfigurationManager.AppSettings[C.SaveMode], ignoreCase: true);
+		public static IRepoConfiguration Repo { get; } = new RepoConfiguration()
+		{
+			DbAccessMode = EnumHelpers.Parse<DbAccessMode>(ConfigurationManager.AppSettings[C.DbAccessMode], ignoreCase: true),
+			DbType = EnumHelpers.Parse<DbType>(ConfigurationManager.AppSettings[C.DbType], ignoreCase: true),
+			ReadMode = EnumHelpers.Parse<ReadMode>(ConfigurationManager.AppSettings[C.ReadMode], ignoreCase: true),
+			SaveMode = EnumHelpers.Parse<SaveMode>(ConfigurationManager.AppSettings[C.SaveMode], ignoreCase: true),
+		};
 
 		static Config()
 		{
-			if(ReadMode == ReadMode.FromDb && SaveMode == SaveMode.OnlyToFile)
+			if(Repo.ReadMode == ReadMode.FromDb && Repo.SaveMode == SaveMode.OnlyToFile)
 			{
 				string msg = Localized.Configuration_error__can_t_use_ReadMode_FromDb_and_SaveMode_OnlyToFile_together__;
 				ExinLog.ger.LogError(msg);

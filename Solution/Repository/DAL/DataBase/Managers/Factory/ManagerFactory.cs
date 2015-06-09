@@ -1,18 +1,18 @@
 ﻿using System;
 using Common;
+using Common.Configuration;
 using Common.Log;
 using DAL.DataBase.AdoNet.Managers;
 using DAL.DataBase.EntityFramework.Managers;
 using Localization;
-using Config = Common.Configuration.Config;
 
 namespace DAL.DataBase.Managers.Factory
 {
 	public class ManagerFactory : DbConfigurableBase
 	{
-		public ManagerFactory(DbType dbType = 0, DbAccessMode dbAccessMode = 0) : base(dbType, dbAccessMode)
+		public ManagerFactory(IRepoConfiguration repoConfiguration = null) : base(InitConfiguration(repoConfiguration))
 		{
-			switch(DbAccessMode)
+			switch(LocalConfig.DbAccessMode)
 			{
 				case DbAccessMode.AdoNet:
 				case DbAccessMode.EntityFramework:
@@ -20,10 +20,15 @@ namespace DAL.DataBase.Managers.Factory
 					break;
 
 				default:
-					var msg = Localized.ManagerFactory_is_not_implemented_for__ + Config.DbAccessMode;
+					var msg = Localized.ManagerFactory_is_not_implemented_for__ + LocalConfig.DbAccessMode;
 					ExinLog.ger.LogError(msg);
 					throw new NotImplementedException(msg);
 			}
+		}
+
+		private static IRepoConfiguration InitConfiguration(IRepoConfiguration repoConfiguration)
+		{
+			return repoConfiguration ?? new RepoConfiguration();
 		}
 
 		// --
@@ -35,14 +40,14 @@ namespace DAL.DataBase.Managers.Factory
 			{
 				if(_categoryManager == null)
 				{
-					switch(DbAccessMode)
+					switch(LocalConfig.DbAccessMode)
 					{
 						case DbAccessMode.AdoNet:
-							_categoryManager = CategoryManagerAdoNetFactory.Create(DbType, DbAccessMode);
+							_categoryManager = CategoryManagerAdoNetFactory.Create(LocalConfig);
 							break;
 
 						case DbAccessMode.EntityFramework:
-							_categoryManager = CategoryManagerEfFactory.Create(DbType, DbAccessMode);
+							_categoryManager = CategoryManagerEfFactory.Create(LocalConfig);
 							break;
 					}
 				}
@@ -57,14 +62,14 @@ namespace DAL.DataBase.Managers.Factory
 			{
 				if(_unitManager == null)
 				{
-					switch(DbAccessMode)
+					switch(LocalConfig.DbAccessMode)
 					{
 						case DbAccessMode.AdoNet:
-							_unitManager = UnitManagerAdoNetFactory.Create(DbType, DbAccessMode);
+							_unitManager = UnitManagerAdoNetFactory.Create(LocalConfig);
 							break;
 
 						case DbAccessMode.EntityFramework:
-							_unitManager = UnitManagerEfFactory.Create(DbType, DbAccessMode);
+							_unitManager = UnitManagerEfFactory.Create(LocalConfig);
 							break;
 					}
 				}
@@ -79,14 +84,14 @@ namespace DAL.DataBase.Managers.Factory
 			{
 				if(_transactionItemManager == null)
 				{
-					switch(DbAccessMode)
+					switch(LocalConfig.DbAccessMode)
 					{
 						case DbAccessMode.AdoNet:
-							_transactionItemManager = TransactionItemManagerAdoNetFactory.Create(DbType, DbAccessMode);
+							_transactionItemManager = TransactionItemManagerAdoNetFactory.Create(LocalConfig);
 							break;
 
 						case DbAccessMode.EntityFramework:
-							_transactionItemManager = TransactionItemManagerEfFactory.Create(DbType, DbAccessMode);
+							_transactionItemManager = TransactionItemManagerEfFactory.Create(LocalConfig);
 							break;
 					}
 				}
@@ -101,14 +106,14 @@ namespace DAL.DataBase.Managers.Factory
 			{
 				if(_summaryItemManager == null)
 				{
-					switch(DbAccessMode)
+					switch(LocalConfig.DbAccessMode)
 					{
 						case DbAccessMode.AdoNet:
-							_summaryItemManager = SummaryItemManagerAdoNetFactory.Create(DbType, DbAccessMode);
+							_summaryItemManager = SummaryItemManagerAdoNetFactory.Create(LocalConfig);
 							break;
 
 						case DbAccessMode.EntityFramework:
-							_summaryItemManager = SummaryItemManagerEfFactory.Create(DbType, DbAccessMode);
+							_summaryItemManager = SummaryItemManagerEfFactory.Create(LocalConfig);
 							break;
 					}
 				}

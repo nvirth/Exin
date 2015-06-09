@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Transactions;
 using Common;
+using Common.Configuration;
 using Common.Db.Entities;
 using Common.Log;
 using Common.UiModels.WPF;
@@ -17,18 +18,18 @@ namespace DAL.DataBase.AdoNet.Managers
 {
 	public static class SummaryItemManagerAdoNetFactory
 	{
-		public static SummaryItemManagerAdoNetBase Create(DbType dbType, DbAccessMode dbAccessMode)
+		public static SummaryItemManagerAdoNetBase Create(IRepoConfiguration repoConfiguration)
 		{
-			switch(dbType)
+			switch(repoConfiguration.DbType)
 			{
 				case DbType.MsSql:
-					return new SummaryItemManagerAdoNetMsSql(dbType, dbAccessMode);
+					return new SummaryItemManagerAdoNetMsSql(repoConfiguration);
 
 				case DbType.SQLite:
-					return new SummaryItemManagerAdoNetSQLite(dbType, dbAccessMode);
+					return new SummaryItemManagerAdoNetSQLite(repoConfiguration);
 
 				default:
-					throw new NotImplementedException(string.Format(Localized.SummaryItemManagerAdoNetBase_is_not_implemented_for_this_DbType__FORMAT__, dbType));
+					throw new NotImplementedException(string.Format(Localized.SummaryItemManagerAdoNetBase_is_not_implemented_for_this_DbType__FORMAT__, repoConfiguration.DbType));
 			}
 
 		}
@@ -36,7 +37,7 @@ namespace DAL.DataBase.AdoNet.Managers
 
 	public abstract class SummaryItemManagerAdoNetBase : SummaryItemManagerCommonBase
 	{
-		protected SummaryItemManagerAdoNetBase(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		protected SummaryItemManagerAdoNetBase(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 		}
 
@@ -46,7 +47,7 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		public override List<SummaryItem> GetAll()
 		{
-			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
+			using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
 			{
 				ctx.Command.CommandText = BuildGetAllQuery();
 
@@ -60,12 +61,12 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		public override List<SummaryItem> GetInterval_Exec(DateTime fromDate, DateTime toDate)
 		{
-			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
+			using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
 			{
 				ctx.Command.CommandText = BuildGetIntervalQuery();
 
-				ctx.Command.Parameters.AddWithValue("@fromDate", fromDate, DbType);
-				ctx.Command.Parameters.AddWithValue("@toDate", toDate, DbType);
+				ctx.Command.Parameters.AddWithValue("@fromDate", fromDate, LocalConfig.DbType);
+				ctx.Command.Parameters.AddWithValue("@toDate", toDate, LocalConfig.DbType);
 				ctx.Adapter.SelectCommand = ctx.Command;
 				ctx.Adapter.Fill(ctx.DataSet);
 
@@ -148,7 +149,7 @@ namespace DAL.DataBase.AdoNet.Managers
 
 	public class SummaryItemManagerAdoNetMsSql : SummaryItemManagerAdoNetBase
 	{
-		public SummaryItemManagerAdoNetMsSql(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		public SummaryItemManagerAdoNetMsSql(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 		}
 
@@ -156,7 +157,7 @@ namespace DAL.DataBase.AdoNet.Managers
 		{
 			var query = BuildMergeQuery(summary, date, transactionItemType);
 
-			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
+			using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
 			using(var transactionScope = new TransactionScope())
 			{
 				try
@@ -216,7 +217,7 @@ namespace DAL.DataBase.AdoNet.Managers
 
 	public class SummaryItemManagerAdoNetSQLite : SummaryItemManagerAdoNetBase
 	{
-		public SummaryItemManagerAdoNetSQLite(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		public SummaryItemManagerAdoNetSQLite(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 		}
 
@@ -225,7 +226,7 @@ namespace DAL.DataBase.AdoNet.Managers
 			var isExpense = transactionItemType == TransactionItemType.Expense;
 			var stringBuilder = new StringBuilder();
 
-			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
+			using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
 			{
 				try
 				{

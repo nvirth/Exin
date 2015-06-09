@@ -3,7 +3,7 @@ using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Data.SQLite;
-using Common;
+using Common.Configuration;
 using Common.Log;
 using Localization;
 using DbType = Common.DbType;
@@ -13,18 +13,18 @@ namespace DAL.DataBase.AdoNet
 {
 	public static class ExinAdoNetContextFactory
 	{
-		public static ExinAdoNetContextBase Create(DbType dbType, DbAccessMode dbAccessMode)
+		public static ExinAdoNetContextBase Create(IRepoConfiguration repoConfiguration)
 		{
-			switch(dbType)
+			switch(repoConfiguration.DbType)
 			{
 				case DbType.MsSql:
-					return new ExinAdoNetContextMsSql(dbType, dbAccessMode);
+					return new ExinAdoNetContextMsSql(repoConfiguration);
 
 				case DbType.SQLite:
-					return new ExinAdoNetContextSQLite(dbType, dbAccessMode);
+					return new ExinAdoNetContextSQLite(repoConfiguration);
 
 				default:
-					throw new NotImplementedException(string.Format(Localized.ExinAdoNetContextFactory_is_not_implemented_for_this_DbType__FORMAT__, dbType));
+					throw new NotImplementedException(string.Format(Localized.ExinAdoNetContextFactory_is_not_implemented_for_this_DbType__FORMAT__, repoConfiguration.DbType));
 			}
 		}
 	}
@@ -41,7 +41,7 @@ namespace DAL.DataBase.AdoNet
 		protected abstract void InitProperties();
 		protected abstract void AfterConnectionOpened();
 
-		protected ExinAdoNetContextBase(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		protected ExinAdoNetContextBase(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 			InitProperties();
 
@@ -140,13 +140,13 @@ namespace DAL.DataBase.AdoNet
 
 	public class ExinAdoNetContextMsSql : ExinAdoNetContextBase
 	{
-		public ExinAdoNetContextMsSql(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		public ExinAdoNetContextMsSql(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 		}
 
 		protected override void InitProperties()
 		{
-			Connection = new SqlConnection(new ExinConnectionString(DbType, DbAccessMode).Get);
+			Connection = new SqlConnection(new ExinConnectionString(LocalConfig).Get);
 			Command = Connection.CreateCommand();
 			Adapter = new SqlDataAdapter();
 			DataSet = new DataSet(C.ExinDataSet);
@@ -183,13 +183,13 @@ namespace DAL.DataBase.AdoNet
 	{
 		// SQLite always allows identity insert...
 
-		public ExinAdoNetContextSQLite(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		public ExinAdoNetContextSQLite(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 		}
 
 		protected override void InitProperties()
 		{
-			Connection = new SQLiteConnection(new ExinConnectionString(DbType, DbAccessMode).Get);
+			Connection = new SQLiteConnection(new ExinConnectionString(LocalConfig).Get);
 			Command = Connection.CreateCommand();
 			Adapter = new SQLiteDataAdapter();
 			DataSet = new DataSet(C.ExinDataSet);

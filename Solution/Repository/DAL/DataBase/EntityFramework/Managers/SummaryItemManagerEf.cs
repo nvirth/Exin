@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Transactions;
 using Common;
+using Common.Configuration;
 using Common.Db.Entities;
 using Common.Log;
 using Common.UiModels.WPF;
@@ -18,25 +19,25 @@ namespace DAL.DataBase.EntityFramework.Managers
 {
 	public static class SummaryItemManagerEfFactory
 	{
-		public static SummaryItemManagerEfBase Create(DbType dbType, DbAccessMode dbAccessMode)
+		public static SummaryItemManagerEfBase Create(IRepoConfiguration repoConfiguration)
 		{
-			switch(dbType)
+			switch(repoConfiguration.DbType)
 			{
 				case DbType.MsSql:
-					return new SummaryItemManagerEfMsSql(dbType, dbAccessMode);
+					return new SummaryItemManagerEfMsSql(repoConfiguration);
 
 				case DbType.SQLite:
-					return new SummaryItemManagerEfSQLite(dbType, dbAccessMode);
+					return new SummaryItemManagerEfSQLite(repoConfiguration);
 
 				default:
-					throw new NotImplementedException(string.Format(Localized.SummaryItemManagerEfBase_is_not_implemented_for_this_DbType__FORMAT__, dbType));
+					throw new NotImplementedException(string.Format(Localized.SummaryItemManagerEfBase_is_not_implemented_for_this_DbType__FORMAT__, repoConfiguration.DbType));
 			}
 		}
 	}
 
 	public abstract class SummaryItemManagerEfBase : SummaryItemManagerCommonBase
 	{
-		protected SummaryItemManagerEfBase(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		protected SummaryItemManagerEfBase(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 		}
 
@@ -69,7 +70,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 	public class SummaryItemManagerEfSQLite : SummaryItemManagerEfBase
 	{
-		public SummaryItemManagerEfSQLite(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		public SummaryItemManagerEfSQLite(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 		}
 
@@ -90,7 +91,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 			// Additional Map for AutoMapper
 			InitAutoMapperForEf.Init<Category_Sqlite, Category>();
 
-			using(var ctx = Utils.InitContextForSqlite(DbType, DbAccessMode))
+			using(var ctx = Utils.InitContextForSqlite(LocalConfig))
 			{
 				var readQuery = ctx.SummaryItem.Where(filterPredicate);
 				var result = Utils.ExecRead<SummaryItem_Sqlite, SummaryItemCommon>(readQuery).ToList();
@@ -104,7 +105,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		protected override void InserOrUpdateSummary_Exec_Core(Summary summary, DateTime date, bool isExpense, out List<SummaryItemCommon> insertItems)
 		{
-			using(var ctx = Utils.InitContextForSqlite(DbType, DbAccessMode))
+			using(var ctx = Utils.InitContextForSqlite(LocalConfig))
 			using (var transaction = ctx.Database.BeginTransaction())
 			{
 				// Delete all summaries from this day
@@ -131,7 +132,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 	public class SummaryItemManagerEfMsSql : SummaryItemManagerEfBase
 	{
-		public SummaryItemManagerEfMsSql(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		public SummaryItemManagerEfMsSql(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 		}
 
@@ -152,7 +153,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 			// Additional Map for AutoMapper
 			InitAutoMapperForEf.Init<Category_MsSql, Category>();
 
-			using(var ctx = Utils.InitContextForMsSql(DbType, DbAccessMode))
+			using(var ctx = Utils.InitContextForMsSql(LocalConfig))
 			{
 				var readQuery = ctx.SummaryItem.Where(filterPredicate);
 				var result = Utils.ExecRead<SummaryItem_MsSql, SummaryItemCommon>(readQuery).ToList();
@@ -166,7 +167,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		protected override void InserOrUpdateSummary_Exec_Core(Summary summary, DateTime date, bool isExpense, out List<SummaryItemCommon> insertItems)
 		{
-			using(var ctx = Utils.InitContextForMsSql(DbType, DbAccessMode))
+			using(var ctx = Utils.InitContextForMsSql(LocalConfig))
 			using(var transactionScope = new TransactionScope())
 			{
 				// Delete all summaries from this day

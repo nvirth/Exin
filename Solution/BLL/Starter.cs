@@ -52,10 +52,10 @@ namespace BLL
 		{
 			MessagePresenter.WriteLine(Localized.The_Exin_expenses_incomes_summarizer_application_welcomes_you_);
 			MessagePresenter.WriteLine(Localized.The_application_s_configuration_);
-			MessagePresenter.WriteLine(" - " + Config.ReadMode.ToLocalizedDescriptionString());
-			MessagePresenter.WriteLine(" - " + Config.SaveMode.ToLocalizedDescriptionString());
-			MessagePresenter.WriteLine(" - " + Config.DbAccessMode.ToLocalizedDescriptionString());
-			MessagePresenter.WriteLine(" - " + Config.DbType.ToLocalizedDescriptionString());
+			MessagePresenter.WriteLine(" - " + Config.Repo.ReadMode.ToLocalizedDescriptionString());
+			MessagePresenter.WriteLine(" - " + Config.Repo.SaveMode.ToLocalizedDescriptionString());
+			MessagePresenter.WriteLine(" - " + Config.Repo.DbAccessMode.ToLocalizedDescriptionString());
+			MessagePresenter.WriteLine(" - " + Config.Repo.DbType.ToLocalizedDescriptionString());
 			MessagePresenter.WriteLineSeparator();
 		}
 	}

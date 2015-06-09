@@ -11,6 +11,7 @@ using Common.UiModels.WPF;
 using Common.Utils;
 using Common.Utils.Helpers;
 using DAL;
+using DAL.DataBase;
 using DAL.DataBase.AdoNet;
 using DAL.DataBase.AdoNet.Managers;
 using DAL.DataBase.Managers;
@@ -22,22 +23,37 @@ namespace ImportDataToDb
 	/// <summary>
 	/// Imports data from the file repository to the database. 
 	/// </summary>
-	public static class ImportData
+	public class ImportData
 	{
 		#region Members
 
-		public static readonly List<ExpenseItem> ExpenseItems = new List<ExpenseItem>();
-		public static readonly List<IncomeItem> IncomeItems = new List<IncomeItem>();
-		public static readonly List<Unit> Units = new List<Unit>();
-		public static readonly List<Category> Categories = new List<Category>();
+		public readonly List<ExpenseItem> ExpenseItems = new List<ExpenseItem>();
+		public readonly List<IncomeItem> IncomeItems = new List<IncomeItem>();
+		public readonly List<Unit> Units = new List<Unit>();
+		public readonly List<Category> Categories = new List<Category>();
+
+		public readonly IRepoConfiguration LocalConfig;
 
 		#endregion
 
+		public ImportData(DbType dbType)
+		{
+			LocalConfig = new RepoConfiguration()
+			{
+				DbAccessMode = DbAccessMode.AdoNet,
+				ReadMode = ReadMode.FromDb,
+				SaveMode = SaveMode.FileAndDb,
+				DbType = dbType,
+			};
+		}
+
 		#region Main
 
-		public static void ImportDataFromFileRepoToDb(string[] args = null)
+		public void ImportDataFromFileRepoToDb(string[] args = null)
 		{
-			MessagePresenter.WriteLine(Localized.Importing_data_from_File_Repository_into___0___DataBase.Formatted(Config.DbType));
+
+
+			MessagePresenter.WriteLine(Localized.Importing_data_from_File_Repository_into___0___DataBase.Formatted(LocalConfig.DbType));
 			MessagePresenter.WriteLine("");
 
 			DoWork(args);
@@ -47,7 +63,7 @@ namespace ImportDataToDb
 			MessagePresenter.WriteLine(Localized.Operation_finished_successfully__);
 		}
 
-		private static void DoWork(string[] args)
+		private void DoWork(string[] args)
 		{
 			Action clearAllTablesAction = ClearAllTables;
 			Action importUnitsAction = ImportUnits;
@@ -66,12 +82,12 @@ namespace ImportDataToDb
 
 		#region Imports
 
-		private static void ImportUnits()
+		private void ImportUnits()
 		{
 			var units = FileRepoManager.Instance.GetUnits();
-			var unitManager = UnitManagerAdoNetFactory.Create(Config.DbType, DbAccessMode.AdoNet);
+			var unitManager = UnitManagerAdoNetFactory.Create(LocalConfig);
 
-			using(var ctx = ExinAdoNetContextFactory.Create(Config.DbType, DbAccessMode.AdoNet))
+			using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
 			using(new IdentityInsert(ctx, UnitManagerAdoNetBase.TableName))
 			{
 				foreach(var u in units)
@@ -82,12 +98,12 @@ namespace ImportDataToDb
 			}
 		}
 
-		private static void ImportCategories()
+		private void ImportCategories()
 		{
 			var categories = FileRepoManager.Instance.GetCategories();
-			var categoryManager = CategoryManagerAdoNetFactory.Create(Config.DbType, DbAccessMode.AdoNet);
+			var categoryManager = CategoryManagerAdoNetFactory.Create(LocalConfig);
 
-			using(var ctx = ExinAdoNetContextFactory.Create(Config.DbType, DbAccessMode.AdoNet))
+			using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
 			using(new IdentityInsert(ctx, CategoryManagerAdoNetBase.TableName))
 			{
 				foreach(var c in categories)
@@ -98,7 +114,7 @@ namespace ImportDataToDb
 			}
 		}
 
-		private static void ImportExpensesAndIncomes(string[] args)
+		private void ImportExpensesAndIncomes(string[] args)
 		{
 			//string year = "";
 			//string month = "";
@@ -132,8 +148,7 @@ namespace ImportDataToDb
 
 				var filesInMonthDir = monthDirectory.GetFiles();
 				var dayFiles = filesInMonthDir
-					.Where(fi =>
-					{
+					.Where(fi => {
 						// Filtering to command line "day" argument
 						if(!string.IsNullOrEmpty(day))
 							return fi.Name.StartsWith(day.PadLeft(2, "0".ToCharArray()[0]));
@@ -168,7 +183,7 @@ namespace ImportDataToDb
 			toDbAction.ExecuteWithTimeMeasuring(Localized._from_this__database_);
 		}
 
-		private static void ImportExpensesAndIncomes_ToDb_OneByOne()
+		private void ImportExpensesAndIncomes_ToDb_OneByOne()
 		{
 			// Here we aren't using the TransactionItemManager class
 			// and aren't using TransactionScope neither
@@ -176,7 +191,7 @@ namespace ImportDataToDb
 			// And this section works with MsSql and SQLite db as well
 			//
 
-			using(var ctx = ExinAdoNetContextFactory.Create(Config.DbType, DbAccessMode.AdoNet))
+			using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
 			using(ctx.WithTransaction())
 			{
 				const string insertSql = @"INSERT INTO [TransactionItem]
@@ -214,26 +229,26 @@ namespace ImportDataToDb
 			}
 		}
 
-		private static void ImportExpensesAndIncomes_ToDb_Insert(DbCommand command, TransactionItem transactionItem)
+		private void ImportExpensesAndIncomes_ToDb_Insert(DbCommand command, TransactionItem transactionItem)
 		{
 			command.Parameters.Clear();
 
-			command.Parameters.AddWithValue("@Amount", transactionItem.Amount, Config.DbType);
-			command.Parameters.AddWithValue("@Quantity", transactionItem.Quantity, Config.DbType);
-			command.Parameters.AddWithValue("@Title", transactionItem.Title, Config.DbType);
-			command.Parameters.AddWithValue("@Comment", transactionItem.Comment, Config.DbType);
-			command.Parameters.AddWithValue("@Date", transactionItem.Date, Config.DbType);
+			command.Parameters.AddWithValue("@Amount", transactionItem.Amount, LocalConfig.DbType);
+			command.Parameters.AddWithValue("@Quantity", transactionItem.Quantity, LocalConfig.DbType);
+			command.Parameters.AddWithValue("@Title", transactionItem.Title, LocalConfig.DbType);
+			command.Parameters.AddWithValue("@Comment", transactionItem.Comment, LocalConfig.DbType);
+			command.Parameters.AddWithValue("@Date", transactionItem.Date, LocalConfig.DbType);
 
-			command.Parameters.AddWithValue("@UnitID", transactionItem.Unit.ID, Config.DbType);
-			command.Parameters.AddWithValue("@CategoryID", transactionItem.Category.ID, Config.DbType);
+			command.Parameters.AddWithValue("@UnitID", transactionItem.Unit.ID, LocalConfig.DbType);
+			command.Parameters.AddWithValue("@CategoryID", transactionItem.Category.ID, LocalConfig.DbType);
 
-			command.Parameters.AddWithValue("@IsExpenseItem", transactionItem.IsExpenseItem, Config.DbType);
-			command.Parameters.AddWithValue("@IsIncomeItem", transactionItem.IsIncomeItem, Config.DbType);
+			command.Parameters.AddWithValue("@IsExpenseItem", transactionItem.IsExpenseItem, LocalConfig.DbType);
+			command.Parameters.AddWithValue("@IsIncomeItem", transactionItem.IsIncomeItem, LocalConfig.DbType);
 
 			command.ExecuteNonQuery();
 		}
 
-		private static void CalculateSummaries()
+		private void CalculateSummaries()
 		{
 			var ExpensesAndIncomes = ExpenseItems.GroupBy(ei => ei.Date)
 					.Concat<IGrouping<DateTime, TransactionItemBase>>(
@@ -255,12 +270,12 @@ namespace ImportDataToDb
 
 		#region Others
 
-		public static void ClearAllTables()
+		public void ClearAllTables()
 		{
-			switch(Config.DbType)
+			switch(LocalConfig.DbType)
 			{
 				case DbType.MsSql:
-					using(var ctx = ExinAdoNetContextFactory.Create(Config.DbType, DbAccessMode.AdoNet))
+					using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
 					{
 						ctx.Command.CommandText = "EXEC sp_MSForEachTable 'DISABLE TRIGGER ALL ON ?'";
 						ctx.Command.ExecuteNonQuery();
@@ -284,7 +299,7 @@ namespace ImportDataToDb
 
 					var sqliteCreateScript = File.ReadAllText(RepoPaths.SqliteDbCreateFile);
 
-					using(var ctx = ExinAdoNetContextFactory.Create(Config.DbType, DbAccessMode.AdoNet))
+					using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
 					{
 						ctx.Command.CommandText = sqliteCreateScript;
 						ctx.ExecInTransactionWithCommit();
@@ -293,7 +308,7 @@ namespace ImportDataToDb
 					break;
 
 				default:
-					throw new NotImplementedException(string.Format(Localized.ImportData_ClearAllTables_is_not_implemented_to_this_DbType___0_, Config.DbType));
+					throw new NotImplementedException(string.Format(Localized.ImportData_ClearAllTables_is_not_implemented_to_this_DbType___0_, LocalConfig.DbType));
 			}
 
 			//MessagePresenter.WriteLine(Localized.The_database_tables_are_ready__have_been_emptied);

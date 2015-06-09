@@ -26,23 +26,23 @@ namespace DAL.DataBase.EntityFramework
 			throw new ArgumentException(errorMsg);
 		}
 
-		public static ExinEfMsSqlContext InitContextForMsSql(DbType dbType, DbAccessMode dbAccessMode)
+		public static ExinEfMsSqlContext InitContextForMsSql(IRepoConfiguration repoConfiguration)
 		{
-			return InitContextForMsSql(ExinEfContextFactory.Create(dbType, dbAccessMode), dbType);
+			return InitContextForMsSql(ExinEfContextFactory.Create(repoConfiguration), repoConfiguration);
 		}
-		public static ExinEfMsSqlContext InitContextForMsSql(DbContext dbContext, DbType dbType)
+		public static ExinEfMsSqlContext InitContextForMsSql(DbContext dbContext, IRepoConfiguration repoConfiguration)
 		{
-			CheckDbContext(dbContext, typeof(ExinEfMsSqlContext), dbType);
+			CheckDbContext(dbContext, typeof(ExinEfMsSqlContext), repoConfiguration.DbType);
 			return (ExinEfMsSqlContext)dbContext;
 		}
 
-		public static ExinEfSqliteContext InitContextForSqlite(DbType dbType, DbAccessMode dbAccessMode)
+		public static ExinEfSqliteContext InitContextForSqlite(IRepoConfiguration repoConfiguration)
 		{
-			return InitContextForSqlite(ExinEfContextFactory.Create(dbType, dbAccessMode), dbType);
+			return InitContextForSqlite(ExinEfContextFactory.Create(repoConfiguration), repoConfiguration);
 		}
-		public static ExinEfSqliteContext InitContextForSqlite(DbContext dbContext, DbType dbType)
+		public static ExinEfSqliteContext InitContextForSqlite(DbContext dbContext, IRepoConfiguration repoConfiguration)
 		{
-			CheckDbContext(dbContext, typeof(ExinEfSqliteContext), dbType);
+			CheckDbContext(dbContext, typeof(ExinEfSqliteContext), repoConfiguration.DbType);
 			return (ExinEfSqliteContext)dbContext;
 		}
 

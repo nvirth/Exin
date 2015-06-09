@@ -22,9 +22,8 @@ namespace ImportDataToDb
 
 			MessagePresenterManager.WireToConsole();
 
-			CheckConfig();
-
-			ImportData.ImportDataFromFileRepoToDb(args);
+			// TODO eliminate global Config dependency
+			new ImportData(Config.Repo.DbType).ImportDataFromFileRepoToDb(args);
 
 			MessagePresenter.WriteLine(Localized.Press_any_key_to_continue_);
 			Console.ReadKey();
@@ -35,17 +34,6 @@ namespace ImportDataToDb
 			if(!Debugger.IsAttached)
 				Debugger.Launch();
 			Debugger.Break();
-		}
-
-		private static void CheckConfig()
-		{
-			//TODO the program should set it for itself - permanently
-	
-			if (Config.DbAccessMode != DbAccessMode.AdoNet)
-				throw new Exception(Localized.The_ImportData_project_need_to_be_configured_to_use_AdoNet_to_db_access___);
-
-			if (Config.ReadMode != ReadMode.FromDb)
-				throw new Exception(Localized.The_ImportData_project_need_to_be_configured_to_read_data_from_database___);
 		}
 	}
 }

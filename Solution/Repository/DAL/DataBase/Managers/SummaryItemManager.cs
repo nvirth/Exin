@@ -24,7 +24,7 @@ namespace DAL.DataBase.Managers
 
 	public abstract class SummaryItemManagerCommonBase : DbConfigurableBase, ISummaryItemManager
 	{
-		protected SummaryItemManagerCommonBase(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		protected SummaryItemManagerCommonBase(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 		}
 		

@@ -135,7 +135,7 @@ namespace BLL.WpfManagers
 			{
 				ReadDataMessage();
 
-				switch(Config.ReadMode)
+				switch(Config.Repo.ReadMode)
 				{
 					case ReadMode.FromFile:
 						ReadDataFromFile();
@@ -144,7 +144,7 @@ namespace BLL.WpfManagers
 						ReadDataFromDb();
 						break;
 					default:
-						throw new NotImplementedException(Localized.The_reading_of_data_is_not_implemented_for_this_ + Config.ReadMode);
+						throw new NotImplementedException(Localized.The_reading_of_data_is_not_implemented_for_this_ + Config.Repo.ReadMode);
 				}
 			}
 			catch(Exception e)
@@ -165,7 +165,7 @@ namespace BLL.WpfManagers
 
 			SaveToFile();
 
-			if(Config.SaveMode == SaveMode.FileAndDb)
+			if(Config.Repo.SaveMode == SaveMode.FileAndDb)
 			{
 				SaveToDb();
 				SaveSummariesToDb();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using Common;
+using Common.Configuration;
 using Common.Log;
 using DAL.DataBase.EntityFramework.EntitiesMsSql;
 using DAL.DataBase.EntityFramework.EntitiesSqlite;
@@ -13,25 +14,25 @@ namespace DAL.DataBase.EntityFramework.Managers
 {
 	public static class CategoryManagerEfFactory
 	{
-		public static CategoryManagerEfBase Create(DbType dbType, DbAccessMode dbAccessMode)
+		public static CategoryManagerEfBase Create(IRepoConfiguration repoConfiguration)
 		{
-			switch(dbType)
+			switch(repoConfiguration.DbType)
 			{
 				case DbType.MsSql:
-					return new CategoryManagerEfMsSql(dbType, dbAccessMode);
+					return new CategoryManagerEfMsSql(repoConfiguration);
 
 				case DbType.SQLite:
-					return new CategoryManagerEfSqlite(dbType, dbAccessMode);
+					return new CategoryManagerEfSqlite(repoConfiguration);
 
 				default:
-					throw new NotImplementedException(string.Format(Localized.CategoryManagerEfFactory_is_not_implemented_for_this_DbType__FORMAT__, dbType));
+					throw new NotImplementedException(string.Format(Localized.CategoryManagerEfFactory_is_not_implemented_for_this_DbType__FORMAT__, repoConfiguration.DbType));
 			}
 		}
 	}
 
 	public abstract	class CategoryManagerEfBase : CategoryManagerCommonBase
 	{
-		protected CategoryManagerEfBase(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		protected CategoryManagerEfBase(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 		}
 		
@@ -39,7 +40,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		protected override void RefreshCache_FromDb()
 		{
-			using(var ctx = ExinEfContextFactory.Create(DbType, DbAccessMode))
+			using(var ctx = ExinEfContextFactory.Create(LocalConfig))
 			{
 				var categories = RefreshCache_GetFromDb(ctx);
 				RefreshCache_Refresh(categories);
@@ -54,7 +55,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		public override void Add(CategoryCommon category)
 		{
-			using(var ctx = ExinEfContextFactory.Create(DbType, DbAccessMode))
+			using(var ctx = ExinEfContextFactory.Create(LocalConfig))
 			{
 				Add(category, ctx);
 			}
@@ -85,40 +86,40 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 	public class CategoryManagerEfSqlite : CategoryManagerEfBase
 	{
-		public CategoryManagerEfSqlite(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		public CategoryManagerEfSqlite(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 		}
 
 		protected override IEnumerable<CategoryCommon> RefreshCache_GetFromDb(DbContext dbContext)
 		{
-			var ctx = Utils.InitContextForSqlite(dbContext, DbType);
+			var ctx = Utils.InitContextForSqlite(dbContext, LocalConfig);
 			var categories = Utils.ExecRead<Category_Sqlite, CategoryCommon>(ctx.Category);
 			return categories;
 		}
 
 		protected override void AddCategory(CategoryCommon categoryCommon, DbContext dbContext)
 		{
-			var ctx = Utils.InitContextForSqlite(dbContext, DbType);
+			var ctx = Utils.InitContextForSqlite(dbContext, LocalConfig);
 			Utils.ExecAdd(ctx.Category, categoryCommon);
 		}
 	}
 
 	public class CategoryManagerEfMsSql : CategoryManagerEfBase
 	{
-		public CategoryManagerEfMsSql(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		public CategoryManagerEfMsSql(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 		}
 
 		protected override IEnumerable<CategoryCommon> RefreshCache_GetFromDb(DbContext dbContext)
 		{
-			var ctx = Utils.InitContextForMsSql(dbContext, DbType);
+			var ctx = Utils.InitContextForMsSql(dbContext, LocalConfig);
 			var categories  = Utils.ExecRead<Category_MsSql, CategoryCommon>(ctx.Category);
 			return categories;
 		}
 
 		protected override void AddCategory(CategoryCommon categoryCommon, DbContext dbContext)
 		{
-			var ctx = Utils.InitContextForMsSql(dbContext, DbType);
+			var ctx = Utils.InitContextForMsSql(dbContext, LocalConfig);
 			Utils.ExecAdd(ctx.Category, categoryCommon);
 		}
 	}

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using Common;
+using Common.Configuration;
 using Common.Db.Entities;
 using Common.Log;
 using Common.Utils.Helpers;
@@ -13,18 +14,18 @@ namespace DAL.DataBase.AdoNet.Managers
 {
 	public static class UnitManagerAdoNetFactory
 	{
-		public static UnitManagerAdoNetBase Create(DbType dbType, DbAccessMode dbAccessMode)
+		public static UnitManagerAdoNetBase Create(IRepoConfiguration repoConfiguration)
 		{
-			switch(dbType)
+			switch(repoConfiguration.DbType)
 			{
 				case DbType.MsSql:
-					return new UnitManagerAdoNetMsSql(dbType, dbAccessMode);
+					return new UnitManagerAdoNetMsSql(repoConfiguration);
 
 				case DbType.SQLite:
-					return new UnitManagerAdoNetSQLite(dbType, dbAccessMode);
+					return new UnitManagerAdoNetSQLite(repoConfiguration);
 
 				default:
-					throw new NotImplementedException(string.Format(Localized.UnitManagerAdoNetFactory_is_not_implemented_for_this_DbType__FORMAT__, dbType));
+					throw new NotImplementedException(string.Format(Localized.UnitManagerAdoNetFactory_is_not_implemented_for_this_DbType__FORMAT__, repoConfiguration.DbType));
 			}
 
 		}
@@ -32,7 +33,7 @@ namespace DAL.DataBase.AdoNet.Managers
 
 	public abstract class UnitManagerAdoNetBase : UnitManagerCommonBase
 	{
-		protected UnitManagerAdoNetBase(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		protected UnitManagerAdoNetBase(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 		}
 
@@ -42,7 +43,7 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		protected override void RefreshCache_FromDb()
 		{
-			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
+			using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
 			{
 				var units = RefreshCache_GetFromDb(ctx);
 				RefreshCache_Refresh(units);
@@ -77,7 +78,7 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		public override void Add(Unit unit)
 		{
-			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
+			using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
 			{
 				Add(unit, ctx);
 			}
@@ -91,9 +92,9 @@ namespace DAL.DataBase.AdoNet.Managers
 											VALUES(@ID, @Name, @DisplayNames);";
 
 			ctx.Command.Parameters.Clear();
-			ctx.Command.Parameters.AddWithValue("@ID", unit.ID, DbType);
-			ctx.Command.Parameters.AddWithValue("@Name", unit.Name, DbType);
-			ctx.Command.Parameters.AddWithValue("@DisplayNames", unit.DisplayNames, DbType);
+			ctx.Command.Parameters.AddWithValue("@ID", unit.ID, LocalConfig.DbType);
+			ctx.Command.Parameters.AddWithValue("@Name", unit.Name, LocalConfig.DbType);
+			ctx.Command.Parameters.AddWithValue("@DisplayNames", unit.DisplayNames, LocalConfig.DbType);
 		}
 
 		protected virtual void ExecInsertQuery(ExinAdoNetContextBase ctx)
@@ -126,14 +127,14 @@ namespace DAL.DataBase.AdoNet.Managers
 	{
 		// No need to override/expand anything
 
-		public UnitManagerAdoNetMsSql(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		public UnitManagerAdoNetMsSql(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 		}
 	}
 
 	public class UnitManagerAdoNetSQLite : UnitManagerAdoNetBase
 	{
-		public UnitManagerAdoNetSQLite(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		public UnitManagerAdoNetSQLite(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 		}
 
@@ -144,7 +145,7 @@ namespace DAL.DataBase.AdoNet.Managers
 			if(!ctx.IsIdentityInsertOn)
 			{
 				ctx.Command.Parameters.RemoveAt("@ID");
-				ctx.Command.Parameters.AddWithValue("@ID", null, DbType);
+				ctx.Command.Parameters.AddWithValue("@ID", null, LocalConfig.DbType);
 			}
 		}
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using Common;
+using Common.Configuration;
 using Common.Db.Entities;
 using Common.Log;
 using Common.Utils.Helpers;
@@ -13,25 +14,25 @@ namespace DAL.DataBase.AdoNet.Managers
 {
 	public static class CategoryManagerAdoNetFactory
 	{
-		public static CategoryManagerAdoNetBase Create(DbType dbType, DbAccessMode dbAccessMode)
+		public static CategoryManagerAdoNetBase Create(IRepoConfiguration repoConfiguration)
 		{
-			switch(dbType)
+			switch(repoConfiguration.DbType)
 			{
 				case DbType.MsSql:
-					return new CategoryManagerAdoNetMsSql(dbType, dbAccessMode);
+					return new CategoryManagerAdoNetMsSql(repoConfiguration);
 
 				case DbType.SQLite:
-					return new CategoryManagerAdoNetSQLite(dbType, dbAccessMode);
+					return new CategoryManagerAdoNetSQLite(repoConfiguration);
 
 				default:
-					throw new NotImplementedException(string.Format(Localized.CategoryManagerAdoNetFactory_is_not_implemented_for_this_DbType__FORMAT__, dbType));
+					throw new NotImplementedException(string.Format(Localized.CategoryManagerAdoNetFactory_is_not_implemented_for_this_DbType__FORMAT__, repoConfiguration.DbType));
 			}
 		}
 	}
 
 	public abstract class CategoryManagerAdoNetBase : CategoryManagerCommonBase
 	{
-		protected CategoryManagerAdoNetBase(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		protected CategoryManagerAdoNetBase(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 		}
 
@@ -41,7 +42,7 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		protected override void RefreshCache_FromDb()
 		{
-			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
+			using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
 			{
 				var categories = RefreshCache_GetFromDb(ctx);
 				RefreshCache_Refresh(categories);
@@ -77,7 +78,7 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		public override void Add(Category category)
 		{
-			using(var ctx = ExinAdoNetContextFactory.Create(DbType, DbAccessMode))
+			using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
 			{
 				Add(category, ctx);
 			}
@@ -91,9 +92,9 @@ namespace DAL.DataBase.AdoNet.Managers
 											VALUES(@ID, @Name, @DisplayNames);";
 
 			ctx.Command.Parameters.Clear();
-			ctx.Command.Parameters.AddWithValue("@ID", category.ID, DbType);
-			ctx.Command.Parameters.AddWithValue("@Name", category.Name, DbType);
-			ctx.Command.Parameters.AddWithValue("@DisplayNames", category.DisplayNames, DbType);
+			ctx.Command.Parameters.AddWithValue("@ID", category.ID, LocalConfig.DbType);
+			ctx.Command.Parameters.AddWithValue("@Name", category.Name, LocalConfig.DbType);
+			ctx.Command.Parameters.AddWithValue("@DisplayNames", category.DisplayNames, LocalConfig.DbType);
 		}
 
 		protected virtual void ExecInsertQuery(ExinAdoNetContextBase ctx)
@@ -126,14 +127,14 @@ namespace DAL.DataBase.AdoNet.Managers
 	{
 		// No need to override/expand anything
 
-		public CategoryManagerAdoNetMsSql(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		public CategoryManagerAdoNetMsSql(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 		}
 	}
 
 	public class CategoryManagerAdoNetSQLite : CategoryManagerAdoNetBase
 	{
-		public CategoryManagerAdoNetSQLite(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		public CategoryManagerAdoNetSQLite(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 		}
 
@@ -144,7 +145,7 @@ namespace DAL.DataBase.AdoNet.Managers
 			if(!ctx.IsIdentityInsertOn)
 			{
 				ctx.Command.Parameters.RemoveAt("@ID");
-				ctx.Command.Parameters.AddWithValue("@ID", null, DbType);
+				ctx.Command.Parameters.AddWithValue("@ID", null, LocalConfig.DbType);
 			}
 		}
 

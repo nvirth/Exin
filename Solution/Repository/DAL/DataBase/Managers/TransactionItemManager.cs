@@ -28,7 +28,7 @@ namespace DAL.DataBase.Managers
 
 	public abstract class TransactionItemManagerCommonBase : DbConfigurableBase, ITransactionItemManager
 	{
-		protected TransactionItemManagerCommonBase(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		protected TransactionItemManagerCommonBase(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 		}
 

@@ -1,5 +1,6 @@
 * InitAllStatic
 * Bring Managers to common interface
+** Config.Repo.ReadMode/SaveMode is worthy for a search
 * Currency
 * patch existing system to be compatible with the new one
 ** rename categories
