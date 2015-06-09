@@ -218,17 +218,17 @@ namespace ImportDataToDb
 		{
 			command.Parameters.Clear();
 
-			command.Parameters.AddWithValue("@Amount", transactionItem.Amount);
-			command.Parameters.AddWithValue("@Quantity", transactionItem.Quantity);
-			command.Parameters.AddWithValue("@Title", transactionItem.Title);
-			command.Parameters.AddWithValue("@Comment", transactionItem.Comment);
-			command.Parameters.AddWithValue("@Date", transactionItem.Date);
+			command.Parameters.AddWithValue("@Amount", transactionItem.Amount, Config.DbType);
+			command.Parameters.AddWithValue("@Quantity", transactionItem.Quantity, Config.DbType);
+			command.Parameters.AddWithValue("@Title", transactionItem.Title, Config.DbType);
+			command.Parameters.AddWithValue("@Comment", transactionItem.Comment, Config.DbType);
+			command.Parameters.AddWithValue("@Date", transactionItem.Date, Config.DbType);
 
-			command.Parameters.AddWithValue("@UnitID", transactionItem.Unit.ID);
-			command.Parameters.AddWithValue("@CategoryID", transactionItem.Category.ID);
+			command.Parameters.AddWithValue("@UnitID", transactionItem.Unit.ID, Config.DbType);
+			command.Parameters.AddWithValue("@CategoryID", transactionItem.Category.ID, Config.DbType);
 
-			command.Parameters.AddWithValue("@IsExpenseItem", transactionItem.IsExpenseItem);
-			command.Parameters.AddWithValue("@IsIncomeItem", transactionItem.IsIncomeItem);
+			command.Parameters.AddWithValue("@IsExpenseItem", transactionItem.IsExpenseItem, Config.DbType);
+			command.Parameters.AddWithValue("@IsIncomeItem", transactionItem.IsIncomeItem, Config.DbType);
 
 			command.ExecuteNonQuery();
 		}

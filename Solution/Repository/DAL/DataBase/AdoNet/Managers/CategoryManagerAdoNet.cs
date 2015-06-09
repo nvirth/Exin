@@ -91,9 +91,9 @@ namespace DAL.DataBase.AdoNet.Managers
 											VALUES(@ID, @Name, @DisplayNames);";
 
 			ctx.Command.Parameters.Clear();
-			ctx.Command.Parameters.AddWithValue("@ID", category.ID);
-			ctx.Command.Parameters.AddWithValue("@Name", category.Name);
-			ctx.Command.Parameters.AddWithValue("@DisplayNames", category.DisplayNames);
+			ctx.Command.Parameters.AddWithValue("@ID", category.ID, DbType);
+			ctx.Command.Parameters.AddWithValue("@Name", category.Name, DbType);
+			ctx.Command.Parameters.AddWithValue("@DisplayNames", category.DisplayNames, DbType);
 		}
 
 		protected virtual void ExecInsertQuery(ExinAdoNetContextBase ctx)
@@ -144,7 +144,7 @@ namespace DAL.DataBase.AdoNet.Managers
 			if(!ctx.IsIdentityInsertOn)
 			{
 				ctx.Command.Parameters.RemoveAt("@ID");
-				ctx.Command.Parameters.AddWithValue("@ID", null);
+				ctx.Command.Parameters.AddWithValue("@ID", null, DbType);
 			}
 		}
 

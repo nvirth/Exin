@@ -52,8 +52,8 @@ namespace DAL.DataBase.AdoNet.Managers
 			{
 				BuildGetIntervalQuery(transactionItemType, ctx);
 
-				ctx.Command.Parameters.AddWithValue("@fromDate", fromDate);
-				ctx.Command.Parameters.AddWithValue("@toDate", toDate);
+				ctx.Command.Parameters.AddWithValue("@fromDate", fromDate, DbType);
+				ctx.Command.Parameters.AddWithValue("@toDate", toDate, DbType);
 				ctx.Adapter.SelectCommand = ctx.Command;
 				ctx.Adapter.Fill(ctx.DataSet);
 
@@ -152,7 +152,7 @@ namespace DAL.DataBase.AdoNet.Managers
 		public void Insert(ExinAdoNetContextBase ctx, TransactionItem transactionItem, bool withId = false)
 		{
 			ctx.Command.CommandText = BuildInsertQuery(withId);
-			transactionItem.CopyStandardParams(ctx);
+			transactionItem.CopyStandardParams(ctx, DbType);
 
 			try
 			{
@@ -245,7 +245,7 @@ namespace DAL.DataBase.AdoNet.Managers
 					foreach(var transactionItem in transactionItems)
 					{
 						ctx.Command.Parameters.Clear();
-						transactionItem.CopyStandardParams(ctx);
+						transactionItem.CopyStandardParams(ctx, DbType);
 						ctx.Command.ExecuteNonQuery();
 					}
 					transactionScope.Complete();
@@ -387,18 +387,18 @@ namespace DAL.DataBase.AdoNet.Managers
 				var transactionItem = transactionItems[i - 1];
 				var comment = string.IsNullOrWhiteSpace(transactionItem.Comment) ? Config.DbStringNull : transactionItem.Comment;
 
-				//ctx.Command.Parameters.AddWithValue("@Amount" + i, transactionItem.Amount);
-				//ctx.Command.Parameters.AddWithValue("@Quantity" + i, transactionItem.Quantity);
-				//ctx.Command.Parameters.AddWithValue("@UnitID" + i, transactionItem.UnitID);
-				ctx.Command.Parameters.AddWithValue("@Title" + i, transactionItem.Title);
-				ctx.Command.Parameters.AddWithValue("@Comment" + i, comment);
-				//ctx.Command.Parameters.AddWithValue("@Date" + i, transactionItem.Date);
-				//ctx.Command.Parameters.AddWithValue("@CategoryID" + i, transactionItem.CategoryID);
-				//ctx.Command.Parameters.AddWithValue("@IsExpenseItem" + i, transactionItem.IsExpenseItem);
-				//ctx.Command.Parameters.AddWithValue("@IsIncomeItem" + i, transactionItem.IsIncomeItem);
+				//ctx.Command.Parameters.AddWithValue("@Amount" + i, transactionItem.Amount, DbType);
+				//ctx.Command.Parameters.AddWithValue("@Quantity" + i, transactionItem.Quantity, DbType);
+				//ctx.Command.Parameters.AddWithValue("@UnitID" + i, transactionItem.UnitID, DbType);
+				ctx.Command.Parameters.AddWithValue("@Title" + i, transactionItem.Title, DbType);
+				ctx.Command.Parameters.AddWithValue("@Comment" + i, comment, DbType);
+				//ctx.Command.Parameters.AddWithValue("@Date" + i, transactionItem.Date, DbType);
+				//ctx.Command.Parameters.AddWithValue("@CategoryID" + i, transactionItem.CategoryID, DbType);
+				//ctx.Command.Parameters.AddWithValue("@IsExpenseItem" + i, transactionItem.IsExpenseItem, DbType);
+				//ctx.Command.Parameters.AddWithValue("@IsIncomeItem" + i, transactionItem.IsIncomeItem, DbType);
 
 				//if(withId)
-				//	ctx.Command.Parameters.AddWithValue("@ID" + i, transactionItem.ID);
+				//	ctx.Command.Parameters.AddWithValue("@ID" + i, transactionItem.ID, DbType);
 			}
 		}
 
@@ -414,7 +414,7 @@ namespace DAL.DataBase.AdoNet.Managers
 			{
 				ctx.Command.CommandText = BuildUpdateFullRecordQuery();
 
-				transactionItem.CopyStandardParams(ctx);
+				transactionItem.CopyStandardParams(ctx, DbType);
 
 				try
 				{
@@ -464,7 +464,7 @@ namespace DAL.DataBase.AdoNet.Managers
 			{
 				ctx.Command.CommandText = BuildDeleteQuery();
 
-				ctx.Command.Parameters.AddWithValue("@ID", id);
+				ctx.Command.Parameters.AddWithValue("@ID", id, DbType);
 
 				try
 				{
@@ -516,9 +516,9 @@ namespace DAL.DataBase.AdoNet.Managers
 
 			ctx.Command.CommandText = BuildClearDayQuery();
 
-			ctx.Command.Parameters.AddWithValue("@Date", date);
-			ctx.Command.Parameters.AddWithValue("@IsExpenseItem", isExpense);
-			ctx.Command.Parameters.AddWithValue("@IsIncomeItem", isIncome);
+			ctx.Command.Parameters.AddWithValue("@Date", date, DbType);
+			ctx.Command.Parameters.AddWithValue("@IsExpenseItem", isExpense, DbType);
+			ctx.Command.Parameters.AddWithValue("@IsIncomeItem", isIncome, DbType);
 
 			try
 			{

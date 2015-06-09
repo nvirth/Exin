@@ -10,7 +10,7 @@ namespace DAL.DataBase.Managers.Factory
 {
 	public class ManagerFactory : DbConfigurableBase
 	{
-		public ManagerFactory(DbType dbType, DbAccessMode dbAccessMode) : base(dbType, dbAccessMode)
+		public ManagerFactory(DbType dbType = 0, DbAccessMode dbAccessMode = 0) : base(dbType, dbAccessMode)
 		{
 			switch(DbAccessMode)
 			{

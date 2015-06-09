@@ -83,7 +83,6 @@ namespace DAL.DataBase.Managers
 	
 	public static class TransactionItemManager
 	{
-		public static readonly ITransactionItemManager Instance = 
-			new ManagerFactory(Config.DbType, Config.DbAccessMode).TransactionItemManager;
+		public static readonly ITransactionItemManager Instance = new ManagerFactory().TransactionItemManager;
 	}
 }

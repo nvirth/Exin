@@ -1,4 +1,5 @@
-﻿using Common.Configuration;
+﻿using Common;
+using Common.Configuration;
 using Common.Db.Entities;
 
 namespace DAL.DataBase.AdoNet
@@ -7,20 +8,20 @@ namespace DAL.DataBase.AdoNet
 	{
 		#region TransactionItem helpers
 
-		internal static void CopyStandardParams(this TransactionItem transactionItem, ExinAdoNetContextBase ctx)
+		internal static void CopyStandardParams(this TransactionItem transactionItem, ExinAdoNetContextBase ctx, DbType dbType)
 		{
 			var comment = string.IsNullOrWhiteSpace(transactionItem.Comment) ? Config.DbStringNull : transactionItem.Comment;
 
-			ctx.Command.Parameters.AddWithValue("@ID", transactionItem.ID);
-			ctx.Command.Parameters.AddWithValue("@Amount", transactionItem.Amount);
-			ctx.Command.Parameters.AddWithValue("@Quantity", transactionItem.Quantity);
-			ctx.Command.Parameters.AddWithValue("@UnitID", transactionItem.UnitID);
-			ctx.Command.Parameters.AddWithValue("@Title", transactionItem.Title);
-			ctx.Command.Parameters.AddWithValue("@Comment", comment);
-			ctx.Command.Parameters.AddWithValue("@Date", transactionItem.Date);
-			ctx.Command.Parameters.AddWithValue("@CategoryID", transactionItem.CategoryID);
-			ctx.Command.Parameters.AddWithValue("@IsExpenseItem", transactionItem.IsExpenseItem);
-			ctx.Command.Parameters.AddWithValue("@IsIncomeItem", transactionItem.IsIncomeItem);
+			ctx.Command.Parameters.AddWithValue("@ID", transactionItem.ID, dbType);
+			ctx.Command.Parameters.AddWithValue("@Amount", transactionItem.Amount, dbType);
+			ctx.Command.Parameters.AddWithValue("@Quantity", transactionItem.Quantity, dbType);
+			ctx.Command.Parameters.AddWithValue("@UnitID", transactionItem.UnitID, dbType);
+			ctx.Command.Parameters.AddWithValue("@Title", transactionItem.Title, dbType);
+			ctx.Command.Parameters.AddWithValue("@Comment", comment, dbType);
+			ctx.Command.Parameters.AddWithValue("@Date", transactionItem.Date, dbType);
+			ctx.Command.Parameters.AddWithValue("@CategoryID", transactionItem.CategoryID, dbType);
+			ctx.Command.Parameters.AddWithValue("@IsExpenseItem", transactionItem.IsExpenseItem, dbType);
+			ctx.Command.Parameters.AddWithValue("@IsIncomeItem", transactionItem.IsIncomeItem, dbType);
 		}
 
 		#endregion

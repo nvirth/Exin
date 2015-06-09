@@ -91,14 +91,14 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		protected override IEnumerable<CategoryCommon> RefreshCache_GetFromDb(DbContext dbContext)
 		{
-			var ctx = Utils.InitContextForSqlite(dbContext);
+			var ctx = Utils.InitContextForSqlite(dbContext, DbType);
 			var categories = Utils.ExecRead<Category_Sqlite, CategoryCommon>(ctx.Category);
 			return categories;
 		}
 
 		protected override void AddCategory(CategoryCommon categoryCommon, DbContext dbContext)
 		{
-			var ctx = Utils.InitContextForSqlite(dbContext);
+			var ctx = Utils.InitContextForSqlite(dbContext, DbType);
 			Utils.ExecAdd(ctx.Category, categoryCommon);
 		}
 	}
@@ -111,14 +111,14 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		protected override IEnumerable<CategoryCommon> RefreshCache_GetFromDb(DbContext dbContext)
 		{
-			var ctx = Utils.InitContextForMsSql(dbContext);
+			var ctx = Utils.InitContextForMsSql(dbContext, DbType);
 			var categories  = Utils.ExecRead<Category_MsSql, CategoryCommon>(ctx.Category);
 			return categories;
 		}
 
 		protected override void AddCategory(CategoryCommon categoryCommon, DbContext dbContext)
 		{
-			var ctx = Utils.InitContextForMsSql(dbContext);
+			var ctx = Utils.InitContextForMsSql(dbContext, DbType);
 			Utils.ExecAdd(ctx.Category, categoryCommon);
 		}
 	}

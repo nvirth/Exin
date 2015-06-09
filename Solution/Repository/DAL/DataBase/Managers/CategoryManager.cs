@@ -160,8 +160,7 @@ namespace DAL.DataBase.Managers
 	
 	public static class CategoryManager
 	{
-		public static readonly ICategoryManager Instance = 
-			new ManagerFactory(Config.DbType, Config.DbAccessMode).CategoryManager;
+		public static readonly ICategoryManager Instance = new ManagerFactory().CategoryManager;
 
 		public static Category GetDefaultCategory => GetCategoryOthers;
 		public static Category GetCategoryOthers => Instance.GetByName(C.Others);

@@ -97,11 +97,11 @@ namespace DAL
 
 		#endregion
 
-		public static DbParameter AddWithValue(this DbParameterCollection collection, string parameterName, object value)
+		public static DbParameter AddWithValue(this DbParameterCollection collection, string parameterName, object value, DbType dbType)
 		{
 			DbParameter parameter;
 
-			switch(Config.DbType)
+			switch(dbType)
 			{
 				case DbType.MsSql:
 					parameter = new SqlParameter() { ParameterName = parameterName, Value = value };
@@ -114,7 +114,7 @@ namespace DAL
 					return parameter;
 
 				default:
-					throw new NotImplementedException(string.Format(Localized.Creating_DbParameter_to_DbType___0__is_not_implemented_, Config.DbType));
+					throw new NotImplementedException(string.Format(Localized.Creating_DbParameter_to_DbType___0__is_not_implemented_, dbType));
 			}
 		}
 	}

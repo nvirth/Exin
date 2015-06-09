@@ -160,8 +160,7 @@ namespace DAL.DataBase.Managers
 
 	public static class UnitManager
 	{
-		public static readonly IUnitManager Instance =
-			new ManagerFactory(Config.DbType, Config.DbAccessMode).UnitManager;
+		public static readonly IUnitManager Instance = new ManagerFactory().UnitManager;
 
 		public static Unit GetDefaultUnit => GetUnitPc;
 		public static Unit GetUnitPc => Instance.GetByName(C.Db);

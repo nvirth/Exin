@@ -64,8 +64,8 @@ namespace DAL.DataBase.AdoNet.Managers
 			{
 				ctx.Command.CommandText = BuildGetIntervalQuery();
 
-				ctx.Command.Parameters.AddWithValue("@fromDate", fromDate);
-				ctx.Command.Parameters.AddWithValue("@toDate", toDate);
+				ctx.Command.Parameters.AddWithValue("@fromDate", fromDate, DbType);
+				ctx.Command.Parameters.AddWithValue("@toDate", toDate, DbType);
 				ctx.Adapter.SelectCommand = ctx.Command;
 				ctx.Adapter.Fill(ctx.DataSet);
 

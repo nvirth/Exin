@@ -164,7 +164,6 @@ namespace DAL.DataBase.Managers
 
 	public static class SummaryItemManager
 	{
-		public static readonly ISummaryItemManager Instance =
-			new ManagerFactory(Config.DbType, Config.DbAccessMode).SummaryItemManager;
+		public static readonly ISummaryItemManager Instance = new ManagerFactory().SummaryItemManager;
 	}
 }

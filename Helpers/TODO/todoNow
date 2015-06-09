@@ -1,5 +1,6 @@
-* Eliminate singletons
 * InitAllStatic
 * Bring Managers to common interface
+* Currency
 * patch existing system to be compatible with the new one
 ** rename categories
+** CREATE AN ExportDataFromDb TOOL!

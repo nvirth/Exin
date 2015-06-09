@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Configuration;
 
 namespace DAL.DataBase
 {
@@ -9,8 +10,8 @@ namespace DAL.DataBase
 
 		public DbConfigurableBase(DbType dbType, DbAccessMode dbAccessMode)
 		{
-			DbType = dbType;
-			DbAccessMode = dbAccessMode;
+			DbType = dbType == 0 ? Config.DbType : dbType;
+			DbAccessMode = dbAccessMode == 0 ? Config.DbAccessMode : dbAccessMode;
 		}
 	}
 }

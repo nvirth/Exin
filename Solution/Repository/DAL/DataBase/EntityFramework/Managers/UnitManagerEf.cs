@@ -92,14 +92,14 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		protected override IEnumerable<UnitCommon> RefreshCache_GetFromDb(DbContext dbContext)
 		{
-			var ctx = Utils.InitContextForSqlite(dbContext);
+			var ctx = Utils.InitContextForSqlite(dbContext, DbType);
 			var units = Utils.ExecRead<Unit_Sqlite, UnitCommon>(ctx.Unit);
 			return units;
 		}
 
 		protected override void AddUnit(UnitCommon unitCommon, DbContext dbContext)
 		{
-			var ctx = Utils.InitContextForSqlite(dbContext);
+			var ctx = Utils.InitContextForSqlite(dbContext, DbType);
 			Utils.ExecAdd(ctx.Unit, unitCommon);
 		}
 	}
@@ -112,14 +112,14 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		protected override IEnumerable<UnitCommon> RefreshCache_GetFromDb(DbContext dbContext)
 		{
-			var ctx = Utils.InitContextForMsSql(dbContext);
+			var ctx = Utils.InitContextForMsSql(dbContext, DbType);
 			var units = Utils.ExecRead<Unit_MsSql, UnitCommon>(ctx.Unit);
 			return units;
 		}
 
 		protected override void AddUnit(UnitCommon unitCommon, DbContext dbContext)
 		{
-			var ctx = Utils.InitContextForMsSql(dbContext);
+			var ctx = Utils.InitContextForMsSql(dbContext, DbType);
 			Utils.ExecAdd(ctx.Unit, unitCommon);
 		}
 	}

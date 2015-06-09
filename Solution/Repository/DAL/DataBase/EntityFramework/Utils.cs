@@ -15,34 +15,34 @@ namespace DAL.DataBase.EntityFramework
 {
 	public static class Utils
 	{
-		public static void CheckDbContext(DbContext dbContext, Type expectedType, [CallerFilePath] String callerFilePath = "")
+		public static void CheckDbContext(DbContext dbContext, Type expectedType, DbType dbType, [CallerFilePath] String callerFilePath = "")
 		{
 			if(dbContext.GetType() == expectedType)
 				return;
 
 			// Error: wrong type
 			var callerQuasi = Path.GetFileNameWithoutExtension(callerFilePath);
-			var errorMsg = string.Format(Localized._0__is_not_implemented_for_context_type___1___using_DbType_configuration___2_, callerQuasi, dbContext.GetType(), Config.DbType);
+			var errorMsg = string.Format(Localized._0__is_not_implemented_for_context_type___1___using_DbType_configuration___2_, callerQuasi, dbContext.GetType(), dbType);
 			throw new ArgumentException(errorMsg);
 		}
 
 		public static ExinEfMsSqlContext InitContextForMsSql(DbType dbType, DbAccessMode dbAccessMode)
 		{
-			return InitContextForMsSql(ExinEfContextFactory.Create(dbType, dbAccessMode));
+			return InitContextForMsSql(ExinEfContextFactory.Create(dbType, dbAccessMode), dbType);
 		}
-		public static ExinEfMsSqlContext InitContextForMsSql(DbContext dbContext)
+		public static ExinEfMsSqlContext InitContextForMsSql(DbContext dbContext, DbType dbType)
 		{
-			CheckDbContext(dbContext, typeof(ExinEfMsSqlContext));
+			CheckDbContext(dbContext, typeof(ExinEfMsSqlContext), dbType);
 			return (ExinEfMsSqlContext)dbContext;
 		}
 
 		public static ExinEfSqliteContext InitContextForSqlite(DbType dbType, DbAccessMode dbAccessMode)
 		{
-			return InitContextForSqlite(ExinEfContextFactory.Create(dbType, dbAccessMode));
+			return InitContextForSqlite(ExinEfContextFactory.Create(dbType, dbAccessMode), dbType);
 		}
-		public static ExinEfSqliteContext InitContextForSqlite(DbContext dbContext)
+		public static ExinEfSqliteContext InitContextForSqlite(DbContext dbContext, DbType dbType)
 		{
-			CheckDbContext(dbContext, typeof(ExinEfSqliteContext));
+			CheckDbContext(dbContext, typeof(ExinEfSqliteContext), dbType);
 			return (ExinEfSqliteContext)dbContext;
 		}
 
