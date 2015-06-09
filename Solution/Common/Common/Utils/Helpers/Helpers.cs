@@ -154,13 +154,13 @@ namespace Common.Utils.Helpers
 		public static void PrintCurrentProcessMemoryUsage()
 		{
 			var currentProcess = Process.GetCurrentProcess();
-			MessagePresenter.WriteLine("currentProcess.NonpagedSystemMemorySize64: " + currentProcess.NonpagedSystemMemorySize64);
-			MessagePresenter.WriteLine("currentProcess.PagedMemorySize64: " + currentProcess.PagedMemorySize64);
-			MessagePresenter.WriteLine("currentProcess.PagedSystemMemorySize64: " + currentProcess.PagedSystemMemorySize64);
-			MessagePresenter.WriteLine("currentProcess.PeakPagedMemorySize64: " + currentProcess.PeakPagedMemorySize64);
-			MessagePresenter.WriteLine("currentProcess.PeakVirtualMemorySize64: " + currentProcess.PeakVirtualMemorySize64);
-			MessagePresenter.WriteLine("currentProcess.PrivateMemorySize64: " + currentProcess.PrivateMemorySize64);
-			MessagePresenter.WriteLine("currentProcess.VirtualMemorySize64: " + currentProcess.VirtualMemorySize64);
+			MessagePresenter.Instance.WriteLine("currentProcess.NonpagedSystemMemorySize64: " + currentProcess.NonpagedSystemMemorySize64);
+			MessagePresenter.Instance.WriteLine("currentProcess.PagedMemorySize64: " + currentProcess.PagedMemorySize64);
+			MessagePresenter.Instance.WriteLine("currentProcess.PagedSystemMemorySize64: " + currentProcess.PagedSystemMemorySize64);
+			MessagePresenter.Instance.WriteLine("currentProcess.PeakPagedMemorySize64: " + currentProcess.PeakPagedMemorySize64);
+			MessagePresenter.Instance.WriteLine("currentProcess.PeakVirtualMemorySize64: " + currentProcess.PeakVirtualMemorySize64);
+			MessagePresenter.Instance.WriteLine("currentProcess.PrivateMemorySize64: " + currentProcess.PrivateMemorySize64);
+			MessagePresenter.Instance.WriteLine("currentProcess.VirtualMemorySize64: " + currentProcess.VirtualMemorySize64);
 		}
 
 		#endregion
@@ -186,7 +186,7 @@ namespace Common.Utils.Helpers
 			var totalUs = (stopwatch.Elapsed.Ticks / 10); // There is 10 ticks in a microSec
 			//var us = totalUs - (ms * 1000 + s * 1000000 + min * 60000000);
 			var us = totalUs % 1000;
-			MessagePresenter.WriteLine(String.Format("{0} {1,3}min {2,3}s {3,3}ms {4,3}us", (text + ":").PadRight(35), min, s, ms, us));
+			MessagePresenter.Instance.WriteLine(String.Format("{0} {1,3}min {2,3}s {3,3}ms {4,3}us", (text + ":").PadRight(35), min, s, ms, us));
 		}
 
 		#endregion

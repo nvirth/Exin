@@ -358,7 +358,7 @@ namespace WPF
 				var equalExpenseItem = Model.DailyExpenses.GetTheEqual(selectedExpenseItem);
 				if(equalExpenseItem == null)
 				{
-					MessagePresenter.WriteError(Localized.The_chosen_expense_item_already_exists__);
+					MessagePresenter.Instance.WriteError(Localized.The_chosen_expense_item_already_exists__);
 					return;
 				}
 
@@ -612,33 +612,33 @@ namespace WPF
 
 			if(saveDailyExpenses && Model.DailyExpenses.IsModified)
 			{
-				MessagePresenter.WriteLineSeparator();
+				MessagePresenter.Instance.WriteLineSeparator();
 				try
 				{
 					Model.DailyExpenses.Save();
-					MessagePresenter.WriteLine(Localized.Daily_expenses_saved_successfully__);
+					MessagePresenter.Instance.WriteLine(Localized.Daily_expenses_saved_successfully__);
 				}
 				catch(Exception ex)
 				{
 					var msg = Localized.Could_not_save_the_daily_expenses_ + ex.Message + "\r\n";
-					MessagePresenter.WriteError(msg);
-					MessagePresenter.WriteException(ex);
+					MessagePresenter.Instance.WriteError(msg);
+					MessagePresenter.Instance.WriteException(ex);
 					errorMsg += msg;
 				}
 			}
 			if(saveMonthlyIncomes && Model.MonthlyIncomes.IsModified)
 			{
-				MessagePresenter.WriteLineSeparator();
+				MessagePresenter.Instance.WriteLineSeparator();
 				try
 				{
 					Model.MonthlyIncomes.Save();
-					MessagePresenter.WriteLine(Localized.Monthly_incomes_saved_successfully__);
+					MessagePresenter.Instance.WriteLine(Localized.Monthly_incomes_saved_successfully__);
 				}
 				catch(Exception ex)
 				{
 					var msg = Localized.Could_not_save_the_monthly_incomes_ + ex.Message + "\r\n";
-					MessagePresenter.WriteError(msg);
-					MessagePresenter.WriteException(ex);
+					MessagePresenter.Instance.WriteError(msg);
+					MessagePresenter.Instance.WriteException(ex);
 					errorMsg += msg;
 				}
 			}

@@ -27,7 +27,7 @@ namespace Common.UiModels.WPF.Validation.Base
 
 			var error = GetAllErrorMessages();
 			if (!string.IsNullOrWhiteSpace(error))
-				MessagePresenter.WriteError(error);
+				MessagePresenter.Instance.WriteError(error);
 
 			return error;
 		}
@@ -38,7 +38,7 @@ namespace Common.UiModels.WPF.Validation.Base
 
 			var error = GetFirstErrorMessage(propertyName);
 			if (!string.IsNullOrWhiteSpace(error))
-				MessagePresenter.WriteError(error);
+				MessagePresenter.Instance.WriteError(error);
 
 			return error;
 		}

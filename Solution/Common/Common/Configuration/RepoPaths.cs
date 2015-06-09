@@ -109,8 +109,8 @@ namespace Common.Configuration
 		/// </summary>
 		public static void PrintRepoStructure()
 		{
-			MessagePresenter.WriteLine("The app's directory structure: ");
-			DirsToCreate.ForEach(MessagePresenter.WriteLine);
+			MessagePresenter.Instance.WriteLine("The app's directory structure: ");
+			DirsToCreate.ForEach(MessagePresenter.Instance.WriteLine);
 		}
 
 		/// <summary>
@@ -123,7 +123,7 @@ namespace Common.Configuration
 			foreach(var dir in DirsToCreate)
 			{
 				Directory.CreateDirectory(dir);
-				MessagePresenter.WriteLine(string.Format(Localized.Created___0__FORMAT__, dir));
+				MessagePresenter.Instance.WriteLine(string.Format(Localized.Created___0__FORMAT__, dir));
 			}
 
 			File.Copy(UnitsDefaultFile, UnitsFile);

@@ -29,27 +29,27 @@ namespace DAL
 			if (IsDbOk(dbType == 0 ? Config.Repo.DbType : dbType))
 				return;
 
-			MessagePresenter.WriteError(string.Format(Localized.Could_not_find_the_SQLite_database_file__here__0__FORMAT__, RepoPaths.SqliteDbFile));
-			MessagePresenter.WriteLine(Localized.The_application_will_now_create_the_database_file__this_can_take_even_a_few_minutes_);
-			MessagePresenter.WriteLine(Localized.Please__wait_until_it_s_done);
-			MessagePresenter.WriteLine("");
+			MessagePresenter.Instance.WriteError(string.Format(Localized.Could_not_find_the_SQLite_database_file__here__0__FORMAT__, RepoPaths.SqliteDbFile));
+			MessagePresenter.Instance.WriteLine(Localized.The_application_will_now_create_the_database_file__this_can_take_even_a_few_minutes_);
+			MessagePresenter.Instance.WriteLine(Localized.Please__wait_until_it_s_done);
+			MessagePresenter.Instance.WriteLine("");
 
 			var wasSuccessful = await StartImportDataProcess();
 
 			if (wasSuccessful)
 			{
-				MessagePresenter.WriteLine(Localized.The_SQLite_database_file_is_ready);
-				MessagePresenter.WriteLine(Localized.You_can_start_your_work_);
+				MessagePresenter.Instance.WriteLine(Localized.The_SQLite_database_file_is_ready);
+				MessagePresenter.Instance.WriteLine(Localized.You_can_start_your_work_);
 			}
 			else
 			{
 				// TODO more friendly error messages, eg concrete combination of configs
 				// TODO or the program should set the config permanently, inform about it, then after clicking OK, should restart itself
-				MessagePresenter.WriteError(Localized.Error_occured_while_creating_the_SQLite_database_file);
-				MessagePresenter.WriteError(Localized.Try_with_another_database_access_mode);
+				MessagePresenter.Instance.WriteError(Localized.Error_occured_while_creating_the_SQLite_database_file);
+				MessagePresenter.Instance.WriteError(Localized.Try_with_another_database_access_mode);
 			}
 
-			MessagePresenter.WriteLineSeparator();
+			MessagePresenter.Instance.WriteLineSeparator();
 		}
 
 		public static async Task<bool> StartImportDataProcess()
@@ -74,12 +74,12 @@ namespace DAL
 						//var standardOutput = process.StandardOutput;
 						//var outMsg = standardOutput.ReadToEnd();
 						//if(!String.IsNullOrEmpty(outMsg))
-						//	MessagePresenter.WriteLine(outMsg);
+						//	MessagePresenter.Instance.WriteLine(outMsg);
 
 						//var standardError = process.StandardError;
 						//var errorMsg = standardError.ReadToEnd();
 						//if(!String.IsNullOrEmpty(errorMsg))
-						//	MessagePresenter.WriteError(errorMsg);
+						//	MessagePresenter.Instance.WriteError(errorMsg);
 
 						process.WaitForExit();
 						return process.ExitCode == 0;

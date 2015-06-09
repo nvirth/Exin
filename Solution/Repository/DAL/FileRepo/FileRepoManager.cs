@@ -60,14 +60,14 @@ namespace DAL.FileRepo
 
 			if(datePaths.DayFile.Length == 0)
 			{
-				MessagePresenter.WriteLine(msg + Localized.Empty_);
+				MessagePresenter.Instance.WriteLine(msg + Localized.Empty_);
 				return new List<ExpenseItem>();
 			}
 
 			try
 			{
 				var dailyExpenses = ParseDailyExpenseFile(datePaths.Date, datePaths.DayFilePath).ToList();
-				MessagePresenter.WriteLine(msg + Localized.Read_successfully);
+				MessagePresenter.Instance.WriteLine(msg + Localized.Read_successfully);
 
 				return dailyExpenses;
 			}
@@ -119,7 +119,7 @@ namespace DAL.FileRepo
 					monthlyExpenses = monthlyExpenses.Union(GetDailyExpenses(datePaths));
 				}
 				var res = monthlyExpenses.ToList();
-				MessagePresenter.WriteLine(Localized.Daily_files_read_successfully);
+				MessagePresenter.Instance.WriteLine(Localized.Daily_files_read_successfully);
 
 				return res;
 			}
@@ -143,14 +143,14 @@ namespace DAL.FileRepo
 		{
 			if(!datePaths.MonthlyIncomesFile.Exists || datePaths.MonthlyIncomesFile.Length == 0)
 			{
-				MessagePresenter.WriteLine(Localized.There_are_no_incomes_in_this_month);
+				MessagePresenter.Instance.WriteLine(Localized.There_are_no_incomes_in_this_month);
 				return new List<IncomeItem>();
 			}
 
 			try
 			{
 				var monthlyIncomes = ParseMonthlyIncomeFile(datePaths.Date, datePaths.MonthlyIncomesFilePath).ToList();
-				MessagePresenter.WriteLine(Localized.Monthly_incomes_read_successfully);
+				MessagePresenter.Instance.WriteLine(Localized.Monthly_incomes_read_successfully);
 
 				return monthlyIncomes;
 			}
@@ -236,7 +236,7 @@ namespace DAL.FileRepo
 			{
 				WriteOut_DailyExpenses_or_MonthlyIncomes(transactionItems, datePaths, summary, isExpense: true);
 
-				MessagePresenter.WriteLine(msg + Localized.___Successfully_saved_into_files);
+				MessagePresenter.Instance.WriteLine(msg + Localized.___Successfully_saved_into_files);
 			}
 			catch(Exception e)
 			{
@@ -253,7 +253,7 @@ namespace DAL.FileRepo
 			{
 				WriteOut_DailyExpenses_or_MonthlyIncomes(transactionItems, datePaths, summary, isExpense: false);
 
-				MessagePresenter.WriteLine(msg + Localized.___Successfully_saved_into_files);
+				MessagePresenter.Instance.WriteLine(msg + Localized.___Successfully_saved_into_files);
 			}
 			catch(Exception e)
 			{
@@ -368,7 +368,7 @@ namespace DAL.FileRepo
 
 				Helpers.CreateNewFileDeleteOld(newFile, oldFile, stringBuilder);
 
-				MessagePresenter.WriteLine(Localized.Saving_Monthly_summary_file___Successfully);
+				MessagePresenter.Instance.WriteLine(Localized.Saving_Monthly_summary_file___Successfully);
 			}
 			catch(Exception e)
 			{
@@ -456,7 +456,7 @@ namespace DAL.FileRepo
 
 				Helpers.CreateNewFileDeleteOld(destinationFilePath, oldFile, datePaths.MonthlyExpensesFile);
 
-				MessagePresenter.WriteLine(Localized.Copying_summary_file_into_the_summary_directory___OK);
+				MessagePresenter.Instance.WriteLine(Localized.Copying_summary_file_into_the_summary_directory___OK);
 			}
 			catch(Exception e)
 			{
@@ -474,7 +474,7 @@ namespace DAL.FileRepo
 					var newDataRow = SaveToStatistics_CreateNewDataRow(expenseCategory, summary, actualYearAndMonth);
 					SaveToStatistics_InsertIntoStatistics(expenseCategory.Name, newDataRow, actualYearAndMonth);
 
-					MessagePresenter.WriteLine(string.Format(Localized.Saving_0__statistics___OK__FORMAT__, expenseCategory.DisplayName));
+					MessagePresenter.Instance.WriteLine(string.Format(Localized.Saving_0__statistics___OK__FORMAT__, expenseCategory.DisplayName));
 				}
 				catch(Exception e)
 				{

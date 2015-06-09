@@ -26,12 +26,12 @@ namespace BLL.WpfManagers
 
 		protected override void ReadDataMessage()
 		{
-			MessagePresenter.WriteLineSeparator();
+			MessagePresenter.Instance.WriteLineSeparator();
 
 			if(DatePaths.Date.Date == DateTime.Now.Date)
-				MessagePresenter.WriteLine(Localized.Today_s_expenses_loading__);
+				MessagePresenter.Instance.WriteLine(Localized.Today_s_expenses_loading__);
 			else
-				MessagePresenter.WriteLine(string.Format(Localized.__0__loading_daily_expenses__FORMAT__, DatePaths.Date.ToString(Localized.DateFormat_full)));
+				MessagePresenter.Instance.WriteLine(string.Format(Localized.__0__loading_daily_expenses__FORMAT__, DatePaths.Date.ToString(Localized.DateFormat_full)));
 		}
 
 		protected override void ReadDataFromDb()
@@ -54,8 +54,8 @@ namespace BLL.WpfManagers
 			{
 				var transactionItems = TransactionItems.Cast<ExpenseItem>().Select(ei => ei.ToTransactionItem()).ToList();
 				TransactionItemManager.Instance.ReplaceDailyItems(transactionItems, TransactionItemType.Expense, DatePaths.Date);
-				MessagePresenter.Write(DatePaths.Date.ToString(Localized.DateFormat_full));
-				MessagePresenter.WriteLine(Localized._daily_expenses_successfully_saved_into_database);
+				MessagePresenter.Instance.Write(DatePaths.Date.ToString(Localized.DateFormat_full));
+				MessagePresenter.Instance.WriteLine(Localized._daily_expenses_successfully_saved_into_database);
 			}
 			catch(Exception e)
 			{
@@ -74,8 +74,8 @@ namespace BLL.WpfManagers
 			try
 			{
 				SummaryItemManager.Instance.InsertOrUpdateSummary(Summary, DatePaths.Date, TransactionItemType.Expense);
-				MessagePresenter.Write(DatePaths.Date.ToString(Localized.DateFormat_full));
-				MessagePresenter.WriteLine(Localized._daily_expense_statistics_successfully_saved_into_database);
+				MessagePresenter.Instance.Write(DatePaths.Date.ToString(Localized.DateFormat_full));
+				MessagePresenter.Instance.WriteLine(Localized._daily_expense_statistics_successfully_saved_into_database);
 			}
 			catch(Exception e)
 			{

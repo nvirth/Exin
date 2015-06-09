@@ -1,31 +1,41 @@
 ﻿using System;
-using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Threading;
 using Color = System.Drawing.Color;
 using H = Common.Utils.Helpers.Helpers;
+using RichTextBoxWpf = System.Windows.Controls.RichTextBox;
+using RichTextBoxWinForms = System.Windows.Forms.RichTextBox;
 
 namespace Common.Utils
 {
 	public static class MessagePresenterManager
 	{
-		#region Console
-
-		public static void WireToConsole()
+		public static void FetchMessagePresenter(ref MessagePresenter messagePresenter)
 		{
-			MessagePresenter.WriteEvent += Console.Write;
-			MessagePresenter.WriteLineEvent += Console.WriteLine;
-			MessagePresenter.WriteLineSeparatorEvent += WriteLineSeparatorConsoleMethod();
-			MessagePresenter.WriteExceptionEvent += H.WriteWithInnerMessagesRed;
+			messagePresenter = messagePresenter ?? MessagePresenter.Instance;
 		}
 
-		public static void DetachFromConsole()
+		#region Console
+
+		public static void WireToConsole(MessagePresenter messagePresenter = null)
 		{
-			MessagePresenter.WriteEvent -= Console.Write;
-			MessagePresenter.WriteLineEvent -= Console.WriteLine;
-			MessagePresenter.WriteLineSeparatorEvent -= WriteLineSeparatorConsoleMethod();
-			MessagePresenter.WriteExceptionEvent -= H.WriteWithInnerMessagesRed;
+			FetchMessagePresenter(ref messagePresenter);
+
+			messagePresenter.WriteEvent += Console.Write;
+			messagePresenter.WriteLineEvent += Console.WriteLine;
+			messagePresenter.WriteLineSeparatorEvent += WriteLineSeparatorConsoleMethod();
+			messagePresenter.WriteExceptionEvent += H.WriteWithInnerMessagesRed;
+		}
+
+		public static void DetachFromConsole(MessagePresenter messagePresenter = null)
+		{
+			FetchMessagePresenter(ref messagePresenter);
+
+			messagePresenter.WriteEvent -= Console.Write;
+			messagePresenter.WriteLineEvent -= Console.WriteLine;
+			messagePresenter.WriteLineSeparatorEvent -= WriteLineSeparatorConsoleMethod();
+			messagePresenter.WriteExceptionEvent -= H.WriteWithInnerMessagesRed;
 		}
 
 		private static Action WriteLineSeparatorConsoleMethod()
@@ -46,9 +56,11 @@ namespace Common.Utils
 			return res;
 		}
 
-		public static void WireToRichTextBox(RichTextBox richTextBox, Dispatcher Dispatcher)
+		public static void WireToRichTextBox(RichTextBoxWpf richTextBox, Dispatcher Dispatcher, MessagePresenter messagePresenter = null)
 		{
-			MessagePresenter.WriteEvent +=
+			FetchMessagePresenter(ref messagePresenter);
+
+			messagePresenter.WriteEvent +=
 				s => Dispatcher.Invoke(
 					() =>
 					{
@@ -57,7 +69,7 @@ namespace Common.Utils
 						richTextBox.ScrollToEnd();
 					});
 
-			MessagePresenter.WriteLineEvent +=
+			messagePresenter.WriteLineEvent +=
 				s => Dispatcher.Invoke(
 					() =>
 					{
@@ -67,7 +79,7 @@ namespace Common.Utils
 						richTextBox.ScrollToEnd();
 					});
 
-			MessagePresenter.WriteLineSeparatorEvent +=
+			messagePresenter.WriteLineSeparatorEvent +=
 				() => Dispatcher.Invoke(
 					() =>
 					{
@@ -76,14 +88,14 @@ namespace Common.Utils
 						richTextBox.ScrollToEnd();
 					});
 
-			MessagePresenter.WriteExceptionEvent +=
+			messagePresenter.WriteExceptionEvent +=
 				e => Dispatcher.Invoke(() => WriteLogRed_Wpf_RichTextbox(e.Message, richTextBox));
 
-			MessagePresenter.WriteErrorEvent +=
+			messagePresenter.WriteErrorEvent +=
 				s => Dispatcher.Invoke(() => WriteLogRed_Wpf_RichTextbox(s, richTextBox));
 		}
 
-		private static void WriteLogRed_Wpf_RichTextbox(string msg, RichTextBox richTextBox)
+		private static void WriteLogRed_Wpf_RichTextbox(string msg, RichTextBoxWpf richTextBox)
 		{
 			msg = msg.FixWpfRtbNewLines();
 
@@ -103,9 +115,11 @@ namespace Common.Utils
 
 		#region RichTextBox (WinForms)
 
-		public static void WireToWinFormsRichTextBox(System.Windows.Forms.RichTextBox richTextBox)
+		public static void WireToWinFormsRichTextBox(RichTextBoxWinForms richTextBox, MessagePresenter messagePresenter = null)
 		{
-			MessagePresenter.WriteEvent +=
+			FetchMessagePresenter(ref messagePresenter);
+
+			messagePresenter.WriteEvent +=
 				s => richTextBox.Invoke(
 					(Action)(() =>
 					{
@@ -113,7 +127,7 @@ namespace Common.Utils
 						richTextBox.ScrollToCaret();
 					}));
 
-			MessagePresenter.WriteLineEvent +=
+			messagePresenter.WriteLineEvent +=
 				s => richTextBox.Invoke(
 					(Action)(() =>
 					{
@@ -122,7 +136,7 @@ namespace Common.Utils
 						richTextBox.ScrollToCaret();
 					}));
 
-			MessagePresenter.WriteLineSeparatorEvent +=
+			messagePresenter.WriteLineSeparatorEvent +=
 				() => richTextBox.Invoke(
 					(Action)(() =>
 					{
@@ -131,14 +145,14 @@ namespace Common.Utils
 						richTextBox.ScrollToCaret();
 					}));
 
-			MessagePresenter.WriteExceptionEvent +=
+			messagePresenter.WriteExceptionEvent +=
 				e => richTextBox.Invoke((Action)(() => WriteLogRed_WinForms_RichTextbox(e.Message, richTextBox)));
 
-			MessagePresenter.WriteErrorEvent +=
+			messagePresenter.WriteErrorEvent +=
 				s => richTextBox.Invoke((Action)(() => WriteLogRed_WinForms_RichTextbox(s, richTextBox)));
 		}
 
-		private static void WriteLogRed_WinForms_RichTextbox(string msg, System.Windows.Forms.RichTextBox richTextBox)
+		private static void WriteLogRed_WinForms_RichTextbox(string msg, RichTextBoxWinForms richTextBox)
 		{
 			msg = msg ?? "";
 

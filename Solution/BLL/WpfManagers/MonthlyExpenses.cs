@@ -58,8 +58,8 @@ namespace BLL.WpfManagers
 
 		protected override void ReadDataMessage()
 		{
-			MessagePresenter.WriteLineSeparator();
-			MessagePresenter.WriteLine(Localized.Monthly_summary_ + DatePaths.Date.ToString(Localized.DateFormat_year_month));
+			MessagePresenter.Instance.WriteLineSeparator();
+			MessagePresenter.Instance.WriteLine(Localized.Monthly_summary_ + DatePaths.Date.ToString(Localized.DateFormat_year_month));
 		}
 
 		protected override void ReadDataFromDb()

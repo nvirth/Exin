@@ -2,46 +2,72 @@
 
 namespace Common.Utils
 {
-	public static class MessagePresenter
+	public class MessagePresenter
 	{
-		public static event Action WriteLineSeparatorEvent;
-		public static event Action<string> WriteEvent;
-		public static event Action<string> WriteLineEvent;
-		public static event Action<string> WriteErrorEvent;
-		public static event Action<Exception> WriteExceptionEvent;
+		public static readonly MessagePresenter Instance = new MessagePresenter();
 
-		public static void Write(string message)
+		public bool IsMuted { get; set; }
+
+		public event Action WriteLineSeparatorEvent;
+		public event Action<string> WriteEvent;
+		public event Action<string> WriteLineEvent;
+		public event Action<string> WriteErrorEvent;
+		public event Action<Exception> WriteExceptionEvent;
+
+		public void FetchHandlersFrom(MessagePresenter otherInstance)
 		{
+			// Don't worry, these are immutable :)
+			// "You don't need to worry about that. The EventHandler<EventArgs> object is immutable so any change in the list of listeners in either object will cause that object to get a new EventHandler<EventArgs> instance containing the updated invocation list."
+			// http://stackoverflow.com/questions/6296277/c-sharp-clone-eventhandler
+			//
+			otherInstance.WriteLineSeparatorEvent = this.WriteLineSeparatorEvent;
+			otherInstance.WriteEvent = this.WriteEvent;
+			otherInstance.WriteLineEvent = this.WriteLineEvent;
+			otherInstance.WriteErrorEvent = this.WriteErrorEvent;
+			otherInstance.WriteExceptionEvent = this.WriteExceptionEvent;
+		}
+
+		public void Write(string message)
+		{
+			if(IsMuted)
+				return;
+
 			var handler = WriteEvent;
-			if(handler != null)
-				handler(message);
+			handler?.Invoke(message);
 		}
 
-		public static void WriteLine(string message)
+		public void WriteLine(string message)
 		{
+			if(IsMuted)
+				return;
+
 			var handler = WriteLineEvent;
-			if(handler != null)
-				handler(message);
+			handler?.Invoke(message);
 		}
 
-		public static void WriteLineSeparator()
+		public void WriteLineSeparator()
 		{
+			if(IsMuted)
+				return;
+
 			var handler = WriteLineSeparatorEvent;
-			if(handler != null)
-				handler();
+			handler?.Invoke();
 		}
 
-		public static void WriteError(string message)
+		public void WriteError(string message)
 		{
-			var handler = WriteErrorEvent;
-			if(handler != null)
-				handler(message);
-			else
-				WriteLine(message);
+			if(IsMuted)
+				return;
+
+			var handler = WriteErrorEvent ?? WriteLine;
+			handler?.Invoke(message);
 		}
 
-		public static void WriteException(Exception e)
+		public void WriteException(Exception e)
 		{
+			if(IsMuted)
+				return;
+
 			var handler = WriteExceptionEvent;
 			if(handler != null)
 				handler(e);

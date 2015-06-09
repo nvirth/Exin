@@ -30,14 +30,14 @@ namespace Common.Log
 
 		public Exception LogException(string msg, Exception e, object data = null)
 		{
-			MessagePresenter.WriteError(msg);
+			MessagePresenter.Instance.WriteError(msg);
 			if(data != null)
 			{
 				var dataSerialized = data.SerializeToLog();
-				MessagePresenter.WriteError(dataSerialized);
+				MessagePresenter.Instance.WriteError(dataSerialized);
 				e.AddData(dataSerialized);
 			}
-			MessagePresenter.WriteException(e);
+			MessagePresenter.Instance.WriteException(e);
 			Error(msg, e);
 
 			return e;
@@ -45,11 +45,11 @@ namespace Common.Log
 
 		public void LogError(string msg, object data = null)
 		{
-			MessagePresenter.WriteError(msg);
+			MessagePresenter.Instance.WriteError(msg);
 			if(data != null)
 			{
 				var dataSerialized = data.SerializeToLog();
-				MessagePresenter.WriteError(dataSerialized);
+				MessagePresenter.Instance.WriteError(dataSerialized);
 				msg += Environment.NewLine + dataSerialized;
 			}
 			Error(msg);

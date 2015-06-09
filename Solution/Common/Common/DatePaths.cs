@@ -189,9 +189,9 @@ namespace Common
 					stringBuilder.Append(Localized.The_file_choosen_for_use_)
 						.AppendLine(result.Name);
 
-					MessagePresenter.WriteLineSeparator();
-					MessagePresenter.WriteError(stringBuilder.ToString());
-					MessagePresenter.WriteException(e);
+					MessagePresenter.Instance.WriteLineSeparator();
+					MessagePresenter.Instance.WriteError(stringBuilder.ToString());
+					MessagePresenter.Instance.WriteException(e);
 
 					return result;
 				}
@@ -206,11 +206,11 @@ namespace Common
 
 		public void CreateAndFillMonthDir()
 		{
-			MessagePresenter.WriteLine(Localized.Could_not_find_the_monthly_directory_ + MonthDirName);
+			MessagePresenter.Instance.WriteLine(Localized.Could_not_find_the_monthly_directory_ + MonthDirName);
 			MonthDir.Create();
-			MessagePresenter.WriteLine(Localized.The_monthly_directory_created_);
+			MessagePresenter.Instance.WriteLine(Localized.The_monthly_directory_created_);
 
-			MessagePresenter.WriteLine(Localized.Creating_the_monthly_files_);
+			MessagePresenter.Instance.WriteLine(Localized.Creating_the_monthly_files_);
 			for(int i = 1; i <= DaysInMonth; i++)
 			{
 				var fileName = (i < 10 ? "0" : "") + i;
@@ -218,9 +218,9 @@ namespace Common
 
 				var fileInfo = new FileInfo(Path.Combine(MonthDirPath, fileName));
 				fileInfo.Create();
-				MessagePresenter.WriteLine(fileName);
+				MessagePresenter.Instance.WriteLine(fileName);
 			}
-			MessagePresenter.WriteLine(Localized.All_created_successfully);
+			MessagePresenter.Instance.WriteLine(Localized.All_created_successfully);
 		}
 
 		#region Calculate...FileNames

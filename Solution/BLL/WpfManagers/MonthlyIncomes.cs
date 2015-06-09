@@ -21,8 +21,8 @@ namespace BLL.WpfManagers
 		{
 			var isThisMonth = DatePaths.Date.Year == DateTime.Today.Year && DatePaths.Date.Month == DateTime.Today.Month;
 			var msgStart = isThisMonth ? Localized.Instant_ : DatePaths.Date.ToString(Localized.DateFormat_year_month) + Localized._monthly_;
-			MessagePresenter.WriteLineSeparator();
-			MessagePresenter.WriteLine(msgStart + Localized.incomes_loading__);
+			MessagePresenter.Instance.WriteLineSeparator();
+			MessagePresenter.Instance.WriteLine(msgStart + Localized.incomes_loading__);
 		}
 
 		protected override void ReadDataFromDb()
@@ -48,7 +48,7 @@ namespace BLL.WpfManagers
 
 				TransactionItemManager.Instance.ReplaceDailyItems(transactionItems, TransactionItemType.Income, date);
 
-				MessagePresenter.WriteLine(Localized.Monthly_incomes_successfully_saved_into_database);
+				MessagePresenter.Instance.WriteLine(Localized.Monthly_incomes_successfully_saved_into_database);
 			}
 			catch(Exception e)
 			{
@@ -62,7 +62,7 @@ namespace BLL.WpfManagers
 			try
 			{
 				SummaryItemManager.Instance.InsertOrUpdateSummary(Summary, DatePaths.Date, TransactionItemType.Income);
-				MessagePresenter.WriteLine(Localized.Monthly_income_statistics_successfully_saved_into_database);
+				MessagePresenter.Instance.WriteLine(Localized.Monthly_income_statistics_successfully_saved_into_database);
 			}
 			catch(Exception e)
 			{

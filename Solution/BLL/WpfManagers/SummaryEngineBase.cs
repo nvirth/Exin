@@ -159,7 +159,7 @@ namespace BLL.WpfManagers
 		{
 			if(!Validate())
 			{
-				MessagePresenter.WriteLine("");
+				MessagePresenter.Instance.WriteLine("");
 				throw new Exception(Localized.The_saving_of_the_data_was_unsuccessful__there_were_invalid_values_among_them__Fix_them__then_save_again);
 			}
 

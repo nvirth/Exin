@@ -53,14 +53,14 @@ namespace ImportDataToDb
 		{
 
 
-			MessagePresenter.WriteLine(Localized.Importing_data_from_File_Repository_into___0___DataBase.Formatted(LocalConfig.DbType));
-			MessagePresenter.WriteLine("");
+			MessagePresenter.Instance.WriteLine(Localized.Importing_data_from_File_Repository_into___0___DataBase.Formatted(LocalConfig.DbType));
+			MessagePresenter.Instance.WriteLine("");
 
 			DoWork(args);
 
-			MessagePresenter.WriteLine(Localized._end_);
-			MessagePresenter.WriteLine("");
-			MessagePresenter.WriteLine(Localized.Operation_finished_successfully__);
+			MessagePresenter.Instance.WriteLine(Localized._end_);
+			MessagePresenter.Instance.WriteLine("");
+			MessagePresenter.Instance.WriteLine(Localized.Operation_finished_successfully__);
 		}
 
 		private void DoWork(string[] args)
@@ -311,8 +311,8 @@ namespace ImportDataToDb
 					throw new NotImplementedException(string.Format(Localized.ImportData_ClearAllTables_is_not_implemented_to_this_DbType___0_, LocalConfig.DbType));
 			}
 
-			//MessagePresenter.WriteLine(Localized.The_database_tables_are_ready__have_been_emptied);
-			//MessagePresenter.WriteLine("");
+			//MessagePresenter.Instance.WriteLine(Localized.The_database_tables_are_ready__have_been_emptied);
+			//MessagePresenter.Instance.WriteLine("");
 
 			//UnitManager.RefreshCache();
 			//CategoryManager.RefreshCache();

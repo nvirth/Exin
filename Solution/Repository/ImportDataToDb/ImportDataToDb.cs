@@ -25,7 +25,7 @@ namespace ImportDataToDb
 			// TODO eliminate global Config dependency
 			new ImportData(Config.Repo.DbType).ImportDataFromFileRepoToDb(args);
 
-			MessagePresenter.WriteLine(Localized.Press_any_key_to_continue_);
+			MessagePresenter.Instance.WriteLine(Localized.Press_any_key_to_continue_);
 			Console.ReadKey();
 		}
 
