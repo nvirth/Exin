@@ -88,6 +88,15 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} already exists with the specified name. .
+        /// </summary>
+        public static string _0__already_exists_with_the_specified_name__ {
+            get {
+                return ResourceManager.GetString("_0__already_exists_with_the_specified_name__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} is not implemented for context type: {1}, using DbType configuration: {2}.
         /// </summary>
         public static string _0__is_not_implemented_for_context_type___1___using_DbType_configuration___2_ {
@@ -106,15 +115,6 @@ namespace Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  daily expense statistics successfully saved into database. .
-        /// </summary>
-        public static string _daily_expense_statistics_successfully_saved_into_database {
-            get {
-                return ResourceManager.GetString("_daily_expense_statistics_successfully_saved_into_database", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to  daily expenses.
         /// </summary>
         public static string _daily_expenses {
@@ -124,11 +124,11 @@ namespace Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  daily expenses successfully saved into database. .
+        ///   Looks up a localized string similar to  daily expenses successfully saved. .
         /// </summary>
-        public static string _daily_expenses_successfully_saved_into_database {
+        public static string _daily_expenses_successfully_saved_ {
             get {
-                return ResourceManager.GetString("_daily_expenses_successfully_saved_into_database", resourceCulture);
+                return ResourceManager.GetString("_daily_expenses_successfully_saved_", resourceCulture);
             }
         }
         
@@ -138,6 +138,15 @@ namespace Localization {
         public static string _end_ {
             get {
                 return ResourceManager.GetString("_end_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  expense statistics successfully saved. .
+        /// </summary>
+        public static string _expense_statistics_successfully_saved_ {
+            get {
+                return ResourceManager.GetString("_expense_statistics_successfully_saved_", resourceCulture);
             }
         }
         
@@ -368,6 +377,24 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not find the {0} (ID: {1}) in the database.
+        /// </summary>
+        public static string Could_not_find_the__0___ID___1___in_the_database {
+            get {
+                return ResourceManager.GetString("Could_not_find_the__0___ID___1___in_the_database", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not find the {0} (Name: {1}) in the database.
+        /// </summary>
+        public static string Could_not_find_the__0___Name___1___in_the_database {
+            get {
+                return ResourceManager.GetString("Could_not_find_the__0___Name___1___in_the_database", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not find the Category (DisplayName: {0}) in the database.
         /// </summary>
         public static string Could_not_find_the_Category__DisplayName_0__in_the_database__FORMAT__ {
@@ -446,24 +473,6 @@ namespace Localization {
         public static string Could_not_find_the_Unit__DisplayName_0__in_the_database__FORMAT__ {
             get {
                 return ResourceManager.GetString("Could_not_find_the_Unit__DisplayName_0__in_the_database__FORMAT__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Could not find the Unit (ID: {0}) in the database.
-        /// </summary>
-        public static string Could_not_find_the_Unit__ID_0__in_the_database__FORMAT__ {
-            get {
-                return ResourceManager.GetString("Could_not_find_the_Unit__ID_0__in_the_database__FORMAT__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Could not find the Unit (Name: {0}) in the database.
-        /// </summary>
-        public static string Could_not_find_the_Unit__Name_0__in_the_database__FORMAT__ {
-            get {
-                return ResourceManager.GetString("Could_not_find_the_Unit__Name_0__in_the_database__FORMAT__", resourceCulture);
             }
         }
         
@@ -949,6 +958,15 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Income statistics successfully saved. .
+        /// </summary>
+        public static string Income_statistics_successfully_saved_ {
+            get {
+                return ResourceManager.GetString("Income_statistics_successfully_saved_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to incomes.
         /// </summary>
         public static string incomes {
@@ -1054,15 +1072,6 @@ namespace Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Monthly income statistics successfully saved into database. .
-        /// </summary>
-        public static string Monthly_income_statistics_successfully_saved_into_database {
-            get {
-                return ResourceManager.GetString("Monthly_income_statistics_successfully_saved_into_database", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Monthly incomes.
         /// </summary>
         public static string Monthly_incomes {
@@ -1099,11 +1108,11 @@ namespace Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Monthly incomes successfully saved into database. .
+        ///   Looks up a localized string similar to Monthly incomes successfully saved. .
         /// </summary>
-        public static string Monthly_incomes_successfully_saved_into_database {
+        public static string Monthly_incomes_successfully_saved_ {
             get {
-                return ResourceManager.GetString("Monthly_incomes_successfully_saved_into_database", resourceCulture);
+                return ResourceManager.GetString("Monthly_incomes_successfully_saved_", resourceCulture);
             }
         }
         
@@ -1239,6 +1248,16 @@ namespace Localization {
         public static string Reading_error_ {
             get {
                 return ResourceManager.GetString("Reading_error_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reading statistics from File Repository is not implemented. You see this message because the data read mode (ReadMode) is set to value &quot;FromFile&quot;. Set it to &quot;FromDb&quot; if you want to see statistics; otherwise you can only see them in the file system at:
+        ///.
+        /// </summary>
+        public static string Reading_statistics_from_File_Repository_is_not_implemented___ETC_MSG {
+            get {
+                return ResourceManager.GetString("Reading_statistics_from_File_Repository_is_not_implemented___ETC_MSG", resourceCulture);
             }
         }
         
@@ -1643,20 +1662,20 @@ namespace Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The saving of daily expense statistics into database was unsuccessful. .
+        ///   Looks up a localized string similar to The saving of expense statistics was unsuccessful. .
         /// </summary>
-        public static string The_saving_of_daily_expense_statistics_into_database_was_unsuccessful {
+        public static string The_saving_of_expense_statistics_was_unsuccessful_ {
             get {
-                return ResourceManager.GetString("The_saving_of_daily_expense_statistics_into_database_was_unsuccessful", resourceCulture);
+                return ResourceManager.GetString("The_saving_of_expense_statistics_was_unsuccessful_", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The saving of the daily expenses into database was unsuccessful. .
+        ///   Looks up a localized string similar to The saving of the daily expenses was unsuccessful. .
         /// </summary>
-        public static string The_saving_of_the_daily_expenses_into_database_was_unsuccessful {
+        public static string The_saving_of_the_daily_expenses_was_unsuccessful_ {
             get {
-                return ResourceManager.GetString("The_saving_of_the_daily_expenses_into_database_was_unsuccessful", resourceCulture);
+                return ResourceManager.GetString("The_saving_of_the_daily_expenses_was_unsuccessful_", resourceCulture);
             }
         }
         
@@ -1671,20 +1690,20 @@ namespace Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The saving of the monthly income statistics into database was unsuccessful. .
+        ///   Looks up a localized string similar to The saving of the income statistics was unsuccessful. .
         /// </summary>
-        public static string The_saving_of_the_monthly_income_statistics_into_database_was_unsuccessful {
+        public static string The_saving_of_the_income_statistics_was_unsuccessful_ {
             get {
-                return ResourceManager.GetString("The_saving_of_the_monthly_income_statistics_into_database_was_unsuccessful", resourceCulture);
+                return ResourceManager.GetString("The_saving_of_the_income_statistics_was_unsuccessful_", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The saving of the monthly incomes into database was unsuccessful. .
+        ///   Looks up a localized string similar to The saving of the monthly incomes was unsuccessful. .
         /// </summary>
-        public static string The_saving_of_the_monthly_incomes_into_database_was_unsuccessful {
+        public static string The_saving_of_the_monthly_incomes_was_unsuccessful_ {
             get {
-                return ResourceManager.GetString("The_saving_of_the_monthly_incomes_into_database_was_unsuccessful", resourceCulture);
+                return ResourceManager.GetString("The_saving_of_the_monthly_incomes_was_unsuccessful_", resourceCulture);
             }
         }
         
@@ -1847,15 +1866,6 @@ namespace Localization {
         public static string Unit_ {
             get {
                 return ResourceManager.GetString("Unit_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unit already exists with the specified name. .
-        /// </summary>
-        public static string Unit_already_exists_with_the_specified_name {
-            get {
-                return ResourceManager.GetString("Unit_already_exists_with_the_specified_name", resourceCulture);
             }
         }
         

@@ -18,15 +18,15 @@ namespace DAL.DataBase.AdoNet.Managers
 {
 	public static class SummaryItemManagerAdoNetFactory
 	{
-		public static SummaryItemManagerAdoNetBase Create(IRepoConfiguration repoConfiguration)
+		public static SummaryItemManagerAdoNetBase Create(IRepoConfiguration repoConfiguration, ICategoryManager categoryManager)
 		{
 			switch(repoConfiguration.DbType)
 			{
 				case DbType.MsSql:
-					return new SummaryItemManagerAdoNetMsSql(repoConfiguration);
+					return new SummaryItemManagerAdoNetMsSql(repoConfiguration, categoryManager);
 
 				case DbType.SQLite:
-					return new SummaryItemManagerAdoNetSQLite(repoConfiguration);
+					return new SummaryItemManagerAdoNetSQLite(repoConfiguration, categoryManager);
 
 				default:
 					throw new NotImplementedException(string.Format(Localized.SummaryItemManagerAdoNetBase_is_not_implemented_for_this_DbType__FORMAT__, repoConfiguration.DbType));
@@ -35,9 +35,9 @@ namespace DAL.DataBase.AdoNet.Managers
 		}
 	}
 
-	public abstract class SummaryItemManagerAdoNetBase : SummaryItemManagerCommonBase
+	public abstract class SummaryItemManagerAdoNetBase : SummaryItemManagerDbBase
 	{
-		protected SummaryItemManagerAdoNetBase(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
+		protected SummaryItemManagerAdoNetBase(IRepoConfiguration repoConfiguration, ICategoryManager categoryManager) : base(repoConfiguration, categoryManager)
 		{
 		}
 
@@ -59,7 +59,7 @@ namespace DAL.DataBase.AdoNet.Managers
 			}
 		}
 
-		public override List<SummaryItem> GetInterval_Exec(DateTime fromDate, DateTime toDate)
+		protected override List<SummaryItem> GetInterval_Exec(DateTime fromDate, DateTime toDate)
 		{
 			using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
 			{
@@ -108,7 +108,7 @@ namespace DAL.DataBase.AdoNet.Managers
 			summaryItem.ID = Convert.ToInt32(dataRow[summaryItem.Property(y => y.ID)]);
 			summaryItem.Date = dataRow.Field<DateTime>(summaryItem.Property(x => x.Date));
 			summaryItem.CategoryID = Convert.ToInt32(dataRow[summaryItem.Property(y => y.CategoryID)]);
-			summaryItem.Category = CategoryManager.Instance.Get(summaryItem.CategoryID);
+			summaryItem.Category = CategoryManagerLocal.Get(summaryItem.CategoryID);
 			summaryItem.Amount = Convert.ToInt32(dataRow[summaryItem.Property(y => y.Amount)]);
 
 			return summaryItem;
@@ -149,7 +149,7 @@ namespace DAL.DataBase.AdoNet.Managers
 
 	public class SummaryItemManagerAdoNetMsSql : SummaryItemManagerAdoNetBase
 	{
-		public SummaryItemManagerAdoNetMsSql(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
+		public SummaryItemManagerAdoNetMsSql(IRepoConfiguration repoConfiguration, ICategoryManager categoryManager) : base(repoConfiguration, categoryManager)
 		{
 		}
 
@@ -206,7 +206,7 @@ namespace DAL.DataBase.AdoNet.Managers
 				stringBuilder.Append(@"
 					WHEN NOT MATCHED BY SOURCE 
 						AND [target].[Date] = ").AppendDateToQuery(date).Append(@"
-						AND [target].[CategoryID] != ").Append(CategoryManager.GetCategoryFullIncomeSummary.ID)
+						AND [target].[CategoryID] != ").Append(CategoryManagerLocal.GetCategoryFullIncomeSummary.ID)
 					.Append(" THEN DELETE ");
 			}
 			stringBuilder.Append(";");
@@ -217,7 +217,7 @@ namespace DAL.DataBase.AdoNet.Managers
 
 	public class SummaryItemManagerAdoNetSQLite : SummaryItemManagerAdoNetBase
 	{
-		public SummaryItemManagerAdoNetSQLite(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
+		public SummaryItemManagerAdoNetSQLite(IRepoConfiguration repoConfiguration, ICategoryManager categoryManager) : base(repoConfiguration, categoryManager)
 		{
 		}
 
@@ -235,7 +235,7 @@ namespace DAL.DataBase.AdoNet.Managers
 					stringBuilder.Append(" DELETE FROM ").Append(TableName)
 						.Append(" WHERE date = ").AppendDateToQuery(date)
 						.Append(" AND CategoryID ").Append(isExpense ? "!=" : "=")
-						.Append(CategoryManager.GetCategoryFullIncomeSummary.ID) // isExpense != 2; isIncome = 2
+						.Append(CategoryManagerLocal.GetCategoryFullIncomeSummary.ID) // isExpense != 2; isIncome = 2
 						.Append(";");
 
 					// -- Insert new data

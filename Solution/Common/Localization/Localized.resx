@@ -249,17 +249,17 @@ or if you are familiar with SQL queries, you can also use the SQLite database fi
   <data name="loading_expenses__" xml:space="preserve">
     <value>loading expenses...</value>
   </data>
-  <data name="_daily_expenses_successfully_saved_into_database" xml:space="preserve">
-    <value> daily expenses successfully saved into database. </value>
+  <data name="_daily_expenses_successfully_saved_" xml:space="preserve">
+    <value> daily expenses successfully saved. </value>
   </data>
-  <data name="The_saving_of_the_daily_expenses_into_database_was_unsuccessful" xml:space="preserve">
-    <value>The saving of the daily expenses into database was unsuccessful. </value>
+  <data name="The_saving_of_the_daily_expenses_was_unsuccessful_" xml:space="preserve">
+    <value>The saving of the daily expenses was unsuccessful. </value>
   </data>
-  <data name="_daily_expense_statistics_successfully_saved_into_database" xml:space="preserve">
-    <value> daily expense statistics successfully saved into database. </value>
+  <data name="_expense_statistics_successfully_saved_" xml:space="preserve">
+    <value> expense statistics successfully saved. </value>
   </data>
-  <data name="The_saving_of_daily_expense_statistics_into_database_was_unsuccessful" xml:space="preserve">
-    <value>The saving of daily expense statistics into database was unsuccessful. </value>
+  <data name="The_saving_of_expense_statistics_was_unsuccessful_" xml:space="preserve">
+    <value>The saving of expense statistics was unsuccessful. </value>
   </data>
   <data name="Monthly_summary_" xml:space="preserve">
     <value>Monthly summary: </value>
@@ -276,17 +276,17 @@ or if you are familiar with SQL queries, you can also use the SQLite database fi
   <data name="incomes_loading__" xml:space="preserve">
     <value>incomes loading...</value>
   </data>
-  <data name="Monthly_incomes_successfully_saved_into_database" xml:space="preserve">
-    <value>Monthly incomes successfully saved into database. </value>
+  <data name="Monthly_incomes_successfully_saved_" xml:space="preserve">
+    <value>Monthly incomes successfully saved. </value>
   </data>
-  <data name="The_saving_of_the_monthly_incomes_into_database_was_unsuccessful" xml:space="preserve">
-    <value>The saving of the monthly incomes into database was unsuccessful. </value>
+  <data name="The_saving_of_the_monthly_incomes_was_unsuccessful_" xml:space="preserve">
+    <value>The saving of the monthly incomes was unsuccessful. </value>
   </data>
-  <data name="Monthly_income_statistics_successfully_saved_into_database" xml:space="preserve">
-    <value>Monthly income statistics successfully saved into database. </value>
+  <data name="Income_statistics_successfully_saved_" xml:space="preserve">
+    <value>Income statistics successfully saved. </value>
   </data>
-  <data name="The_saving_of_the_monthly_income_statistics_into_database_was_unsuccessful" xml:space="preserve">
-    <value>The saving of the monthly income statistics into database was unsuccessful. </value>
+  <data name="The_saving_of_the_income_statistics_was_unsuccessful_" xml:space="preserve">
+    <value>The saving of the income statistics was unsuccessful. </value>
   </data>
   <data name="The_reading_of_data_is_not_implemented_for_this_" xml:space="preserve">
     <value>The reading of data is not implemented for this: </value>
@@ -451,17 +451,8 @@ or if you are familiar with SQL queries, you can also use the SQLite database fi
   <data name="UnitManagerCommonBase_RefreshCache_is_not_implemented_for_ReadMode__" xml:space="preserve">
     <value>UnitManagerCommonBase.RefreshCache is not implemented for ReadMode: </value>
   </data>
-  <data name="Could_not_find_the_Unit__ID_0__in_the_database__FORMAT__" xml:space="preserve">
-    <value>Could not find the Unit (ID: {0}) in the database</value>
-  </data>
-  <data name="Could_not_find_the_Unit__Name_0__in_the_database__FORMAT__" xml:space="preserve">
-    <value>Could not find the Unit (Name: {0}) in the database</value>
-  </data>
   <data name="Could_not_find_the_Unit__DisplayName_0__in_the_database__FORMAT__" xml:space="preserve">
     <value>Could not find the Unit (DisplayName: {0}) in the database</value>
-  </data>
-  <data name="Unit_already_exists_with_the_specified_name" xml:space="preserve">
-    <value>Unit already exists with the specified name. </value>
   </data>
   <data name="Empty_" xml:space="preserve">
     <value>Empty</value>
@@ -757,5 +748,18 @@ or if you are familiar with SQL queries, you can also use the SQLite database fi
   </data>
   <data name="This__0__entity_does_not_contain_any_DisplayName_value___" xml:space="preserve">
     <value>This {0} entity does not contain any DisplayName value. It's Name value will be used instead. </value>
+  </data>
+  <data name="Could_not_find_the__0___ID___1___in_the_database" xml:space="preserve">
+    <value>Could not find the {0} (ID: {1}) in the database</value>
+  </data>
+  <data name="Could_not_find_the__0___Name___1___in_the_database" xml:space="preserve">
+    <value>Could not find the {0} (Name: {1}) in the database</value>
+  </data>
+  <data name="_0__already_exists_with_the_specified_name__" xml:space="preserve">
+    <value>{0} already exists with the specified name. </value>
+  </data>
+  <data name="Reading_statistics_from_File_Repository_is_not_implemented___ETC_MSG" xml:space="preserve">
+    <value>Reading statistics from File Repository is not implemented. You see this message because the data read mode (ReadMode) is set to value "FromFile". Set it to "FromDb" if you want to see statistics; otherwise you can only see them in the file system at:
+</value>
   </data>
 </root>

@@ -7,7 +7,7 @@ using C = Common.Configuration.Constants.AppSettingsKeys;
 
 namespace Common.Configuration
 {
-	public interface IRepoConfiguration
+	public interface IRepoConfiguration : IEquatable<IRepoConfiguration>
 	{
 		DbType DbType { get; }
 		DbAccessMode DbAccessMode { get; }
@@ -21,6 +21,56 @@ namespace Common.Configuration
 		public DbAccessMode DbAccessMode { get; set; } = 0;
 		public ReadMode ReadMode { get; set; } = 0;
 		public SaveMode SaveMode { get; set; } = 0;
+
+		#region Equality members
+
+		public bool Equals(IRepoConfiguration other)
+		{
+			if (ReferenceEquals(null, other))
+				return false;
+			if (ReferenceEquals(this, other))
+				return true;
+			return
+				DbType == other.DbType &&
+				DbAccessMode == other.DbAccessMode &&
+				ReadMode == other.ReadMode &&
+				SaveMode == other.SaveMode;
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(null, obj))
+				return false;
+			if (ReferenceEquals(this, obj))
+				return true;
+			if (obj.GetType() != this.GetType())
+				return false;
+			return Equals((RepoConfiguration) obj);
+		}
+
+		public override int GetHashCode()
+		{
+			unchecked
+			{
+				var hashCode = (int) DbType;
+				hashCode = (hashCode*397) ^ (int) DbAccessMode;
+				hashCode = (hashCode*397) ^ (int) ReadMode;
+				hashCode = (hashCode*397) ^ (int) SaveMode;
+				return hashCode;
+			}
+		}
+
+		public static bool operator ==(RepoConfiguration left, RepoConfiguration right)
+		{
+			return Equals(left, right);
+		}
+
+		public static bool operator !=(RepoConfiguration left, RepoConfiguration right)
+		{
+			return !Equals(left, right);
+		}
+
+		#endregion
 	}
 
 	public static class Config

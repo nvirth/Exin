@@ -11,7 +11,6 @@ using Common.UiModels.WPF;
 using Common.Utils;
 using Common.Utils.Helpers;
 using DAL;
-using DAL.DataBase;
 using DAL.DataBase.AdoNet;
 using DAL.DataBase.AdoNet.Managers;
 using DAL.DataBase.Managers;
@@ -34,17 +33,50 @@ namespace ImportDataToDb
 
 		public readonly IRepoConfiguration LocalConfig;
 
+		public readonly UnitManagerAdoNetBase UnitManagerDb;
+		public readonly UnitManagerFileRepo UnitManagerFr;
+
+		public readonly CategoryManagerAdoNetBase CategoryManagerDb;
+		public readonly CategoryManagerFileRepo CategoryManagerFr;
+
+		public readonly SummaryItemManagerAdoNetBase SummaryItemManagerDb;
+		public readonly TransactionItemManagerFileRepo TransactionItemManagerFr;
+
+		/// <summary>
+		/// NOTE: DO NOT USE IT FOR write PURPOSES! At least until the class uses everything
+		/// directly, and SaveMode.OnlyToDb is not implemented!
+		/// Other way, it will save also into file system, which is not intended when
+		/// we intend to import the data from there into the database...
+		/// </summary>
+		public readonly CategoryManager CategoryManagerLocal;
+		
 		#endregion
 
 		public ImportData(DbType dbType)
 		{
 			LocalConfig = new RepoConfiguration()
 			{
-				DbAccessMode = DbAccessMode.AdoNet,
+				// TODO check if it is actual yet
+				// FromDb, because caches have to be empty. The reading from FileRepo will be done manually
 				ReadMode = ReadMode.FromDb,
-				SaveMode = SaveMode.FileAndDb,
+
+				SaveMode = SaveMode.FileAndDb, // TODO only to db (it's ignored yet though because the direct use of the managers)
+
+				// AdoNet, because the db access here is written directly with the AdoNet classes!
+				DbAccessMode = DbAccessMode.AdoNet,
+
 				DbType = dbType,
 			};
+
+			UnitManagerDb = UnitManagerAdoNetFactory.Create(LocalConfig);
+			CategoryManagerDb = CategoryManagerAdoNetFactory.Create(LocalConfig);
+
+			CategoryManagerLocal = new CategoryManager(LocalConfig);
+			SummaryItemManagerDb = SummaryItemManagerAdoNetFactory.Create(LocalConfig, CategoryManagerLocal); //TODO null new CategoryManager(LocalConfig);
+			TransactionItemManagerFr = new TransactionItemManagerFileRepo();
+
+			UnitManagerFr = new UnitManagerFileRepo();
+			CategoryManagerFr = new CategoryManagerFileRepo();
 		}
 
 		#region Main
@@ -84,8 +116,7 @@ namespace ImportDataToDb
 
 		private void ImportUnits()
 		{
-			var units = FileRepoManager.Instance.GetUnits();
-			var unitManager = UnitManagerAdoNetFactory.Create(LocalConfig);
+			var units = UnitManagerFr.GetAll();
 
 			using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
 			using(new IdentityInsert(ctx, UnitManagerAdoNetBase.TableName))
@@ -93,15 +124,14 @@ namespace ImportDataToDb
 				foreach(var u in units)
 				{
 					Units.Add(u);
-					unitManager.Add(u, ctx);
+					UnitManagerDb.Add(u, ctx);
 				}
 			}
 		}
 
 		private void ImportCategories()
 		{
-			var categories = FileRepoManager.Instance.GetCategories();
-			var categoryManager = CategoryManagerAdoNetFactory.Create(LocalConfig);
+			var categories = CategoryManagerFr.GetAll();
 
 			using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
 			using(new IdentityInsert(ctx, CategoryManagerAdoNetBase.TableName))
@@ -109,7 +139,7 @@ namespace ImportDataToDb
 				foreach(var c in categories)
 				{
 					Categories.Add(c);
-					categoryManager.Add(c, ctx);
+					CategoryManagerDb.Add(c, ctx);
 				}
 			}
 		}
@@ -163,7 +193,7 @@ namespace ImportDataToDb
 					int actualDay = int.Parse(dayFile.Name.Substring(0, 2));
 					actualDate = new DateTime(actualYear, actualMonth, actualDay);
 
-					ExpenseItems.AddRange(FileRepoManager.Instance.ParseDailyExpenseFile(actualDate, dayFile.FullName));
+					ExpenseItems.AddRange(TransactionItemManagerFr.ParseDailyExpenseFile(actualDate, dayFile.FullName));
 				}
 
 				// -- Parse the MonthlyIncome file
@@ -174,7 +204,7 @@ namespace ImportDataToDb
 					.FirstOrDefault(fi => fi.Name.StartsWith(monthlyIncomesFileName));
 
 				if(monthlyIncomesFile != null && monthlyIncomesFile.Length > 0)
-					IncomeItems.AddRange(FileRepoManager.Instance.ParseMonthlyIncomeFile(actualDate, monthlyIncomesFile.FullName));
+					IncomeItems.AddRange(TransactionItemManagerFr.ParseMonthlyIncomeFile(actualDate, monthlyIncomesFile.FullName));
 			}
 
 			// -- To DataBase
@@ -222,7 +252,7 @@ namespace ImportDataToDb
 				foreach(var transactionItem in ExpenseItems.Select(ei => ei.ToTransactionItem()))
 					ImportExpensesAndIncomes_ToDb_Insert(ctx.Command, transactionItem);
 
-				foreach(var transactionItem in IncomeItems.Select(ii => ii.ToTransactionItem()))
+				foreach(var transactionItem in IncomeItems.Select(ii => ii.ToTransactionItem(CategoryManagerLocal)))
 					ImportExpensesAndIncomes_ToDb_Insert(ctx.Command, transactionItem);
 
 				ctx.Command.Transaction.Commit();
@@ -262,7 +292,7 @@ namespace ImportDataToDb
 					summary.Update(expenseItem);
 
 				var transactionItemType = summary.SumIn == 0 ? TransactionItemType.Expense : TransactionItemType.Income;
-				SummaryItemManager.Instance.InsertOrUpdateSummary(summary, grouping.Key, transactionItemType);
+				SummaryItemManagerDb.ReplaceSummary(summary, grouping.Key, transactionItemType);
 			}
 		}
 
@@ -323,5 +353,15 @@ namespace ImportDataToDb
 		}
 
 		#endregion
+
+		private static void WithoutLogging(Action action)
+		{
+			var wasMuted = MessagePresenter.Instance.IsMuted;
+			MessagePresenter.Instance.IsMuted = true;
+
+			action();
+
+			MessagePresenter.Instance.IsMuted = wasMuted;
+		}
 	}
 }

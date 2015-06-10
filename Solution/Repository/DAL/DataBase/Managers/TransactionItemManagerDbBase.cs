@@ -1,35 +1,23 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Common;
 using Common.Configuration;
 using Common.Db.Entities;
-using DAL.DataBase.Managers.Factory;
+using Common.UiModels.WPF;
 
 namespace DAL.DataBase.Managers
 {
-	public interface ITransactionItemManager
+	public abstract class TransactionItemManagerDbBase : RepoConfigurableBase, ITransactionItemManagerDb
 	{
-		List<TransactionItem> GetDaily(DateTime date, TransactionItemType transactionItemType);
-		List<TransactionItem> GetMontly(DateTime date, TransactionItemType transactionItemType);
-		List<TransactionItem> GetYearly(DateTime date, TransactionItemType transactionItemType);
-		List<TransactionItem> GetInterval(DateTime fromDate, DateTime toDate, TransactionItemType transactionItemType);
-		List<TransactionItem> GetAll(TransactionItemType? transactionItemType);
+		protected readonly ICategoryManager CategoryManagerLocal;
+		protected readonly IUnitManager UnitManagerLocal;
 
-		void Insert(TransactionItem transactionItem, bool withId = false);
-		void InsertMany(IList<TransactionItem> transactionItems, bool withId = false, bool forceOneByOne = false);
-
-		int UpdateFullRecord(TransactionItem transactionItem);
-
-		int Delete(int id);
-		int ClearDay(DateTime date, TransactionItemType transactionItemType);
-
-		void ReplaceDailyItems(IList<TransactionItem> transactionItems, TransactionItemType transactionItemType, DateTime date);
-	}
-
-	public abstract class TransactionItemManagerCommonBase : DbConfigurableBase, ITransactionItemManager
-	{
-		protected TransactionItemManagerCommonBase(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
+		protected TransactionItemManagerDbBase(IRepoConfiguration repoConfiguration,
+			ICategoryManager categoryManager, IUnitManager unitManager) : base(repoConfiguration)
 		{
+			CategoryManagerLocal = categoryManager;
+			UnitManagerLocal = unitManager;
 		}
 
 		#region READ
@@ -79,10 +67,42 @@ namespace DAL.DataBase.Managers
 
 		#endregion
 
-	}
-	
-	public static class TransactionItemManager
-	{
-		public static readonly ITransactionItemManager Instance = new ManagerFactory().TransactionItemManager;
+		#region ITransactionItemManagerDao implementation (wrappers)
+
+		public List<ExpenseItem> GetDailyExpenses(DateTime date)
+		{
+			return GetDaily(date, TransactionItemType.Expense)
+				.Select(ti => ti.ToExpenseItem()).ToList();
+		}
+
+		public List<IncomeItem> GetMonthlyIncomes(DateTime date)
+		{
+			//return GetDaily(date, TransactionItemType.Income);
+			return GetMontly(date, TransactionItemType.Income)
+				.Select(ti => ti.ToIncomeItem()).ToList();
+		}
+
+		public List<ExpenseItem> GetMonthlyExpenses(DateTime date)
+		{
+			return GetMontly(date, TransactionItemType.Expense)
+				.Select(ti => ti.ToExpenseItem()).ToList();
+		}
+
+		public void ReplaceDailyExpenses(IList<ExpenseItem> expenseItems, DateTime date)
+		{
+			var transactionItems = expenseItems.Select(ei => ei.ToTransactionItem()).ToList();
+            ReplaceDailyItems(transactionItems, TransactionItemType.Expense, date);
+		}
+
+		public void ReplaceMonthlyIncomes(IList<IncomeItem> incomeItems, DateTime date)
+		{
+			date = new DateTime(date.Year, date.Month, 1);
+			var transactionItems = incomeItems.Select(ii => ((IncomeItem)ii.WithMonthDate()).ToTransactionItem(CategoryManagerLocal)).ToList();
+
+			// Monthly incomes in DB are stored at the 1. day of the month
+			ReplaceDailyItems(transactionItems, TransactionItemType.Income, date);
+		}
+
+		#endregion
 	}
 }

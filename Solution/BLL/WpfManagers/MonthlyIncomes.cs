@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Common;
 using Common.Log;
 using Common.UiModels.WPF;
 using Common.Utils;
-using DAL;
 using DAL.DataBase.Managers;
-using DAL.FileRepo;
 using Localization;
 
 namespace BLL.WpfManagers
@@ -25,57 +24,46 @@ namespace BLL.WpfManagers
 			MessagePresenter.Instance.WriteLine(msgStart + Localized.incomes_loading__);
 		}
 
-		protected override void ReadDataFromDb()
+		protected override void ReadData()
 		{
-			var transactionItems = TransactionItemManager.Instance.GetDaily(DatePaths.Date, TransactionItemType.Income);
-			foreach(var transactionItem in transactionItems)
-			{
-				Add(transactionItem.ToIncomeItem());
-			}
+			TransactionItemManager.Instance.GetMonthlyIncomes(DatePaths.Date).ForEach(Add);
 		}
 
-		protected override void ReadDataFromFile()
+		protected override void WriteData()
 		{
-			FileRepoManager.Instance.GetMonthlyIncomes(DatePaths).ForEach(Add);
+			ReplaceMonthlyIncomes();
+			Task.Run((Action)ReplaceSummary);
 		}
 
-		protected override void SaveToDb()
+		private void ReplaceMonthlyIncomes()
 		{
 			try
 			{
-				var transactionItems = TransactionItems.Cast<IncomeItem>().Select(ii => ((IncomeItem)ii.WithMonthDate()).ToTransactionItem()).ToList();
-				var date = new DateTime(DatePaths.Date.Year, DatePaths.Date.Month, 1);
+				var incomeItems = TransactionItems.Cast<IncomeItem>().ToList();
+				TransactionItemManager.Instance.ReplaceMonthlyIncomes(incomeItems, DatePaths.Date);
 
-				TransactionItemManager.Instance.ReplaceDailyItems(transactionItems, TransactionItemType.Income, date);
-
-				MessagePresenter.Instance.WriteLine(Localized.Monthly_incomes_successfully_saved_into_database);
+				MessagePresenter.Instance.WriteLine(Localized.Monthly_incomes_successfully_saved_);
 			}
 			catch(Exception e)
 			{
-				ExinLog.ger.LogException(Localized.The_saving_of_the_monthly_incomes_into_database_was_unsuccessful, e);
+				ExinLog.ger.LogException(Localized.The_saving_of_the_monthly_incomes_was_unsuccessful_, e);
 				throw;
 			}
 		}
 
-		protected override void SaveSummariesToDb()
+		private void ReplaceSummary()
 		{
 			try
 			{
-				SummaryItemManager.Instance.InsertOrUpdateSummary(Summary, DatePaths.Date, TransactionItemType.Income);
-				MessagePresenter.Instance.WriteLine(Localized.Monthly_income_statistics_successfully_saved_into_database);
+				SummaryItemManager.Instance.ReplaceSummary(Summary, DatePaths.Date, TransactionItemType.Income);
+
+				MessagePresenter.Instance.WriteLine(Localized.Income_statistics_successfully_saved_);
 			}
 			catch(Exception e)
 			{
-				ExinLog.ger.LogException(Localized.The_saving_of_the_monthly_income_statistics_into_database_was_unsuccessful, e);
-				throw;
+				throw ExinLog.ger.LogException(Localized.The_saving_of_the_income_statistics_was_unsuccessful_, e);
 			}
 		}
-
-		protected override void SaveToFile()
-		{
-			FileRepoManager.Instance.WriteOutMonthlyIncomes(TransactionItems, DatePaths, Summary);
-		}
-
 
 		public override void Add(TransactionItemBase item)
 		{

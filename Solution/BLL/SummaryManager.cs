@@ -45,9 +45,9 @@ namespace BLL
 
 			foreach (var summaryItem in summaryItems)
 			{
-				if (summaryItem.Category == CategoryManager.GetCategoryFullIncomeSummary)
+				if (summaryItem.Category == CategoryManager.Instance.GetCategoryFullIncomeSummary)
 					summary.SumIn += summaryItem.Amount;
-				else if (summaryItem.Category == CategoryManager.GetCategoryFullExpenseSummary)
+				else if (summaryItem.Category == CategoryManager.Instance.GetCategoryFullExpenseSummary)
 					summary.SumOut += summaryItem.Amount;
 				else
 					summary.UpdateDictionary(summaryItem.Amount, summaryItem.Category);

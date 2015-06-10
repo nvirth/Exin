@@ -8,7 +8,7 @@ using C = Common.Configuration.Constants.Db;
 
 namespace DAL
 {
-	public class ExinConnectionString : DbConfigurableBase
+	public class ExinConnectionString : RepoConfigurableBase
 	{
 		private ExinConnectionStringManagerBase _core;
 		
@@ -41,7 +41,7 @@ namespace DAL
 	    #endregion
 	}
 
-	public abstract class ExinConnectionStringManagerBase : DbConfigurableBase
+	public abstract class ExinConnectionStringManagerBase : RepoConfigurableBase
 	{
 		protected abstract string _adoNetConnStrName { get; }
 		protected abstract string _efConnStrName { get; }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using Common;
 using Common.Configuration;
 using Common.Log;
@@ -31,28 +32,29 @@ namespace DAL.DataBase.EntityFramework.Managers
 		}
 	}
 
-	public abstract class UnitManagerEfBase : UnitManagerCommonBase
+	public abstract class UnitManagerEfBase : UnitManagerDbBase
 	{
 		protected UnitManagerEfBase(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 		}
 
-		#region Cache
+		#region READ (GetAll)
 
-		protected override void RefreshCache_FromDb()
+		// TODO FIXME IEnumerable
+		public override List<UnitCommon> GetAll()
 		{
 			using(var ctx = ExinEfContextFactory.Create(LocalConfig))
 			{
-				var units = RefreshCache_GetFromDb(ctx);
-				RefreshCache_Refresh(units);
+				var units = GetAll(ctx);
+				return units.ToList();
 			}
 		}
 
-		protected abstract IEnumerable<UnitCommon> RefreshCache_GetFromDb(DbContext dbContext);
+		protected abstract IEnumerable<UnitCommon> GetAll(DbContext dbContext);
 
 		#endregion
 
-		#region CREATE
+		#region CREATE (Add)
 
 		public override void Add(UnitCommon unit)
 		{
@@ -64,14 +66,10 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		public void Add(UnitCommon unit, DbContext ctx)
 		{
-			CheckExistsInCache(unit);
-
 			try
 			{
 				AddUnit(unit, ctx);
 				ctx.SaveChanges();
-
-				AddToCache(unit);
 			}
 			catch(Exception e)
 			{
@@ -91,7 +89,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 		{
 		}
 
-		protected override IEnumerable<UnitCommon> RefreshCache_GetFromDb(DbContext dbContext)
+		protected override IEnumerable<UnitCommon> GetAll(DbContext dbContext)
 		{
 			var ctx = Utils.InitContextForSqlite(dbContext, LocalConfig);
 			var units = Utils.ExecRead<Unit_Sqlite, UnitCommon>(ctx.Unit);
@@ -111,7 +109,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 		{
 		}
 
-		protected override IEnumerable<UnitCommon> RefreshCache_GetFromDb(DbContext dbContext)
+		protected override IEnumerable<UnitCommon> GetAll(DbContext dbContext)
 		{
 			var ctx = Utils.InitContextForMsSql(dbContext, LocalConfig);
 			var units = Utils.ExecRead<Unit_MsSql, UnitCommon>(ctx.Unit);

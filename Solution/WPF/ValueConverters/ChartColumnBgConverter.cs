@@ -20,10 +20,10 @@ namespace WPF.ValueConverters
 			var keyValuePair = (KeyValuePair<Category, int>) value;
 			var category = keyValuePair.Key;
 
-			if(category == CategoryManager.GetCategoryFullIncomeSummary)
+			if(category == CategoryManager.Instance.GetCategoryFullIncomeSummary)
 				return Brushes.LawnGreen;
 
-			if(category == CategoryManager.GetCategoryFullExpenseSummary)
+			if(category == CategoryManager.Instance.GetCategoryFullExpenseSummary)
 				return Brushes.Red;
 
 			return Brushes.OrangeRed;

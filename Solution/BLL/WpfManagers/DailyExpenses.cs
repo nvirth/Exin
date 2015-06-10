@@ -5,9 +5,7 @@ using Common;
 using Common.Log;
 using Common.UiModels.WPF;
 using Common.Utils;
-using DAL;
 using DAL.DataBase.Managers;
-using DAL.FileRepo;
 using Localization;
 
 namespace BLL.WpfManagers
@@ -16,9 +14,12 @@ namespace BLL.WpfManagers
 	{
 		#region Ctors
 
-		public DailyExpenses(bool doWork = true) : this(DateTime.Now, doWork) { }
-		public DailyExpenses(DateTime dateTime, bool doWork = true) : this(new DatePaths(dateTime), doWork) { }
-		public DailyExpenses(DatePaths datePaths, bool doWork = true) : base(datePaths, doWork) { }
+		public DailyExpenses(bool doWork = true) : this(DateTime.Now, doWork)
+		{ }
+		public DailyExpenses(DateTime dateTime, bool doWork = true) : this(new DatePaths(dateTime), doWork)
+		{ }
+		public DailyExpenses(DatePaths datePaths, bool doWork = true) : base(datePaths, doWork)
+		{ }
 
 		#endregion
 
@@ -28,65 +29,52 @@ namespace BLL.WpfManagers
 		{
 			MessagePresenter.Instance.WriteLineSeparator();
 
-			if(DatePaths.Date.Date == DateTime.Now.Date)
+			if(DatePaths.Date.Date == DateTime.Today) // TODO test Today.Date
 				MessagePresenter.Instance.WriteLine(Localized.Today_s_expenses_loading__);
 			else
 				MessagePresenter.Instance.WriteLine(string.Format(Localized.__0__loading_daily_expenses__FORMAT__, DatePaths.Date.ToString(Localized.DateFormat_full)));
 		}
 
-		protected override void ReadDataFromDb()
+		protected override void ReadData()
 		{
-			var transactionItems = TransactionItemManager.Instance.GetDaily(DatePaths.Date, TransactionItemType.Expense);
-			foreach(var transactionItem in transactionItems)
-			{
-				Add(transactionItem.ToExpenseItem());
-			}
+			TransactionItemManager.Instance.GetDailyExpenses(DatePaths.Date).ForEach(Add);
 		}
 
-		protected override void ReadDataFromFile()
+		protected override void WriteData()
 		{
-			FileRepoManager.Instance.GetDailyExpenses(DatePaths).ForEach(Add);
+			ReplaceDailyExpenses();
+			Task.Run((Action)ReplaceSummary);
 		}
 
-		protected override void SaveToDb()
+		private void ReplaceDailyExpenses()
 		{
 			try
 			{
-				var transactionItems = TransactionItems.Cast<ExpenseItem>().Select(ei => ei.ToTransactionItem()).ToList();
-				TransactionItemManager.Instance.ReplaceDailyItems(transactionItems, TransactionItemType.Expense, DatePaths.Date);
+				var expenseItems = TransactionItems.Cast<ExpenseItem>().ToList();
+				TransactionItemManager.Instance.ReplaceDailyExpenses(expenseItems, DatePaths.Date);
+
 				MessagePresenter.Instance.Write(DatePaths.Date.ToString(Localized.DateFormat_full));
-				MessagePresenter.Instance.WriteLine(Localized._daily_expenses_successfully_saved_into_database);
+				MessagePresenter.Instance.WriteLine(Localized._daily_expenses_successfully_saved_);
 			}
-			catch(Exception e)
+			catch (Exception e)
 			{
-				ExinLog.ger.LogException(Localized.The_saving_of_the_daily_expenses_into_database_was_unsuccessful, e);
-				throw;
+				throw ExinLog.ger.LogException(Localized.The_saving_of_the_daily_expenses_was_unsuccessful_, e);
 			}
 		}
 
-		protected override void SaveSummariesToDb()
-		{
-			new TaskFactory().StartNew(SaveSummariesToDb_Work);
-		}
-
-		private void SaveSummariesToDb_Work()
+		private void ReplaceSummary()
 		{
 			try
 			{
-				SummaryItemManager.Instance.InsertOrUpdateSummary(Summary, DatePaths.Date, TransactionItemType.Expense);
+				SummaryItemManager.Instance.ReplaceSummary(Summary, DatePaths.Date, TransactionItemType.Expense);
+
 				MessagePresenter.Instance.Write(DatePaths.Date.ToString(Localized.DateFormat_full));
-				MessagePresenter.Instance.WriteLine(Localized._daily_expense_statistics_successfully_saved_into_database);
+				MessagePresenter.Instance.WriteLine(Localized._expense_statistics_successfully_saved_);
 			}
 			catch(Exception e)
 			{
-				ExinLog.ger.LogException(Localized.The_saving_of_daily_expense_statistics_into_database_was_unsuccessful, e);
-				throw;
+				throw ExinLog.ger.LogException(Localized.The_saving_of_expense_statistics_was_unsuccessful_, e);
 			}
-		}
-
-		protected override void SaveToFile()
-		{
-			FileRepoManager.Instance.WriteOutDailyExpenses(TransactionItems, DatePaths, Summary);
 		}
 
 		public ExpenseItem GetTheEqual(ExpenseItem expenseItem)

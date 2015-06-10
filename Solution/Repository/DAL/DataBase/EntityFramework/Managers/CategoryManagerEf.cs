@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using Common;
 using Common.Configuration;
 using Common.Log;
@@ -30,28 +31,29 @@ namespace DAL.DataBase.EntityFramework.Managers
 		}
 	}
 
-	public abstract	class CategoryManagerEfBase : CategoryManagerCommonBase
+	public abstract	class CategoryManagerEfBase : CategoryManagerDbBase
 	{
 		protected CategoryManagerEfBase(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 		}
-		
-		#region Cache
 
-		protected override void RefreshCache_FromDb()
+		#region READ (GetAll)
+
+		// TODO FIXME IEnumerable
+		public override List<CategoryCommon> GetAll()
 		{
 			using(var ctx = ExinEfContextFactory.Create(LocalConfig))
 			{
-				var categories = RefreshCache_GetFromDb(ctx);
-				RefreshCache_Refresh(categories);
+				var categories = GetAll(ctx);
+				return categories.ToList();
 			}
 		}
 
-		protected abstract IEnumerable<CategoryCommon> RefreshCache_GetFromDb(DbContext dbContext);
+		protected abstract IEnumerable<CategoryCommon> GetAll(DbContext dbContext);
 
 		#endregion
 
-		#region CREATE
+		#region CREATE (Add)
 
 		public override void Add(CategoryCommon category)
 		{
@@ -63,14 +65,10 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		public void Add(CategoryCommon category, DbContext ctx)
 		{
-			CheckExistsInCache(category);
-
 			try
 			{
 				AddCategory(category, ctx);
 				ctx.SaveChanges();
-
-				AddToCache(category);
 			}
 			catch(Exception e)
 			{
@@ -90,7 +88,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 		{
 		}
 
-		protected override IEnumerable<CategoryCommon> RefreshCache_GetFromDb(DbContext dbContext)
+		protected override IEnumerable<CategoryCommon> GetAll(DbContext dbContext)
 		{
 			var ctx = Utils.InitContextForSqlite(dbContext, LocalConfig);
 			var categories = Utils.ExecRead<Category_Sqlite, CategoryCommon>(ctx.Category);
@@ -110,7 +108,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 		{
 		}
 
-		protected override IEnumerable<CategoryCommon> RefreshCache_GetFromDb(DbContext dbContext)
+		protected override IEnumerable<CategoryCommon> GetAll(DbContext dbContext)
 		{
 			var ctx = Utils.InitContextForMsSql(dbContext, LocalConfig);
 			var categories  = Utils.ExecRead<Category_MsSql, CategoryCommon>(ctx.Category);

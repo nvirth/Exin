@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using Common;
+using System.Linq;
 using Common.Configuration;
 using Common.Db.Entities;
 using Common.Log;
@@ -30,7 +30,7 @@ namespace DAL.DataBase.AdoNet.Managers
 		}
 	}
 
-	public abstract class CategoryManagerAdoNetBase : CategoryManagerCommonBase
+	public abstract class CategoryManagerAdoNetBase : CategoryManagerDbBase
 	{
 		protected CategoryManagerAdoNetBase(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
@@ -38,14 +38,15 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		public const string TableName = "Category";
 
-		#region Cache
+		#region READ (GetAll)
 
-		protected override void RefreshCache_FromDb()
+		// TODO FIXME IEnumerable
+		public override List<Category> GetAll()
 		{
 			using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
 			{
-				var categories = RefreshCache_GetFromDb(ctx);
-				RefreshCache_Refresh(categories);
+				var categories = GetAll(ctx);
+				return categories.ToList();
 			}
 		}
 
@@ -54,7 +55,7 @@ namespace DAL.DataBase.AdoNet.Managers
 			return "SELECT * FROM " + TableName;
 		}
 
-		private IEnumerable<Category> RefreshCache_GetFromDb(ExinAdoNetContextBase ctx)
+		private IEnumerable<Category> GetAll(ExinAdoNetContextBase ctx)
 		{
 			ctx.Command.CommandText = BuildSelectAllQuery();
 			ctx.Adapter.SelectCommand = ctx.Command;
@@ -74,7 +75,7 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		#endregion
 
-		#region CREATE
+		#region CREATE (Add)
 
 		public override void Add(Category category)
 		{
@@ -104,14 +105,10 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		public void Add(Category category, ExinAdoNetContextBase ctx)
 		{
-			CheckExistsInCache(category);
-
 			try
 			{
 				BuildInserQueryWithParams(category, ctx);
 				ExecInsertQuery(ctx);
-
-				AddToCache(category);
 			}
 			catch(Exception e)
 			{

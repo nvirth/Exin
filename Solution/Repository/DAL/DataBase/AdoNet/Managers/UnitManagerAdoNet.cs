@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using Common;
+using System.Linq;
 using Common.Configuration;
 using Common.Db.Entities;
 using Common.Log;
@@ -31,7 +31,7 @@ namespace DAL.DataBase.AdoNet.Managers
 		}
 	}
 
-	public abstract class UnitManagerAdoNetBase : UnitManagerCommonBase
+	public abstract class UnitManagerAdoNetBase : UnitManagerDbBase
 	{
 		protected UnitManagerAdoNetBase(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
@@ -39,14 +39,15 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		public const string TableName = "Unit";
 
-		#region Cache
+		#region READ (GetAll)
 
-		protected override void RefreshCache_FromDb()
+		// TODO FIXME IEnumerable
+		public override List<Unit> GetAll()
 		{
 			using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
 			{
-				var units = RefreshCache_GetFromDb(ctx);
-				RefreshCache_Refresh(units);
+				var units = GetAll(ctx);
+				return units.ToList();
 			}
 		}
 
@@ -55,7 +56,7 @@ namespace DAL.DataBase.AdoNet.Managers
 			return "SELECT * FROM " + TableName;
 		}
 
-		private IEnumerable<Unit> RefreshCache_GetFromDb(ExinAdoNetContextBase ctx)
+		private IEnumerable<Unit> GetAll(ExinAdoNetContextBase ctx)
 		{
 			ctx.Command.CommandText = BuildSelectAllQuery();
 			ctx.Adapter.SelectCommand = ctx.Command;
@@ -74,7 +75,7 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		#endregion
 
-		#region CREATE
+		#region CREATE (Add)
 
 		public override void Add(Unit unit)
 		{
@@ -104,14 +105,10 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		public void Add(Unit unit, ExinAdoNetContextBase ctx)
 		{
-			CheckExistsInCache(unit);
-
 			try
 			{
 				BuildInserQueryWithParams(unit, ctx);
 				ExecInsertQuery(ctx);
-
-				AddToCache(unit);
 			}
 			catch(Exception e)
 			{

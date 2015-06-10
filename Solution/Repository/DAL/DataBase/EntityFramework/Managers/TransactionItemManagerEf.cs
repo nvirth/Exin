@@ -17,15 +17,16 @@ namespace DAL.DataBase.EntityFramework.Managers
 {
 	public static class TransactionItemManagerEfFactory
 	{
-		public static TransactionItemManagerEfBase Create(IRepoConfiguration repoConfiguration)
+		public static TransactionItemManagerEfBase Create(IRepoConfiguration repoConfiguration,
+			ICategoryManager categoryManager, IUnitManager unitManager)
 		{
 			switch(repoConfiguration.DbType)
 			{
 				case DbType.MsSql:
-					return new TransactionItemManagerEfMsSql(repoConfiguration);
+					return new TransactionItemManagerEfMsSql(repoConfiguration, categoryManager, unitManager);
 
 				case DbType.SQLite:
-					return new TransactionItemManagerEfSQLite(repoConfiguration);
+					return new TransactionItemManagerEfSQLite(repoConfiguration, categoryManager, unitManager);
 
 				default:
 					throw new NotImplementedException(string.Format(Localized.TransactionItemManagerEfFactory_is_not_implemented_for_this_DbType__FORMAT__, repoConfiguration.DbType));
@@ -34,16 +35,18 @@ namespace DAL.DataBase.EntityFramework.Managers
 		}
 	}
 
-	public abstract class TransactionItemManagerEfBase : TransactionItemManagerCommonBase
+	public abstract class TransactionItemManagerEfBase : TransactionItemManagerDbBase
 	{
-		protected TransactionItemManagerEfBase(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
+		protected TransactionItemManagerEfBase(IRepoConfiguration repoConfiguration,
+			ICategoryManager categoryManager, IUnitManager unitManager) : base(repoConfiguration, categoryManager, unitManager)
 		{
 		}
 	}
 
 	public class TransactionItemManagerEfMsSql : TransactionItemManagerEfBase
 	{
-		public TransactionItemManagerEfMsSql(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
+		public TransactionItemManagerEfMsSql(IRepoConfiguration repoConfiguration,
+			ICategoryManager categoryManager, IUnitManager unitManager) : base(repoConfiguration, categoryManager, unitManager)
 		{
 		}
 
@@ -294,7 +297,8 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 	public class TransactionItemManagerEfSQLite : TransactionItemManagerEfBase
 	{
-		public TransactionItemManagerEfSQLite(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
+		public TransactionItemManagerEfSQLite(IRepoConfiguration repoConfiguration,
+			ICategoryManager categoryManager, IUnitManager unitManager) : base(repoConfiguration, categoryManager, unitManager)
 		{
 		}
 

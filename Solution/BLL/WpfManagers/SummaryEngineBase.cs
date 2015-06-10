@@ -69,9 +69,8 @@ namespace BLL.WpfManagers
 			Summary = new Summary();
 			DatePaths = datePaths;
 
-			// !!! Virtual member call in ctor !!!
 			if(doWork)
-				ReadData();
+				LoadData();
 		}
 
 		#endregion
@@ -129,23 +128,12 @@ namespace BLL.WpfManagers
 
 		#endregion
 
-		public virtual void ReadData()
+		public virtual void LoadData()
 		{
 			try
 			{
 				ReadDataMessage();
-
-				switch(Config.Repo.ReadMode)
-				{
-					case ReadMode.FromFile:
-						ReadDataFromFile();
-						break;
-					case ReadMode.FromDb:
-						ReadDataFromDb();
-						break;
-					default:
-						throw new NotImplementedException(Localized.The_reading_of_data_is_not_implemented_for_this_ + Config.Repo.ReadMode);
-				}
+				ReadData();
 			}
 			catch(Exception e)
 			{
@@ -155,21 +143,20 @@ namespace BLL.WpfManagers
 			IsReady = true;
 		}
 
-		public void Save()
+		public virtual void SaveData()
 		{
+			if(HasError)
+			{
+				MessagePresenter.Instance.WriteLine("");
+				throw new Exception("HasError property is true. "); // TODO proper error message
+			}
 			if(!Validate())
 			{
 				MessagePresenter.Instance.WriteLine("");
 				throw new Exception(Localized.The_saving_of_the_data_was_unsuccessful__there_were_invalid_values_among_them__Fix_them__then_save_again);
 			}
 
-			SaveToFile();
-
-			if(Config.Repo.SaveMode == SaveMode.FileAndDb)
-			{
-				SaveToDb();
-				SaveSummariesToDb();
-			}
+			WriteData();
 
 			IsModified = false;
 		}
@@ -179,6 +166,8 @@ namespace BLL.WpfManagers
 			var isValid = true;
 
 			// ExpenseItem's Category is not validated... But you can't ruin it via the GUI
+			// 2015.06.11/nvirth/NOTE: They will! TransactionItemBase is only the reference type,
+			//  the objects are ExpenseItems
 			foreach(var tib in TransactionItems)
 			{
 				var errorMessage = tib.DoValidation();
@@ -193,12 +182,8 @@ namespace BLL.WpfManagers
 		#region Abstract
 
 		protected abstract void ReadDataMessage();
-		protected abstract void ReadDataFromFile();
-		protected abstract void ReadDataFromDb();
-
-		protected abstract void SaveToFile();
-		protected abstract void SaveToDb();
-		protected abstract void SaveSummariesToDb();
+		protected abstract void ReadData();
+		protected abstract void WriteData();
 
 		#endregion
 	}

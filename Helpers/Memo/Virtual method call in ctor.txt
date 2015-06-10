@@ -1,0 +1,12 @@
+When an object written in C# is constructed, what happens is that the initializers run in order 
+from the most derived class to the base class, and then constructors run in order from the 
+base class to the most derived class.
+
+Also in .NET objects do not change type as they are constructed, but start out as the most derived type,
+with the method table being for the most derived type. This means that virtual method calls always 
+run on the most derived type.
+
+When you combine these two facts you are left with the problem that if you make a virtual method call
+in a constructor, and it is not the most derived type in its inheritance hierarchy, 
+THAT IT WILL BE CALLED ON A CLASS WHOSE CONSTRUCTOR HAS NOT BEEN RUN, 
+and therefore may not be in a suitable state to have that method called. 

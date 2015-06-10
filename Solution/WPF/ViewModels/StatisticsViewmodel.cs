@@ -40,8 +40,8 @@ namespace WPF.ViewModels
 			get
 			{
 				yield return new KeyValuePair<Category, int>(
-					CategoryManager.GetCategoryFullIncomeSummary, Summary.SumIn
-					);
+					CategoryManager.Instance.GetCategoryFullIncomeSummary, Summary.SumIn
+				);
 			}
 		}
 
@@ -50,8 +50,8 @@ namespace WPF.ViewModels
 			get
 			{
 				yield return new KeyValuePair<Category, int>(
-					CategoryManager.GetCategoryFullExpenseSummary, Summary.SumOut
-					);
+					CategoryManager.Instance.GetCategoryFullExpenseSummary, Summary.SumOut
+				);
 
 				foreach(var category in CategoryManager.Instance.GetAllValid())
 				{

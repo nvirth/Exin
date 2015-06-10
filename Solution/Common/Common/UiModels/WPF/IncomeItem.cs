@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Xml.Linq;
 using Common.Db;
-using Common.Db.Entities;
-using Common.Utils.Helpers;
 using C = Common.Configuration.Constants.XmlTags;
 
 namespace Common.UiModels.WPF

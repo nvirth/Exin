@@ -1,0 +1,9 @@
+TODO ManagerFactory -> aggregates + dao interfaces
+TODO search for word "Instance" in the managers to discover their dependecies on each other
+TODO implement SummaryItemManagerFileRepo.InsertOrUpdateSummary
+TODO TransactionItemManager.GetDaily(...IncomeItem) -> Do not get the IncomeItems this way! Get them from monthly
+TODO ImportDataToDb todos
+TODO markers
+
+* Bring Managers to common interface
+** Config.Repo.ReadMode/SaveMode is worthy for a search

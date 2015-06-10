@@ -1,0 +1,34 @@
+{
+  "Category": {
+    "ID": 108,
+    "Name": "Others",
+    "DisplayNames": "en-US:Others;hu-HU:Egyéb;",
+    "LocalizedDisplayNames": {
+      "en-US": "Others",
+      "hu-HU": "Egyéb"
+    },
+    "DisplayName": "Others"
+  },
+  "Amount": 0,
+  "Quantity": 1,
+  "Unit": {
+    "ID": 102,
+    "Name": "Kg",
+    "DisplayNames": "en-US:kg;hu-HU:kg;",
+    "LocalizedDisplayNames": {
+      "en-US": "kg",
+      "hu-HU": "kg"
+    },
+    "DisplayName": "kg"
+  },
+  "Title": null,
+  "Comment": null,
+  "Date": "0001-01-01T00:00:00",
+  "Error": null,
+  "HasErrors": false,
+  "IsValidationOn": true,
+  "MetadataTypeAttribute": {
+    "MetadataClassType": "Common.UiModels.WPF.TransactionItemBase+TransactionItemBaseValidation, Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "TypeId": "System.ComponentModel.DataAnnotations.MetadataTypeAttribute, System.ComponentModel.DataAnnotations, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"
+  }
+}

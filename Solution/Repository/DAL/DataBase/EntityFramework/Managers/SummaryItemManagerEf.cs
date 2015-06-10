@@ -19,15 +19,15 @@ namespace DAL.DataBase.EntityFramework.Managers
 {
 	public static class SummaryItemManagerEfFactory
 	{
-		public static SummaryItemManagerEfBase Create(IRepoConfiguration repoConfiguration)
+		public static SummaryItemManagerEfBase Create(IRepoConfiguration repoConfiguration, ICategoryManager categoryManager)
 		{
 			switch(repoConfiguration.DbType)
 			{
 				case DbType.MsSql:
-					return new SummaryItemManagerEfMsSql(repoConfiguration);
+					return new SummaryItemManagerEfMsSql(repoConfiguration, categoryManager);
 
 				case DbType.SQLite:
-					return new SummaryItemManagerEfSQLite(repoConfiguration);
+					return new SummaryItemManagerEfSQLite(repoConfiguration, categoryManager);
 
 				default:
 					throw new NotImplementedException(string.Format(Localized.SummaryItemManagerEfBase_is_not_implemented_for_this_DbType__FORMAT__, repoConfiguration.DbType));
@@ -35,9 +35,9 @@ namespace DAL.DataBase.EntityFramework.Managers
 		}
 	}
 
-	public abstract class SummaryItemManagerEfBase : SummaryItemManagerCommonBase
+	public abstract class SummaryItemManagerEfBase : SummaryItemManagerDbBase
 	{
-		protected SummaryItemManagerEfBase(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
+		protected SummaryItemManagerEfBase(IRepoConfiguration repoConfiguration, ICategoryManager categoryManager) : base(repoConfiguration, categoryManager)
 		{
 		}
 
@@ -56,12 +56,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 			}
 			catch(Exception e)
 			{
-				ExinLog.ger.LogException(Localized.SummaryItem_InsertOrUpdate_failed__, e,
-					new
-					{
-						LostItems = insertItems
-					});
-				throw;
+				throw ExinLog.ger.LogException(Localized.SummaryItem_InsertOrUpdate_failed__, e, new { LostItems = insertItems });
 			}
 		}
 
@@ -70,7 +65,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 	public class SummaryItemManagerEfSQLite : SummaryItemManagerEfBase
 	{
-		public SummaryItemManagerEfSQLite(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
+		public SummaryItemManagerEfSQLite(IRepoConfiguration repoConfiguration, ICategoryManager categoryManager) : base(repoConfiguration, categoryManager)
 		{
 		}
 
@@ -81,7 +76,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 			return Get(item => true);
 		}
 
-		public override List<SummaryItemCommon> GetInterval_Exec(DateTime fromDate, DateTime toDate)
+		protected override List<SummaryItemCommon> GetInterval_Exec(DateTime fromDate, DateTime toDate)
 		{
 			return Get(item => item.Date >= fromDate && item.Date <= toDate);
 		}
@@ -111,8 +106,8 @@ namespace DAL.DataBase.EntityFramework.Managers
 				// Delete all summaries from this day
 				var itemsToDelete = ctx.SummaryItem
 					.Where(si => si.Date == date) // isExpense != 2; isIncome == 2
-					.Where(si => isExpense || si.CategoryID == CategoryManager.GetCategoryFullIncomeSummary.ID)
-					.Where(si => !isExpense || si.CategoryID != CategoryManager.GetCategoryFullIncomeSummary.ID);
+					.Where(si => isExpense || si.CategoryID == CategoryManagerLocal.GetCategoryFullIncomeSummary.ID)
+					.Where(si => !isExpense || si.CategoryID != CategoryManagerLocal.GetCategoryFullIncomeSummary.ID);
 				
 				foreach (var summaryItemSqlite in itemsToDelete)
 					ctx.SummaryItem.Remove(summaryItemSqlite);
@@ -132,7 +127,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 	public class SummaryItemManagerEfMsSql : SummaryItemManagerEfBase
 	{
-		public SummaryItemManagerEfMsSql(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
+		public SummaryItemManagerEfMsSql(IRepoConfiguration repoConfiguration, ICategoryManager categoryManager) : base(repoConfiguration, categoryManager)
 		{
 		}
 
@@ -143,7 +138,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 			return Get(item => true);
 		}
 
-		public override List<SummaryItemCommon> GetInterval_Exec(DateTime fromDate, DateTime toDate)
+		protected override List<SummaryItemCommon> GetInterval_Exec(DateTime fromDate, DateTime toDate)
 		{
 			return Get(item => item.Date >= fromDate && item.Date <= toDate);
 		}
@@ -173,8 +168,8 @@ namespace DAL.DataBase.EntityFramework.Managers
 				// Delete all summaries from this day
 				ctx.SummaryItem
 					.Where(si => si.Date == date) // isExpense != 2; isIncome == 2
-					.Where(si => isExpense || si.CategoryID == CategoryManager.GetCategoryFullIncomeSummary.ID)
-					.Where(si => !isExpense || si.CategoryID != CategoryManager.GetCategoryFullIncomeSummary.ID)
+					.Where(si => isExpense || si.CategoryID == CategoryManagerLocal.GetCategoryFullIncomeSummary.ID)
+					.Where(si => !isExpense || si.CategoryID != CategoryManagerLocal.GetCategoryFullIncomeSummary.ID)
 					.Delete(); // !!! Executed immediately
 
 				// Insert new data

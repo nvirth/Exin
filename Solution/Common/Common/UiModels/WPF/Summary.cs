@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Common.Db.Entities;
 using Common.UiModels.WPF.Base;
 using Common.Utils.Helpers;
@@ -54,10 +55,10 @@ namespace Common.UiModels.WPF
 
 		#region Methods
 
-		/// <summary>
-		/// If not null, <param name="amount"/> will be added to the summary (update);
+		/// <param name="amount">
+		/// If not null, it will be added to the summary (update);
 		/// if null, then the actual object's amount (add)
-		/// </summary>
+		/// </param>
 		public void Update(TransactionItemBase item, int? amount = null)
 		{
 			amount = amount ?? item.Amount;
@@ -69,10 +70,10 @@ namespace Common.UiModels.WPF
 			UpdateCore(amount.Value, isExpense, category);
 		}
 
-		/// <summary>
-		/// If not null, <param name="amount"/> will be added to the summary (update);
+		/// <param name="amount">
+		/// If not null, it will be added to the summary (update);
 		/// if null, then the actual object's amount (add)
-		/// </summary>
+		/// </param>
 		public void Update(TransactionItem item, int? amount = null)
 		{
 			amount = amount ?? item.Amount;
@@ -95,6 +96,16 @@ namespace Common.UiModels.WPF
 		}
 
 		#endregion
+
+		public static Summary Summarize(IEnumerable<TransactionItemBase> transactionItems)
+		{
+			var summary = transactionItems.Aggregate(new Summary(), (__summary, ei) => {
+				__summary.Update(ei);
+				return __summary;
+			});
+
+			return summary;
+		}
 	}
 
 	[Serializable]

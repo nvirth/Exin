@@ -1,8 +1,26 @@
-* InitAllStatic
-* Bring Managers to common interface
-** Config.Repo.ReadMode/SaveMode is worthy for a search
-* Currency
+TODO Unit Unit_lowercase
+TODO NameSpace refactor
+TEST summary in TransactionItemManagerFileRepo ReplaceDailyExpenses
+TODO Aggregate classes: eliminate lot of code duplication
+TODO Save to-db/to-file log to ui properly
+TODO Implement SaveMode.OnlyToDb
+
+TODO Check Relief managers for LocalConfig
+TODO eliminate high level dependencies of (high level) managers
+TODO search for todos in the app
+
+Fns to extend:
+ISummaryItemManagerDao.ReplaceSummary
+ITransactionItemManagerDao.ReplaceDailyExpenses
+ITransactionItemManagerDao.ReplaceMonthlyIncomes
+
 * patch existing system to be compatible with the new one
 ** rename categories, units
 ** patch existing db file
 ** CREATE AN ExportDataFromDb TOOL!
+* ExinConnString: Next level of configurability: Managers should have 1 instance, which they could take also in ctor
+** RepoPaths: no more static
+* InitAllStatic
+* Currency
+* SQLiteSpecific.cs uses Config.Repo. Is it ok so?
+

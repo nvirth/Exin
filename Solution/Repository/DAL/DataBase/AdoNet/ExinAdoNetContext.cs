@@ -29,7 +29,7 @@ namespace DAL.DataBase.AdoNet
 		}
 	}
 
-	public abstract class ExinAdoNetContextBase : DbConfigurableBase, IDisposable
+	public abstract class ExinAdoNetContextBase : RepoConfigurableBase, IDisposable
 	{
 		public bool IsIdentityInsertOn { get; set; }
 

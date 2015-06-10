@@ -1,15 +1,19 @@
 ﻿using System;
-using Common;
 using Common.Configuration;
 using Common.Log;
 
 namespace DAL.DataBase
 {
-	public class DbConfigurableBase
+	public interface IRepoConfigurableBase
 	{
-		public readonly IRepoConfiguration LocalConfig;
+		IRepoConfiguration LocalConfig { get; }
+	}
 
-		public DbConfigurableBase(IRepoConfiguration repoConfiguration)
+	public class RepoConfigurableBase : IRepoConfigurableBase
+	{
+		public IRepoConfiguration LocalConfig { get; }
+
+		public RepoConfigurableBase(IRepoConfiguration repoConfiguration)
 		{
 			if(repoConfiguration == null)
 			{

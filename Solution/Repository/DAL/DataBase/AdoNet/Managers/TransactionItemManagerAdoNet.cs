@@ -18,15 +18,16 @@ namespace DAL.DataBase.AdoNet.Managers
 {
 	public static class TransactionItemManagerAdoNetFactory
 	{
-		public static TransactionItemManagerAdoNetBase Create(IRepoConfiguration repoConfiguration)
+		public static TransactionItemManagerAdoNetBase Create(IRepoConfiguration repoConfiguration,
+			ICategoryManager categoryManager, IUnitManager unitManager)
 		{
 			switch(repoConfiguration.DbType)
 			{
 				case DbType.MsSql:
-					return new TransactionItemManagerAdoNetMsSql(repoConfiguration);
+					return new TransactionItemManagerAdoNetMsSql(repoConfiguration, categoryManager, unitManager);
 
 				case DbType.SQLite:
-					return new TransactionItemManagerAdoNetSQLite(repoConfiguration);
+					return new TransactionItemManagerAdoNetSQLite(repoConfiguration, categoryManager, unitManager);
 
 				default:
 					throw new NotImplementedException(string.Format(Localized.TransactionItemManagerAdoNetFactory_is_not_implemented_for_this_DbType__FORMAT__, repoConfiguration.DbType));
@@ -34,9 +35,10 @@ namespace DAL.DataBase.AdoNet.Managers
 		}
 	}
 
-	public abstract class TransactionItemManagerAdoNetBase : TransactionItemManagerCommonBase
+	public abstract class TransactionItemManagerAdoNetBase : TransactionItemManagerDbBase
 	{
-		protected TransactionItemManagerAdoNetBase(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
+		protected TransactionItemManagerAdoNetBase(IRepoConfiguration repoConfiguration,
+            ICategoryManager categoryManager, IUnitManager unitManager) : base(repoConfiguration, categoryManager, unitManager)
 		{
 		}
 
@@ -125,8 +127,8 @@ namespace DAL.DataBase.AdoNet.Managers
 			transactionItem.UnitID = Convert.ToInt32(dataRow[transactionItem.Property(y => y.UnitID)]);
 			transactionItem.CategoryID = Convert.ToInt32(dataRow[transactionItem.Property(y => y.CategoryID)]);
 
-			transactionItem.Unit = UnitManager.Instance.Get(transactionItem.UnitID);
-			transactionItem.Category = CategoryManager.Instance.Get(transactionItem.CategoryID);
+			transactionItem.Unit = UnitManagerLocal.Get(transactionItem.UnitID);
+			transactionItem.Category = CategoryManagerLocal.Get(transactionItem.CategoryID);
 
 			return transactionItem;
 		}
@@ -597,14 +599,16 @@ namespace DAL.DataBase.AdoNet.Managers
 	{
 		// No need to changed anything
 
-		public TransactionItemManagerAdoNetMsSql(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
+		public TransactionItemManagerAdoNetMsSql(IRepoConfiguration repoConfiguration,
+			ICategoryManager categoryManager, IUnitManager unitManager) : base(repoConfiguration, categoryManager, unitManager)
 		{
 		}
 	}
 
 	public class TransactionItemManagerAdoNetSQLite : TransactionItemManagerAdoNetBase
 	{
-		public TransactionItemManagerAdoNetSQLite(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
+		public TransactionItemManagerAdoNetSQLite(IRepoConfiguration repoConfiguration,
+			ICategoryManager categoryManager, IUnitManager unitManager) : base(repoConfiguration, categoryManager, unitManager)
 		{
 		}
 

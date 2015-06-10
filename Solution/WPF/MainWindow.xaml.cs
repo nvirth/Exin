@@ -78,8 +78,8 @@ namespace WPF
 		// TODO InitStatic
 		private static void InitStatic()
 		{
-			var useLess1 = CategoryManager.GetCategoryNone;
-			var useLess2 = UnitManager.GetUnitNone;
+			var useLess1 = CategoryManager.Instance.GetCategoryNone;
+			var useLess2 = UnitManager.Instance.GetUnitNone;
 		}
 
 		private static void InitOptimize()
@@ -96,7 +96,7 @@ namespace WPF
 			// We will do it in the Init method
 			if(SQLiteSpecific.IsDbOk())
 			{
-				var categoryNone = CategoryManager.GetCategoryNone;
+				var categoryNone = CategoryManager.Instance.GetCategoryNone;
 			}
 		}
 
@@ -552,17 +552,17 @@ namespace WPF
 			{
 				case TabSummaryNumber.DailyExpenses:
 					if(!Model.DailyExpenses.IsReady)
-						Model.DailyExpenses.ReadData();
+						Model.DailyExpenses.LoadData();
 					ApplySortDescriptions(DailyExpensesLW, Model.DailyExpenses);
 					break;
 				case TabSummaryNumber.MonthlyExpenses:
 					if(!Model.MonthlyExpenses.IsReady)
-						Model.MonthlyExpenses.ReadData();
+						Model.MonthlyExpenses.LoadData();
 					ApplySortDescriptions(MonthlyExpensesLW, Model.MonthlyExpenses);
 					break;
 				case TabSummaryNumber.MonthlyIncomes:
 					if(!Model.MonthlyIncomes.IsReady)
-						Model.MonthlyIncomes.ReadData();
+						Model.MonthlyIncomes.LoadData();
 					ApplySortDescriptions(MonthlyIncomesLW, Model.MonthlyIncomes);
 					break;
 				case TabSummaryNumber.Statistics:
@@ -615,7 +615,7 @@ namespace WPF
 				MessagePresenter.Instance.WriteLineSeparator();
 				try
 				{
-					Model.DailyExpenses.Save();
+					Model.DailyExpenses.SaveData();
 					MessagePresenter.Instance.WriteLine(Localized.Daily_expenses_saved_successfully__);
 				}
 				catch(Exception ex)
@@ -631,7 +631,7 @@ namespace WPF
 				MessagePresenter.Instance.WriteLineSeparator();
 				try
 				{
-					Model.MonthlyIncomes.Save();
+					Model.MonthlyIncomes.SaveData();
 					MessagePresenter.Instance.WriteLine(Localized.Monthly_incomes_saved_successfully__);
 				}
 				catch(Exception ex)

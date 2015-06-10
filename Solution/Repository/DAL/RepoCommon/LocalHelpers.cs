@@ -2,12 +2,16 @@
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Data.SQLite;
+using System.Linq;
+using System.Xml.Linq;
 using Common;
 using Common.Configuration;
 using Common.Db.Entities;
 using Common.UiModels.WPF;
+using Common.Utils.Helpers;
 using DAL.DataBase.Managers;
 using Localization;
+using C = Common.Configuration.Constants;
 
 namespace DAL
 {
@@ -42,15 +46,15 @@ namespace DAL
 
 		#region IncomeItem helpers
 
-		public static TransactionItem ToTransactionItem(this IncomeItem incomeItem)
+		public static TransactionItem ToTransactionItem(this IncomeItem incomeItem, ICategoryManager categoryManager)
 		{
 			var transactionItem = new TransactionItem()
 			{
 				//ID = 0,
 				Unit = incomeItem.Unit, // Unit.None
 				UnitID = incomeItem.Unit.ID, // 0
-				Category = CategoryManager.GetCategoryNone,
-				CategoryID = CategoryManager.GetCategoryNone.ID,
+				Category = categoryManager.GetCategoryNone,
+				CategoryID = categoryManager.GetCategoryNone.ID,
 
 				Amount = incomeItem.Amount,
 				Quantity = 1,
@@ -116,6 +120,19 @@ namespace DAL
 				default:
 					throw new NotImplementedException(string.Format(Localized.Creating_DbParameter_to_DbType___0__is_not_implemented_, dbType));
 			}
+		}
+
+		internal static string ParseLocalizedDisplayNames(this XElement xml)
+		{
+			var displayNames =
+				xml.Element(C.XmlTags.DisplayNames)
+					.Descendants()
+					.Select(displayNameXml => "{0}:{1};".Formatted(
+						displayNameXml.Name.LocalName, ((string)displayNameXml).Trim()
+					))
+					.Join("");
+
+			return displayNames;
 		}
 	}
 }
