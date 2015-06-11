@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using Common.Configuration;
 using Common.UiModels.WPF;
-using DAL.DataBase.Managers.Factory;
 using DAL.RepoCommon.Interfaces;
+using DAL.RepoCommon.Managers.Factory;
 
 namespace DAL.RepoCommon.Managers
 {
@@ -18,7 +18,7 @@ namespace DAL.RepoCommon.Managers
 			IUnitManager unitManager = null
 			) : base(repoConfiguration)
 		{
-			_core = new ManagerDaoFactory(repoConfiguration).GetTransactionItemManager(categoryManager, unitManager);
+			_core = new ManagerDaoFactory(LocalConfig).GetTransactionItemManager(categoryManager, unitManager);
 		}
 
 		#region Delegated members from DAO (_core)

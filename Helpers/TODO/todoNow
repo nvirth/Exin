@@ -1,12 +1,10 @@
 TEST summary in TransactionItemManagerFileRepo ReplaceDailyExpenses
 TEST the application if it works :)
-TODO Aggregate classes: eliminate lot of code duplication
 TODO Save to-db/to-file log to ui properly
 TODO Implement SaveMode.OnlyToDb
-
-TODO Check Relief managers for LocalConfig
 TODO eliminate high level dependencies of (high level) managers
 TODO search for todos in the app
+TODO Stable AutoMapper map initialization solution + cleanup
 
 * patch existing system to be compatible with the new one
 ** rename categories, units

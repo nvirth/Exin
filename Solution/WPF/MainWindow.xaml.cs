@@ -51,8 +51,8 @@ namespace WPF
 		{
 			InitializeComponent();
 			MessagePresenterManager.WireToRichTextBox(LogTB, Dispatcher);
-			InitOptimize();
 			InitStatic();
+			InitOptimize();
 
 			LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
 

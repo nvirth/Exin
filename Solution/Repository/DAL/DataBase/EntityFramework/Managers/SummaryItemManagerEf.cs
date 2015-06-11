@@ -11,6 +11,7 @@ using Common.UiModels.WPF;
 using DAL.DataBase.EntityFramework.EntitiesMsSql;
 using DAL.DataBase.EntityFramework.EntitiesSqlite;
 using DAL.DataBase.Managers;
+using DAL.DataBase.Managers.Base;
 using DAL.RepoCommon.Interfaces;
 using EntityFramework.Extensions;
 using Localization;

@@ -163,7 +163,7 @@ namespace DAL.FileRepo.Managers
 
 		public void WriteOutDailyExpenses(ICollection<TransactionItemBase> transactionItems, DatePaths datePaths, Summary summary)
 		{
-			var msg = datePaths.Date.ToShortDateString() + Localized._daily_expenses;
+			var msg = datePaths.Date.ToLocalizedShortDateString() + Localized._daily_expenses;
 
 			try
 			{

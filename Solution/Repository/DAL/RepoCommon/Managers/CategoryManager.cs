@@ -1,9 +1,9 @@
 ﻿using Common.Configuration;
 using Common.Db;
 using Common.Db.Entities;
-using DAL.DataBase.Managers.Factory;
 using DAL.RepoCommon.Interfaces;
 using DAL.RepoCommon.Managers.Base;
+using DAL.RepoCommon.Managers.Factory;
 using Localization;
 using C = Common.Configuration.Constants.Resources.DefaultCategories;
 
@@ -20,7 +20,7 @@ namespace DAL.RepoCommon.Managers
 
 		public CategoryManager(IRepoConfiguration repoConfiguration = null) : base(repoConfiguration)
 		{
-			_core = new ManagerDaoFactory(repoConfiguration).CategoryManager;
+			_core = new ManagerDaoFactory(LocalConfig).CategoryManager;
 		}
 
 		// -- ICategoryManager implementation
@@ -42,20 +42,6 @@ namespace DAL.RepoCommon.Managers
 			CheckExistsInCache(Category);
 			_core.Add(Category);
 			AddToCache(Category);
-		}
-
-		// --
-
-		static CategoryManager()
-		{
-			// For safety sake
-			StaticInitializer.InitAllStatic();
-		}
-
-		public static void InitManagerRelief()
-		{
-			ManagersRelief.CategoryManager.InitDefaultCategory(() => Instance.GetDefaultCategory);
-			ManagersRelief.CategoryManager.InitGetByName(Instance.GetByName);
 		}
 	}
 }

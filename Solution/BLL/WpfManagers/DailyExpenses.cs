@@ -5,6 +5,7 @@ using Common;
 using Common.Log;
 using Common.UiModels.WPF;
 using Common.Utils;
+using Common.Utils.Helpers;
 using DAL.DataBase.Managers;
 using DAL.RepoCommon.Managers;
 using Localization;
@@ -33,7 +34,8 @@ namespace BLL.WpfManagers
 			if(DatePaths.Date.Date == DateTime.Today) // TODO test Today.Date
 				MessagePresenter.Instance.WriteLine(Localized.Today_s_expenses_loading__);
 			else
-				MessagePresenter.Instance.WriteLine(string.Format(Localized.__0__loading_daily_expenses__FORMAT__, DatePaths.Date.ToString(Localized.DateFormat_full)));
+				MessagePresenter.Instance.WriteLine(string.Format(Localized.__0__loading_daily_expenses__FORMAT__, 
+					DatePaths.Date.ToLocalizedShortDateString()));
 		}
 
 		protected override void ReadData()
@@ -54,7 +56,7 @@ namespace BLL.WpfManagers
 				var expenseItems = TransactionItems.Cast<ExpenseItem>().ToList();
 				TransactionItemManager.Instance.ReplaceDailyExpenses(expenseItems, DatePaths.Date);
 
-				MessagePresenter.Instance.Write(DatePaths.Date.ToString(Localized.DateFormat_full));
+				MessagePresenter.Instance.Write(DatePaths.Date.ToLocalizedShortDateString());
 				MessagePresenter.Instance.WriteLine(Localized._daily_expenses_successfully_saved_);
 			}
 			catch (Exception e)
@@ -69,7 +71,7 @@ namespace BLL.WpfManagers
 			{
 				SummaryItemManager.Instance.ReplaceSummary(Summary, DatePaths.Date, TransactionItemType.Expense);
 
-				MessagePresenter.Instance.Write(DatePaths.Date.ToString(Localized.DateFormat_full));
+				MessagePresenter.Instance.Write(DatePaths.Date.ToLocalizedShortDateString());
 				MessagePresenter.Instance.WriteLine(Localized._expense_statistics_successfully_saved_);
 			}
 			catch(Exception e)

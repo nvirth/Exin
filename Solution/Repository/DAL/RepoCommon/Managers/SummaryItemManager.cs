@@ -4,8 +4,8 @@ using Common;
 using Common.Configuration;
 using Common.Db.Entities;
 using Common.UiModels.WPF;
-using DAL.DataBase.Managers.Factory;
 using DAL.RepoCommon.Interfaces;
+using DAL.RepoCommon.Managers.Factory;
 
 namespace DAL.RepoCommon.Managers
 {
@@ -21,7 +21,7 @@ namespace DAL.RepoCommon.Managers
 				ICategoryManager categoryManager = null
 			) : base(repoConfiguration)
 		{
-			var managerDaoFactory = new ManagerDaoFactory(repoConfiguration);
+			var managerDaoFactory = new ManagerDaoFactory(LocalConfig);
 			managerDaoFactory.InitManagerIfNeeded(ref transactionItemManager);
 
 			_transactionItemManager = transactionItemManager;

@@ -10,6 +10,7 @@ using Common.Db.Entities;
 using Common.Log;
 using Common.Utils.Helpers;
 using DAL.DataBase.Managers;
+using DAL.DataBase.Managers.Base;
 using DAL.RepoCommon;
 using DAL.RepoCommon.Interfaces;
 using Localization;
@@ -533,7 +534,7 @@ namespace DAL.DataBase.AdoNet.Managers
 			catch(Exception e)
 			{
 				var transactionItemTypeStr = isExpense ? Localized.expenses : isIncome ? Localized.incomes : Localized.transaction_items;
-				var msg = string.Format(Localized.Could_not_remove_the_daily_0_at_1__FORMAT__, transactionItemTypeStr, date.ToShortDateString());
+				var msg = string.Format(Localized.Could_not_remove_the_daily_0_at_1__FORMAT__, transactionItemTypeStr, date.ToLocalizedShortDateString());
 				ExinLog.ger.LogException(msg, e);
 				throw;
 			}

@@ -31,6 +31,8 @@ namespace ImportDataToDb
 		public readonly List<Unit> Units = new List<Unit>();
 		public readonly List<Category> Categories = new List<Category>();
 
+		// --
+
 		public readonly IRepoConfiguration LocalConfig;
 
 		public readonly UnitManagerAdoNetBase UnitManagerDb;
@@ -49,6 +51,14 @@ namespace ImportDataToDb
 		/// we intend to import the data from there into the database...
 		/// </summary>
 		public readonly CategoryManager CategoryManagerLocal;
+
+		/// <summary>
+		/// NOTE: DO NOT USE IT FOR write PURPOSES! At least until the class uses everything
+		/// directly, and SaveMode.OnlyToDb is not implemented!
+		/// Other way, it will save also into file system, which is not intended when
+		/// we intend to import the data from there into the database...
+		/// </summary>
+		public readonly UnitManager UnitManagerLocal;
 		
 		#endregion
 
@@ -72,11 +82,15 @@ namespace ImportDataToDb
 			CategoryManagerDb = CategoryManagerAdoNetFactory.Create(LocalConfig);
 
 			CategoryManagerLocal = new CategoryManager(LocalConfig);
+			UnitManagerLocal = new UnitManager(LocalConfig);
+
 			SummaryItemManagerDb = SummaryItemManagerAdoNetFactory.Create(LocalConfig, CategoryManagerLocal);
 			TransactionItemManagerFr = new TransactionItemManagerFileRepo();
 
 			UnitManagerFr = new UnitManagerFileRepo();
 			CategoryManagerFr = new CategoryManagerFileRepo();
+
+			StaticInitializer.InitAllStatic(CategoryManagerLocal, UnitManagerLocal);
 		}
 
 		#region Main

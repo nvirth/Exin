@@ -10,6 +10,8 @@ TODO ImportDataToDb todos
 TODO markers
 TODO Unit Unit_lowercase
 TODO NameSpace refactor
+TODO Aggregate classes: eliminate lot of code duplication
+TODO Check Relief managers for LocalConfig
 
 * Bring Managers to common interface
 ** Config.Repo.ReadMode/SaveMode is worthy for a search

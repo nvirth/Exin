@@ -17,7 +17,6 @@ namespace DAL.RepoCommon.Managers.Base
 
 		protected CachedManagerBase(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
-			RefreshCache();
 		}
 
 		public abstract void RefreshCache();
@@ -48,24 +47,20 @@ namespace DAL.RepoCommon.Managers.Base
 
 		public List<T> GetAll()
 		{
-			if(_cacheFull != null && _cacheFull.Count != 0)
-				return _cacheFull;
-
-			RefreshCache();
+			CheckCache();
 			return _cacheFull;
 		}
 
 		public List<T> GetAllValid()
 		{
-			if(_cacheValid != null && _cacheValid.Count != 0)
-				return _cacheValid;
-
-			RefreshCache();
+			CheckCache();
 			return _cacheValid;
 		}
 
 		public T Get(int ID)
 		{
+			CheckCache();
+
 			var item = _cacheFull.Find(c => c.ID == ID);
 			if(item == null)
 			{
@@ -78,6 +73,8 @@ namespace DAL.RepoCommon.Managers.Base
 
 		public T GetByName(string name, bool nullIfNotFound = false)
 		{
+			CheckCache();
+
 			var item = _cacheFull.Find(c => c.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
 			if(item == null && !nullIfNotFound)
 			{
@@ -89,6 +86,15 @@ namespace DAL.RepoCommon.Managers.Base
 		}
 
 		#endregion
+
+		private void CheckCache()
+		{
+			//if(_cacheFull != null && _cacheFull.Count != 0)
+			if(_cacheValid != null && _cacheValid.Count != 0)
+				return;
+
+			RefreshCache();
+		}
 
 		protected void CheckExistsInCache(T item)
 		{

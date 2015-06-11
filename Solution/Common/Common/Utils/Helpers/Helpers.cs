@@ -267,6 +267,11 @@ namespace Common.Utils.Helpers
 			return dateTime.Month < 10 ? "0" + dateTime.Month : dateTime.Month.ToString();
 		}
 
+		public static string ToLocalizedShortDateString(this DateTime dateTime)
+		{
+			return dateTime.ToString(Localized.DateFormat_full);
+		}
+
 		#endregion
 
 		#region DependencyObject

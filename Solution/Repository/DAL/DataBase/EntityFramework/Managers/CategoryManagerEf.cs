@@ -8,6 +8,7 @@ using Common.Log;
 using DAL.DataBase.EntityFramework.EntitiesMsSql;
 using DAL.DataBase.EntityFramework.EntitiesSqlite;
 using DAL.DataBase.Managers;
+using DAL.DataBase.Managers.Base;
 using Localization;
 using CategoryCommon = Common.Db.Entities.Category;
 

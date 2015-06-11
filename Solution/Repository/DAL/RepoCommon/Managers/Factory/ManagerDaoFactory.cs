@@ -7,17 +7,15 @@ using Common.Db.Entities;
 using Common.Log;
 using DAL.DataBase.AdoNet.Managers;
 using DAL.DataBase.EntityFramework.Managers;
-using DAL.FileRepo;
 using DAL.FileRepo.Managers;
-using DAL.RepoCommon;
-using DAL.RepoCommon.AggregateDaoManagers;
 using DAL.RepoCommon.Interfaces;
+using DAL.RepoCommon.Managers.AggregateDaoManagers;
 using Localization;
 using CategoryManagerClass = DAL.RepoCommon.Managers.CategoryManager;
 using UnitManagerClass = DAL.RepoCommon.Managers.UnitManager;
 using TransactionItemManagerClass = DAL.RepoCommon.Managers.TransactionItemManager;
 
-namespace DAL.DataBase.Managers.Factory
+namespace DAL.RepoCommon.Managers.Factory
 {
 	public class ManagerDaoFactory : RepoConfigurableBase
 	{

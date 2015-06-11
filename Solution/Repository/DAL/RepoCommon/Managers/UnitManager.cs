@@ -1,9 +1,9 @@
 ﻿using Common.Configuration;
 using Common.Db;
 using Common.Db.Entities;
-using DAL.DataBase.Managers.Factory;
 using DAL.RepoCommon.Interfaces;
 using DAL.RepoCommon.Managers.Base;
+using DAL.RepoCommon.Managers.Factory;
 using Localization;
 using C = Common.Configuration.Constants.Resources.DefaultUnits;
 
@@ -20,7 +20,7 @@ namespace DAL.RepoCommon.Managers
 
 		public UnitManager(IRepoConfiguration repoConfiguration = null) : base(repoConfiguration)
 		{
-			_core = new ManagerDaoFactory(repoConfiguration).UnitManager;
+			_core = new ManagerDaoFactory(LocalConfig).UnitManager;
 		}
 
 		// -- IUnitManager implementation
@@ -40,20 +40,6 @@ namespace DAL.RepoCommon.Managers
 			CheckExistsInCache(unit);
 			_core.Add(unit);
 			AddToCache(unit);
-		}
-
-		// --
-
-		static UnitManager()
-		{
-			// For safety sake
-			StaticInitializer.InitAllStatic();
-		}
-
-		public static void InitManagerRelief()
-		{
-			ManagersRelief.UnitManager.InitDefaultUnit(() => Instance.GetDefaultUnit);
-			ManagersRelief.UnitManager.InitGetByName(Instance.GetByName);
 		}
 	}
 }

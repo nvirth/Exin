@@ -8,9 +8,9 @@ using Common.UiModels.WPF;
 using DAL.RepoCommon;
 using DAL.RepoCommon.Interfaces;
 
-namespace DAL.DataBase.Managers
+namespace DAL.DataBase.Managers.Base
 {
-	public abstract class TransactionItemManagerDbBase : RepoConfigurableBase, ITransactionItemManagerDb
+	public abstract class TransactionItemManagerDbBase : RepoConfigurableBase, ITransactionItemManagerDb, IDbManagerMarker
 	{
 		protected readonly ICategoryManager CategoryManagerLocal;
 		protected readonly IUnitManager UnitManagerLocal;

@@ -74,16 +74,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataBase\AdoNet\Utils.cs" />
-    <Compile Include="DataBase\Managers\CategoryManagerDbBase.cs" />
-    <Compile Include="DataBase\Managers\SummaryItemManagerDbBase.cs" />
-    <Compile Include="DataBase\Managers\TransactionItemManagerDbBase.cs" />
-    <Compile Include="DataBase\Managers\UnitManagerDbBase.cs" />
-    <Compile Include="RepoCommon\AggregateDaoManagers\Base\UnitOrCategoryManagerDaoAggregate.cs" />
-    <Compile Include="RepoCommon\AggregateDaoManagers\CategoryManagerDaoAggregate.cs" />
-    <Compile Include="RepoCommon\AggregateDaoManagers\SummaryItemManagerDaoAggregate.cs" />
-    <Compile Include="RepoCommon\AggregateDaoManagers\UnitManagerDaoAggregate.cs" />
-    <Compile Include="RepoCommon\AggregateDaoManagers\Base\AggregateManagerBase.cs" />
-    <Compile Include="RepoCommon\AggregateDaoManagers\TransactionItemManagerDaoAggregate.cs" />
+    <Compile Include="DataBase\Managers\Base\CategoryManagerDbBase.cs" />
+    <Compile Include="DataBase\Managers\Base\SummaryItemManagerDbBase.cs" />
+    <Compile Include="DataBase\Managers\Base\TransactionItemManagerDbBase.cs" />
+    <Compile Include="DataBase\Managers\Base\UnitManagerDbBase.cs" />
+    <Compile Include="RepoCommon\Managers\AggregateDaoManagers\Base\UnitOrCategoryManagerDaoAggregateBase.cs" />
+    <Compile Include="RepoCommon\Managers\AggregateDaoManagers\CategoryManagerDaoAggregate.cs" />
+    <Compile Include="RepoCommon\Managers\AggregateDaoManagers\SummaryItemManagerDaoAggregate.cs" />
+    <Compile Include="RepoCommon\Managers\AggregateDaoManagers\UnitManagerDaoAggregate.cs" />
+    <Compile Include="RepoCommon\Managers\AggregateDaoManagers\Base\AggregateManagerBase.cs" />
+    <Compile Include="RepoCommon\Managers\AggregateDaoManagers\TransactionItemManagerDaoAggregate.cs" />
+    <Compile Include="RepoCommon\StaticInitializer.cs" />
     <Compile Include="RepoCommon\Interfaces\Markers.cs" />
     <Compile Include="RepoCommon\Interfaces\TransactionItemManagerInterfaces.cs" />
     <Compile Include="RepoCommon\Interfaces\UnitAndCategoryInterfaces.cs" />
@@ -163,7 +164,7 @@
     <Compile Include="DataBase\AdoNet\Managers\TransactionItemManagerAdoNet.cs" />
     <Compile Include="DataBase\AdoNet\Managers\UnitManagerAdoNet.cs" />
     <Compile Include="RepoCommon\Managers\CategoryManager.cs" />
-    <Compile Include="DataBase\Managers\Factory\ManagerDaoFactory.cs" />
+    <Compile Include="RepoCommon\Managers\Factory\ManagerDaoFactory.cs" />
     <Compile Include="RepoCommon\Managers\SummaryItemManager.cs" />
     <Compile Include="RepoCommon\Managers\TransactionItemManager.cs" />
     <Compile Include="RepoCommon\Managers\UnitManager.cs" />

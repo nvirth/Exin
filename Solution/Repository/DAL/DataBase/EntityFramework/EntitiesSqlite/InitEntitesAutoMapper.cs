@@ -8,7 +8,7 @@ namespace DAL.DataBase.EntityFramework.EntitiesSqlite
 
 	public partial class Category_Sqlite
 	{
-		public static void InitAutoMapper(Category sourceProxy = null)
+		public static void InitAutoMapper(Category sourceProxy)
 		{
 			var x = new Category_Sqlite();
 			bool wasNew;
@@ -16,6 +16,16 @@ namespace DAL.DataBase.EntityFramework.EntitiesSqlite
 				.InitializeIfNeeded(out wasNew, sourceProxy)
 				.ForMemberIfNeeded(wasNew, x.Property(y => y.SummaryItems), imce => imce.Ignore())
 				.ForMemberIfNeeded(wasNew, x.Property(y => y.TransactionItems), imce => imce.Ignore())
+				;
+		}
+		public static void InitAutoMapper()
+		{
+			var x = new Category();
+			bool wasNew;
+			AutoMapperInitializer<Category_Sqlite, Category>
+				.InitializeIfNeeded(out wasNew)
+				.ForMemberIfNeeded(wasNew, x.Property(y => y.DisplayName), imce => imce.Ignore())
+				.ForMemberIfNeeded(wasNew, x.Property(y => y.LocalizedDisplayNames), imce => imce.Ignore())
 				;
 		}
 	}
@@ -46,12 +56,22 @@ namespace DAL.DataBase.EntityFramework.EntitiesSqlite
 	}
 	public partial class Unit_Sqlite
 	{
-		public static void InitAutoMapper(Unit sourceProxy = null)
+		public static void InitAutoMapper(Unit sourceProxy)
 		{
 			var x = new Unit_Sqlite();
 			bool wasNew;
 			AutoMapperInitializer<Unit, Unit_Sqlite>
 				.InitializeIfNeeded(out wasNew, sourceProxy)
+				;
+		}
+		public static void InitAutoMapper()
+		{
+			var x = new Unit();
+			bool wasNew;
+			AutoMapperInitializer<Unit_Sqlite, Unit>
+				.InitializeIfNeeded(out wasNew)
+				.ForMemberIfNeeded(wasNew, x.Property(y => y.DisplayName), imce => imce.Ignore())
+				.ForMemberIfNeeded(wasNew, x.Property(y => y.LocalizedDisplayNames), imce => imce.Ignore())
 				;
 		}
 	}

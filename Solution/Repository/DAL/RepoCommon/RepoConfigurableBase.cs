@@ -15,13 +15,8 @@ namespace DAL.RepoCommon
 
 		public RepoConfigurableBase(IRepoConfiguration repoConfiguration)
 		{
-			if(repoConfiguration == null)
-			{
-				var e = new ArgumentNullException("repoConfiguration");
-				throw ExinLog.ger.LogException(e.Message, e);
-			}
-
 			var mutableConfig = repoConfiguration as RepoConfiguration ?? new RepoConfiguration();
+			repoConfiguration = repoConfiguration ?? mutableConfig;
 
 			mutableConfig.DbType = repoConfiguration.DbType == 0 ? Config.Repo.DbType : repoConfiguration.DbType;
 			mutableConfig.DbAccessMode = repoConfiguration.DbAccessMode == 0 ? Config.Repo.DbAccessMode : repoConfiguration.DbAccessMode;

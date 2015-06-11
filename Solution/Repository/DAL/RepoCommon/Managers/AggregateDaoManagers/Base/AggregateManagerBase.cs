@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Common;
 using Common.Configuration;
 using Common.Log;
 using DAL.RepoCommon.Interfaces;
 
-namespace DAL.RepoCommon.AggregateDaoManagers.Base
+namespace DAL.RepoCommon.Managers.AggregateDaoManagers.Base
 {
 	public abstract class AggregateManagerBase<T> : RepoConfigurableBase
 	{
@@ -27,6 +28,40 @@ namespace DAL.RepoCommon.AggregateDaoManagers.Base
 			{
 				const string msg = "AggregateManagerBase.ctor: Argument 'managers' can't be null or empty. ";
 				throw ExinLog.ger.LogException(msg, new ArgumentException(msg, "managers"));
+			}
+		}
+
+		// --
+
+		protected T ManagerForRead
+		{
+			get
+			{
+				switch(LocalConfig.ReadMode)
+				{
+					case ReadMode.FromFile:
+						return FirstFileRepoManager;
+					case ReadMode.FromDb:
+						return FirstDbManager;
+					default:
+						throw new NotImplementedException("Aggregate managers are not implemented for ReadMode: " + LocalConfig.ReadMode);
+				}
+			}
+		}
+
+		protected IEnumerable<T> ManagersForWrite
+		{
+			get
+			{
+				switch(LocalConfig.SaveMode)
+				{
+					case SaveMode.OnlyToFile:
+						return AllFileRepoManagers;
+					case SaveMode.FileAndDb:
+						return AllManagers;
+					default:
+						throw new NotImplementedException("Aggregate managers are not implemented for SaveMode: " + LocalConfig.SaveMode);
+				}
 			}
 		}
 	}

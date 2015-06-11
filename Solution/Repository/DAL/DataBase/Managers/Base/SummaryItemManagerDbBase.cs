@@ -10,9 +10,9 @@ using DAL.RepoCommon;
 using DAL.RepoCommon.Interfaces;
 using Localization;
 
-namespace DAL.DataBase.Managers
+namespace DAL.DataBase.Managers.Base
 {
-	public abstract class SummaryItemManagerDbBase : RepoConfigurableBase, ISummaryItemManagerDb
+	public abstract class SummaryItemManagerDbBase : RepoConfigurableBase, ISummaryItemManagerDb, IDbManagerMarker
 	{
 		protected readonly ICategoryManager CategoryManagerLocal;
 

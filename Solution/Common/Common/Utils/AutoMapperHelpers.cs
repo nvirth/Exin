@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using AutoMapper.Mappers;
 
@@ -75,10 +76,35 @@ namespace Common.Utils
 		/// <param name="needInitialize">If it's True, ForMember will be called. If it's False, nothing will be happened </param>
 		/// <param name="name">Name of the member</param><param name="memberOptions">Callback for configuring member</param>
 		/// <returns>Itself</returns>
-		public static IMappingExpression ForMemberIfNeeded(this IMappingExpression mappingExpression, bool needInitialize, string name, Action<IMemberConfigurationExpression> memberOptions)
+		public static IMappingExpression ForMemberIfNeeded(this IMappingExpression mappingExpression, 
+			bool needInitialize, string name, Action<IMemberConfigurationExpression> memberOptions
+			)
 		{
 			if(needInitialize)
 				mappingExpression.ForMember(name, memberOptions);
+
+			return mappingExpression;
+		}
+
+		/// <summary>
+		/// Auto-ignore non existing destination properties <para />
+		/// Do the mapping as follows: <para />
+		/// Mapper.CreateMap&lt;SourceType, DestinationType&gt;().IgnoreAllNonExisting();
+		/// </summary>
+		public static IMappingExpression IgnoreAllNonExisting<TSource, TDestination>(
+			this IMappingExpression mappingExpression, bool needInitialize)
+		{
+			if (needInitialize)
+			{
+				var sourceType = typeof (TSource);
+				var destinationType = typeof (TDestination);
+				var existingMaps = Mapper.GetAllTypeMaps().First(x => {
+					return x.SourceType == sourceType && x.DestinationType == destinationType;
+				});
+
+				foreach (var property in existingMaps.GetUnmappedPropertyNames())
+					mappingExpression.ForMember(property, opt => opt.Ignore());
+			}
 
 			return mappingExpression;
 		}
