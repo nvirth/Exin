@@ -53,12 +53,7 @@ namespace Common.Db.Entities.Base
 					if (_displayName == null)//TODO test this case
 					{
 						var msg = Localized.This__0__entity_does_not_contain_any_DisplayName_value___.Formatted(this.GetType().Name);
-						ExinLog.ger.LogError(msg, new
-						{
-							ID,
-							Name,
-							DisplayNames
-						});
+						ExinLog.ger.LogError(msg, new { ID, Name, DisplayNames });
 
 						_displayName = Name;
 					}
@@ -76,7 +71,7 @@ namespace Common.Db.Entities.Base
 	{
 		public XElement ToXml()
 		{
-			//TODO test DisplayNames
+			//todo test DisplayNames
 			// C <--> Constants.XmlTags
 			return new XElement(C.ExpenseItem, new object[]
 			{

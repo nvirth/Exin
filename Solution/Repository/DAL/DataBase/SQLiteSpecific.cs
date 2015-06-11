@@ -43,10 +43,7 @@ namespace DAL.DataBase
 			}
 			else
 			{
-				// TODO more friendly error messages, eg concrete combination of configs
-				// TODO or the program should set the config permanently, inform about it, then after clicking OK, should restart itself
 				MessagePresenter.Instance.WriteError(Localized.Error_occured_while_creating_the_SQLite_database_file);
-				MessagePresenter.Instance.WriteError(Localized.Try_with_another_database_access_mode);
 			}
 
 			MessagePresenter.Instance.WriteLineSeparator();

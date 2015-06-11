@@ -42,7 +42,6 @@ namespace DAL.FileRepo.Managers
 			// But the FileRepo does, so when a daily item changes, we have to refresh the monthly 
 			// summaries in the FileRepo
 			//
-			// TODO this should be called async
 			var monthlyExpenses = _transactionItemManager.GetMonthlyExpenses(date);
 			WriteOutMonthlySummaries(summary, new DatePaths(date), monthlyExpenses);
 		}

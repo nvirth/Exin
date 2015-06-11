@@ -22,7 +22,6 @@ namespace ImportDataToDb
 
 			MessagePresenterManager.WireToConsole();
 
-			// TODO eliminate global Config dependency
 			new ImportData(Config.Repo.DbType).ImportDataFromFileRepoToDb(args);
 
 			MessagePresenter.Instance.WriteLine(Localized.Press_any_key_to_continue_);

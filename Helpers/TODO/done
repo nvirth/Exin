@@ -1,3 +1,7 @@
+----
+Done
+----
+
 TODO ManagerFactory -> aggregates + dao interfaces
 TODO search for word "Instance" in the managers to discover their dependecies on each other
 TODO implement SummaryItemManagerFileRepo.InsertOrUpdateSummary
@@ -9,3 +13,16 @@ TODO NameSpace refactor
 
 * Bring Managers to common interface
 ** Config.Repo.ReadMode/SaveMode is worthy for a search
+
+---------
+Cancelled
+---------
+(1)
+Fns to extend:
+ISummaryItemManagerDao.ReplaceSummary
+ITransactionItemManagerDao.ReplaceDailyExpenses
+ITransactionItemManagerDao.ReplaceMonthlyIncomes
+--> Maybe they are better this way. This way they always recalculate the Summary object; but at least it will be always fresh before saving them into Repo. So GUI made errors can be eliminated - or hope so
+(2)
+ManagerReliefs in Common -> Eliminate. Instead, move UiModels and DbEnties into DAL. It does not sounds good, but the truth is, those classes are largly merged together with DAL managers (I mean the UiModels; the DbEntities are ok merged)
+--> Not better...

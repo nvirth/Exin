@@ -8,11 +8,6 @@ TODO Check Relief managers for LocalConfig
 TODO eliminate high level dependencies of (high level) managers
 TODO search for todos in the app
 
-Fns to extend:
-ISummaryItemManagerDao.ReplaceSummary
-ITransactionItemManagerDao.ReplaceDailyExpenses
-ITransactionItemManagerDao.ReplaceMonthlyIncomes
-
 * patch existing system to be compatible with the new one
 ** rename categories, units
 ** patch existing db file
@@ -22,4 +17,3 @@ ITransactionItemManagerDao.ReplaceMonthlyIncomes
 * InitAllStatic
 * Currency
 * SQLiteSpecific.cs uses Config.Repo. Is it ok so?
-

@@ -44,10 +44,10 @@ namespace DAL.RepoCommon.Managers
 
 		// --
 
-		//TODO static UnitManager()
 		static UnitManager()
 		{
-			InitManagerRelief();
+			// For safety sake
+			StaticInitializer.InitAllStatic();
 		}
 
 		public static void InitManagerRelief()

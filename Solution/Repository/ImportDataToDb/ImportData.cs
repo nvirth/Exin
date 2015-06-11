@@ -10,11 +10,8 @@ using Common.Db.Entities;
 using Common.UiModels.WPF;
 using Common.Utils;
 using Common.Utils.Helpers;
-using DAL;
 using DAL.DataBase.AdoNet;
 using DAL.DataBase.AdoNet.Managers;
-using DAL.DataBase.Managers;
-using DAL.FileRepo;
 using DAL.FileRepo.Managers;
 using DAL.RepoCommon;
 using DAL.RepoCommon.Managers;
@@ -75,7 +72,7 @@ namespace ImportDataToDb
 			CategoryManagerDb = CategoryManagerAdoNetFactory.Create(LocalConfig);
 
 			CategoryManagerLocal = new CategoryManager(LocalConfig);
-			SummaryItemManagerDb = SummaryItemManagerAdoNetFactory.Create(LocalConfig, CategoryManagerLocal); //TODO null new CategoryManager(LocalConfig);
+			SummaryItemManagerDb = SummaryItemManagerAdoNetFactory.Create(LocalConfig, CategoryManagerLocal);
 			TransactionItemManagerFr = new TransactionItemManagerFileRepo();
 
 			UnitManagerFr = new UnitManagerFileRepo();
@@ -157,7 +154,7 @@ namespace ImportDataToDb
 
 			if(args != null && args.Length != 0)
 			{
-				//TODO
+				//TODO ImportData command line arguments
 				//var searchPattern = year;
 				//searchPattern += month == null ? "" : "_" + month;
 				//searchPattern += "*";

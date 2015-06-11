@@ -22,6 +22,7 @@ using Common.Utils.Helpers;
 using DAL;
 using DAL.DataBase;
 using DAL.DataBase.Managers;
+using DAL.RepoCommon;
 using DAL.RepoCommon.Managers;
 using Localization;
 using WPF.ViewModels;
@@ -77,11 +78,9 @@ namespace WPF
 		}
 
 		// Makes static class' initialization (more) determinable
-		// TODO InitStatic
 		private static void InitStatic()
 		{
-			var useLess1 = CategoryManager.Instance.GetCategoryNone;
-			var useLess2 = UnitManager.Instance.GetUnitNone;
+			StaticInitializer.InitAllStatic();
 		}
 
 		private static void InitOptimize()

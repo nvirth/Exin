@@ -46,10 +46,10 @@ namespace DAL.RepoCommon.Managers
 
 		// --
 
-		//TODO static CategoryManager()
 		static CategoryManager()
 		{
-			InitManagerRelief();
+			// For safety sake
+			StaticInitializer.InitAllStatic();
 		}
 
 		public static void InitManagerRelief()
