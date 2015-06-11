@@ -15,6 +15,7 @@ namespace DAL.DataBase.Managers
 
 		protected override int ValidFrom => Config.CategoryValidFrom;
 		protected override string LocalizedTypeName => Localized.Category;
+		protected override string LocalizedTypeNameLowercase => Localized.Category_lowercase;
 
 		public CategoryManager(IRepoConfiguration repoConfiguration = null) : base(repoConfiguration)
 		{

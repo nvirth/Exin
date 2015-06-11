@@ -1,6 +1,6 @@
-TODO Unit Unit_lowercase
 TODO NameSpace refactor
 TEST summary in TransactionItemManagerFileRepo ReplaceDailyExpenses
+TEST the application if it works :)
 TODO Aggregate classes: eliminate lot of code duplication
 TODO Save to-db/to-file log to ui properly
 TODO Implement SaveMode.OnlyToDb

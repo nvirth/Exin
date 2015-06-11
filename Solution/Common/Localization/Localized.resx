@@ -762,4 +762,10 @@ or if you are familiar with SQL queries, you can also use the SQLite database fi
     <value>Reading statistics from File Repository is not implemented. You see this message because the data read mode (ReadMode) is set to value "FromFile". Set it to "FromDb" if you want to see statistics; otherwise you can only see them in the file system at:
 </value>
   </data>
+  <data name="Category_lowercase" xml:space="preserve">
+    <value>category</value>
+  </data>
+  <data name="unit_lowercase" xml:space="preserve">
+    <value>unit</value>
+  </data>
 </root>

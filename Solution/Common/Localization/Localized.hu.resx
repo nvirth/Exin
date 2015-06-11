@@ -762,4 +762,10 @@ A beviteli mezőkben:
     <value>A statisztikák fájl rendszerből történő kiolvasása nem lehetséges. Azért látod ezt az üzenetet, mert az adatok beolvasási módja (ReadMode) a "fájlrendszerből" (FromFile) értékre van állítva. Állíts át "adatbázisból" (FromDb) értékre, ha szeretnéd látni a statisztikákat; másképp csak a fájlrendszerben láthatod őket itt:
 </value>
   </data>
+  <data name="Category_lowercase" xml:space="preserve">
+    <value>kategória</value>
+  </data>
+  <data name="unit_lowercase" xml:space="preserve">
+    <value>mértékegység</value>
+  </data>
 </root>

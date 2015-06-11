@@ -12,8 +12,8 @@ namespace DAL.DataBase.Managers_
 	public abstract class CachedManagerBase<T> : RepoConfigurableBase, ICachedManager<T>
 		where T : LocalizedEntityBase
 	{
-		protected readonly List<T> _cacheFull = new List<T>();
-		protected readonly List<T> _cacheValid = new List<T>();
+		private readonly List<T> _cacheFull = new List<T>();
+		private readonly List<T> _cacheValid = new List<T>();
 
 		protected CachedManagerBase(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
@@ -24,6 +24,7 @@ namespace DAL.DataBase.Managers_
 		public abstract void Add(T item);
 		protected abstract int ValidFrom { get; }
 		protected abstract string LocalizedTypeName { get; }
+		protected abstract string LocalizedTypeNameLowercase { get; }
 
 		public void ClearCache()
 		{
@@ -68,7 +69,7 @@ namespace DAL.DataBase.Managers_
 			var item = _cacheFull.Find(c => c.ID == ID);
 			if(item == null)
 			{
-                var msg = string.Format(Localized.Could_not_find_the__0___ID___1___in_the_database, LocalizedTypeName, ID);
+                var msg = string.Format(Localized.Could_not_find_the__0___ID___1___in_the_database, LocalizedTypeNameLowercase, ID);
 				throw ExinLog.ger.LogException(msg, new Exception(msg));
 			}
 
@@ -80,7 +81,7 @@ namespace DAL.DataBase.Managers_
 			var item = _cacheFull.Find(c => c.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
 			if(item == null && !nullIfNotFound)
 			{
-                var msg = string.Format(Localized.Could_not_find_the__0___Name___1___in_the_database, LocalizedTypeName, name);
+                var msg = string.Format(Localized.Could_not_find_the__0___Name___1___in_the_database, LocalizedTypeNameLowercase, name);
 				throw ExinLog.ger.LogException(msg, new Exception(msg));
 			}
 

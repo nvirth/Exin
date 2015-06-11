@@ -4,6 +4,7 @@ TODO implement SummaryItemManagerFileRepo.InsertOrUpdateSummary
 TODO TransactionItemManager.GetDaily(...IncomeItem) -> Do not get the IncomeItems this way! Get them from monthly
 TODO ImportDataToDb todos
 TODO markers
+TODO Unit Unit_lowercase
 
 * Bring Managers to common interface
 ** Config.Repo.ReadMode/SaveMode is worthy for a search

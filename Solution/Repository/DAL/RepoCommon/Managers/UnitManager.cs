@@ -15,6 +15,7 @@ namespace DAL.DataBase.Managers
 
 		protected override int ValidFrom => Config.UnitValidFrom;
 		protected override string LocalizedTypeName => Localized.Unit;
+		protected override string LocalizedTypeNameLowercase => Localized.unit_lowercase;
 
 		public UnitManager(IRepoConfiguration repoConfiguration = null) : base(repoConfiguration)
 		{

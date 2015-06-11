@@ -277,6 +277,15 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to category.
+        /// </summary>
+        public static string Category_lowercase {
+            get {
+                return ResourceManager.GetString("Category_lowercase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CategoryManagerAdoNetFactory is not implemented for this DbType: {0}.
         /// </summary>
         public static string CategoryManagerAdoNetFactory_is_not_implemented_for_this_DbType__FORMAT__ {
@@ -1866,6 +1875,15 @@ namespace Localization {
         public static string Unit_ {
             get {
                 return ResourceManager.GetString("Unit_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to unit.
+        /// </summary>
+        public static string unit_lowercase {
+            get {
+                return ResourceManager.GetString("unit_lowercase", resourceCulture);
             }
         }
         
