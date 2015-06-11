@@ -18,16 +18,6 @@ namespace DAL.DataBase.EntityFramework.EntitiesSqlite
 				.ForMemberIfNeeded(wasNew, x.Property(y => y.TransactionItems), imce => imce.Ignore())
 				;
 		}
-		public static void InitAutoMapper()
-		{
-			var x = new Category();
-			bool wasNew;
-			AutoMapperInitializer<Category_Sqlite, Category>
-				.InitializeIfNeeded(out wasNew)
-				.ForMemberIfNeeded(wasNew, x.Property(y => y.DisplayName), imce => imce.Ignore())
-				.ForMemberIfNeeded(wasNew, x.Property(y => y.LocalizedDisplayNames), imce => imce.Ignore())
-				;
-		}
 	}
 	public partial class SummaryItem_Sqlite
 	{
@@ -62,16 +52,6 @@ namespace DAL.DataBase.EntityFramework.EntitiesSqlite
 			bool wasNew;
 			AutoMapperInitializer<Unit, Unit_Sqlite>
 				.InitializeIfNeeded(out wasNew, sourceProxy)
-				;
-		}
-		public static void InitAutoMapper()
-		{
-			var x = new Unit();
-			bool wasNew;
-			AutoMapperInitializer<Unit_Sqlite, Unit>
-				.InitializeIfNeeded(out wasNew)
-				.ForMemberIfNeeded(wasNew, x.Property(y => y.DisplayName), imce => imce.Ignore())
-				.ForMemberIfNeeded(wasNew, x.Property(y => y.LocalizedDisplayNames), imce => imce.Ignore())
 				;
 		}
 	}

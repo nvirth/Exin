@@ -1,0 +1,7 @@
+// Make them not static in the future
+
+SQLiteSpecific
+RepoPaths
+ItemsControlSorter
+ItemsControlSorterCore
+MenuManager
