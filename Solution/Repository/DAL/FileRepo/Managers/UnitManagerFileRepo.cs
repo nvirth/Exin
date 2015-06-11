@@ -4,10 +4,12 @@ using System.Xml.Linq;
 using Common.Configuration;
 using Common.Db.Entities;
 using DAL.DataBase.Managers;
-using DAL.FileRepo.Base;
+using DAL.FileRepo.Managers.Base;
+using DAL.RepoCommon;
+using DAL.RepoCommon.Interfaces;
 using C = Common.Configuration.Constants.XmlTags;
 
-namespace DAL.FileRepo
+namespace DAL.FileRepo.Managers
 {
 	public class UnitManagerFileRepo : FileRepoManagerBase, IUnitManagerDao
 	{

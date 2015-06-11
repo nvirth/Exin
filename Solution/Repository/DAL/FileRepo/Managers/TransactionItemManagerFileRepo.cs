@@ -11,11 +11,12 @@ using Common.UiModels.WPF;
 using Common.Utils;
 using Common.Utils.Helpers;
 using DAL.DataBase.Managers;
-using DAL.FileRepo.Base;
+using DAL.FileRepo.Managers.Base;
+using DAL.RepoCommon.Interfaces;
 using Localization;
 using C = Common.Configuration.Constants.XmlTags;
 
-namespace DAL.FileRepo
+namespace DAL.FileRepo.Managers
 {
 	public class TransactionItemManagerFileRepo : FileRepoManagerBase, ITransactionItemManagerDao
 	{

@@ -7,6 +7,7 @@ using Common.UiModels.WPF;
 using Common.UiModels.WPF.Base;
 using Common.Utils.Helpers;
 using DAL.DataBase.Managers;
+using DAL.RepoCommon.Managers;
 
 namespace WPF.ViewModels
 {

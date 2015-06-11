@@ -4,6 +4,7 @@ using Common.Db.Entities;
 using Common.UiModels.WPF;
 using Common.UiModels.WPF.Base;
 using DAL.DataBase.Managers;
+using DAL.RepoCommon.Managers;
 using WPF.Utils;
 
 namespace WPF.ViewModels

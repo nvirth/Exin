@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Common;
 using Common.Utils;
 using DAL.DataBase.Managers;
+using DAL.RepoCommon.Managers;
 using Localization;
 
 namespace BLL.WpfManagers

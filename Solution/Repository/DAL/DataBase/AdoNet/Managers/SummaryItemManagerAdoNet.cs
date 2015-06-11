@@ -11,6 +11,8 @@ using Common.Log;
 using Common.UiModels.WPF;
 using Common.Utils.Helpers;
 using DAL.DataBase.Managers;
+using DAL.RepoCommon;
+using DAL.RepoCommon.Interfaces;
 using Localization;
 using DbType = Common.DbType;
 

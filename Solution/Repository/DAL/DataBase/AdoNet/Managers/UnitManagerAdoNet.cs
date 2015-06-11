@@ -7,6 +7,7 @@ using Common.Db.Entities;
 using Common.Log;
 using Common.Utils.Helpers;
 using DAL.DataBase.Managers;
+using DAL.RepoCommon;
 using Localization;
 using DbType = Common.DbType;
 

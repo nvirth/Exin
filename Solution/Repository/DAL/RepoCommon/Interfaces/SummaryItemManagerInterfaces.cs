@@ -4,7 +4,7 @@ using Common;
 using Common.Db.Entities;
 using Common.UiModels.WPF;
 
-namespace DAL.DataBase.Managers
+namespace DAL.RepoCommon.Interfaces
 {
 	public interface ISummaryItemManagerDao
 	{

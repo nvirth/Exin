@@ -5,6 +5,7 @@ using Common.Configuration;
 using Common.Utils;
 using Common.Utils.Helpers;
 using DAL;
+using DAL.DataBase;
 using Localization;
 
 namespace BLL

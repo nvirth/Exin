@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common.Configuration;
-using Common.Db.Entities;
 using Common.UiModels.WPF;
 using DAL.DataBase.Managers.Factory;
+using DAL.RepoCommon.Interfaces;
 
-namespace DAL.DataBase.Managers
+namespace DAL.RepoCommon.Managers
 {
 	public class TransactionItemManager : RepoConfigurableBase, ITransactionItemManager
 	{

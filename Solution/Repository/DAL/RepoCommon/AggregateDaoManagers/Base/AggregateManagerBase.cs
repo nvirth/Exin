@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Common.Configuration;
 using Common.Log;
+using DAL.RepoCommon.Interfaces;
 
-namespace DAL.DataBase.Managers
+namespace DAL.RepoCommon.AggregateDaoManagers.Base
 {
 	public abstract class AggregateManagerBase<T> : RepoConfigurableBase
 	{

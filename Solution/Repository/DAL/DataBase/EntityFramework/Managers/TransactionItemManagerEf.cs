@@ -9,6 +9,7 @@ using Common.Utils.Helpers;
 using DAL.DataBase.EntityFramework.EntitiesMsSql;
 using DAL.DataBase.EntityFramework.EntitiesSqlite;
 using DAL.DataBase.Managers;
+using DAL.RepoCommon.Interfaces;
 using EntityFramework.Extensions;
 using Localization;
 using TransactionItemCommon = Common.Db.Entities.TransactionItem;

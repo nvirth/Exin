@@ -2,7 +2,7 @@
 using Common.Configuration;
 using Common.Log;
 
-namespace DAL.DataBase
+namespace DAL.RepoCommon
 {
 	public interface IRepoConfigurableBase
 	{

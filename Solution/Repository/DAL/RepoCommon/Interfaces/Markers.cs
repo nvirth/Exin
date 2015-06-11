@@ -1,4 +1,4 @@
-﻿namespace DAL.DataBase.Managers
+﻿namespace DAL.RepoCommon.Interfaces
 {
 	public interface IDbManagerMarker
 	{

@@ -6,6 +6,7 @@ using Common.Log;
 using Common.UiModels.WPF;
 using Common.Utils;
 using DAL.DataBase.Managers;
+using DAL.RepoCommon.Managers;
 using Localization;
 
 namespace BLL.WpfManagers

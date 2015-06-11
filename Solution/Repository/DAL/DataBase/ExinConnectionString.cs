@@ -2,11 +2,11 @@
 using System.Configuration;
 using Common;
 using Common.Configuration;
-using DAL.DataBase;
+using DAL.RepoCommon;
 using Localization;
 using C = Common.Configuration.Constants.Db;
 
-namespace DAL
+namespace DAL.DataBase
 {
 	public class ExinConnectionString : RepoConfigurableBase
 	{

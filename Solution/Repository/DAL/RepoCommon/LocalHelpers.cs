@@ -5,15 +5,14 @@ using System.Data.SQLite;
 using System.Linq;
 using System.Xml.Linq;
 using Common;
-using Common.Configuration;
 using Common.Db.Entities;
 using Common.UiModels.WPF;
 using Common.Utils.Helpers;
-using DAL.DataBase.Managers;
+using DAL.RepoCommon.Interfaces;
 using Localization;
 using C = Common.Configuration.Constants;
 
-namespace DAL
+namespace DAL.RepoCommon
 {
 	public static class LocalHelpers
 	{

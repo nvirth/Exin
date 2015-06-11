@@ -7,7 +7,7 @@ using Common.Utils;
 using Localization;
 using C = Common.Configuration.Constants.Resources.AssemblyNames;
 
-namespace DAL
+namespace DAL.DataBase
 {
 	public static class SQLiteSpecific
 	{

@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using Common;
 using Common.Configuration;
-using Common.Db.Entities;
 using Common.UiModels.WPF;
 using Common.Utils.Helpers;
+using DAL.RepoCommon.AggregateDaoManagers.Base;
+using DAL.RepoCommon.Interfaces;
 
-namespace DAL.DataBase.Managers
+namespace DAL.RepoCommon.AggregateDaoManagers
 {
 	public class TransactionItemManagerDaoAggregate : AggregateManagerBase<ITransactionItemManagerDao>, ITransactionItemManagerDao
 	{

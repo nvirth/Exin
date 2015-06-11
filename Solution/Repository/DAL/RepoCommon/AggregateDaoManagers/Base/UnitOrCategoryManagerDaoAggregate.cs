@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using Common;
 using Common.Configuration;
 using Common.Utils.Helpers;
+using DAL.RepoCommon.Interfaces;
 
-namespace DAL.DataBase.Managers
+namespace DAL.RepoCommon.AggregateDaoManagers.Base
 {
 	public class UnitOrCategoryManagerDaoAggregate<T> : AggregateManagerBase<IUnitOrCategoryManagerDao<T>>, IUnitOrCategoryManagerDao<T>
 	{

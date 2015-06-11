@@ -1,6 +1,7 @@
 ﻿using Common;
 using Common.Configuration;
 using Common.Db.Entities;
+using DAL.RepoCommon;
 
 namespace DAL.DataBase.AdoNet
 {

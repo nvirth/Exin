@@ -6,6 +6,8 @@ using Common.Configuration;
 using Common.Db.Entities;
 using Common.Log;
 using Common.UiModels.WPF;
+using DAL.RepoCommon;
+using DAL.RepoCommon.Interfaces;
 using Localization;
 
 namespace DAL.DataBase.Managers

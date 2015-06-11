@@ -15,6 +15,9 @@ using DAL.DataBase.AdoNet;
 using DAL.DataBase.AdoNet.Managers;
 using DAL.DataBase.Managers;
 using DAL.FileRepo;
+using DAL.FileRepo.Managers;
+using DAL.RepoCommon;
+using DAL.RepoCommon.Managers;
 using Localization;
 
 namespace ImportDataToDb

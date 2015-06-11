@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Common.Db.Entities;
 
-namespace DAL.DataBase.Managers
+namespace DAL.RepoCommon.Interfaces
 {
 	public interface IUnitOrCategoryManagerDao<T>
 	{

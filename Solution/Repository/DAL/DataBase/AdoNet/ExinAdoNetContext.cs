@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Data.SQLite;
 using Common.Configuration;
 using Common.Log;
+using DAL.RepoCommon;
 using Localization;
 using DbType = Common.DbType;
 using C = Common.Configuration.Constants.Db;

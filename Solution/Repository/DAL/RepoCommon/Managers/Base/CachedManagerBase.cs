@@ -4,10 +4,10 @@ using Common.Configuration;
 using Common.Db.Entities.Base;
 using Common.Log;
 using Common.Utils.Helpers;
-using DAL.DataBase.Managers;
+using DAL.RepoCommon.Interfaces;
 using Localization;
 
-namespace DAL.DataBase.Managers_
+namespace DAL.RepoCommon.Managers.Base
 {
 	public abstract class CachedManagerBase<T> : RepoConfigurableBase, ICachedManager<T>
 		where T : LocalizedEntityBase

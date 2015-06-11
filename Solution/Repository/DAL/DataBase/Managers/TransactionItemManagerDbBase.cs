@@ -5,6 +5,8 @@ using Common;
 using Common.Configuration;
 using Common.Db.Entities;
 using Common.UiModels.WPF;
+using DAL.RepoCommon;
+using DAL.RepoCommon.Interfaces;
 
 namespace DAL.DataBase.Managers
 {

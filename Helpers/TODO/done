@@ -5,6 +5,7 @@ TODO TransactionItemManager.GetDaily(...IncomeItem) -> Do not get the IncomeItem
 TODO ImportDataToDb todos
 TODO markers
 TODO Unit Unit_lowercase
+TODO NameSpace refactor
 
 * Bring Managers to common interface
 ** Config.Repo.ReadMode/SaveMode is worthy for a search

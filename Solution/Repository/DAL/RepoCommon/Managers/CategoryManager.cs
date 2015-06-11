@@ -2,11 +2,12 @@
 using Common.Db;
 using Common.Db.Entities;
 using DAL.DataBase.Managers.Factory;
-using DAL.DataBase.Managers_;
+using DAL.RepoCommon.Interfaces;
+using DAL.RepoCommon.Managers.Base;
 using Localization;
 using C = Common.Configuration.Constants.Resources.DefaultCategories;
 
-namespace DAL.DataBase.Managers
+namespace DAL.RepoCommon.Managers
 {
 	public class CategoryManager : CachedManagerBase<Category>, ICategoryManager
 	{

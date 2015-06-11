@@ -8,10 +8,14 @@ using Common.Log;
 using DAL.DataBase.AdoNet.Managers;
 using DAL.DataBase.EntityFramework.Managers;
 using DAL.FileRepo;
+using DAL.FileRepo.Managers;
+using DAL.RepoCommon;
+using DAL.RepoCommon.AggregateDaoManagers;
+using DAL.RepoCommon.Interfaces;
 using Localization;
-using CategoryManagerClass = DAL.DataBase.Managers.CategoryManager;
-using UnitManagerClass = DAL.DataBase.Managers.UnitManager;
-using TransactionItemManagerClass = DAL.DataBase.Managers.TransactionItemManager;
+using CategoryManagerClass = DAL.RepoCommon.Managers.CategoryManager;
+using UnitManagerClass = DAL.RepoCommon.Managers.UnitManager;
+using TransactionItemManagerClass = DAL.RepoCommon.Managers.TransactionItemManager;
 
 namespace DAL.DataBase.Managers.Factory
 {

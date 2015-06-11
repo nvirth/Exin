@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Common.Db.Entities;
 using Common.UiModels.WPF;
 using DAL.DataBase.Managers;
+using DAL.RepoCommon.Managers;
 
 namespace BLL
 {

@@ -5,6 +5,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using Common.Db.Entities;
 using DAL.DataBase.Managers;
+using DAL.RepoCommon.Managers;
 
 namespace WPF.ValueConverters
 {
