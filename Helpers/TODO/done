@@ -13,6 +13,7 @@ TODO NameSpace refactor
 TODO Aggregate classes: eliminate lot of code duplication
 TODO Check Relief managers for LocalConfig
 TODO Stable AutoMapper map initialization solution + cleanup
+TEST summary in TransactionItemManagerFileRepo ReplaceDailyExpenses
 
 * Bring Managers to common interface
 ** Config.Repo.ReadMode/SaveMode is worthy for a search

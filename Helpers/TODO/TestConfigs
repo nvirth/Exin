@@ -1,7 +1,8 @@
+ReadMode: FromFile
+SaveMode: OnlyToFile
+
 ReadMode: FromDb     // *
 SaveMode: OnlyToFile // * This 2 make invalid config
-DbAccessMode: EntityFramework
-DbType: SQLite
 
 
 

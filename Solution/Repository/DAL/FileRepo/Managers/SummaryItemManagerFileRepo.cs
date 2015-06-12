@@ -11,7 +11,6 @@ using Common.Log;
 using Common.UiModels.WPF;
 using Common.Utils;
 using Common.Utils.Helpers;
-using DAL.DataBase.Managers;
 using DAL.FileRepo.Managers.Base;
 using DAL.RepoCommon.Interfaces;
 using Localization;
@@ -43,6 +42,10 @@ namespace DAL.FileRepo.Managers
 			// summaries in the FileRepo
 			//
 			var monthlyExpenses = _transactionItemManager.GetMonthlyExpenses(date);
+
+			// We mustn't use the summary argument, we have to recalculate it for our monthly summary
+			summary = Summary.Summarize(monthlyExpenses);
+
 			WriteOutMonthlySummaries(summary, new DatePaths(date), monthlyExpenses);
 		}
 
