@@ -1,4 +1,3 @@
-TEST the application if it works :)
 TODO Save to-db/to-file log to ui properly
 TODO Implement SaveMode.OnlyToDb
 TODO eliminate high level dependencies of (high level) managers
