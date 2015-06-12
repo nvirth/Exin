@@ -591,6 +591,7 @@ namespace DAL.DataBase.AdoNet.Managers
 			ClearDay(ctx, date, transactionItemType);
 
 			ctx.Command.CommandText = ""; // for safety sake
+			ctx.Command.Parameters.Clear();
 
 			InsertMany(ctx, transactionItems);
 		}
