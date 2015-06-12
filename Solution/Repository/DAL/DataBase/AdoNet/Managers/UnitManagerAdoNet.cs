@@ -43,7 +43,7 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		#region READ (GetAll)
 
-		// TODO FIXME IEnumerable
+		// todo FIXME IEnumerable
 		public override List<Unit> GetAll()
 		{
 			using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))

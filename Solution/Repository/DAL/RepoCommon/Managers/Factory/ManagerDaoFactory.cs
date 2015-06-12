@@ -58,7 +58,6 @@ namespace DAL.RepoCommon.Managers.Factory
 						() => CategoryManagerAdoNetFactory.Create(LocalConfig),
 						() => CategoryManagerEfFactory.Create(LocalConfig),
 						managers => _categoryManager = new CategoryManagerDaoAggregate(
-							//TODO test this cast!
 							managers.Cast<IUnitOrCategoryManagerDao<Category>>().ToList(), LocalConfig)
 					);
 				}
@@ -78,7 +77,6 @@ namespace DAL.RepoCommon.Managers.Factory
 						() => UnitManagerAdoNetFactory.Create(LocalConfig),
 						() => UnitManagerEfFactory.Create(LocalConfig),
 						managers => _unitManager = new UnitManagerDaoAggregate(
-							//TODO test this cast!
 							managers.Cast<IUnitOrCategoryManagerDao<Unit>>().ToList(), LocalConfig)
 					);
 				}
@@ -131,7 +129,6 @@ namespace DAL.RepoCommon.Managers.Factory
 			if (categoryManager == null)
 			{
 				var categoryManagerInstanceConfig = (CategoryManagerClass.Instance as IRepoConfigurableBase)?.LocalConfig;
-				//TODO test this
 				categoryManager = LocalConfig.Equals(categoryManagerInstanceConfig)
 					? CategoryManagerClass.Instance
 					: new CategoryManagerClass(LocalConfig);
@@ -143,7 +140,6 @@ namespace DAL.RepoCommon.Managers.Factory
 			if(unitManager == null)
 			{
 				var unitManagerInstanceConfig = (UnitManagerClass.Instance as IRepoConfigurableBase)?.LocalConfig;
-				//TODO test this
 				unitManager = LocalConfig.Equals(unitManagerInstanceConfig)
 					? UnitManagerClass.Instance
 					: new UnitManagerClass(LocalConfig);
@@ -155,7 +151,6 @@ namespace DAL.RepoCommon.Managers.Factory
 			if (transactionItemManager == null)
 			{
 				var transactionItemManagerInstanceConfig = (TransactionItemManagerClass.Instance as IRepoConfigurableBase)?.LocalConfig;
-				//TODO test this
 				transactionItemManager = LocalConfig.Equals(transactionItemManagerInstanceConfig)
 					? TransactionItemManagerClass.Instance
 					: new TransactionItemManagerClass(LocalConfig);

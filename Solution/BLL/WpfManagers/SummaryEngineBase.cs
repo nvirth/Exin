@@ -8,7 +8,6 @@ using Common.UiModels.WPF.Base;
 using Common.Utils;
 using Common.Utils.Helpers;
 using Localization;
-using Config = Common.Configuration.Config;
 
 namespace BLL.WpfManagers
 {

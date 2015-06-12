@@ -40,7 +40,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		#region READ (GetAll)
 
-		// TODO FIXME IEnumerable
+		// todo FIXME IEnumerable
 		public override List<CategoryCommon> GetAll()
 		{
 			using(var ctx = ExinEfContextFactory.Create(LocalConfig))

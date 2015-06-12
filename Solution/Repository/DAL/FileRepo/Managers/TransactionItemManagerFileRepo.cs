@@ -89,7 +89,6 @@ namespace DAL.FileRepo.Managers
 					var actualDay = new DateTime(datePaths.Date.Year, datePaths.Date.Month, i);
 					datePaths.Date = actualDay;
 
-					//TODO have we every time logged for the user?
 					monthlyExpenses = monthlyExpenses.Union(GetDailyExpenses(datePaths));
 				}
 				var res = monthlyExpenses.ToList();
@@ -256,7 +255,6 @@ namespace DAL.FileRepo.Managers
 
 		#region ITransactionItemManagerDao (remaining) implementation (wrappers)
 
-		// TODO test summary in TransactionItemManagerFileRepo ReplaceDailyExpenses
 		public void ReplaceDailyExpenses(IList<ExpenseItem> expenseItems, DateTime date)
 		{
 			var summary = Summary.Summarize(expenseItems);

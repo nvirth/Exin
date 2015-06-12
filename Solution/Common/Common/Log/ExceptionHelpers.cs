@@ -57,7 +57,7 @@ namespace Common.Log
 				CamelCaseText = true
 			};
 
-		// TODO null handling
+		// todo null handling
 		public static string SerializeToLog(this object value)
 		{
 			string stringValue = null;

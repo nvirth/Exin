@@ -31,7 +31,7 @@ namespace BLL.WpfManagers
 		{
 			MessagePresenter.Instance.WriteLineSeparator();
 
-			if(DatePaths.Date.Date == DateTime.Today) // TODO test Today.Date
+			if(DatePaths.Date.Date == DateTime.Today)
 				MessagePresenter.Instance.WriteLine(Localized.Today_s_expenses_loading__);
 			else
 				MessagePresenter.Instance.WriteLine(string.Format(Localized.__0__loading_daily_expenses__FORMAT__, 
