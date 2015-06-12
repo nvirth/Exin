@@ -66,6 +66,11 @@ namespace Common.Db.Entities.Base
 		#endregion
 
 		protected abstract string GetLocalizedTypeNameLowercase();
+
+		protected virtual string GetTypeName()
+		{
+			return this.GetType().Name;
+		}
 	}
 
 	[Serializable]
@@ -73,9 +78,7 @@ namespace Common.Db.Entities.Base
 	{
 		public XElement ToXml()
 		{
-			//todo test DisplayNames
-			// C <--> Constants.XmlTags
-			return new XElement(C.ExpenseItem, new object[]
+			return new XElement(GetTypeName(), new object[]
 			{
 				new XElement(C.ID, ID),
 				new XElement(C.Name, Name),
