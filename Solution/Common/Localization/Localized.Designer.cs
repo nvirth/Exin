@@ -241,6 +241,17 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An unexpected error occured. The app will stop now. 
+        ///
+        ///    .
+        /// </summary>
+        public static string An_unexpected_error_occured__The_app_will_stop_now__ {
+            get {
+                return ResourceManager.GetString("An_unexpected_error_occured__The_app_will_stop_now__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Calculating summaries.
         /// </summary>
         public static string Calculating_summaries {

@@ -535,11 +535,6 @@ namespace WPF
 			}
 		}
 
-		private MessageBoxResult PromptErrorWindow(string errorMsg)
-		{
-			return MessageBox.Show(errorMsg, Localized.Error_, MessageBoxButton.OK, MessageBoxImage.Error);
-		}
-
 		private void SwitchMainTab()
 		{
 			var tabSummaryNumber = (TabSummaryNumber)MainTabControl.SelectedIndex;
@@ -640,7 +635,7 @@ namespace WPF
 
 			if(!String.IsNullOrEmpty(errorMsg))
 			{
-				PromptErrorWindow(errorMsg);
+				Util.PromptErrorWindow(errorMsg);
 				return false;
 			}
 			return true;

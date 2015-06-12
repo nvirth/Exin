@@ -1,0 +1,48 @@
+ReadMode: FromDb     // *
+SaveMode: OnlyToFile // * This 2 make invalid config
+DbAccessMode: EntityFramework
+DbType: SQLite
+
+
+
+ReadMode: FromDb
+SaveMode: FileAndDb
+DbAccessMode: EntityFramework
+DbType: SQLite
+
+ReadMode: FromDb
+SaveMode: FileAndDb
+DbAccessMode: AdoNet
+DbType: SQLite
+
+ReadMode: FromDb
+SaveMode: FileAndDb
+DbAccessMode: EntityFramework
+DbType: MsSql
+
+ReadMode: FromDb
+SaveMode: FileAndDb
+DbAccessMode: AdoNet
+DbType: MsSql
+
+
+
+ReadMode: FromFile
+SaveMode: FileAndDb
+DbAccessMode: EntityFramework
+DbType: SQLite
+
+ReadMode: FromFile
+SaveMode: FileAndDb
+DbAccessMode: AdoNet
+DbType: SQLite
+
+ReadMode: FromFile
+SaveMode: FileAndDb
+DbAccessMode: EntityFramework
+DbType: MsSql
+
+ReadMode: FromFile
+SaveMode: FileAndDb
+DbAccessMode: AdoNet
+DbType: MsSql

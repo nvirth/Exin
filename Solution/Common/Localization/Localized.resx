@@ -768,4 +768,9 @@ or if you are familiar with SQL queries, you can also use the SQLite database fi
   <data name="unit_lowercase" xml:space="preserve">
     <value>unit</value>
   </data>
+  <data name="An_unexpected_error_occured__The_app_will_stop_now__" xml:space="preserve">
+    <value>An unexpected error occured. The app will stop now. 
+
+    </value>
+  </data>
 </root>

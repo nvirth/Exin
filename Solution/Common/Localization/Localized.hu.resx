@@ -768,4 +768,9 @@ A beviteli mezőkben:
   <data name="unit_lowercase" xml:space="preserve">
     <value>mértékegység</value>
   </data>
+  <data name="An_unexpected_error_occured__The_app_will_stop_now__" xml:space="preserve">
+    <value>Váratlan hiba történt. Az alkalmazás most leáll. 
+
+    </value>
+  </data>
 </root>

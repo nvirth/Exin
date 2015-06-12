@@ -100,6 +100,7 @@
     <Compile Include="Utils\ItemsControlSorterCore.cs" />
     <Compile Include="Utils\MenuManager.cs" />
     <Compile Include="Utils\ItemsControlSorter.cs" />
+    <Compile Include="Utils\Util.cs" />
     <Compile Include="ValueConverters\ChartYAxisMaxConverter.cs" />
     <Compile Include="ValueConverters\ChartColumnBgConverter.cs" />
     <Compile Include="ValueConverters\EnumDescriptionConverter.cs" />
