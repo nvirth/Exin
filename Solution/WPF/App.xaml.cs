@@ -23,19 +23,11 @@ namespace WPF
 			AppDomain.CurrentDomain.FirstChanceException += FirstChanceExceptionHandler;
 
 			// The controls will init with hungarian CultureInfo
-			//Cultures.SetDefaultCultureToHungarian();
+			//Cultures.SetToHungarian();
 			Cultures.SetToEnglish();
 		}
 		
-		protected override void OnLoadCompleted(NavigationEventArgs e)
-		{
-			base.OnLoadCompleted(e);
-
-			// The exceptions' message will be english 
-			Cultures.SetToEnglish();
-		}
-
-	    protected override void OnStartup(StartupEventArgs e)
+		protected override void OnStartup(StartupEventArgs e)
 	    {
             // Do not run multiple instances from the app
             ApplicationRunningHelper.SwitchToRunningInstanceIfExists();

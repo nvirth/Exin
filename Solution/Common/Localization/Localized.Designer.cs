@@ -1892,9 +1892,9 @@ namespace Localization {
         /// <summary>
         ///   Looks up a localized string similar to unit.
         /// </summary>
-        public static string unit_lowercase {
+        public static string Unit_lowercase {
             get {
-                return ResourceManager.GetString("unit_lowercase", resourceCulture);
+                return ResourceManager.GetString("Unit_lowercase", resourceCulture);
             }
         }
         

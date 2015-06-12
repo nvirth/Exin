@@ -13,3 +13,4 @@ TODO search for todos in the app
 * InitAllStatic
 * Currency
 * SQLiteSpecific.cs uses Config.Repo. Is it ok so?
+* Lang should be set in appSettings

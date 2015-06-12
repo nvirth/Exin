@@ -765,7 +765,7 @@ or if you are familiar with SQL queries, you can also use the SQLite database fi
   <data name="Category_lowercase" xml:space="preserve">
     <value>category</value>
   </data>
-  <data name="unit_lowercase" xml:space="preserve">
+  <data name="Unit_lowercase" xml:space="preserve">
     <value>unit</value>
   </data>
   <data name="An_unexpected_error_occured__The_app_will_stop_now__" xml:space="preserve">

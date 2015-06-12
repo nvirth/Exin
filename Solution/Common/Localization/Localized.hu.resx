@@ -765,7 +765,7 @@ A beviteli mezőkben:
   <data name="Category_lowercase" xml:space="preserve">
     <value>kategória</value>
   </data>
-  <data name="unit_lowercase" xml:space="preserve">
+  <data name="Unit_lowercase" xml:space="preserve">
     <value>mértékegység</value>
   </data>
   <data name="An_unexpected_error_occured__The_app_will_stop_now__" xml:space="preserve">

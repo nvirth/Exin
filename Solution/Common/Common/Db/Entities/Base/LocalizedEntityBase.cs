@@ -46,13 +46,13 @@ namespace Common.Db.Entities.Base
 		{
 			get
 			{
-
 				if (_displayName == null)
 				{
 					_displayName = LocalizedDisplayNames.GetLocalizedValue();
-					if (_displayName == null)//TODO test this case
+					if (_displayName == null)
 					{
-						var msg = Localized.This__0__entity_does_not_contain_any_DisplayName_value___.Formatted(this.GetType().Name);
+						//todo localize Name and DisplayName words when they can be set via options
+						var msg = Localized.This__0__entity_does_not_contain_any_DisplayName_value___.Formatted(GetLocalizedTypeNameLowercase());
 						ExinLog.ger.LogError(msg, new { ID, Name, DisplayNames });
 
 						_displayName = Name;
@@ -64,6 +64,8 @@ namespace Common.Db.Entities.Base
 		}
 
 		#endregion
+
+		protected abstract string GetLocalizedTypeNameLowercase();
 	}
 
 	[Serializable]
