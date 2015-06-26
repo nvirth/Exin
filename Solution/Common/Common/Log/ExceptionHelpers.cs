@@ -57,10 +57,12 @@ namespace Common.Log
 				CamelCaseText = true
 			};
 
-		// todo null handling
 		public static string SerializeToLog(this object value)
 		{
 			string stringValue = null;
+
+			if (value == null)
+				return "null";
 
 			// If the object value is a simple type, "serialize" it with a .ToString call
 			if(value.GetType().IsValueType || (value is string))
