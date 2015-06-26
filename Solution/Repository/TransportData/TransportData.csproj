@@ -7,8 +7,8 @@
     <ProjectGuid>{4EFD27E2-A10E-4022-A127-51455EE8C328}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ImportDataToDb</RootNamespace>
-    <AssemblyName>ImportDataToDb</AssemblyName>
+    <RootNamespace>TransportData</RootNamespace>
+    <AssemblyName>TransportData</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -49,8 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ImportData.cs" />
-    <Compile Include="ImportDataToDb.cs" />
+    <Compile Include="TransportData_FromFile_ToDb.cs" />
+    <Compile Include="TransportData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

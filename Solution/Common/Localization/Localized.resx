@@ -544,8 +544,8 @@ or if you are familiar with SQL queries, you can also use the SQLite database fi
   <data name="Command_line_arguments_are_not_implemented_yet" xml:space="preserve">
     <value>Command line arguments are not implemented yet</value>
   </data>
-  <data name="ImportData_ClearAllTables_is_not_implemented_to_this_DbType___0_" xml:space="preserve">
-    <value>ImportData.ClearAllTables is not implemented to this DbType: {0}</value>
+  <data name="TransportDataFromFileToDb_ClearAllTables_is_not_implemented_to_this_DbType___0_" xml:space="preserve">
+    <value>TransportData_FromFile_ToDb.ClearAllTables is not implemented to this DbType: {0}</value>
   </data>
   <data name="The_database_tables_are_ready__have_been_emptied" xml:space="preserve">
     <value>The database tables are ready/have been emptied!</value>
@@ -555,14 +555,6 @@ or if you are familiar with SQL queries, you can also use the SQLite database fi
   </data>
   <data name="Press_any_key_to_continue_" xml:space="preserve">
     <value>Press any key to continue...</value>
-  </data>
-  <data name="The_ImportData_project_need_to_be_configured_to_use_AdoNet_to_db_access___" xml:space="preserve">
-    <value>The ImportData project need to be configured to use AdoNet to db access, because there are methods directly using AdoNet.
-&lt;add key="DbAccessMode" value="AdoNet" /&gt;</value>
-  </data>
-  <data name="The_ImportData_project_need_to_be_configured_to_read_data_from_database___" xml:space="preserve">
-    <value>The ImportData project need to be configured to read data from database. You must not use the filesystem for it this time.
-&lt;add key="ReadMode" value="FromDb" /&gt;</value>
   </data>
   <data name="RequiredErrorMessageFormat" xml:space="preserve">
     <value>{0} is required</value>

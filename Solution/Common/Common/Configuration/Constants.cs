@@ -62,7 +62,7 @@
 
 			public static class AssemblyNames
 			{
-				public const string ImportDataToDb_exe = "ImportDataToDb.exe";
+				public const string TransportData_exe = "TransportData.exe";
 
 			}
 		}

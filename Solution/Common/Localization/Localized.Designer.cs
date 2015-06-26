@@ -952,15 +952,6 @@ namespace Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ImportData.ClearAllTables is not implemented to this DbType: {0}.
-        /// </summary>
-        public static string ImportData_ClearAllTables_is_not_implemented_to_this_DbType___0_ {
-            get {
-                return ResourceManager.GetString("ImportData_ClearAllTables_is_not_implemented_to_this_DbType___0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Importing categories.
         /// </summary>
         public static string Importing_categories {
@@ -1663,26 +1654,6 @@ namespace Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The ImportData project need to be configured to read data from database. You must not use the filesystem for it this time.
-        ///&lt;add key=&quot;ReadMode&quot; value=&quot;FromDb&quot; /&gt;.
-        /// </summary>
-        public static string The_ImportData_project_need_to_be_configured_to_read_data_from_database___ {
-            get {
-                return ResourceManager.GetString("The_ImportData_project_need_to_be_configured_to_read_data_from_database___", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The ImportData project need to be configured to use AdoNet to db access, because there are methods directly using AdoNet.
-        ///&lt;add key=&quot;DbAccessMode&quot; value=&quot;AdoNet&quot; /&gt;.
-        /// </summary>
-        public static string The_ImportData_project_need_to_be_configured_to_use_AdoNet_to_db_access___ {
-            get {
-                return ResourceManager.GetString("The_ImportData_project_need_to_be_configured_to_use_AdoNet_to_db_access___", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The monthly directory created. .
         /// </summary>
         public static string The_monthly_directory_created_ {
@@ -1878,6 +1849,15 @@ namespace Localization {
         public static string TransactionItemManagerEfFactory_is_not_implemented_for_this_DbType__FORMAT__ {
             get {
                 return ResourceManager.GetString("TransactionItemManagerEfFactory_is_not_implemented_for_this_DbType__FORMAT__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TransportData_FromFile_ToDb.ClearAllTables is not implemented to this DbType: {0}.
+        /// </summary>
+        public static string TransportDataFromFileToDb_ClearAllTables_is_not_implemented_to_this_DbType___0_ {
+            get {
+                return ResourceManager.GetString("TransportDataFromFileToDb_ClearAllTables_is_not_implemented_to_this_DbType___0_", resourceCulture);
             }
         }
         

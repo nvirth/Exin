@@ -15,7 +15,7 @@ http://system.data.sqlite.org/index.html/doc/trunk/www/downloads.wiki
 		- This would not be so big a problem if I would open the connections manually, not the framework automatically.
 		- The solution is to call a commit immediately after Connection.Open().
 			- Yes, because calling a BEGIN immediately after Connection.Open() would not work, would end up with and exception; because I'm already in a transaction!
-	- Interesting, by ImportDataToDb, by importing the summaries, the tool uses DAL fns; so the whole is in transaction. Here it first deletes the current daily summary, than inserts the new one. Here it has caused ERRORS RANDOMLY (after ~400-1200 records) if I've done it so:
+	- Interesting, by TransportData, by importing the summaries, the tool uses DAL fns; so the whole is in transaction. Here it first deletes the current daily summary, than inserts the new one. Here it has caused ERRORS RANDOMLY (after ~400-1200 records) if I've done it so:
 		" BEGIN; ...delete section...; " --> This is the 1. ExecNonQuery
 		" ...insert section...; COMMIT; " --> This is the 2. Exec section
 		- The random error was that by the next sequent of summary, the Connection.Open() ended up with some error like this: "this operation can't be executed in this transactional state"

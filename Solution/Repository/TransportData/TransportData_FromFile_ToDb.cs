@@ -17,12 +17,12 @@ using DAL.RepoCommon;
 using DAL.RepoCommon.Managers;
 using Localization;
 
-namespace ImportDataToDb
+namespace TransportData
 {
 	/// <summary>
 	/// Imports data from the file repository to the database. 
 	/// </summary>
-	public class ImportData
+	public class TransportData_FromFile_ToDb
 	{
 		#region Members
 
@@ -62,7 +62,7 @@ namespace ImportDataToDb
 		
 		#endregion
 
-		public ImportData(DbType dbType)
+		public TransportData_FromFile_ToDb(DbType dbType)
 		{
 			LocalConfig = new RepoConfiguration()
 			{
@@ -95,21 +95,19 @@ namespace ImportDataToDb
 
 		#region Main
 
-		public void ImportDataFromFileRepoToDb(string[] args = null)
+		public void DoWork(string[] args = null)
 		{
-
-
 			MessagePresenter.Instance.WriteLine(Localized.Importing_data_from_File_Repository_into___0___DataBase.Formatted(LocalConfig.DbType));
 			MessagePresenter.Instance.WriteLine("");
 
-			DoWork(args);
+			DoWorkImpl(args);
 
 			MessagePresenter.Instance.WriteLine(Localized._end_);
 			MessagePresenter.Instance.WriteLine("");
 			MessagePresenter.Instance.WriteLine(Localized.Operation_finished_successfully__);
 		}
 
-		private void DoWork(string[] args)
+		private void DoWorkImpl(string[] args)
 		{
 			Action clearAllTablesAction = ClearAllTables;
 			Action importUnitsAction = ImportUnits;
@@ -168,7 +166,7 @@ namespace ImportDataToDb
 
 			if(args != null && args.Length != 0)
 			{
-				//TODO ImportData command line arguments
+				//TODO TransportData command line arguments
 				//var searchPattern = year;
 				//searchPattern += month == null ? "" : "_" + month;
 				//searchPattern += "*";
@@ -352,7 +350,7 @@ namespace ImportDataToDb
 					break;
 
 				default:
-					throw new NotImplementedException(string.Format(Localized.ImportData_ClearAllTables_is_not_implemented_to_this_DbType___0_, LocalConfig.DbType));
+					throw new NotImplementedException(string.Format(Localized.TransportDataFromFileToDb_ClearAllTables_is_not_implemented_to_this_DbType___0_, LocalConfig.DbType));
 			}
 
 			//MessagePresenter.Instance.WriteLine(Localized.The_database_tables_are_ready__have_been_emptied);

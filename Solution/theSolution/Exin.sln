@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "..\Repository\DAL\DA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", "{18B1FA8D-5FED-41BE-9544-4422394D033B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImportDataToDb", "..\Repository\ImportDataToDb\ImportDataToDb.csproj", "{4EFD27E2-A10E-4022-A127-51455EE8C328}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransportData", "..\Repository\TransportData\TransportData.csproj", "{4EFD27E2-A10E-4022-A127-51455EE8C328}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DB", "..\Repository\DB\DB.sqlproj", "{54233B8B-E3AC-48BA-AE3D-93D51D195C42}"
 EndProject

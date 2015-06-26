@@ -34,7 +34,7 @@ namespace DAL.DataBase
 			MessagePresenter.Instance.WriteLine(Localized.Please__wait_until_it_s_done);
 			MessagePresenter.Instance.WriteLine("");
 
-			var wasSuccessful = await StartImportDataProcess();
+			var wasSuccessful = await StartTransportDataProcess();
 
 			if (wasSuccessful)
 			{
@@ -49,7 +49,7 @@ namespace DAL.DataBase
 			MessagePresenter.Instance.WriteLineSeparator();
 		}
 
-		public static async Task<bool> StartImportDataProcess()
+		public static async Task<bool> StartTransportDataProcess()
 		{
 			return await new TaskFactory<bool>().StartNew(
 				() =>
@@ -57,8 +57,8 @@ namespace DAL.DataBase
 					var startInfo = new ProcessStartInfo
 					{
 						//WorkingDirectory = Paths.Play_publicPath,
-						FileName = C.ImportDataToDb_exe,
-						//Arguments = command.ToString(),
+						FileName = C.TransportData_exe,
+						//Arguments = command.ToString(), // TODO SQLiteSpecific.StartTransportDataProcess
 						//WindowStyle = ProcessWindowStyle.Hidden,
 						//RedirectStandardOutput = true,
 						//RedirectStandardError = true,

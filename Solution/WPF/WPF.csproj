@@ -202,9 +202,9 @@
       <Project>{54233b8b-e3ac-48ba-ae3d-93d51d195c42}</Project>
       <Name>DB</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Repository\ImportDataToDb\ImportDataToDb.csproj">
+    <ProjectReference Include="..\Repository\TransportData\TransportData.csproj">
       <Project>{4efd27e2-a10e-4022-a127-51455ee8c328}</Project>
-      <Name>ImportDataToDb</Name>
+      <Name>TransportData</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -224,6 +224,6 @@
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild">
-    <Copy SourceFiles="..\Repository\ImportDataToDb\bin\$(Configuration)\ImportDataToDb.exe.config" DestinationFolder="$(TargetDir)" />
+    <Copy SourceFiles="..\Repository\TransportData\bin\$(Configuration)\TransportData.exe.config" DestinationFolder="$(TargetDir)" />
   </Target>
 </Project>

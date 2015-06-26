@@ -1,3 +1,5 @@
+TODO SQLiteSpecific.StartTransportDataProcess - command line arguments (when they are ready)
+
 * patch existing system to be compatible with the new one
 ** rename categories, units
 ** patch existing db file

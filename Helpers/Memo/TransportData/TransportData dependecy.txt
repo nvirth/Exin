@@ -1,0 +1,7 @@
+﻿In those projects, in which we want to be able to run the TransportData in a new process, we need these:
+- A reference to the TransportData project
+- In the project file (xxx.csproj) of that project, this have to be exist, for the config file to be reachable after build:
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="..\Repository\TransportData\bin\$(Configuration)\TransportData.exe.config" 
+          DestinationFolder="$(TargetDir)" />
+  </Target>
