@@ -773,4 +773,10 @@ A beviteli mezőkben:
 
     </value>
   </data>
+  <data name="Enum_SaveMode_OnlyToDb" xml:space="preserve">
+    <value>Adatok mentése: csak adatbázisba</value>
+  </data>
+  <data name="Configuration_error__can_t_use_ReadMode_FromFile_and_SaveMode_OnlyToDb_together__" xml:space="preserve">
+    <value>Konfigurációs hiba: Nem használhatók együtt a következők: ReadMode.FromFile, SaveMode.OnlyToDb. </value>
+  </data>
 </root>

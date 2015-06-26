@@ -90,9 +90,17 @@ namespace Common.Configuration
 
 		static Config()
 		{
+			// TODO it would be better if only SaveMode.FileAndDb could be used in ExinWPF
+
 			if(Repo.ReadMode == ReadMode.FromDb && Repo.SaveMode == SaveMode.OnlyToFile)
 			{
 				string msg = Localized.Configuration_error__can_t_use_ReadMode_FromDb_and_SaveMode_OnlyToFile_together__;
+				ExinLog.ger.LogError(msg);
+				throw new Exception(msg);
+			}
+			if(Repo.ReadMode == ReadMode.FromFile && Repo.SaveMode == SaveMode.OnlyToDb)
+			{
+				string msg = Localized.Configuration_error__can_t_use_ReadMode_FromFile_and_SaveMode_OnlyToDb_together__;
 				ExinLog.ger.LogError(msg);
 				throw new Exception(msg);
 			}

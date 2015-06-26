@@ -370,6 +370,16 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Configuration error: can&apos;t use ReadMode.FromFile and SaveMode.OnlyToDb together. .
+        /// </summary>
+        public static string Configuration_error__can_t_use_ReadMode_FromFile_and_SaveMode_OnlyToDb_together__ {
+            get {
+                return ResourceManager.GetString("Configuration_error__can_t_use_ReadMode_FromFile_and_SaveMode_OnlyToDb_together__" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy menuitem is not implemented yet.
         /// </summary>
         public static string Copy_menuitem_is_not_implemented_yet {
@@ -810,6 +820,15 @@ namespace Localization {
         public static string Enum_SaveMode_FileAndDb {
             get {
                 return ResourceManager.GetString("Enum_SaveMode_FileAndDb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save data: only to db.
+        /// </summary>
+        public static string Enum_SaveMode_OnlyToDb {
+            get {
+                return ResourceManager.GetString("Enum_SaveMode_OnlyToDb", resourceCulture);
             }
         }
         

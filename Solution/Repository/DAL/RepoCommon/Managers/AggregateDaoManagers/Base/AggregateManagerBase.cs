@@ -57,6 +57,8 @@ namespace DAL.RepoCommon.Managers.AggregateDaoManagers.Base
 				{
 					case SaveMode.OnlyToFile:
 						return AllFileRepoManagers;
+					case SaveMode.OnlyToDb:
+						return AllDbManagers;
 					case SaveMode.FileAndDb:
 						return AllManagers;
 					default:

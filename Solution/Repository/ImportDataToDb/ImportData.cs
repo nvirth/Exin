@@ -70,7 +70,7 @@ namespace ImportDataToDb
 				// FromDb, because caches have to be empty. The reading from FileRepo will be done manually
 				ReadMode = ReadMode.FromDb,
 
-				SaveMode = SaveMode.FileAndDb, // TODO only to db (it's ignored yet though because the direct use of the managers)
+				SaveMode = SaveMode.OnlyToDb,
 
 				// AdoNet, because the db access here is written directly with the AdoNet classes!
 				DbAccessMode = DbAccessMode.AdoNet,

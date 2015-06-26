@@ -168,9 +168,11 @@ namespace DAL.RepoCommon.Managers.Factory
 			Action<List<T>> newAggregateManager
 		)
 		{
-			var managers = new List<T> {
-				newFileRepoManager()
-			};
+			var managers = new List<T>();
+
+			var needsFrManager = !(LocalConfig.ReadMode == ReadMode.FromDb && LocalConfig.SaveMode == SaveMode.OnlyToDb);
+			if(needsFrManager)
+				managers.Add(newFileRepoManager());
 
 			var needsDbManager = !(LocalConfig.ReadMode == ReadMode.FromFile && LocalConfig.SaveMode == SaveMode.OnlyToFile);
 			if(needsDbManager)

@@ -12,6 +12,7 @@ namespace Common
 		public const string ReadMode_FromDb = "Enum_ReadMode_FromDb";
 		public const string SaveMode_OnlyToFile = "Enum_SaveMode_OnlyToFile";
 		public const string SaveMode_FileAndDb = "Enum_SaveMode_FileAndDb";
+		public const string SaveMode_OnlyToDb = "Enum_SaveMode_OnlyToDb";
 		public const string DbAccessMode_None = "Enum_DbAccessMode_None";
 		public const string DbAccessMode_AdoNet = "Enum_DbAccessMode_AdoNet";
 		public const string DbAccessMode_EntityFramework = "Enum_DbAccessMode_EntityFramework";
@@ -44,6 +45,9 @@ namespace Common
 
 		[Description(EnumResourceKeyConstants.SaveMode_FileAndDb)]
 		FileAndDb = 2,
+
+		[Description(EnumResourceKeyConstants.SaveMode_OnlyToDb)]
+		OnlyToDb = 3,
 	}
 	public enum DbAccessMode : byte
 	{

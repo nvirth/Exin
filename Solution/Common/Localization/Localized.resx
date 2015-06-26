@@ -773,4 +773,10 @@ or if you are familiar with SQL queries, you can also use the SQLite database fi
 
     </value>
   </data>
+  <data name="Enum_SaveMode_OnlyToDb" xml:space="preserve">
+    <value>Save data: only to db</value>
+  </data>
+  <data name="Configuration_error__can_t_use_ReadMode_FromFile_and_SaveMode_OnlyToDb_together__" xml:space="preserve">
+    <value>Configuration error: can't use ReadMode.FromFile and SaveMode.OnlyToDb together. </value>
+  </data>
 </root>
