@@ -14,6 +14,7 @@ TODO Aggregate classes: eliminate lot of code duplication
 TODO Check Relief managers for LocalConfig
 TODO Stable AutoMapper map initialization solution + cleanup
 TODO search for todos in the app
+TODO Expenses: Ft, Incomes and Statistics: $
 
 TEST summary in TransactionItemManagerFileRepo ReplaceDailyExpenses
 TEST the application if it works :)

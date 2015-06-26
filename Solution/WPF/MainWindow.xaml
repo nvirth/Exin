@@ -245,7 +245,7 @@
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="{x:Static res:Localized.Title}" DisplayMemberBinding="{Binding Path=Title}" />
-                                <GridViewColumn Header="{x:Static res:Localized.Amount}" DisplayMemberBinding="{Binding Path=Amount, StringFormat={}{0:c0}}" />
+                                <GridViewColumn Header="{x:Static res:Localized.Amount}" DisplayMemberBinding="{Binding Path=Amount, StringFormat={}{0:c0}, ConverterCulture=Hu-hu}" />
                                 <GridViewColumn Header="{x:Static res:Localized.Comment}" DisplayMemberBinding="{Binding Path=Comment}" />
                             </GridView>
                         </ListView.View>

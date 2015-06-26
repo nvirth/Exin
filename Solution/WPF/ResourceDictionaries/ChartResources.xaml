@@ -14,7 +14,9 @@
     <!--Y AXIS - Format numeric values to e.g. '123.000 Ft'-->
     <Style TargetType="DVC:NumericAxisLabel" x:Key="NumericAxisLabelStyle">
         <Setter Property="IsTabStop" Value="False" />
-        <Setter Property="StringFormat" Value="{}{0:C0}" />
+        <Setter Property="StringFormat" Value="{}{0:N0} Ft" />
+        <!--<Setter Property="StringFormat" Value="{}{0:C0}" />-->
+        <!--<Setter Property="Language" Value="hu-HU" />-->
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="DVC:NumericAxisLabel">
@@ -30,7 +32,9 @@
             <valueConverters:ChartColumnBgConverter x:Key="ChartColumnBgConverter" />
         </Style.Resources>
         <Setter Property="Background" Value="{Binding Converter={StaticResource ChartColumnBgConverter}}" />
-        <Setter Property="DependentValueStringFormat" Value="{}{0:C0}" />
+        <Setter Property="DependentValueStringFormat" Value="{}{0:N0} Ft" />
+        <!--<Setter Property="DependentValueStringFormat" Value="{}{0:C0}" />-->
+        <!--<Setter Property="Language" Value="hu-HU" />-->
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="DVC:ColumnDataPoint">
