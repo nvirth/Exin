@@ -95,24 +95,24 @@ namespace TransportData
 
 		#region Main
 
-		public void DoWork(string[] args = null)
+		public void DoWork()
 		{
 			MessagePresenter.Instance.WriteLine(Localized.Importing_data_from_File_Repository_into___0___DataBase.Formatted(LocalConfig.DbType));
 			MessagePresenter.Instance.WriteLine();
 
-			DoWorkImpl(args);
+			DoWorkImpl();
 
 			MessagePresenter.Instance.WriteLine(Localized._end_);
 			MessagePresenter.Instance.WriteLine();
 			MessagePresenter.Instance.WriteLine(Localized.Operation_finished_successfully__);
 		}
 
-		private void DoWorkImpl(string[] args)
+		private void DoWorkImpl()
 		{
 			Action clearAllTablesAction = ClearAllTables;
 			Action importUnitsAction = ImportUnits;
 			Action importCategoriesAction = ImportCategories;
-			Action importExpensesAction = () => ImportExpensesAndIncomes(args);
+			Action importExpensesAction = ImportExpensesAndIncomes;
 			Action calculateSummaries = CalculateSummaries;
 
 			clearAllTablesAction.ExecuteWithTimeMeasuring(Localized.Creating_or_emptying_tables);
@@ -156,27 +156,13 @@ namespace TransportData
 			}
 		}
 
-		private void ImportExpensesAndIncomes(string[] args)
+		private void ImportExpensesAndIncomes()
 		{
 			//string year = "";
 			//string month = "";
 			string day = "";
 			string searchPattern = "*";
-			Regex directoryFilter = new Regex(".*");
-
-			if(args != null && args.Length != 0)
-			{
-				//TODO TransportData command line arguments
-				//var searchPattern = year;
-				//searchPattern += month == null ? "" : "_" + month;
-				//searchPattern += "*";
-
-				throw new NotImplementedException(Localized.Command_line_arguments_are_not_implemented_yet);
-			}
-			else // if there is no cmd line argument, we need all the month directories
-			{
-				directoryFilter = new Regex(@"^\d{4}_\d{2} .*$");
-			}
+			Regex directoryFilter = new Regex(@"^\d{4}_\d{2} .*$");
 
 			var monthDirectories = RepoPaths.DirectoryInfos.Root
 				.EnumerateDirectories(searchPattern)

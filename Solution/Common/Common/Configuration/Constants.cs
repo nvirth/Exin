@@ -67,6 +67,15 @@
 			}
 		}
 
+		public static class TransportData
+		{
+			public const string FILEREPO = "FILEREPO";
+			public const string DB_MSSQL = "DB_MSSQL";
+			public const string DB_SQLITE = "DB_SQLITE";
+			public const string EN = "EN";
+			public const string HU = "HU";
+		}
+
 		public static class XmlTags
 		{
 			public const string ExpenseItem = "ExpenseItem";

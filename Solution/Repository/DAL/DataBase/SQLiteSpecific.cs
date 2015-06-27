@@ -4,8 +4,10 @@ using System.Threading.Tasks;
 using Common;
 using Common.Configuration;
 using Common.Utils;
+using Common.Utils.Helpers;
 using Localization;
-using C = Common.Configuration.Constants.Resources.AssemblyNames;
+using AssemblyNames = Common.Configuration.Constants.Resources.AssemblyNames;
+using C = Common.Configuration.Constants.TransportData;
 
 namespace DAL.DataBase
 {
@@ -26,7 +28,9 @@ namespace DAL.DataBase
 
 		public static async Task InitSqliteFileIfNeeded(DbType dbType = 0)
 		{
-			if (IsDbOk(dbType == 0 ? Config.Repo.DbType : dbType))
+			dbType = dbType == 0 ? Config.Repo.DbType : dbType;
+
+			if (IsDbOk(dbType))
 				return;
 
 			MessagePresenter.Instance.WriteError(string.Format(Localized.Could_not_find_the_SQLite_database_file__here__0__FORMAT__, RepoPaths.SqliteDbFile));
@@ -34,7 +38,7 @@ namespace DAL.DataBase
 			MessagePresenter.Instance.WriteLine(Localized.Please__wait_until_it_s_done);
 			MessagePresenter.Instance.WriteLine();
 
-			var wasSuccessful = await StartTransportDataProcess();
+			var wasSuccessful = await StartTransportDataProcess(dbType);
 
 			if (wasSuccessful)
 			{
@@ -49,16 +53,23 @@ namespace DAL.DataBase
 			MessagePresenter.Instance.WriteLineSeparator();
 		}
 
-		public static async Task<bool> StartTransportDataProcess()
+		public static async Task<bool> StartTransportDataProcess(DbType dbType = 0)
 		{
+			dbType = dbType == 0 ? Config.Repo.DbType : dbType;
+
 			return await new TaskFactory<bool>().StartNew(
-				() =>
-				{
+				() => {
+					var lang = Cultures.CurrentCulture.TwoLetterISOLanguageName;
+					var to = dbType == DbType.MsSql ? C.DB_MSSQL : null;
+					to =     dbType == DbType.SQLite ? C.DB_SQLITE : to;
+
+					var commandArgs = "--From FileRepo --To {0} --Lang {1}".Formatted(to, lang);
+
 					var startInfo = new ProcessStartInfo
 					{
 						//WorkingDirectory = Paths.Play_publicPath,
-						FileName = C.TransportData_exe,
-						//Arguments = command.ToString(), // TODO SQLiteSpecific.StartTransportDataProcess
+						FileName = AssemblyNames.TransportData_exe,
+						Arguments = commandArgs,
 						//WindowStyle = ProcessWindowStyle.Hidden,
 						//RedirectStandardOutput = true,
 						//RedirectStandardError = true,
