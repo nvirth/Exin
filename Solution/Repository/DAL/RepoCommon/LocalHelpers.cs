@@ -124,7 +124,7 @@ namespace DAL.RepoCommon
 		internal static string ParseLocalizedDisplayNames(this XElement xml)
 		{
 			var displayNames =
-				xml.Element(C.XmlTags.DisplayNames)
+				xml.Element(C.Xml.Tags.DisplayNames)
 					.Descendants()
 					.Select(displayNameXml => "{0}:{1};".Formatted(
 						displayNameXml.Name.LocalName, ((string)displayNameXml).Trim()

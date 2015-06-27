@@ -333,6 +333,15 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clearing file repository.
+        /// </summary>
+        public static string Clearing_file_repository {
+            get {
+                return ResourceManager.GetString("Clearing_file_repository", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Command line arguments are not implemented yet.
         /// </summary>
         public static string Command_line_arguments_are_not_implemented_yet {
@@ -966,15 +975,6 @@ namespace Localization {
         public static string Importing_data_from_File_Repository_into___0___DataBase {
             get {
                 return ResourceManager.GetString("Importing_data_from_File_Repository_into___0___DataBase", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Importing expenses and incomes.
-        /// </summary>
-        public static string Importing_expenses_and_incomes {
-            get {
-                return ResourceManager.GetString("Importing_expenses_and_incomes", resourceCulture);
             }
         }
         
@@ -1858,6 +1858,15 @@ namespace Localization {
         public static string TransportDataFromFileToDb_ClearAllTables_is_not_implemented_to_this_DbType___0_ {
             get {
                 return ResourceManager.GetString("TransportDataFromFileToDb_ClearAllTables_is_not_implemented_to_this_DbType___0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transporting expenses and incomes.
+        /// </summary>
+        public static string Transporting_expenses_and_incomes {
+            get {
+                return ResourceManager.GetString("Transporting_expenses_and_incomes", resourceCulture);
             }
         }
         

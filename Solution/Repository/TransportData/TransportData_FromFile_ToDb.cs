@@ -118,7 +118,7 @@ namespace TransportData
 			clearAllTablesAction.ExecuteWithTimeMeasuring(Localized.Creating_or_emptying_tables);
 			importUnitsAction.ExecuteWithTimeMeasuring(Localized.Importing_units);
 			importCategoriesAction.ExecuteWithTimeMeasuring(Localized.Importing_categories);
-			importExpensesAction.ExecuteWithTimeMeasuring(Localized.Importing_expenses_and_incomes);
+			importExpensesAction.ExecuteWithTimeMeasuring(Localized.Transporting_expenses_and_incomes);
 			calculateSummaries.ExecuteWithTimeMeasuring(Localized.Calculating_summaries);
 		}
 
@@ -351,15 +351,5 @@ namespace TransportData
 		}
 
 		#endregion
-
-		private static void WithoutLogging(Action action)
-		{
-			var wasMuted = MessagePresenter.Instance.IsMuted;
-			MessagePresenter.Instance.IsMuted = true;
-
-			action();
-
-			MessagePresenter.Instance.IsMuted = wasMuted;
-		}
 	}
 }

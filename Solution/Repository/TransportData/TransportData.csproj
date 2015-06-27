@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TransportData_Worker.cs" />
     <Compile Include="TransportData_FromFile_ToDb.cs" />
     <Compile Include="TransportData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

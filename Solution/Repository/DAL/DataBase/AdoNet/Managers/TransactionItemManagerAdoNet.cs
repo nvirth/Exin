@@ -212,7 +212,7 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		#region InsertMany
 
-		public override void InsertMany(IList<TransactionItem> transactionItems, bool withId = false, bool forceOneByOne = false)
+		public override void InsertMany(IEnumerable<TransactionItem> transactionItems, bool withId = false, bool forceOneByOne = false)
 		{
 			using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
 			{
@@ -220,23 +220,25 @@ namespace DAL.DataBase.AdoNet.Managers
 			}
 		}
 
-		protected virtual void InsertMany(ExinAdoNetContextBase ctx, IList<TransactionItem> transactionItems, bool withId = false, bool forceOneByOne = false)
+		protected virtual void InsertMany(ExinAdoNetContextBase ctx, IEnumerable<TransactionItem> transactionItems, bool withId = false, bool forceOneByOne = false)
 		{
 			using(ctx.WithIdentityInsert(TableName, activate: withId))
 			{
-				if(transactionItems == null || transactionItems.Count == 0)
+				var transactionItemsList = transactionItems?.ToList();
+
+				if(transactionItemsList == null || transactionItemsList.Count == 0)
 					return;
 
-				if(transactionItems.Count == 1)
+				if(transactionItemsList.Count == 1)
 				{
-					Insert(ctx, transactionItems[0], withId);
+					Insert(ctx, transactionItemsList[0], withId);
 					return;
 				}
 
 				if(forceOneByOne)
-					InsertMany_OneByOne(transactionItems, withId, transactionItems.Count, ctx);
+					InsertMany_OneByOne(transactionItemsList, withId, transactionItemsList.Count, ctx);
 				else
-					InsertMany_Bundled(transactionItems, withId, transactionItems.Count, ctx);
+					InsertMany_Bundled(transactionItemsList, withId, transactionItemsList.Count, ctx);
 			}
 		}
 
@@ -559,7 +561,7 @@ namespace DAL.DataBase.AdoNet.Managers
 		#endregion
 
 		/// <param name="transactionItems">If it's null, throws an exception. If it's empty, only clears the day. </param>
-		public override void ReplaceDailyItems(IList<TransactionItem> transactionItems, TransactionItemType transactionItemType, DateTime date)
+		public override void ReplaceDailyItems(IEnumerable<TransactionItem> transactionItems, TransactionItemType transactionItemType, DateTime date)
 		{
 			using(var transactionScope = new TransactionScope())
 			using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
@@ -570,7 +572,7 @@ namespace DAL.DataBase.AdoNet.Managers
 			}
 		}
 
-		protected virtual void ReplaceDailyItems(ExinAdoNetContextBase ctx, IList<TransactionItem> transactionItems, TransactionItemType transactionItemType, DateTime date)
+		protected virtual void ReplaceDailyItems(ExinAdoNetContextBase ctx, IEnumerable<TransactionItem> transactionItems, TransactionItemType transactionItemType, DateTime date)
 		{
 			if(transactionItems == null)
 			{
@@ -641,7 +643,7 @@ namespace DAL.DataBase.AdoNet.Managers
 		// This is so not thread safe; but SQLite from the first don't allow multithreaded access
 		private bool _calledFromReplaceDaily = false;
 
-		protected override void ReplaceDailyItems(ExinAdoNetContextBase ctx, IList<TransactionItem> transactionItems, TransactionItemType transactionItemType, DateTime date)
+		protected override void ReplaceDailyItems(ExinAdoNetContextBase ctx, IEnumerable<TransactionItem> transactionItems, TransactionItemType transactionItemType, DateTime date)
 		{
 			// In SQLite, there are no nested transactions...
 

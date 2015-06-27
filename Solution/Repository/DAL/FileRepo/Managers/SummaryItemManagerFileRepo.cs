@@ -14,7 +14,7 @@ using Common.Utils.Helpers;
 using DAL.FileRepo.Managers.Base;
 using DAL.RepoCommon.Interfaces;
 using Localization;
-using C = Common.Configuration.Constants.XmlTags;
+using C = Common.Configuration.Constants.Xml.Tags;
 
 namespace DAL.FileRepo.Managers
 {

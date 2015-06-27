@@ -12,8 +12,8 @@ namespace DAL.RepoCommon.Interfaces
 		List<IncomeItem> GetMonthlyIncomes(DateTime date);
 		List<ExpenseItem> GetMonthlyExpenses(DateTime date);
 
-		void ReplaceDailyExpenses(IList<ExpenseItem> expenseItems, DateTime date);
-		void ReplaceMonthlyIncomes(IList<IncomeItem> incomeItems, DateTime date);
+		void ReplaceDailyExpenses(IEnumerable<ExpenseItem> expenseItems, DateTime date);
+		void ReplaceMonthlyIncomes(IEnumerable<IncomeItem> incomeItems, DateTime date);
 	}
 
 	public interface ITransactionItemManagerDb : ITransactionItemManagerDao
@@ -25,14 +25,14 @@ namespace DAL.RepoCommon.Interfaces
 		List<TransactionItem> GetAll(TransactionItemType? transactionItemType);
 
 		void Insert(TransactionItem transactionItem, bool withId = false);
-		void InsertMany(IList<TransactionItem> transactionItems, bool withId = false, bool forceOneByOne = false);
+		void InsertMany(IEnumerable<TransactionItem> transactionItems, bool withId = false, bool forceOneByOne = false);
 
 		int UpdateFullRecord(TransactionItem transactionItem);
 
 		int Delete(int id);
 		int ClearDay(DateTime date, TransactionItemType transactionItemType);
 
-		void ReplaceDailyItems(IList<TransactionItem> transactionItems, TransactionItemType transactionItemType, DateTime date);
+		void ReplaceDailyItems(IEnumerable<TransactionItem> transactionItems, TransactionItemType transactionItemType, DateTime date);
 	}
 
 	public interface ITransactionItemManager : ITransactionItemManagerDao

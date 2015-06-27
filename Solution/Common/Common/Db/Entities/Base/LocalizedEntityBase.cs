@@ -5,7 +5,7 @@ using System.Xml.Linq;
 using Common.Log;
 using Common.Utils.Helpers;
 using Localization;
-using C = Common.Configuration.Constants.XmlTags;
+using C = Common.Configuration.Constants.Xml.Tags;
 
 namespace Common.Db.Entities.Base
 {

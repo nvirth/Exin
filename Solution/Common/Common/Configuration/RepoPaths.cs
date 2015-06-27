@@ -5,7 +5,7 @@ using System.Reflection;
 using Common.Utils;
 using Common.Utils.Helpers;
 using Localization;
-using C = Common.Configuration.Constants.AppSettingsKeys;
+using C = Common.Configuration.Constants;
 
 namespace Common.Configuration
 {
@@ -95,7 +95,7 @@ namespace Common.Configuration
 		// -- Methods
 		private static string SetupRootDir()
 		{
-			var rootDir = ConfigurationManager.AppSettings[C.RepoRootDir];
+			var rootDir = ConfigurationManager.AppSettings[C.AppSettingsKeys.RepoRootDir];
 			if(string.IsNullOrWhiteSpace(rootDir))
 				rootDir = AppExecDir;
 			else if(!Path.IsPathRooted(rootDir))
@@ -116,7 +116,7 @@ namespace Common.Configuration
 		/// <summary>
 		/// Initializes the repo structure, and copies the default (Unit, Category) resources
 		/// to their newly created place. The initialization is not full in case of using
-		/// SQLite db, then a call to SQLiteSpecific.InitSqliteFileIfNeeded() is also necessary
+		/// SQLite db, then a call to SQLiteSpecific.InitSqliteFileIfNeeded() is also necessary 
 		/// </summary>
 		public static void InitRepo()
 		{
@@ -130,6 +130,19 @@ namespace Common.Configuration
 			File.Copy(CategoriesDefaultFile, CategoriesFile);
 		}
 
+		public static void ClearFileRepo()
+		{
+			foreach (var dirPath in FileRepoDirsToRecreate)
+				Helpers.RecreateDirectory(dirPath);
+
+
+			using(var unitsFile = new StreamWriter(UnitsFile, append: false))
+				unitsFile.Write(C.Xml.EmptyXmlContent);
+
+			using(var categoriesFile = new StreamWriter(CategoriesFile, append: false))
+				categoriesFile.Write(C.Xml.EmptyXmlContent);
+		}
+
 		private static IEnumerable<string> DirsToCreate
 		{
 			get
@@ -141,6 +154,17 @@ namespace Common.Configuration
 				yield return ExpensesAndIncomesDir;
 				yield return DataDir;
 				yield return BackupDir;
+			}
+		}
+
+		private static IEnumerable<string> FileRepoDirsToRecreate
+		{
+			get
+			{
+				yield return SummariesDir; // Order is optimal so
+				yield return MonthlySummariesDir;
+				yield return CategorisedSummariesDir;
+				yield return ExpensesAndIncomesDir;
 			}
 		}
 	}

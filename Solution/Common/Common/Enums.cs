@@ -74,4 +74,11 @@ namespace Common
 		Income = 2,
 		Both = 3,
 	}
+	// TODO should be LogLevel later
+	public enum MuteLevel : byte
+	{
+		WriteEverything = 0,
+		WriteOnlyErrors = 1,
+		WriteNothing = 2,
+	}
 }

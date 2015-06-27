@@ -700,8 +700,8 @@ or if you are familiar with SQL queries, you can also use the SQLite database fi
   <data name="Importing_categories" xml:space="preserve">
     <value>Importing categories</value>
   </data>
-  <data name="Importing_expenses_and_incomes" xml:space="preserve">
-    <value>Importing expenses and incomes</value>
+  <data name="Transporting_expenses_and_incomes" xml:space="preserve">
+    <value>Transporting expenses and incomes</value>
   </data>
   <data name="Calculating_summaries" xml:space="preserve">
     <value>Calculating summaries</value>
@@ -770,5 +770,8 @@ or if you are familiar with SQL queries, you can also use the SQLite database fi
   </data>
   <data name="Configuration_error__can_t_use_ReadMode_FromFile_and_SaveMode_OnlyToDb_together__" xml:space="preserve">
     <value>Configuration error: can't use ReadMode.FromFile and SaveMode.OnlyToDb together. </value>
+  </data>
+  <data name="Clearing_file_repository" xml:space="preserve">
+    <value>Clearing file repository</value>
   </data>
 </root>

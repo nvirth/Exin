@@ -76,27 +76,32 @@
 			public const string HU = "HU";
 		}
 
-		public static class XmlTags
+		public static class Xml
 		{
-			public const string ExpenseItem = "ExpenseItem";
-			public const string IncomeItem = "IncomeItem";
+			public static class Tags
+			{
+				public const string ExpenseItem = "ExpenseItem";
+				public const string IncomeItem = "IncomeItem";
 
-			public const string DailySummary = "DailySummary";
-			public const string IncomeSummary = "IncomeSummary";
-			public const string MonthlySummary = "MonthlySummary";
+				public const string DailySummary = "DailySummary";
+				public const string IncomeSummary = "IncomeSummary";
+				public const string MonthlySummary = "MonthlySummary";
 
-			public const string ID = "ID";
-			public const string Name = "Name";
-			public const string DisplayName = "DisplayName";
-			public const string DisplayNames = "DisplayNames";
-			public const string Title = "Title";
-			public const string Amount = "Amount";
-			public const string Quantity = "Quantity";
-			public const string Unit = "Unit";
-			public const string Category = "Category";
-			public const string Comment = "Comment";
+				public const string ID = "ID";
+				public const string Name = "Name";
+				public const string DisplayName = "DisplayName";
+				public const string DisplayNames = "DisplayNames";
+				public const string Title = "Title";
+				public const string Amount = "Amount";
+				public const string Quantity = "Quantity";
+				public const string Unit = "Unit";
+				public const string Category = "Category";
+				public const string Comment = "Comment";
 
-			public const string root = "root";
+				public const string root = "root";
+			}
+
+			public const string EmptyXmlContent = "<?xml version=\"1.0\"?>" + "<" + Tags.root + ">" + "</" + Tags.root + ">";
 		}
 	}
 }

@@ -23,7 +23,7 @@ using Common.Configuration;
 using Common.Log;
 using Localization;
 using Newtonsoft.Json;
-using C = Common.Configuration.Constants.XmlTags;
+using C = Common.Configuration.Constants.Xml.Tags;
 
 namespace Common.Utils.Helpers
 {
@@ -39,7 +39,7 @@ namespace Common.Utils.Helpers
 
 		#region Console
 
-		private static void WithConsoleColor(ConsoleColor color, Action action)
+		public static void ExecuteWithConsoleColor(ConsoleColor color, Action action)
 		{
 			var beforeColor = Console.ForegroundColor;
 			Console.ForegroundColor = color;
@@ -49,32 +49,32 @@ namespace Common.Utils.Helpers
 
 		public static void WriteLineToConsoleWithColor(string msg, ConsoleColor color)
 		{
-			WithConsoleColor(color, () => Console.WriteLine(msg));
+			ExecuteWithConsoleColor(color, () => Console.WriteLine(msg));
 		}
 
 		public static void WriteToConsoleWithColor(string msg, ConsoleColor color)
 		{
-			WithConsoleColor(color, () => Console.Write(msg));
+			ExecuteWithConsoleColor(color, () => Console.Write(msg));
 		}
 
 		public static void WriteLineToConsoleYellow(string msg)
 		{
-			WithConsoleColor(ConsoleColor.Yellow, () => Console.WriteLine(msg));
+			ExecuteWithConsoleColor(ConsoleColor.Yellow, () => Console.WriteLine(msg));
 		}
 
 		public static void WriteToConsoleYellow(string msg)
 		{
-			WithConsoleColor(ConsoleColor.Yellow, () => Console.Write(msg));
+			ExecuteWithConsoleColor(ConsoleColor.Yellow, () => Console.Write(msg));
 		}
 
 		public static void WriteLineToConsoleRed(string msg)
 		{
-			WithConsoleColor(ConsoleColor.Red, () => Console.WriteLine(msg));
+			ExecuteWithConsoleColor(ConsoleColor.Red, () => Console.WriteLine(msg));
 		}
 
 		public static void WriteToConsoleRed(string msg)
 		{
-			WithConsoleColor(ConsoleColor.Red, () => Console.Write(msg));
+			ExecuteWithConsoleColor(ConsoleColor.Red, () => Console.Write(msg));
 		}
 
 		#endregion
@@ -113,6 +113,66 @@ namespace Common.Utils.Helpers
 				return false;
 
 			return true;
+		}
+
+		#endregion
+
+		#region DeleteDirectoryIfExist
+
+		public static void RecreateDirectory(string dirPath)
+		{
+			DeleteDirectoryIfExistsThanRecreateIf(dirPath, alsoRecreate: true);
+		}
+		public static void DeleteDirectoryIfExists(string dirPath)
+		{
+			DeleteDirectoryIfExistsThanRecreateIf(dirPath, alsoRecreate: false);
+		}
+
+		private static void DeleteDirectoryIfExistsThanRecreateIf(string dirPath, bool alsoRecreate = true)
+		{
+			int numOfErrors = 0;
+			bool wasError;
+
+			do
+			{
+				try
+				{
+					if(Directory.Exists(dirPath))
+						Directory.Delete(dirPath, recursive: true);
+
+					if(alsoRecreate)
+					{
+						Thread.Sleep(10);
+						Directory.CreateDirectory(dirPath);
+
+						// Sometimes, seemingly randomly, it happens it can't recreate the folder
+						// immeadiately after deleting it; but there won't be any exception thrown!
+						for(int i = 0; i < 10; i++)
+						{
+							Thread.Sleep(10);
+							if(!Directory.Exists(dirPath))
+								throw new DirectoryNotFoundException("DeleteDirectoryIfExist: The removed, than recreated directory does not exist. Dir: \r\n{0}\r\n".Formatted(dirPath));
+						}
+					}
+
+					wasError = false;
+				}
+				catch(Exception e)
+				{
+					ExinLog.ger.LogException(e.Message, e); // TODO should not log to UI
+
+					wasError = true;
+					numOfErrors++;
+
+					if(numOfErrors == 10)
+					{
+						ExinLog.ger.LogError("DeleteDirectoryIfExist: Could not purge directory: " + dirPath);
+						throw;
+					}
+
+					Thread.Sleep(50);
+				}
+			} while((numOfErrors < 10) && (wasError));
 		}
 
 		#endregion
@@ -215,20 +275,21 @@ namespace Common.Utils.Helpers
 
 		public static void ExecuteWithTimeMeasuring(this Action action, string text)
 		{
+			var stopwatch = ExecuteWithTimeMeasuring(action);
+			var results = stopwatch.ToFormattedString();
+
+			MessagePresenter.Instance.WriteLine(string.Format("{0} {1}", (text + ":").PadRight(35), results));
+		}
+
+		public static Stopwatch ExecuteWithTimeMeasuring(this Action action)
+		{
 			var stopwatch = new Stopwatch();
 			stopwatch.Start();
 
-			action(); // Here will be executed the real operation!
+			action();
 
 			stopwatch.Stop();
-
-			var min = stopwatch.Elapsed.Minutes;
-			var s = stopwatch.Elapsed.Seconds;
-			var ms = stopwatch.Elapsed.Milliseconds;
-			var totalUs = (stopwatch.Elapsed.Ticks / 10); // There is 10 ticks in a microSec
-			//var us = totalUs - (ms * 1000 + s * 1000000 + min * 60000000);
-			var us = totalUs % 1000;
-			MessagePresenter.Instance.WriteLine(String.Format("{0} {1,3}min {2,3}s {3,3}ms {4,3}us", (text + ":").PadRight(35), min, s, ms, us));
+			return stopwatch;
 		}
 
 		#endregion
@@ -800,6 +861,22 @@ namespace Common.Utils.Helpers
 				throw new Exception(Localized.TProperty_must_be_a_member_of_a_class);
 
 			return memberExpression.Member.Name;
+		}
+
+		#endregion
+
+		#region StopWatch
+
+		public static string ToFormattedString(this Stopwatch stopwatch)
+		{
+			var min = stopwatch.Elapsed.Minutes;
+			var s = stopwatch.Elapsed.Seconds;
+			var ms = stopwatch.Elapsed.Milliseconds;
+			var totalUs = (stopwatch.Elapsed.Ticks / 10); // There are 10 ticks in a microSec
+														  //var us = totalUs - (ms * 1000 + s * 1000000 + min * 60000000);
+			var us = totalUs % 1000;
+
+			return string.Format("{0,3}min {1,3}s {2,3}ms {3,3}us", min, s, ms, us);
 		}
 
 		#endregion

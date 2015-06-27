@@ -33,12 +33,12 @@ namespace DAL.RepoCommon.Managers
 			return _core.GetMonthlyExpenses(date);
 		}
 
-		public void ReplaceDailyExpenses(IList<ExpenseItem> expenseItems, DateTime date)
+		public void ReplaceDailyExpenses(IEnumerable<ExpenseItem> expenseItems, DateTime date)
 		{
 			_core.ReplaceDailyExpenses(expenseItems, date);
 		}
 
-		public void ReplaceMonthlyIncomes(IList<IncomeItem> incomeItems, DateTime date)
+		public void ReplaceMonthlyIncomes(IEnumerable<IncomeItem> incomeItems, DateTime date)
 		{
 			_core.ReplaceMonthlyIncomes(incomeItems, date);
 		}

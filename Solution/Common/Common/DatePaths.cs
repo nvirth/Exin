@@ -216,8 +216,10 @@ namespace Common
 				var fileName = (i < 10 ? "0" : "") + i;
 				fileName = Path.ChangeExtension(fileName, Config.FileExtension);
 
-				var fileInfo = new FileInfo(Path.Combine(MonthDirPath, fileName));
-				fileInfo.Create();
+				var filePath = Path.Combine(MonthDirPath, fileName);
+                using(var fileStream = File.OpenWrite(filePath))
+					fileStream.SetLength(0);
+
 				MessagePresenter.Instance.WriteLine(fileName);
 			}
 			MessagePresenter.Instance.WriteLine(Localized.All_created_successfully);

@@ -150,9 +150,9 @@ namespace TransportData
 
 		#endregion
 
-		private IRepoConfiguration _repoConfiguration;
+		private RepoConfiguration _repoConfiguration;
 
-		public IRepoConfiguration ProcessArgs()
+		public RepoConfiguration ProcessArgs()
 		{
 			if (_repoConfiguration != null)
 				return _repoConfiguration;
@@ -163,35 +163,34 @@ namespace TransportData
 				throw ExinLog.ger.LogException(msg, new InvalidOperationException(msg));
 			}
 
-			var parsedConfig = new RepoConfiguration();
-			_repoConfiguration = parsedConfig;
+			_repoConfiguration = new RepoConfiguration();
 
 			switch(From)
 			{
 				case C.FILEREPO:
-					parsedConfig.ReadMode = ReadMode.FromFile;
+					_repoConfiguration.ReadMode = ReadMode.FromFile;
 					break;
 				case C.DB_MSSQL:
-					parsedConfig.ReadMode = ReadMode.FromDb;
-					parsedConfig.DbType = DbType.MsSql;
+					_repoConfiguration.ReadMode = ReadMode.FromDb;
+					_repoConfiguration.DbType = DbType.MsSql;
 					break;
 				case C.DB_SQLITE:
-					parsedConfig.ReadMode = ReadMode.FromDb;
-					parsedConfig.DbType = DbType.SQLite;
+					_repoConfiguration.ReadMode = ReadMode.FromDb;
+					_repoConfiguration.DbType = DbType.SQLite;
 					break;
 			}
 			switch(To)
 			{
 				case C.FILEREPO:
-					parsedConfig.SaveMode = SaveMode.OnlyToFile;
+					_repoConfiguration.SaveMode = SaveMode.OnlyToFile;
 					break;
 				case C.DB_MSSQL:
-					parsedConfig.SaveMode = SaveMode.OnlyToDb;
-					parsedConfig.DbType = DbType.MsSql;
+					_repoConfiguration.SaveMode = SaveMode.OnlyToDb;
+					_repoConfiguration.DbType = DbType.MsSql;
 					break;
 				case C.DB_SQLITE:
-					parsedConfig.SaveMode = SaveMode.OnlyToDb;
-					parsedConfig.DbType = DbType.SQLite;
+					_repoConfiguration.SaveMode = SaveMode.OnlyToDb;
+					_repoConfiguration.DbType = DbType.SQLite;
 					break;
 			}
 			switch(Lang)
@@ -206,7 +205,7 @@ namespace TransportData
 
 			// (Help should be already processed at this)
 
-			return parsedConfig;
+			return _repoConfiguration;
 		}
 	}
 
@@ -218,6 +217,9 @@ namespace TransportData
 	{
 		public static void Main(string[] args)
 		{
+			//TODO register unhandled exception handler?
+			//TODO console.readyKey -> only if Debugger.IsAttached
+
 			//StartDebugger();
 			MessagePresenterManager.WireToConsole();
 
@@ -235,9 +237,13 @@ namespace TransportData
 
 			#endregion
 
+			repoConfiguration.DbAccessMode = DbAccessMode.AdoNet;
+
+			// TODO test new solution for "ImportDataToDb"
 			if(repoConfiguration.ReadMode == ReadMode.FromFile)
 				new TransportData_FromFile_ToDb(repoConfiguration.DbType).DoWork();
-			//else if(repoConfiguration.ReadMode == ReadMode.FromDb) // TODO implement
+			else if(repoConfiguration.ReadMode == ReadMode.FromDb) // TODO implement
+				new TransportData_Worker(repoConfiguration).DoWork();
 
 			MessagePresenter.Instance.WriteLine(Localized.Press_any_key_to_continue_);
 			Console.ReadKey();

@@ -61,11 +61,11 @@ namespace DAL.DataBase.Managers.Base
 		public abstract List<TransactionItem> GetInterval(DateTime fromDate, DateTime toDate, TransactionItemType transactionItemType);
 		public abstract List<TransactionItem> GetAll(TransactionItemType? transactionItemType);
 		public abstract void Insert(TransactionItem transactionItem, bool withId = false);
-		public abstract void InsertMany(IList<TransactionItem> transactionItems, bool withId = false, bool forceOneByOne = false);
+		public abstract void InsertMany(IEnumerable<TransactionItem> transactionItems, bool withId = false, bool forceOneByOne = false);
 		public abstract int UpdateFullRecord(TransactionItem transactionItem);
 		public abstract int Delete(int id);
 		public abstract int ClearDay(DateTime date, TransactionItemType transactionItemType);
-		public abstract void ReplaceDailyItems(IList<TransactionItem> transactionItems, TransactionItemType transactionItemType, DateTime date);
+		public abstract void ReplaceDailyItems(IEnumerable<TransactionItem> transactionItems, TransactionItemType transactionItemType, DateTime date);
 
 		#endregion
 
@@ -90,16 +90,16 @@ namespace DAL.DataBase.Managers.Base
 				.Select(ti => ti.ToExpenseItem()).ToList();
 		}
 
-		public void ReplaceDailyExpenses(IList<ExpenseItem> expenseItems, DateTime date)
+		public void ReplaceDailyExpenses(IEnumerable<ExpenseItem> expenseItems, DateTime date)
 		{
-			var transactionItems = expenseItems.Select(ei => ei.ToTransactionItem()).ToList();
+			var transactionItems = expenseItems.Select(ei => ei.ToTransactionItem());
             ReplaceDailyItems(transactionItems, TransactionItemType.Expense, date);
 		}
 
-		public void ReplaceMonthlyIncomes(IList<IncomeItem> incomeItems, DateTime date)
+		public void ReplaceMonthlyIncomes(IEnumerable<IncomeItem> incomeItems, DateTime date)
 		{
 			date = new DateTime(date.Year, date.Month, 1);
-			var transactionItems = incomeItems.Select(ii => ((IncomeItem)ii.WithMonthDate()).ToTransactionItem(CategoryManagerLocal)).ToList();
+			var transactionItems = incomeItems.Select(ii => ((IncomeItem)ii.WithMonthDate()).ToTransactionItem(CategoryManagerLocal));
 
 			// Monthly incomes in DB are stored at the 1. day of the month
 			ReplaceDailyItems(transactionItems, TransactionItemType.Income, date);

@@ -30,12 +30,12 @@ namespace DAL.RepoCommon.Managers.AggregateDaoManagers
 			return ManagerForRead.GetMonthlyExpenses(date);
 		}
 
-		public void ReplaceDailyExpenses(IList<ExpenseItem> expenseItems, DateTime date)
+		public void ReplaceDailyExpenses(IEnumerable<ExpenseItem> expenseItems, DateTime date)
 		{
 			ManagersForWrite.ForEach(dao => dao.ReplaceDailyExpenses(expenseItems, date));
 		}
 
-		public void ReplaceMonthlyIncomes(IList<IncomeItem> incomeItems, DateTime date)
+		public void ReplaceMonthlyIncomes(IEnumerable<IncomeItem> incomeItems, DateTime date)
 		{
 			ManagersForWrite.ForEach(dao => dao.ReplaceMonthlyIncomes(incomeItems, date));
 		}

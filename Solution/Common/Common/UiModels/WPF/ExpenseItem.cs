@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using Common.Db;
 using Common.Db.Entities;
-using C = Common.Configuration.Constants.XmlTags;
+using C = Common.Configuration.Constants.Xml.Tags;
 
 namespace Common.UiModels.WPF
 {

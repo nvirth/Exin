@@ -99,8 +99,8 @@ namespace Common.UiModels.WPF
 
 		public static Summary Summarize(IEnumerable<TransactionItemBase> transactionItems)
 		{
-			var summary = transactionItems.Aggregate(new Summary(), (__summary, ei) => {
-				__summary.Update(ei);
+			var summary = transactionItems.Aggregate(new Summary(), (__summary, tib) => {
+				__summary.Update(tib);
 				return __summary;
 			});
 

@@ -14,7 +14,7 @@ using DAL.DataBase.Managers;
 using DAL.FileRepo.Managers.Base;
 using DAL.RepoCommon.Interfaces;
 using Localization;
-using C = Common.Configuration.Constants.XmlTags;
+using C = Common.Configuration.Constants.Xml.Tags;
 
 namespace DAL.FileRepo.Managers
 {
@@ -160,7 +160,7 @@ namespace DAL.FileRepo.Managers
 
 		#region WriteOutDailyExpenses, WriteOutMonthlyIncomes
 
-		public void WriteOutDailyExpenses(ICollection<TransactionItemBase> transactionItems, DatePaths datePaths, Summary summary)
+		public void WriteOutDailyExpenses(IEnumerable<TransactionItemBase> transactionItems, DatePaths datePaths, Summary summary)
 		{
 			var msg = datePaths.Date.ToLocalizedShortDateString() + Localized._daily_expenses;
 
@@ -176,7 +176,7 @@ namespace DAL.FileRepo.Managers
 				throw;
 			}
 		}
-		public void WriteOutMonthlyIncomes(ICollection<TransactionItemBase> transactionItems, DatePaths datePaths, Summary summary)
+		public void WriteOutMonthlyIncomes(IEnumerable<TransactionItemBase> transactionItems, DatePaths datePaths, Summary summary)
 		{
 			var monthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(datePaths.Date.Month);
 			var msg = datePaths.Date.ToString(Localized.DateFormat_year_) + monthName + Localized._monthly_incomes;
@@ -194,7 +194,7 @@ namespace DAL.FileRepo.Managers
 			}
 		}
 
-		private void WriteOut_DailyExpenses_or_MonthlyIncomes(ICollection<TransactionItemBase> transactionItems, DatePaths datePaths, Summary summary, bool isExpense)
+		private void WriteOut_DailyExpenses_or_MonthlyIncomes(IEnumerable<TransactionItemBase> transactionItems, DatePaths datePaths, Summary summary, bool isExpense)
 		{
 			var stringBuilder = new StringBuilder();
 
@@ -255,15 +255,15 @@ namespace DAL.FileRepo.Managers
 
 		#region ITransactionItemManagerDao (remaining) implementation (wrappers)
 
-		public void ReplaceDailyExpenses(IList<ExpenseItem> expenseItems, DateTime date)
+		public void ReplaceDailyExpenses(IEnumerable<ExpenseItem> expenseItems, DateTime date)
 		{
 			var summary = Summary.Summarize(expenseItems);
-			var transactionItems = expenseItems.Cast<TransactionItemBase>().ToList();
+			var transactionItems = expenseItems.Cast<TransactionItemBase>(); //TODO what?! redundant with IEnumerable, but not with IList?
 
 			WriteOutDailyExpenses(transactionItems, new DatePaths(date), summary);
 		}
 
-		public void ReplaceMonthlyIncomes(IList<IncomeItem> incomeItems, DateTime date)
+		public void ReplaceMonthlyIncomes(IEnumerable<IncomeItem> incomeItems, DateTime date)
 		{
 			date = new DateTime(date.Year, date.Month, 1);
 

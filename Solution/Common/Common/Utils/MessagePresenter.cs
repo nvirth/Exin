@@ -6,7 +6,7 @@ namespace Common.Utils
 	{
 		public static readonly MessagePresenter Instance = new MessagePresenter();
 
-		public bool IsMuted { get; set; }
+		public MuteLevel MuteLevel { get; set; }
 
 		public event Action WriteLineSeparatorEvent;
 		public event Action<string> WriteEvent;
@@ -29,7 +29,7 @@ namespace Common.Utils
 
 		public void Write(string message)
 		{
-			if(IsMuted)
+			if(MuteLevel > MuteLevel.WriteEverything)
 				return;
 
 			var handler = WriteEvent;
@@ -38,7 +38,7 @@ namespace Common.Utils
 
 		public void WriteLine(string message = null)
 		{
-			if(IsMuted)
+			if(MuteLevel > MuteLevel.WriteEverything)
 				return;
 
 			var handler = WriteLineEvent;
@@ -47,7 +47,7 @@ namespace Common.Utils
 
 		public void WriteLineSeparator()
 		{
-			if(IsMuted)
+			if(MuteLevel > MuteLevel.WriteEverything)
 				return;
 
 			var handler = WriteLineSeparatorEvent;
@@ -56,7 +56,7 @@ namespace Common.Utils
 
 		public void WriteError(string message)
 		{
-			if(IsMuted)
+			if(MuteLevel > MuteLevel.WriteOnlyErrors)
 				return;
 
 			var handler = WriteErrorEvent ?? WriteLine;
@@ -65,7 +65,7 @@ namespace Common.Utils
 
 		public void WriteException(Exception e)
 		{
-			if(IsMuted)
+			if(MuteLevel > MuteLevel.WriteOnlyErrors)
 				return;
 
 			var handler = WriteExceptionEvent;

@@ -127,7 +127,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		#region InsertMany
 
-		public override void InsertMany(IList<TransactionItemCommon> transactionItems, bool withId = false, bool forceOneByOne = false)
+		public override void InsertMany(IEnumerable<TransactionItemCommon> transactionItems, bool withId = false, bool forceOneByOne = false)
 		{
 			using(var ctx = Utils.InitContextForMsSql(LocalConfig))
 			{
@@ -135,16 +135,18 @@ namespace DAL.DataBase.EntityFramework.Managers
 			}
 		}
 
-		protected virtual void InsertMany(ExinEfMsSqlContext ctx, IList<TransactionItemCommon> transactionItems, bool withId = false)
+		protected virtual void InsertMany(ExinEfMsSqlContext ctx, IEnumerable<TransactionItemCommon> transactionItems, bool withId = false)
 		{
 			using(ctx.WithIdentityInsert(ctx.Property(c => c.TransactionItem), activate: withId))
 			{
-				if(transactionItems == null || transactionItems.Count == 0)
+				var transactionItemsList = transactionItems?.ToList();
+
+				if(transactionItemsList == null || transactionItemsList.Count == 0)
 					return;
 
-				if(transactionItems.Count == 1)
+				if(transactionItemsList.Count == 1)
 				{
-					Insert(ctx, transactionItems[0], withId);
+					Insert(ctx, transactionItemsList[0], withId);
 					return;
 				}
 
@@ -152,13 +154,13 @@ namespace DAL.DataBase.EntityFramework.Managers
 				{
 					try
 					{
-						Utils.ExecAddRange(ctx.TransactionItem, transactionItems, ctx);
+						Utils.ExecAddRange(ctx.TransactionItem, transactionItemsList, ctx);
 						transactionScope.Complete();
 					}
 					catch(Exception e)
 					{
-						var msg = Localized.Could_not_insert_the_transaction_items_ + transactionItems.Count + Localized._pc_;
-						ExinLog.ger.LogException(msg, e, transactionItems);
+						var msg = Localized.Could_not_insert_the_transaction_items_ + transactionItemsList.Count + Localized._pc_;
+						ExinLog.ger.LogException(msg, e, transactionItemsList);
 						throw;
 					}
 				}
@@ -261,7 +263,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 		#endregion
 
 		/// <param name="transactionItems">If it's null, throws an exception. If it's empty, only clears the day. </param>
-		public override void ReplaceDailyItems(IList<TransactionItemCommon> transactionItems, TransactionItemType transactionItemType, DateTime date)
+		public override void ReplaceDailyItems(IEnumerable<TransactionItemCommon> transactionItems, TransactionItemType transactionItemType, DateTime date)
 		{
 			using(var transactionScope = new TransactionScope())
 			using(var ctx = Utils.InitContextForMsSql(LocalConfig))
@@ -272,7 +274,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 			}
 		}
 
-		protected virtual void ReplaceDailyItems(ExinEfMsSqlContext ctx, IList<TransactionItemCommon> transactionItems, TransactionItemType transactionItemType, DateTime date)
+		protected virtual void ReplaceDailyItems(ExinEfMsSqlContext ctx, IEnumerable<TransactionItemCommon> transactionItems, TransactionItemType transactionItemType, DateTime date)
 		{
 			if(transactionItems == null)
 			{
@@ -379,7 +381,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		#region InsertMany
 
-		public override void InsertMany(IList<TransactionItemCommon> transactionItems, bool withId = false, bool forceOneByOne = false)
+		public override void InsertMany(IEnumerable<TransactionItemCommon> transactionItems, bool withId = false, bool forceOneByOne = false)
 		{
 			using(var ctx = Utils.InitContextForSqlite(LocalConfig))
 			using(var transaction = ctx.Database.BeginTransaction())
@@ -389,27 +391,29 @@ namespace DAL.DataBase.EntityFramework.Managers
 			}
 		}
 
-		protected virtual void InsertMany(ExinEfSqliteContext ctx, IList<TransactionItemCommon> transactionItems, bool withId = false)
+		protected virtual void InsertMany(ExinEfSqliteContext ctx, IEnumerable<TransactionItemCommon> transactionItems, bool withId = false)
 		{
 			using(ctx.WithIdentityInsert(ctx.Property(c => c.TransactionItem), activate: withId))
 			{
-				if (transactionItems == null || transactionItems.Count == 0)
+				var transactionItemsList = transactionItems?.ToList();
+
+				if(transactionItemsList == null || transactionItemsList.Count == 0)
 					return;
 
-				if (transactionItems.Count == 1)
+				if (transactionItemsList.Count == 1)
 				{
-					Insert(ctx, transactionItems[0], withId);
+					Insert(ctx, transactionItemsList[0], withId);
 					return;
 				}
 				
 				try
 				{
-					Utils.ExecAddRange(ctx.TransactionItem, transactionItems, ctx);
+					Utils.ExecAddRange(ctx.TransactionItem, transactionItemsList, ctx);
 				}
 				catch (Exception e)
 				{
-					var msg = Localized.Could_not_insert_the_transaction_items_ + transactionItems.Count + Localized._pc_;
-					ExinLog.ger.LogException(msg, e, transactionItems);
+					var msg = Localized.Could_not_insert_the_transaction_items_ + transactionItemsList.Count + Localized._pc_;
+					ExinLog.ger.LogException(msg, e, transactionItemsList);
 					throw;
 				}
 			}
@@ -519,7 +523,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 		#endregion
 
 		/// <param name="transactionItems">If it's null, throws an exception. If it's empty, only clears the day. </param>
-		public override void ReplaceDailyItems(IList<TransactionItemCommon> transactionItems, TransactionItemType transactionItemType, DateTime date)
+		public override void ReplaceDailyItems(IEnumerable<TransactionItemCommon> transactionItems, TransactionItemType transactionItemType, DateTime date)
 		{
 			using(var ctx = Utils.InitContextForSqlite(LocalConfig))
 			using(var transaction = ctx.Database.BeginTransaction())
@@ -530,7 +534,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 			}
 		}
 
-		protected virtual void ReplaceDailyItems(ExinEfSqliteContext ctx, IList<TransactionItemCommon> transactionItems, TransactionItemType transactionItemType, DateTime date)
+		protected virtual void ReplaceDailyItems(ExinEfSqliteContext ctx, IEnumerable<TransactionItemCommon> transactionItems, TransactionItemType transactionItemType, DateTime date)
 		{
 			if(transactionItems == null)
 			{
