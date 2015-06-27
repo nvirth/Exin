@@ -40,11 +40,11 @@ namespace BLL
 
 			MessagePresenter.Instance.WriteError(string.Format(Localized.Could_not_find_the_Exin_s_work_directory_here__0__FORMAT__, RepoPaths.DirectoryInfos.Root));
 			MessagePresenter.Instance.WriteLine(Localized.The_app_will_now_create_the_necessary_directories);
-			MessagePresenter.Instance.WriteLine("");
+			MessagePresenter.Instance.WriteLine();
 
 		    RepoPaths.InitRepo();
 			
-			MessagePresenter.Instance.WriteLine("");
+			MessagePresenter.Instance.WriteLine();
 			MessagePresenter.Instance.WriteLine(Localized.All_created_successfully_);
 			MessagePresenter.Instance.WriteLineSeparator();
 		}

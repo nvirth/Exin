@@ -23,6 +23,7 @@ namespace Common.Utils
 			FetchMessagePresenter(ref messagePresenter);
 
 			messagePresenter.WriteEvent += Console.Write;
+			messagePresenter.WriteErrorEvent += H.WriteToConsoleRed;
 			messagePresenter.WriteLineEvent += Console.WriteLine;
 			messagePresenter.WriteLineSeparatorEvent += WriteLineSeparatorConsoleMethod();
 			messagePresenter.WriteExceptionEvent += H.WriteWithInnerMessagesRed;
@@ -33,6 +34,7 @@ namespace Common.Utils
 			FetchMessagePresenter(ref messagePresenter);
 
 			messagePresenter.WriteEvent -= Console.Write;
+			messagePresenter.WriteErrorEvent -= H.WriteToConsoleRed;
 			messagePresenter.WriteLineEvent -= Console.WriteLine;
 			messagePresenter.WriteLineSeparatorEvent -= WriteLineSeparatorConsoleMethod();
 			messagePresenter.WriteExceptionEvent -= H.WriteWithInnerMessagesRed;

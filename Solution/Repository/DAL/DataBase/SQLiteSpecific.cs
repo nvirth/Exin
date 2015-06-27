@@ -32,7 +32,7 @@ namespace DAL.DataBase
 			MessagePresenter.Instance.WriteError(string.Format(Localized.Could_not_find_the_SQLite_database_file__here__0__FORMAT__, RepoPaths.SqliteDbFile));
 			MessagePresenter.Instance.WriteLine(Localized.The_application_will_now_create_the_database_file__this_can_take_even_a_few_minutes_);
 			MessagePresenter.Instance.WriteLine(Localized.Please__wait_until_it_s_done);
-			MessagePresenter.Instance.WriteLine("");
+			MessagePresenter.Instance.WriteLine();
 
 			var wasSuccessful = await StartTransportDataProcess();
 

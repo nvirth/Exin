@@ -146,12 +146,12 @@ namespace BLL.WpfManagers
 		{
 			if(HasError)
 			{
-				MessagePresenter.Instance.WriteLine("");
+				MessagePresenter.Instance.WriteLine();
 				throw new Exception("HasError property is true. "); // TODO proper error message
 			}
 			if(!Validate())
 			{
-				MessagePresenter.Instance.WriteLine("");
+				MessagePresenter.Instance.WriteLine();
 				throw new Exception(Localized.The_saving_of_the_data_was_unsuccessful__there_were_invalid_values_among_them__Fix_them__then_save_again);
 			}
 

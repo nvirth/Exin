@@ -36,13 +36,13 @@ namespace Common.Utils
 			handler?.Invoke(message);
 		}
 
-		public void WriteLine(string message)
+		public void WriteLine(string message = null)
 		{
 			if(IsMuted)
 				return;
 
 			var handler = WriteLineEvent;
-			handler?.Invoke(message);
+			handler?.Invoke(message ?? "");
 		}
 
 		public void WriteLineSeparator()

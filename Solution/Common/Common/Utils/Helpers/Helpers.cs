@@ -37,6 +37,48 @@ namespace Common.Utils.Helpers
 
 		#region Normal methods
 
+		#region Console
+
+		private static void WithConsoleColor(ConsoleColor color, Action action)
+		{
+			var beforeColor = Console.ForegroundColor;
+			Console.ForegroundColor = color;
+			action();
+			Console.ForegroundColor = beforeColor;
+		}
+
+		public static void WriteLineToConsoleWithColor(string msg, ConsoleColor color)
+		{
+			WithConsoleColor(color, () => Console.WriteLine(msg));
+		}
+
+		public static void WriteToConsoleWithColor(string msg, ConsoleColor color)
+		{
+			WithConsoleColor(color, () => Console.Write(msg));
+		}
+
+		public static void WriteLineToConsoleYellow(string msg)
+		{
+			WithConsoleColor(ConsoleColor.Yellow, () => Console.WriteLine(msg));
+		}
+
+		public static void WriteToConsoleYellow(string msg)
+		{
+			WithConsoleColor(ConsoleColor.Yellow, () => Console.Write(msg));
+		}
+
+		public static void WriteLineToConsoleRed(string msg)
+		{
+			WithConsoleColor(ConsoleColor.Red, () => Console.WriteLine(msg));
+		}
+
+		public static void WriteToConsoleRed(string msg)
+		{
+			WithConsoleColor(ConsoleColor.Red, () => Console.Write(msg));
+		}
+
+		#endregion
+
 		#region DateTime
 
 		public static DateTime GetRandomDateTimeBetween(DateTime dateTime1, DateTime dateTime2)
