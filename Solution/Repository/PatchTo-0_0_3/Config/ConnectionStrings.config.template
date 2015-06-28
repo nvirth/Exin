@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+    THIS IS A TRACKED TEMPLATE FILE.
+    NEVER MODIFY THIS DIRECTLY!
+
+    Create a copy of this file named "ConnectionStrings.config",
+    and only modify that file! That one is present in the .gitignore, so
+    never will be committed. Not like this one. 
+-->
+<!--
+    You don't need to modify anything in this file's local copy when creating it.
+
+    Description of the placeholders:
+
+    #SQLITE_REPO_FULLPATH#
+    -> This is a placeholder, its value will only be replaced runtime by code (to the appSettings member "RootDir")
+-->
+  <connectionStrings>
+    <clear />
+
+    <!--Ado.Net-->
+    <add name="Exin_MsSql_AdoNet_ConnStr" connectionString="Data Source=.;Initial Catalog=ExinDeveloper;Integrated Security=True" />
+    <add name="Exin_SQLite_AdoNet_ConnStr" connectionString="data source=#SQLITE_REPO_FULLPATH#" />
+    
+    <!--EntityFramework-->
+    <add name="Exin_SQLite_EF_ConnStr" connectionString="metadata=res://*/DataBase.EntityFramework.EntitiesSqlite.ExinEf.csdl|res://*/DataBase.EntityFramework.EntitiesSqlite.ExinEf.ssdl|res://*/DataBase.EntityFramework.EntitiesSqlite.ExinEf.msl;provider=System.Data.SQLite;provider connection string=&quot;data source=#SQLITE_REPO_FULLPATH#&quot;" providerName="System.Data.EntityClient" />
+    <add name="Exin_MsSql_EF_ConnStr" connectionString="metadata=res://*/DataBase.EntityFramework.EntitiesMsSql.ExinEfMsSql.csdl|res://*/DataBase.EntityFramework.EntitiesMsSql.ExinEfMsSql.ssdl|res://*/DataBase.EntityFramework.EntitiesMsSql.ExinEfMsSql.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=.;initial catalog=ExinDeveloper;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;"
+         providerName="System.Data.EntityClient" />
+  </connectionStrings>

@@ -52,5 +52,24 @@ namespace PatchTo_0_0_3
 
 			return rootDir;
 		}
+
+		public static void PrintRepoStructure()
+		{
+			MessagePresenter.Instance.WriteLine("The app's directory structure: ");
+			DirsToCreate.ForEach(MessagePresenter.Instance.WriteLine);
+		}
+		private static IEnumerable<string> DirsToCreate
+		{
+			get
+			{
+				yield return RootDir;
+				yield return SummariesDir;
+				yield return MonthlySummariesDir;
+				yield return CategorisedSummariesDir;
+				yield return ExpensesAndIncomesDir;
+				yield return DataDir;
+			}
+		}
+
 	}
 }

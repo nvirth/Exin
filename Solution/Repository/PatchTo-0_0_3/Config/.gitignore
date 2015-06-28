@@ -1,0 +1,7 @@
+# These are template based files
+AppSettings.config
+AppSettings.Debug.config
+AppSettings.Release.config
+ConnectionStrings.config
+ConnectionStrings.Debug.config
+ConnectionStrings.Release.config

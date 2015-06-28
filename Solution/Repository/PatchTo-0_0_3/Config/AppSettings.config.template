@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+    THIS IS A TRACKED TEMPLATE FILE.
+    NEVER MODIFY THIS DIRECTLY!
+
+    Create a copy of this file named "AppSettings.config",
+    and only modify that file! That one is present in the .gitignore, so
+    never will be committed. Not like this one. 
+-->
+  <appSettings>
+    <add key="RepoRootDir" value="[[REPO-ROOT-DIR-HERE]]" />
+  </appSettings>
