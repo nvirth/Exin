@@ -4,8 +4,10 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Common;
+using Common.Configuration;
 using Common.Log;
 using Common.UiModels.WPF;
 using Common.Utils;
@@ -21,6 +23,38 @@ namespace DAL.FileRepo.Managers
 	public class TransactionItemManagerFileRepo : FileRepoManagerBase, ITransactionItemManagerDao
 	{
 		#region READ
+
+		public DateTime GetFirstDate()
+		{
+			return GetFirstOrLastDate(isFirst: true);
+		}
+
+		public DateTime GetLastDate()
+		{
+			return GetFirstOrLastDate(isFirst: false);
+		}
+
+		private DateTime GetFirstOrLastDate(bool isFirst)
+		{
+			var directoryFilter = new Regex(@"^\d{4}_\d{2} .*$");   // eg.: "2009_10 " + .*
+
+			var monthDirs = RepoPaths.DirectoryInfos.ExpensesAndIncomes
+				.EnumerateDirectories()
+				.Where(di => directoryFilter.IsMatch(di.Name))
+				.OrderBy(di => di.Name);
+
+			var firstOrLastMonthDir = isFirst
+				? monthDirs.First()
+				: monthDirs.Last();
+
+			var year = int.Parse(firstOrLastMonthDir.Name.Substring(0, 4));
+			var month = int.Parse(firstOrLastMonthDir.Name.Substring(5, 2));
+			var day = isFirst
+				? 1
+				: DateTime.DaysInMonth(year, month);
+
+			return new DateTime(year, month, day);
+		}
 
 		#region GetDailyExpenses
 
@@ -258,9 +292,8 @@ namespace DAL.FileRepo.Managers
 		public void ReplaceDailyExpenses(IEnumerable<ExpenseItem> expenseItems, DateTime date)
 		{
 			var summary = Summary.Summarize(expenseItems);
-			var transactionItems = expenseItems.Cast<TransactionItemBase>(); //TODO what?! redundant with IEnumerable, but not with IList?
 
-			WriteOutDailyExpenses(transactionItems, new DatePaths(date), summary);
+			WriteOutDailyExpenses(expenseItems, new DatePaths(date), summary);
 		}
 
 		public void ReplaceMonthlyIncomes(IEnumerable<IncomeItem> incomeItems, DateTime date)
@@ -268,9 +301,7 @@ namespace DAL.FileRepo.Managers
 			date = new DateTime(date.Year, date.Month, 1);
 
 			var summary = Summary.Summarize(incomeItems);
-			var transactionItems = incomeItems
-				.Select(ii => ((IncomeItem)ii.WithMonthDate()))
-				.Cast<TransactionItemBase>().ToList();
+			var transactionItems = incomeItems.Select(ii => ((IncomeItem) ii.WithMonthDate()));
 
 			WriteOutMonthlyIncomes(transactionItems, new DatePaths(date), summary);
 		}

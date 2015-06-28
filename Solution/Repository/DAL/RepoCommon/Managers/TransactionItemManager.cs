@@ -48,8 +48,16 @@ namespace DAL.RepoCommon.Managers
 			return _core.GetDailyExpenses(date);
 		}
 
+		public DateTime GetFirstDate()
+		{
+			return _core.GetFirstDate();
+		}
+
+		public DateTime GetLastDate()
+		{
+			return _core.GetLastDate();
+		}
+
 		#endregion
-
-
 	}
 }

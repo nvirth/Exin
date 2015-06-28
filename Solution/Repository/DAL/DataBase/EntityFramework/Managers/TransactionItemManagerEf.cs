@@ -54,6 +54,32 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		#region READ
 
+		public override DateTime GetFirstDate()
+		{
+			using(var ctx = Utils.InitContextForMsSql(LocalConfig))
+			{
+				// Note: Exception if table is empty
+				var transactionItem = ctx.TransactionItem
+					.OrderBy(ti => ti.Date)
+					.First();
+
+				return transactionItem.Date;
+			}
+		}
+
+		public override DateTime GetLastDate()
+		{
+			using(var ctx = Utils.InitContextForMsSql(LocalConfig))
+			{
+				// Note: Exception if table is empty
+				var transactionItem = ctx.TransactionItem
+					.OrderBy(ti => ti.Date)
+					.Last();
+
+				return transactionItem.Date;
+			}
+		}
+
 		public override List<TransactionItemCommon> GetInterval(DateTime fromDate, DateTime toDate, TransactionItemType transactionItemType)
 		{
 			fromDate = fromDate.Date;
@@ -308,6 +334,32 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		#region READ
 
+		public override DateTime GetFirstDate()
+		{
+			using(var ctx = Utils.InitContextForSqlite(LocalConfig))
+			{
+				// Note: Exception if table is empty
+				var transactionItem = ctx.TransactionItem
+					.OrderBy(ti => ti.Date)
+					.First();
+
+				return transactionItem.Date;
+			}
+		}
+
+		public override DateTime GetLastDate()
+		{
+			using(var ctx = Utils.InitContextForSqlite(LocalConfig))
+			{
+				// Note: Exception if table is empty
+				var transactionItem = ctx.TransactionItem
+					.OrderBy(ti => ti.Date)
+					.Last();
+
+				return transactionItem.Date;
+			}
+		}
+
 		public override List<TransactionItemCommon> GetInterval(DateTime fromDate, DateTime toDate, TransactionItemType transactionItemType)
 		{
 			fromDate = fromDate.Date;
@@ -558,6 +610,4 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		#endregion
 	}
-
-
 }

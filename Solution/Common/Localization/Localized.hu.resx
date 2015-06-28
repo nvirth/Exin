@@ -698,7 +698,7 @@ A beviteli mezőkben:
     <value>Kategóriák importálása</value>
   </data>
   <data name="Transporting_expenses_and_incomes" xml:space="preserve">
-    <value>Kiadások/ bevételek transzportálása</value>
+    <value>Kiadások/bevételek transzportálása</value>
   </data>
   <data name="Importing_units" xml:space="preserve">
     <value>Mértékegységek importálása</value>
@@ -821,5 +821,8 @@ A beviteli mezőkben:
   </data>
   <data name="Type_in__TransportData___help__for_help__" xml:space="preserve">
     <value>Ha segítségre van szükséged, használd ezt: 'TransportData --help'.</value>
+  </data>
+  <data name="The_repository_is_empty" xml:space="preserve">
+    <value>Az adattár üres</value>
   </data>
 </root>

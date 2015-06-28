@@ -28,30 +28,44 @@ namespace Common.Log
 			e.AddData(USERNAME_LOGENTRY, userName);
 		}
 
-		public Exception LogException(string msg, Exception e, object data = null)
+		// TODO logging to UI should be localized, but logging to logs must not!
+		public Exception LogException(string msg, Exception e, object data = null, bool logToUi = true)
 		{
-			MessagePresenter.Instance.WriteError(msg);
+			if(logToUi)
+				MessagePresenter.Instance.WriteError(msg);
+
 			if(data != null)
 			{
 				var dataSerialized = data.SerializeToLog();
-				MessagePresenter.Instance.WriteError(dataSerialized);
+
+				if(logToUi)
+					MessagePresenter.Instance.WriteError(dataSerialized);
+
 				e.AddData(dataSerialized);
 			}
-			MessagePresenter.Instance.WriteException(e);
+
+			if(logToUi)
+				MessagePresenter.Instance.WriteException(e);
+
 			Error(msg, e);
 
 			return e;
 		}
 
-		public void LogError(string msg, object data = null)
+		public void LogError(string msg, object data = null, bool logToUi = true)
 		{
-			MessagePresenter.Instance.WriteError(msg);
+			if(logToUi)
+				MessagePresenter.Instance.WriteError(msg);
+
 			if(data != null)
 			{
 				var dataSerialized = data.SerializeToLog();
-				MessagePresenter.Instance.WriteError(dataSerialized);
 				msg += Environment.NewLine + dataSerialized;
+
+				if(logToUi)
+					MessagePresenter.Instance.WriteError(dataSerialized);
 			}
+
 			Error(msg);
 		}
 

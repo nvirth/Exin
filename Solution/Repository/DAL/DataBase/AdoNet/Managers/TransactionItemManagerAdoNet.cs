@@ -49,6 +49,45 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		#region READ
 
+		#region Get first or last date
+
+		public override DateTime GetFirstDate()
+		{
+			return GetFirstOrLastDate(isFirst: true);
+		}
+
+		public override DateTime GetLastDate()
+		{
+			return GetFirstOrLastDate(isFirst: false);
+		}
+
+		private DateTime GetFirstOrLastDate(bool isFirst)
+		{
+			using (var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
+			{
+				if (isFirst)
+					BuildGetFirstQuery(ctx);
+				else
+					BuildGetLastQuery(ctx);
+
+				ctx.Adapter.SelectCommand = ctx.Command;
+				ctx.Adapter.Fill(ctx.DataSet);
+
+				var transactionItem = new TransactionItem();
+				var date = ctx.DataSet.Tables[0].AsEnumerable()
+					.Select(dataRow => dataRow.Field<DateTime>(transactionItem.Property(x => x.Date)))
+					.First();
+
+				return date;
+			}
+		}
+
+		protected abstract void BuildGetFirstQuery(ExinAdoNetContextBase ctx);
+		protected abstract void BuildGetLastQuery(ExinAdoNetContextBase ctx);
+
+		#endregion
+
+
 		public override List<TransactionItem> GetInterval(DateTime fromDate, DateTime toDate, TransactionItemType transactionItemType)
 		{
 			fromDate = fromDate.Date;
@@ -603,11 +642,21 @@ namespace DAL.DataBase.AdoNet.Managers
 
 	public class TransactionItemManagerAdoNetMsSql : TransactionItemManagerAdoNetBase
 	{
-		// No need to changed anything
+		// No need to changed much
 
 		public TransactionItemManagerAdoNetMsSql(IRepoConfiguration repoConfiguration,
 			ICategoryManager categoryManager, IUnitManager unitManager) : base(repoConfiguration, categoryManager, unitManager)
 		{
+		}
+
+		protected override void BuildGetFirstQuery(ExinAdoNetContextBase ctx)
+		{
+			ctx.Command.CommandText = "SELECT TOP 1 date FROM {0} ORDER BY date".Formatted(TableName);
+		}
+
+		protected override void BuildGetLastQuery(ExinAdoNetContextBase ctx)
+		{
+			ctx.Command.CommandText = "SELECT TOP 1 date FROM {0} ORDER BY date DESC".Formatted(TableName);
 		}
 	}
 
@@ -616,6 +665,16 @@ namespace DAL.DataBase.AdoNet.Managers
 		public TransactionItemManagerAdoNetSQLite(IRepoConfiguration repoConfiguration,
 			ICategoryManager categoryManager, IUnitManager unitManager) : base(repoConfiguration, categoryManager, unitManager)
 		{
+		}
+
+		protected override void BuildGetFirstQuery(ExinAdoNetContextBase ctx)
+		{
+			ctx.Command.CommandText = "SELECT date FROM {0} ORDER BY date LIMIT 1".Formatted(TableName);
+		}
+
+		protected override void BuildGetLastQuery(ExinAdoNetContextBase ctx)
+		{
+			ctx.Command.CommandText = "SELECT date FROM {0} ORDER BY date DESC LIMIT 1".Formatted(TableName);
 		}
 
 		protected override void ExecInsertQuery(ExinAdoNetContextBase ctx)

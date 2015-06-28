@@ -8,6 +8,22 @@ namespace DAL.RepoCommon.Interfaces
 {
 	public interface ITransactionItemManagerDao
 	{
+		/// <summary>
+		/// Returns the first transaction item's date. <para />
+		/// It will throw Exception if the Repo is empty yet. <para />
+		///  <para />
+		/// NOTE: FileRepo implementation is not precise, only the year and month. <para />
+		/// </summary>
+		DateTime GetFirstDate();
+
+		/// <summary>
+		/// Returns the last transaction item's date. <para />
+		/// It will throw Exception if the Repo is empty yet. <para />
+		///  <para />
+		/// NOTE: FileRepo implementation is not precise, only the year and month. <para />
+		/// </summary>
+		DateTime GetLastDate();
+
 		List<ExpenseItem> GetDailyExpenses(DateTime date);
 		List<IncomeItem> GetMonthlyIncomes(DateTime date);
 		List<ExpenseItem> GetMonthlyExpenses(DateTime date);

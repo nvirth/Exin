@@ -1771,6 +1771,15 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The repository is empty.
+        /// </summary>
+        public static string The_repository_is_empty {
+            get {
+                return ResourceManager.GetString("The_repository_is_empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The saving of expense statistics was unsuccessful. .
         /// </summary>
         public static string The_saving_of_expense_statistics_was_unsuccessful_ {

@@ -58,6 +58,8 @@ namespace DAL.DataBase.Managers.Base
 
 		#region Abstract
 
+		public abstract DateTime GetFirstDate();
+		public abstract DateTime GetLastDate();
 		public abstract List<TransactionItem> GetInterval(DateTime fromDate, DateTime toDate, TransactionItemType transactionItemType);
 		public abstract List<TransactionItem> GetAll(TransactionItemType? transactionItemType);
 		public abstract void Insert(TransactionItem transactionItem, bool withId = false);

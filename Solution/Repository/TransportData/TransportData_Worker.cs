@@ -6,6 +6,7 @@ using System.Text;
 using Common;
 using Common.Configuration;
 using Common.Db.Entities;
+using Common.Log;
 using Common.UiModels.WPF;
 using Common.Utils;
 using Common.Utils.Helpers;
@@ -28,8 +29,8 @@ namespace TransportData
 		public readonly List<ExpenseItem> ExpenseItems = new List<ExpenseItem>();
 		public readonly List<IncomeItem> IncomeItems = new List<IncomeItem>();
 
-		public IEnumerable<IGrouping<DateTime, TransactionItemBase>> IncomeItemsByDate;
-		public IEnumerable<IGrouping<DateTime, TransactionItemBase>> ExpenseItemsByDate;
+		public IEnumerable<IGrouping<DateTime, TransactionItemBase>> IncomeItemsByDate = Enumerable.Empty<IGrouping<DateTime, TransactionItemBase>>();
+		public IEnumerable<IGrouping<DateTime, TransactionItemBase>> ExpenseItemsByDate = Enumerable.Empty<IGrouping<DateTime, TransactionItemBase>>();
 
 		// --
 
@@ -107,13 +108,21 @@ namespace TransportData
 
 		private void TransportTransactions()
 		{
-			// TODO implement GetFirst or smg
-			// TODO also implement than GetLast...
+			DateTime startDate;
+			DateTime endDate;
+			try
+			{
+				startDate = TransactionItemManagerLocal.GetFirstDate();
+				endDate = TransactionItemManagerLocal.GetLastDate();
+			}
+			catch(Exception e)
+			{
+				ExinLog.ger.LogException("The repository is empty", e, logToUi: false);
+				MessagePresenter.Instance.WriteLine(Localized.The_repository_is_empty);
+				return;
+			}
 
 			WithLoggingOnlyErrors(() => {
-				var startDate = new DateTime(2009, 01, 01);
-				var endDate = DateTime.Today;
-
 				var actualDate = startDate;
 				while(actualDate <= endDate)
 				{
@@ -150,17 +159,18 @@ namespace TransportData
 
 		private void CalculateSummaries()
 		{
-			WithLoggingOnlyErrors(() => {
-				var expensesAndIncomes = ExpenseItemsByDate.Concat(IncomeItemsByDate);
-				foreach(IGrouping<DateTime, TransactionItemBase> groupByDate in expensesAndIncomes)
-				{
-					var summary = Summary.Summarize(groupByDate);
+			var expensesAndIncomes = ExpenseItemsByDate.Concat(IncomeItemsByDate);
+			if(expensesAndIncomes.Any())
+				WithLoggingOnlyErrors(() => {
+					foreach(IGrouping<DateTime, TransactionItemBase> groupByDate in expensesAndIncomes)
+					{
+						var summary = Summary.Summarize(groupByDate);
 
-					var transactionItemType = summary.SumIn == 0 ? TransactionItemType.Expense : TransactionItemType.Income;
-					SummaryItemManagerLocal.ReplaceSummary(summary, groupByDate.Key, transactionItemType);
-				}
-			})
-			.ExecuteWithTimeMeasuring(Localized.Calculating_summaries);
+						var transactionItemType = summary.SumIn == 0 ? TransactionItemType.Expense : TransactionItemType.Income;
+						SummaryItemManagerLocal.ReplaceSummary(summary, groupByDate.Key, transactionItemType);
+					}
+				})
+				.ExecuteWithTimeMeasuring(Localized.Calculating_summaries);
 		}
 
 		#region PrepareDestinationRepo

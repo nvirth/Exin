@@ -15,6 +15,16 @@ namespace DAL.RepoCommon.Managers.AggregateDaoManagers
 		{
 		}
 
+		public DateTime GetFirstDate()
+		{
+			return ManagerForRead.GetFirstDate();
+		}
+
+		public DateTime GetLastDate()
+		{
+			return ManagerForRead.GetLastDate();
+		}
+
 		public List<ExpenseItem> GetDailyExpenses(DateTime date)
 		{
 			return ManagerForRead.GetDailyExpenses(date);
