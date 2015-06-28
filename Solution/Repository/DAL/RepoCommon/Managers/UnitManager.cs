@@ -26,7 +26,7 @@ namespace DAL.RepoCommon.Managers
 		// -- IUnitManager implementation
 
 		public Unit GetDefaultUnit => GetUnitPc;
-		public Unit GetUnitPc => GetByName(C.Db);
+		public Unit GetUnitPc => GetByName(C.Pc);
 	    public Unit GetUnitNone => GetByName(C.None);
 
 		public override void RefreshCache()

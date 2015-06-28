@@ -38,7 +38,7 @@ namespace DAL.DataBase
 			MessagePresenter.Instance.WriteLine(Localized.Please__wait_until_it_s_done);
 			MessagePresenter.Instance.WriteLine();
 
-			var wasSuccessful = await StartTransportDataProcess(dbType);
+			var wasSuccessful = await StartTransportDataProcess();
 
 			if (wasSuccessful)
 			{
@@ -53,17 +53,12 @@ namespace DAL.DataBase
 			MessagePresenter.Instance.WriteLineSeparator();
 		}
 
-		public static async Task<bool> StartTransportDataProcess(DbType dbType = 0)
+		public static async Task<bool> StartTransportDataProcess()
 		{
-			dbType = dbType == 0 ? Config.Repo.DbType : dbType;
-
 			return await new TaskFactory<bool>().StartNew(
 				() => {
 					var lang = Cultures.CurrentCulture.TwoLetterISOLanguageName;
-					var to = dbType == DbType.MsSql ? C.DB_MSSQL : null;
-					to =     dbType == DbType.SQLite ? C.DB_SQLITE : to;
-
-					var commandArgs = "--From FileRepo --To {0} --Lang {1}".Formatted(to, lang);
+					var commandArgs = "--From FileRepo --To {0} --Lang {1}".Formatted(C.DB_SQLITE, lang);
 
 					var startInfo = new ProcessStartInfo
 					{

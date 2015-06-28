@@ -12,7 +12,7 @@
 	<!-- Valid Units -->
 	<Unit>
 		<ID>101</ID>
-		<Name>Db</Name>
+		<Name>Pc</Name>
 		<DisplayNames>
 			<en-US>pc</en-US>
 			<hu-HU>db</hu-HU>

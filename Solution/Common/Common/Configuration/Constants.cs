@@ -53,7 +53,7 @@
 				// Helpers
 				public const string None = "None";
 				// Valid units
-				public const string Db = "Db";
+				public const string Pc = "Pc";
 				public const string Kg = "Kg";
 				public const string Dkg = "Dkg";
 				public const string Gram = "Gram";

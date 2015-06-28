@@ -28,7 +28,7 @@
 	<!-- Valid Expense Categories -->
 	<Category>
 		<ID>101</ID>
-		<Name>Eats</Name>
+		<Name>Food</Name>
 		<DisplayNames>
 			<en-US>Food</en-US>
 			<hu-HU>Kaja</hu-HU>
