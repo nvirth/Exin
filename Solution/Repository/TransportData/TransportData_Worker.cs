@@ -63,13 +63,16 @@ namespace TransportData
 
 		public void DoWork()
 		{
-			// TODO messages
-			MessagePresenter.Instance.WriteLine(Localized.Importing_data_from_File_Repository_into___0___DataBase.Formatted(LocalConfig.DbType));
+			var db = Localized._0__Database.Formatted(LocalConfig.DbType);
+			var from = LocalConfig.ReadMode == ReadMode.FromDb ? db : Localized.File_repository;
+			var to = LocalConfig.SaveMode == SaveMode.OnlyToDb ? db : Localized.File_repository;
+
+			MessagePresenter.Instance.WriteLine(Localized.Transporting_data_from__0__into__1_.Formatted(from, to));
 			MessagePresenter.Instance.WriteLine();
 
 			PrepareDestinationRepo();
-			Helpers.ExecuteWithTimeMeasuring(TransportUnits, Localized.Importing_units);
-			Helpers.ExecuteWithTimeMeasuring(TransportCategories, Localized.Importing_categories);
+			Helpers.ExecuteWithTimeMeasuring(TransportUnits, Localized.Transporting_units);
+			Helpers.ExecuteWithTimeMeasuring(TransportCategories, Localized.Transporting_categories);
 			TransportTransactions();
 			CalculateSummaries();
 
@@ -106,8 +109,6 @@ namespace TransportData
 		{
 			// TODO implement GetFirst or smg
 			// TODO also implement than GetLast...
-
-			// TODO logging to UI properly
 
 			WithLoggingOnlyErrors(() => {
 				var startDate = new DateTime(2009, 01, 01);
@@ -201,7 +202,7 @@ namespace TransportData
 
 		private void ClearAllMsSqlTables()
 		{
-			PromptBackupWarning(" * MS SQL database with connection string: " + new ExinConnectionString(LocalConfig).Get);
+			PromptBackupWarning(Localized.___MS_SQL_database_with_connection_string___0_.Formatted(new ExinConnectionString(LocalConfig).Get));
 
 			Helpers.ExecuteWithTimeMeasuring(() => {
 				using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
@@ -222,7 +223,7 @@ namespace TransportData
 
 		private void ClearAllSqliteTables()
 		{
-			PromptBackupWarning(" * SQLite database: " + RepoPaths.SqliteDbFile);
+			PromptBackupWarning(Localized.___SQLite_database___0_.Formatted(RepoPaths.SqliteDbFile));
 
 			Helpers.ExecuteWithTimeMeasuring(() => {
 				using (var dbFileStream = File.OpenWrite(RepoPaths.SqliteDbFile))
@@ -245,8 +246,8 @@ namespace TransportData
 			var sb = new StringBuilder();
 			sb.AppendLine(" * {0}: {1}".Formatted(RepoPaths.Names.Units, RepoPaths.UnitsFile));
 			sb.AppendLine(" * {0}: {1}".Formatted(RepoPaths.Names.Categories, RepoPaths.CategoriesFile));
-			sb.AppendLine(" * {0} directory: {1}".Formatted(RepoPaths.Names.ExpensesAndIncomes, RepoPaths.ExpensesAndIncomesDir));
-			sb.AppendLine(" * {0} directory: {1}".Formatted(RepoPaths.Names.Summaries, RepoPaths.SummariesDir));
+			sb.AppendLine(Localized.____0__directory___1_.Formatted(RepoPaths.Names.ExpensesAndIncomes, RepoPaths.ExpensesAndIncomesDir));
+			sb.AppendLine(Localized.____0__directory___1_.Formatted(RepoPaths.Names.Summaries, RepoPaths.SummariesDir));
 
 			PromptBackupWarning(sb.ToString());
 
@@ -255,12 +256,12 @@ namespace TransportData
 
 		private void PromptBackupWarning(string backupMsg)
 		{
-			MessagePresenter.Instance.WriteLine("Before going further, please create a manual backup of these: ");
+			MessagePresenter.Instance.WriteLine(Localized.Before_going_further__please_create_a_manual_backup_of_these__);
 			MessagePresenter.Instance.WriteLine(backupMsg);
 			MessagePresenter.Instance.WriteLine();
 			Helpers.ExecuteWithConsoleColor(
 				ConsoleColor.Yellow,
-				() => MessagePresenter.Instance.WriteLine("Press any key when you are ready to continue . . . ")
+				() => MessagePresenter.Instance.WriteLine(Localized.Press_any_key_when_you_are_ready_to_continue_______)
 			);
 			Console.ReadKey();
 			MessagePresenter.Instance.WriteLine();
@@ -291,47 +292,3 @@ namespace TransportData
 		}
 	}
 }
-
-// TODO remove
-//private void TransportTransactions()
-//{
-//	// TODO implement GetFirst or smg
-//	// TODO also implement than GetLast...
-
-//	// TODO logging to UI properly
-//	var muteLevel = MessagePresenter.Instance.MuteLevel;
-//	MessagePresenter.Instance.MuteLevel = MuteLevel.WriteOnlyErrors;
-
-//	var startDate = new DateTime(2009, 01, 01);
-//	var endDate = DateTime.Today;
-
-//	var actualDate = startDate;
-//	while(actualDate <= endDate)
-//	{
-//		// -- Incomes
-//		var monthlyIncomes = TransactionItemManagerLocal.GetMonthlyIncomes(actualDate);
-//		IncomeItems.AddRange(monthlyIncomes);
-//		TransactionItemManagerLocal.ReplaceMonthlyIncomes(monthlyIncomes, actualDate);
-
-//		// -- Expenses
-//		var monthlyExpenses = TransactionItemManagerLocal.GetMonthlyExpenses(actualDate);
-//		ExpenseItems.AddRange(monthlyExpenses);
-
-//		var actualDayDate = actualDate;
-//		while(actualDayDate.Month == actualDate.Month) // iterate thruogh this month
-//		{
-//			var day = actualDayDate.Day;
-
-//			TransactionItemManagerLocal.ReplaceDailyExpenses( // TODO test this
-//				monthlyExpenses.Where(ei => ei.Date.Day == day),
-//				actualDayDate
-//			);
-
-//			actualDayDate = actualDayDate.AddDays(1);
-//		}
-
-//		actualDate = actualDate.AddMonths(1);
-//	}
-
-//	MessagePresenter.Instance.MuteLevel = muteLevel;
-//}

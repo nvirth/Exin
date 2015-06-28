@@ -61,11 +61,38 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  * {0} directory: {1}.
+        /// </summary>
+        public static string ____0__directory___1_ {
+            get {
+                return ResourceManager.GetString("____0__directory___1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  * MS SQL database with connection string: {0}.
+        /// </summary>
+        public static string ___MS_SQL_database_with_connection_string___0_ {
+            get {
+                return ResourceManager.GetString("___MS_SQL_database_with_connection_string___0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  - Saving error!.
         /// </summary>
         public static string ___Save_error_ {
             get {
                 return ResourceManager.GetString("___Save_error_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  * SQLite database: {0}.
+        /// </summary>
+        public static string ___SQLite_database___0_ {
+            get {
+                return ResourceManager.GetString("___SQLite_database___0_", resourceCulture);
             }
         }
         
@@ -88,11 +115,47 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to - Could not recognize the given value for this argument: {0}.
+        /// </summary>
+        public static string @__Could_not_recognize_the_given_value_for_this_argument___0_ {
+            get {
+                return ResourceManager.GetString("__Could_not_recognize_the_given_value_for_this_argument___0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - Could not recognize this argument: {0}.
+        /// </summary>
+        public static string @__Could_not_recognize_this_argument___0_ {
+            get {
+                return ResourceManager.GetString("__Could_not_recognize_this_argument___0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - The args From and To are the same.
+        /// </summary>
+        public static string @__The_args_From_and_To_are_the_same {
+            get {
+                return ResourceManager.GetString("__The_args_From_and_To_are_the_same", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} already exists with the specified name. .
         /// </summary>
         public static string _0__already_exists_with_the_specified_name__ {
             get {
                 return ResourceManager.GetString("_0__already_exists_with_the_specified_name__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Database.
+        /// </summary>
+        public static string _0__Database {
+            get {
+                return ResourceManager.GetString("_0__Database", resourceCulture);
             }
         }
         
@@ -248,6 +311,15 @@ namespace Localization {
         public static string An_unexpected_error_occured__The_app_will_stop_now__ {
             get {
                 return ResourceManager.GetString("An_unexpected_error_occured__The_app_will_stop_now__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Before going any further, please create a manual backup of these: .
+        /// </summary>
+        public static string Before_going_further__please_create_a_manual_backup_of_these__ {
+            get {
+                return ResourceManager.GetString("Before_going_further__please_create_a_manual_backup_of_these__", resourceCulture);
             }
         }
         
@@ -932,6 +1004,15 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File repository.
+        /// </summary>
+        public static string File_repository {
+            get {
+                return ResourceManager.GetString("File_repository", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GetEnumValues needs an enum input. .
         /// </summary>
         public static string GetEnumValues_needs_an_enum_input__ {
@@ -1224,6 +1305,24 @@ namespace Localization {
         public static string Press_any_key_to_continue_ {
             get {
                 return ResourceManager.GetString("Press_any_key_to_continue_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Press any key to exit . . ..
+        /// </summary>
+        public static string Press_any_key_to_exit_____ {
+            get {
+                return ResourceManager.GetString("Press_any_key_to_exit_____", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Press any key when you are ready to continue . . . .
+        /// </summary>
+        public static string Press_any_key_when_you_are_ready_to_continue_______ {
+            get {
+                return ResourceManager.GetString("Press_any_key_when_you_are_ready_to_continue_______", resourceCulture);
             }
         }
         
@@ -1772,6 +1871,15 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There were errors while parsing command line arguemnts. .
+        /// </summary>
+        public static string There_were_errors_while_parsing_command_line_arguemnts__ {
+            get {
+                return ResourceManager.GetString("There_were_errors_while_parsing_command_line_arguemnts__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This {0} entity does not contain any DisplayName value. It&apos;s Name value will be used instead. .
         /// </summary>
         public static string This__0__entity_does_not_contain_any_DisplayName_value___ {
@@ -1862,6 +1970,24 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Transporting categories.
+        /// </summary>
+        public static string Transporting_categories {
+            get {
+                return ResourceManager.GetString("Transporting_categories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transporting data from {0} into {1}.
+        /// </summary>
+        public static string Transporting_data_from__0__into__1_ {
+            get {
+                return ResourceManager.GetString("Transporting_data_from__0__into__1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transporting expenses and incomes.
         /// </summary>
         public static string Transporting_expenses_and_incomes {
@@ -1871,11 +1997,29 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Transporting units.
+        /// </summary>
+        public static string Transporting_units {
+            get {
+                return ResourceManager.GetString("Transporting_units", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Try with another database access mode. .
         /// </summary>
         public static string Try_with_another_database_access_mode {
             get {
                 return ResourceManager.GetString("Try_with_another_database_access_mode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type in &apos;TransportData --help&apos; for help. .
+        /// </summary>
+        public static string Type_in__TransportData___help__for_help__ {
+            get {
+                return ResourceManager.GetString("Type_in__TransportData___help__for_help__", resourceCulture);
             }
         }
         

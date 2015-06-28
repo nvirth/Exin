@@ -774,4 +774,52 @@ or if you are familiar with SQL queries, you can also use the SQLite database fi
   <data name="Clearing_file_repository" xml:space="preserve">
     <value>Clearing file repository</value>
   </data>
+  <data name="Type_in__TransportData___help__for_help__" xml:space="preserve">
+    <value>Type in 'TransportData --help' for help. </value>
+  </data>
+  <data name="Press_any_key_to_exit_____" xml:space="preserve">
+    <value>Press any key to exit . . .</value>
+  </data>
+  <data name="There_were_errors_while_parsing_command_line_arguemnts__" xml:space="preserve">
+    <value>There were errors while parsing command line arguemnts. </value>
+  </data>
+  <data name="__Could_not_recognize_the_given_value_for_this_argument___0_" xml:space="preserve">
+    <value>- Could not recognize the given value for this argument: {0}</value>
+  </data>
+  <data name="__Could_not_recognize_this_argument___0_" xml:space="preserve">
+    <value>- Could not recognize this argument: {0}</value>
+  </data>
+  <data name="__The_args_From_and_To_are_the_same" xml:space="preserve">
+    <value>- The args From and To are the same</value>
+  </data>
+  <data name="Transporting_data_from__0__into__1_" xml:space="preserve">
+    <value>Transporting data from {0} into {1}</value>
+  </data>
+  <data name="___MS_SQL_database_with_connection_string___0_" xml:space="preserve">
+    <value> * MS SQL database with connection string: {0}</value>
+  </data>
+  <data name="___SQLite_database___0_" xml:space="preserve">
+    <value> * SQLite database: {0}</value>
+  </data>
+  <data name="____0__directory___1_" xml:space="preserve">
+    <value> * {0} directory: {1}</value>
+  </data>
+  <data name="Before_going_further__please_create_a_manual_backup_of_these__" xml:space="preserve">
+    <value>Before going any further, please create a manual backup of these: </value>
+  </data>
+  <data name="Press_any_key_when_you_are_ready_to_continue_______" xml:space="preserve">
+    <value>Press any key when you are ready to continue . . . </value>
+  </data>
+  <data name="Transporting_categories" xml:space="preserve">
+    <value>Transporting categories</value>
+  </data>
+  <data name="Transporting_units" xml:space="preserve">
+    <value>Transporting units</value>
+  </data>
+  <data name="File_repository" xml:space="preserve">
+    <value>File repository</value>
+  </data>
+  <data name="_0__Database" xml:space="preserve">
+    <value>{0} Database</value>
+  </data>
 </root>

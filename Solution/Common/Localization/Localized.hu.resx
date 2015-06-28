@@ -698,7 +698,7 @@ A beviteli mezőkben:
     <value>Kategóriák importálása</value>
   </data>
   <data name="Transporting_expenses_and_incomes" xml:space="preserve">
-    <value>Kiadások és bevételek transzportálása</value>
+    <value>Kiadások/ bevételek transzportálása</value>
   </data>
   <data name="Importing_units" xml:space="preserve">
     <value>Mértékegységek importálása</value>
@@ -773,5 +773,53 @@ A beviteli mezőkben:
   </data>
   <data name="Clearing_file_repository" xml:space="preserve">
     <value>Fájl tároló kiürítése</value>
+  </data>
+  <data name="____0__directory___1_" xml:space="preserve">
+    <value> * {0} mappa: {1}</value>
+  </data>
+  <data name="___MS_SQL_database_with_connection_string___0_" xml:space="preserve">
+    <value> * MS SQL adatbázis. Connection string: {0}</value>
+  </data>
+  <data name="___SQLite_database___0_" xml:space="preserve">
+    <value> * SQLite adatbázis: {0}</value>
+  </data>
+  <data name="__Could_not_recognize_the_given_value_for_this_argument___0_" xml:space="preserve">
+    <value>- Nem sikerült felismernem a következő argumentumhoz tartozó értéket: {0}</value>
+  </data>
+  <data name="__Could_not_recognize_this_argument___0_" xml:space="preserve">
+    <value>- Nem sikerült felismernem a következő argumentumot: {0}</value>
+  </data>
+  <data name="__The_args_From_and_To_are_the_same" xml:space="preserve">
+    <value>- A 'From' és 'To' argumentumok megegyeznek</value>
+  </data>
+  <data name="_0__Database" xml:space="preserve">
+    <value>{0} Adatbázis</value>
+  </data>
+  <data name="Before_going_further__please_create_a_manual_backup_of_these__" xml:space="preserve">
+    <value>Mielőtt tovább mennénk, készíts egy manuális biztonsági mentést ezekről:</value>
+  </data>
+  <data name="File_repository" xml:space="preserve">
+    <value>Fájl tároló</value>
+  </data>
+  <data name="Press_any_key_to_exit_____" xml:space="preserve">
+    <value>Nyomj meg egy gombot a kilépéshez . . .</value>
+  </data>
+  <data name="Press_any_key_when_you_are_ready_to_continue_______" xml:space="preserve">
+    <value>Nyomj meg egy gombot ha készen állsz a folytatásra . . .</value>
+  </data>
+  <data name="There_were_errors_while_parsing_command_line_arguemnts__" xml:space="preserve">
+    <value>Problémák léptek fel a parancssori argumentumok beolvasásakor.</value>
+  </data>
+  <data name="Transporting_categories" xml:space="preserve">
+    <value>Kategóriák transzportálása</value>
+  </data>
+  <data name="Transporting_data_from__0__into__1_" xml:space="preserve">
+    <value>Adatok transzportálása {0}ból {1}ba</value>
+  </data>
+  <data name="Transporting_units" xml:space="preserve">
+    <value>Mértékegységek transzportálása</value>
+  </data>
+  <data name="Type_in__TransportData___help__for_help__" xml:space="preserve">
+    <value>Ha segítségre van szükséged, használd ezt: 'TransportData --help'.</value>
   </data>
 </root>

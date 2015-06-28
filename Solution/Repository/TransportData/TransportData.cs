@@ -87,7 +87,6 @@ namespace TransportData
 			for (int i = 0; i < RawArgs.Length; i++)
 			{
 				var key = ReadArg(i);
-				//key = null; // todo test
 				switch (key)
 				{
 					case "-F":
@@ -119,15 +118,15 @@ namespace TransportData
 
 		private void ValidateParsedArguments()
 		{
-			if (From == null)
+			var rawArgs = RawArgs.Select(s => s.ToUpperInvariant()).ToList();
+
+			if (From == null && !(rawArgs.Contains("--FROM") || rawArgs.Contains("-F")))
 				AddKeyError(this.Property(x => x.From));
-			if (To == null)
+			if (To == null && !(rawArgs.Contains("--TO") || rawArgs.Contains("-T")))
 				AddKeyError(this.Property(x => x.To));
 
 			if(From == To)
-				Errors.Add("- The args From and To are the same");
-			if((From == C.DB_MSSQL && To == C.DB_SQLITE) || (From == C.DB_SQLITE && To == C.DB_MSSQL))
-				Errors.Add("- The args From and To are both DB types. This kind of operation is not implemented yet."); //TODO
+				Errors.Add(Localized.__The_args_From_and_To_are_the_same);
 		}
 
 		private string ReadArg(int idx)
@@ -140,12 +139,12 @@ namespace TransportData
 
 		private void AddKeyError(string argName = null)
 		{
-			Errors.Add("- Could not recognize this argument: " + argName);
+			Errors.Add(Localized.__Could_not_recognize_this_argument___0_.Formatted(argName));
 		}
 
 		private void AddValueError([CallerMemberName] string argName = null)
 		{
-			Errors.Add("- Could not recognize the given value for this argument: " + argName);
+			Errors.Add(Localized.__Could_not_recognize_the_given_value_for_this_argument___0_.Formatted(argName));
 		}
 
 		#endregion
@@ -193,6 +192,14 @@ namespace TransportData
 					_repoConfiguration.DbType = DbType.SQLite;
 					break;
 			}
+
+			// (Help and lang should be already processed at this)
+
+			return _repoConfiguration;
+		}
+
+		public void ProcessLang()
+		{
 			switch(Lang)
 			{
 				case C.EN:
@@ -202,10 +209,6 @@ namespace TransportData
 					Cultures.SetToHungarian();
 					break;
 			}
-
-			// (Help should be already processed at this)
-
-			return _repoConfiguration;
 		}
 	}
 
@@ -217,16 +220,15 @@ namespace TransportData
 	{
 		public static void Main(string[] args)
 		{
-			//TODO register unhandled exception handler?
-			//TODO console.readyKey -> only if Debugger.IsAttached
-
 			//StartDebugger();
 			MessagePresenterManager.WireToConsole();
+			AppDomain.CurrentDomain.UnhandledException += UnhadledExceptionHandler;
 
 			#region Parsing args
 
 			var parsedArgs = new ParsedArgs(args);
-			if (parsedArgs.Help)
+			parsedArgs.ProcessLang();
+            if (parsedArgs.Help)
 				PrintCliUsageAndExit();
 			if (parsedArgs.Errors.Count != 0)
 				PrintArgumentErrorsAndExit(parsedArgs);
@@ -242,7 +244,7 @@ namespace TransportData
 			// TODO test new solution for "ImportDataToDb"
 			if(repoConfiguration.ReadMode == ReadMode.FromFile)
 				new TransportData_FromFile_ToDb(repoConfiguration.DbType).DoWork();
-			else if(repoConfiguration.ReadMode == ReadMode.FromDb) // TODO implement
+			else if(repoConfiguration.ReadMode == ReadMode.FromDb)
 				new TransportData_Worker(repoConfiguration).DoWork();
 
 			MessagePresenter.Instance.WriteLine(Localized.Press_any_key_to_continue_);
@@ -251,25 +253,30 @@ namespace TransportData
 
 		private static void PrintArgumentErrorsAndExit(ParsedArgs parsedArgs)
 		{
+			MessagePresenter.Instance.WriteLine(Localized.There_were_errors_while_parsing_command_line_arguemnts__);
 			PrintArgumentErrors(parsedArgs);
-
-			Console.ReadKey();
-			Environment.Exit(1);
+			Exit(1);
 		}
 
 		private static void PrintCliUsageAndExit()
 		{
 			PrintCliUsage();
+			Exit(0);
+		}
 
+		private static void Exit(int exitCode)
+		{
+			MessagePresenter.Instance.WriteLine(Localized.Press_any_key_to_exit_____);
 			Console.ReadKey();
-			Environment.Exit(0);
+			Environment.Exit(exitCode);
 		}
 
 		private static void PrintArgumentErrors(ParsedArgs parsedArgs)
 		{
 			MessagePresenter.Instance.WriteError(parsedArgs.Errors.Join(Environment.NewLine));
 			MessagePresenter.Instance.WriteLine();
-			MessagePresenter.Instance.WriteLine("Type in 'TransportData --help' for help. ");
+			MessagePresenter.Instance.WriteLine();
+			MessagePresenter.Instance.WriteLine(Localized.Type_in__TransportData___help__for_help__);
 			MessagePresenter.Instance.WriteLine();
 		}
 
@@ -294,11 +301,31 @@ namespace TransportData
 			MessagePresenter.Instance.WriteLine(sb.ToString());
 		}
 
+		/// <summary>
+		/// With this code, I think we can easily debug this project even if it's running in another process
+		/// </summary>
 		private static void StartDebugger()
 		{
 			if(!Debugger.IsAttached)
 				Debugger.Launch();
 			Debugger.Break();
+		}
+
+		private static void UnhadledExceptionHandler(object sender, UnhandledExceptionEventArgs e)
+		{
+			//if (Debugger.IsAttached)
+			//Debugger.Break(); // Stop here while debugging
+
+			var errMsg = "Unhandled Exception occured{0}. ".Formatted(e.IsTerminating ? " (terminating)" : " (NOT terminating)");
+
+			var exception = e.ExceptionObject as Exception;
+			if(exception == null)
+				ExinLog.ger.LogError(errMsg, e.ExceptionObject);
+			else
+				ExinLog.ger.LogException(errMsg, exception);
+
+			if(e.IsTerminating)
+				Exit(2);
 		}
 	}
 }
