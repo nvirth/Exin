@@ -1,10 +1,6 @@
 TEST TransportData when the args From and To are both DB types
 TEST TransportData as ImportDataToDb
 
-* patch existing system to be compatible with the new one
-** rename categories, units
-** patch existing db file
-** CREATE AN ExportDataFromDb TOOL!
 * ExinConnString: Next level of configurability: Managers should have 1 instance, which they could take also in ctor
 ** RepoPaths: no more static
 * InitAllStatic

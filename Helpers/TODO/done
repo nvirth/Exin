@@ -23,6 +23,10 @@ TEST the application if it works :)
 
 * Bring Managers to common interface
 ** Config.Repo.ReadMode/SaveMode is worthy for a search
+* patch existing system to be compatible with the new one
+** rename categories, units
+** patch existing db file
+** CREATE AN ExportDataFromDb TOOL!
 
 ---------
 Cancelled

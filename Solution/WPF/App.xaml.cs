@@ -22,7 +22,7 @@ namespace WPF
 			AppDomain.CurrentDomain.UnhandledException += UnhadledExceptionHandler;
 			AppDomain.CurrentDomain.FirstChanceException += FirstChanceExceptionHandler;
 
-			// The controls will init with hungarian CultureInfo
+			// TODO should be set by AppSettings
 			//Cultures.SetToHungarian();
 			Cultures.SetToEnglish();
 		}
