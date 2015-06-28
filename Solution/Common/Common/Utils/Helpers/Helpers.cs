@@ -341,14 +341,14 @@ namespace Common.Utils.Helpers
 
 		public static string CalculateMonthDirName(this DateTime dateTime)
 		{
-			var monthNameHu = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(dateTime.Month);
+			var monthNameEn = Cultures.en_US.DateTimeFormat.GetMonthName(dateTime.Month);
 			var stringBuilder = new StringBuilder();
 			stringBuilder.Append(dateTime.Year);
 			stringBuilder.Append('_');
 			stringBuilder.Append(dateTime.MonthIn2Digits());
 			stringBuilder.Append(' ');
-			stringBuilder.Append(Char.ToUpper(monthNameHu[0])); // Month 1. char
-			stringBuilder.Append(monthNameHu.Substring(1)); // Month other chars
+			stringBuilder.Append(Char.ToUpper(monthNameEn[0])); // Month 1. char
+			stringBuilder.Append(monthNameEn.Substring(1)); // Month other chars
 
 			return stringBuilder.ToString();
 		}

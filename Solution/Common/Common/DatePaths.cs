@@ -210,7 +210,7 @@ namespace Common
 			MonthDir.Create();
 			MessagePresenter.Instance.WriteLine(Localized.The_monthly_directory_created_);
 
-			MessagePresenter.Instance.WriteLine(Localized.Creating_the_monthly_files_);
+			//MessagePresenter.Instance.WriteLine(Localized.Creating_the_monthly_files_);
 			for(int i = 1; i <= DaysInMonth; i++)
 			{
 				var fileName = (i < 10 ? "0" : "") + i;
@@ -220,9 +220,9 @@ namespace Common
                 using(var fileStream = File.OpenWrite(filePath))
 					fileStream.SetLength(0);
 
-				MessagePresenter.Instance.WriteLine(fileName);
+				//MessagePresenter.Instance.WriteLine(fileName);
 			}
-			MessagePresenter.Instance.WriteLine(Localized.All_created_successfully);
+			//MessagePresenter.Instance.WriteLine(Localized.All_created_successfully);
 		}
 
 		#region Calculate...FileNames
