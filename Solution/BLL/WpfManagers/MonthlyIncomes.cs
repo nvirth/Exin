@@ -33,7 +33,7 @@ namespace BLL.WpfManagers
 		protected override void WriteData()
 		{
 			ReplaceMonthlyIncomes();
-			Task.Run((Action)ReplaceSummary);
+			TaskManager.Run((Action)ReplaceSummary);
 		}
 
 		private void ReplaceMonthlyIncomes()

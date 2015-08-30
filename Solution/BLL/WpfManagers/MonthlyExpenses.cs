@@ -38,7 +38,7 @@ namespace BLL.WpfManagers
 
 		protected override void ReadData()
 		{
-			Task.Run(() => TransactionItemManager.Instance.GetMonthlyExpenses(DatePaths.Date).ForEach(Add));
+			TaskManager.Run(() => TransactionItemManager.Instance.GetMonthlyExpenses(DatePaths.Date).ForEach(Add));
 		}
 
 		#endregion

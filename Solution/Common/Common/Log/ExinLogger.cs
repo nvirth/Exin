@@ -69,6 +69,23 @@ namespace Common.Log
 			Error(msg);
 		}
 
+		public void LogInfo(string msg, object data = null, bool logToUi = true)
+		{
+			if(logToUi)
+				MessagePresenter.Instance.WriteLine(msg);
+
+			if(data != null)
+			{
+				var dataSerialized = data.SerializeToLog();
+				msg += Environment.NewLine + dataSerialized;
+
+				if(logToUi)
+					MessagePresenter.Instance.WriteLine(dataSerialized);
+			}
+
+			Info(msg);
+		}
+
 		#region ILog Adapter
 
 		private void Debug(object message)

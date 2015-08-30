@@ -44,7 +44,7 @@ namespace WPF
 				OnPropertyChanged();
 			}
 		}
-
+		
 		#endregion
 
 		public MainWindow()
@@ -126,11 +126,21 @@ namespace WPF
 
 		#region Others...
 
-		private void MainWindow_OnClosing(object sender, CancelEventArgs e)
+		private async void MainWindow_OnClosing(object sender, CancelEventArgs e)
 		{
 			var messageBoxResult = SaveWithPromptYesNoCancel();
 			if(messageBoxResult == MessageBoxResult.Cancel)
+			{
 				e.Cancel = true; // Exit revoked, so do not exit
+			}
+			else
+			{
+				this.Hide();
+				e.Cancel = true; // Just because we await the next call
+				await TaskManager.WaitBackgroundTasks(); // Wait all running async tasks to finish before exiting
+				this.Closing -= MainWindow_OnClosing; // Do not call this method again
+				this.Close();
+			}
 		}
 
 		private void MainWindow_PreviewKeyUp(object sender, KeyEventArgs e)

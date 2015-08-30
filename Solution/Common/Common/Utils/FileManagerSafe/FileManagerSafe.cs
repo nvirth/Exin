@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace Common.FileManagerSafe
+namespace Common.Utils.FileManagerSafe
 {
 	public static class FileManagerSafe
 	{

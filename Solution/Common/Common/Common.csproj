@@ -100,10 +100,11 @@
     <Compile Include="Utils\MessagePresenter.cs" />
     <Compile Include="Utils\AutoMapperHelpers.cs" />
     <Compile Include="Utils\BindingDecoratorBase.cs" />
-    <Compile Include="FileManagerSafe\FileInfoSafe.cs" />
-    <Compile Include="FileManagerSafe\FileManagerSafe.cs" />
+    <Compile Include="Utils\FileManagerSafe\FileInfoSafe.cs" />
+    <Compile Include="Utils\FileManagerSafe\FileManagerSafe.cs" />
     <Compile Include="Utils\MessagePresenterManager.cs" />
     <Compile Include="Utils\Helpers\ProjectInfos.cs" />
+    <Compile Include="Utils\TaskManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Localization\Localization.csproj">

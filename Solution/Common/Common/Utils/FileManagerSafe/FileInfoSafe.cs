@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Common.FileManagerSafe
+namespace Common.Utils.FileManagerSafe
 {
 	public class FileInfoSafe : IDisposable
 	{

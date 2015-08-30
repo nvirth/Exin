@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Common;
 using Common.Log;
@@ -46,7 +47,7 @@ namespace BLL.WpfManagers
 		protected override void WriteData()
 		{
 			ReplaceDailyExpenses();
-			Task.Run((Action)ReplaceSummary);
+			TaskManager.Run((Action)ReplaceSummary);
 		}
 
 		private void ReplaceDailyExpenses()
