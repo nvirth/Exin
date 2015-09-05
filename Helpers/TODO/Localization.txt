@@ -1,0 +1,1 @@
+http://www.codeproject.com/Articles/35159/WPF-Localization-Using-RESX-Files

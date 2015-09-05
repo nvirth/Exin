@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using Common.Utils;
 using Common.Utils.Helpers;
@@ -118,16 +119,31 @@ namespace Common.Configuration
 		/// to their newly created place. The initialization is not full in case of using
 		/// SQLite db, then a call to SQLiteSpecific.InitSqliteFileIfNeeded() is also necessary 
 		/// </summary>
-		public static void InitRepo()
+		public static void InitRepo(bool silent = false)
 		{
 			foreach(var dir in DirsToCreate)
 			{
 				Directory.CreateDirectory(dir);
-				MessagePresenter.Instance.WriteLine(string.Format(Localized.Created___0__FORMAT__, dir));
+				if(!silent)
+					MessagePresenter.Instance.WriteLine(string.Format(Localized.Created___0__FORMAT__, dir));
 			}
 
-			File.Copy(UnitsDefaultFile, UnitsFile);
-			File.Copy(CategoriesDefaultFile, CategoriesFile);
+			if(!File.Exists(UnitsFile))
+				File.Copy(UnitsDefaultFile, UnitsFile);
+
+			if(!File.Exists(CategoriesFile))
+				File.Copy(CategoriesDefaultFile, CategoriesFile);
+		}
+
+		public static bool CheckRepo()
+		{
+			if (DirsToCreate.Any(dir => !Directory.Exists(dir)))
+				return false;
+
+			if (!File.Exists(CategoriesFile) || !File.Exists(UnitsFile))
+				return false;
+
+			return true;
 		}
 
 		public static void ClearFileRepo()

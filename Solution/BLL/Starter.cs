@@ -35,7 +35,7 @@ namespace BLL
 
 		private static void InitRootIfNeeded()
 		{
-			if(RepoPaths.DirectoryInfos.Root.Exists)
+			if(RepoPaths.CheckRepo())
 				return;
 
 			MessagePresenter.Instance.WriteError(string.Format(Localized.Could_not_find_the_Exin_s_work_directory_here__0__FORMAT__, RepoPaths.DirectoryInfos.Root));
