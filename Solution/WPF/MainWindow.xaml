@@ -14,6 +14,7 @@
         PreviewKeyUp="MainWindow_PreviewKeyUp"
         x:Name="mainWindow" MinHeight="480" MinWidth="650" >
     <Window.Resources>
+        <valueConverters:IsDefaultToFontWeightConverter x:Key="isDefaultToFontWeightConverter"/>
         <valueConverters:NegateBoolConverter x:Key="negateBoolConverter"/>
         <valueConverters:RemoveButtonConverter x:Key="removeButtonConverter"/>
         <valueConverters:StringTruncateConverter x:Key="stringTruncate"/>
@@ -108,8 +109,8 @@
                                     <!--6-->
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="110" />
-                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
 
                                 <!--Column 0-->
@@ -156,14 +157,19 @@
                                 </WrapPanel.Resources>
                                 <Button Content="{x:Static res:Localized.Save}" Click="SaveDailyExpensesButton_OnClick" 
                                         IsEnabled="{Binding ElementName=DailyExpensesPanel, Path=DataContext.IsModified}" 
+                                        FontWeight="{Binding Path=IsDefault, Converter={StaticResource isDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
                                         />
                                 <Button Content="{x:Static res:Localized.Add}" Click="AddExpenseButton_OnClick" IsDefault="True"
                                         IsEnabled="{Binding Path=HasErrors, Converter={StaticResource negateBoolConverter}}" 
+                                        FontWeight="{Binding Path=IsDefault, Converter={StaticResource isDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
                                         />
                                 <Button Content="{x:Static res:Localized.Remove}" Click="RemoveExpenseButton_OnClick"
                                         IsEnabled="{Binding ElementName=DailyExpensesLW, Path=SelectedIndex, Converter={StaticResource removeButtonConverter}}" 
+                                        FontWeight="{Binding Path=IsDefault, Converter={StaticResource isDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
                                         />
-                                <Button Content="{x:Static res:Localized.New}" Click="NewExpenseButton_OnClick" />
+                                <Button Content="{x:Static res:Localized.New}" Click="NewExpenseButton_OnClick"
+                                        FontWeight="{Binding Path=IsDefault, Converter={StaticResource isDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
+                                        />
                             </WrapPanel>
                         </StackPanel>
                     </GroupBox>
@@ -189,7 +195,9 @@
                                     <Setter Property="Margin" Value="10,0,0,0"></Setter>
                                 </Style>
                             </WrapPanel.Resources>
-                            <Button Content="{x:Static res:Localized.Again}" Click="RedoMonthlyExpensesButton_OnClick"/>
+                            <Button Content="{x:Static res:Localized.Again}" Click="RedoMonthlyExpensesButton_OnClick"
+                                    FontWeight="{Binding Path=IsDefault, Converter={StaticResource isDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
+                                />
                         </WrapPanel>
                     </Grid>
                     <ListView Grid.Row="1" x:Name="MonthlyExpensesLW" MouseDoubleClick="MonthlyExpensesLW_MouseDoubleClick" Margin="10"
@@ -271,8 +279,8 @@
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition />
-                                    <ColumnDefinition Width="2*"/>
                                 </Grid.ColumnDefinitions>
 
                                 <!--Column 0-->
@@ -293,14 +301,19 @@
                                 </WrapPanel.Resources>
                                 <Button Content="{x:Static res:Localized.Save}" Click="SaveMonthlyIncomesButton_OnClick" 
                                         IsEnabled="{Binding ElementName=MonthlyIncomesPanel, Path=DataContext.IsModified}" 
-                                />
+                                        FontWeight="{Binding Path=IsDefault, Converter={StaticResource isDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
+                                        />
                                 <Button Content="{x:Static res:Localized.Add}" Click="AddIncomeButton_OnClick" IsDefault="True"
                                         IsEnabled="{Binding Path=HasErrors, Converter={StaticResource negateBoolConverter}}" 
+                                        FontWeight="{Binding Path=IsDefault, Converter={StaticResource isDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
                                         />
                                 <Button Content="{x:Static res:Localized.Remove}" Click="RemoveIncomeButton_OnClick"
                                         IsEnabled="{Binding ElementName=MonthlyIncomesLW, Path=SelectedIndex, Converter={StaticResource removeButtonConverter}}" 
+                                        FontWeight="{Binding Path=IsDefault, Converter={StaticResource isDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
                                         />
-                                <Button Content="{x:Static res:Localized.New}" Click="NewIncomeButton_OnClick" />
+                                <Button Content="{x:Static res:Localized.New}" Click="NewIncomeButton_OnClick"
+                                        FontWeight="{Binding Path=IsDefault, Converter={StaticResource isDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
+                                        />
                             </WrapPanel>
                         </StackPanel>
                     </GroupBox>
@@ -333,7 +346,9 @@
                                     <Setter Property="Margin" Value="10,0,0,0"></Setter>
                                 </Style>
                             </WrapPanel.Resources>
-                            <Button Content="{x:Static res:Localized.Again}" Click="RedoStatisticsButton_OnClick"/>
+                            <Button Content="{x:Static res:Localized.Again}" Click="RedoStatisticsButton_OnClick"
+                                    FontWeight="{Binding Path=IsDefault, Converter={StaticResource isDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
+                                    />
                         </WrapPanel>
                     </Grid>
                     <DVC:Chart Grid.Row="1" BorderThickness="0" Padding="10,0" LegendStyle="{StaticResource LegendStyle}" >
@@ -361,7 +376,9 @@
             </Grid.RowDefinitions>
             <DatePicker Grid.Row="0" x:Name="SummaryDate" SelectedDateChanged="SummaryDate_SelectedDateChanged" Margin="10, 10, 10, 0" />
             <RichTextBox Grid.Row="1" x:Name="LogTB" VerticalScrollBarVisibility="Visible" IsReadOnly="True" IsReadOnlyCaretVisible="False" Margin="10" />
-            <Button Grid.Row="2" Margin="10" Content="{x:Static res:Localized.Clear}" Click="ClearLogButton_OnClick" HorizontalAlignment="Right" />
+            <Button Grid.Row="2" Margin="10" Content="{x:Static res:Localized.Clear}" Click="ClearLogButton_OnClick" HorizontalAlignment="Right" 
+                    FontWeight="{Binding Path=IsDefault, Converter={StaticResource isDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
+                    />
         </Grid>
     </Grid>
 </Window>
