@@ -21,6 +21,22 @@
         <Style TargetType="Button">
             <Setter Property="MinWidth" Value="75" />
         </Style>
+        <Style TargetType="ListViewItem">
+            <Style.Triggers>
+                <!--<Trigger Property="ItemsControl.AlternationIndex"  Value="0">
+                    <Setter Property="Background" Value="White" /> FEF2D6
+                </Trigger>-->
+                <Trigger Property="ItemsControl.AlternationIndex"  Value="1">
+                    <Setter Property="Background" Value="#F0F0F0" />
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#A5E1FC"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#DBF3FE"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -59,6 +75,7 @@
                             ItemsSource="{Binding}"
                             DataContext="{Binding TransactionItems}"
                             GridViewColumnHeader.Click ="ListViewsHeaders_OnClick_Sort" KeyUp="DailyExpensesLW_KeyUp"
+                            AlternationCount="2"
                             >
                         <ListView.View>
                             <GridView>
@@ -204,6 +221,7 @@
                               ItemsSource="{Binding}"
                               DataContext="{Binding TransactionItems}"
                               GridViewColumnHeader.Click ="ListViewsHeaders_OnClick_Sort"
+                              AlternationCount="2"
                               >
                         <ListView.View>
                             <GridView>
@@ -249,6 +267,7 @@
                               ItemsSource="{Binding}"
                               DataContext="{Binding TransactionItems}"
                               GridViewColumnHeader.Click ="ListViewsHeaders_OnClick_Sort" MouseDoubleClick="MonthlyIncomesLW_MouseDoubleClick" KeyUp="MonthlyIncomesLW_KeyUp"
+                              AlternationCount="2"
                               >
                         <ListView.View>
                             <GridView>
