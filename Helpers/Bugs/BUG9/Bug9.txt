@@ -1,0 +1,13 @@
+I've done a consitency check after applying the new solution for "ImportDataToDB" in this commit:
+	e93e2c3026fcff9f0c9c8e59adb6743728aacde0 [e93e2c3]
+	TransportData: Applied the new solution for "ImportDataToDB"
+
+I used my personal exin data for this. Copied the repositry with the real data into the developer folder, than called this:
+TransportData --From FileRepo --To DB_MsSql
+After this, exported the data from the 2 db file into txt files with FF/Sqlite Manager; than sorted them with Sublime Text; than diffed them.
+The result showed this:
+
+* There were IncemeItems saved with Category 0 (Category.None) instead of Category 101
+** This later caused problems by the Statistics
+* There were another problems with the Statistics as well. Wrong calculation with expense categories (checked them with my real data, the new sqlite file was right, which was fresh after TransportData)
+** I'm not sure if this means that there are still consistency errors in the app in v0.0.3, but probably there are. But there was old data involved as well (2014)

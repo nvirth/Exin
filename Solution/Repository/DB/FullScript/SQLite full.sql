@@ -45,7 +45,7 @@ CREATE TRIGGER [fki_TransactionItem_UnitID_Unit_ID] Before Insert ON [Transactio
 CREATE TRIGGER [fku_SummaryItem_CategoryID_Category_ID] Before Update ON [SummaryItem] BEGIN SELECT RAISE(ROLLBACK, 'update on table SummaryItem violates foreign key constraint fku_SummaryItem_CategoryID_Category_ID') WHERE (SELECT ID FROM Category WHERE ID = NEW.CategoryID) IS NULL;  END;
 CREATE TRIGGER [fku_TransactionItem_CategoryID_Category_ID] Before Update ON [TransactionItem] BEGIN SELECT RAISE(ROLLBACK, 'update on table TransactionItem violates foreign key constraint fku_TransactionItem_CategoryID_Category_ID') WHERE (SELECT ID FROM Category WHERE ID = NEW.CategoryID) IS NULL;  END;
 CREATE TRIGGER [fku_TransactionItem_UnitID_Unit_ID] Before Update ON [TransactionItem] BEGIN SELECT RAISE(ROLLBACK, 'update on table TransactionItem violates foreign key constraint fku_TransactionItem_UnitID_Unit_ID') WHERE (SELECT ID FROM Unit WHERE ID = NEW.UnitID) IS NULL;  END;
-CREATE UNIQUE INDEX [Category_UK_Category_DisplayName]
+CREATE UNIQUE INDEX [Category_UK_Category_DisplayNames]
 ON [Category]
 ([DisplayNames] DESC);
 CREATE UNIQUE INDEX [Category_UK_Category_Name]
@@ -57,7 +57,7 @@ ON [SummaryItem]
 CREATE INDEX [TransactionItem_IX_TransactionItem_Date]
 ON [TransactionItem]
 ([Date] DESC);
-CREATE INDEX [Unit_UK_Unit_DisplayName]
+CREATE UNIQUE INDEX [Unit_UK_Unit_DisplayNames]
 ON [Unit]
 ([DisplayNames] DESC);
 CREATE UNIQUE INDEX [Unit_UK_Unit_Name]
