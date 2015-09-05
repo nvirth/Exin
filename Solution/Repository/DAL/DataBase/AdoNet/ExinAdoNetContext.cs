@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Data.SQLite;
 using Common.Configuration;
 using Common.Log;
+using Common.Utils;
 using DAL.RepoCommon;
 using Localization;
 using DbType = Common.DbType;
@@ -32,7 +33,9 @@ namespace DAL.DataBase.AdoNet
 
 	public abstract class ExinAdoNetContextBase : RepoConfigurableBase, IDisposable
 	{
-		public bool IsIdentityInsertOn { get; set; }
+		public IRepoConfiguration LocalConfig { get; }
+
+		public bool IsIdentityInsertOn { get; private set; }
 
 		public DbConnection Connection { get; set; }
 		public DbCommand Command { get; set; }
@@ -44,6 +47,8 @@ namespace DAL.DataBase.AdoNet
 
 		protected ExinAdoNetContextBase(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
+			LocalConfig = repoConfiguration;
+
 			InitProperties();
 
 			try
@@ -90,15 +95,15 @@ namespace DAL.DataBase.AdoNet
 
 		#region IdentityInsert (abstract)
 
-		/// <summary>
 		/// It creates a new IdentityInsert instance, which implements IDisposable, 
 		/// and does nothing but in ctor sets identity insert on (for the specified 
 		/// table), and in dtor (dispose) sets it off. 
 		/// So you can use this method with 'using(...){...}' context
-		/// </summary>
-		public virtual IdentityInsert WithIdentityInsert(string tableName, bool activate)
+		public virtual IdentityInsert WithIdentityInsert(string tableName, bool? activate)
 		{
-			return new IdentityInsert(this, tableName, activate);
+			activate = activate ?? LocalConfig.DbInsertId ?? false;
+
+			return new IdentityInsert(this, tableName, activate.Value);
 		}
 
 		/// <summary>

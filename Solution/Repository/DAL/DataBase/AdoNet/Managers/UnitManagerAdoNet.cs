@@ -87,6 +87,23 @@ namespace DAL.DataBase.AdoNet.Managers
 			}
 		}
 
+		public void Add(Unit unit, ExinAdoNetContextBase ctx)
+		{
+			try
+			{
+				using(ctx.WithIdentityInsert(TableName, activate: LocalConfig.DbInsertId))
+				{
+					BuildInserQueryWithParams(unit, ctx);
+					ExecInsertQuery(ctx);
+				}
+			}
+			catch(Exception e)
+			{
+				ExinLog.ger.LogException(Localized.Could_not_insert_the_Unit_record, e);
+				throw;
+			}
+		}
+
 		// This is a standard query
 		protected virtual void BuildInserQueryWithParams(Unit unit, ExinAdoNetContextBase ctx)
 		{
@@ -103,20 +120,6 @@ namespace DAL.DataBase.AdoNet.Managers
 		protected virtual void ExecInsertQuery(ExinAdoNetContextBase ctx)
 		{
 			ctx.Command.ExecuteNonQuery();
-		}
-
-		public void Add(Unit unit, ExinAdoNetContextBase ctx)
-		{
-			try
-			{
-				BuildInserQueryWithParams(unit, ctx);
-				ExecInsertQuery(ctx);
-			}
-			catch(Exception e)
-			{
-				ExinLog.ger.LogException(Localized.Could_not_insert_the_Unit_record, e);
-				throw;
-			}
 		}
 
 		#endregion

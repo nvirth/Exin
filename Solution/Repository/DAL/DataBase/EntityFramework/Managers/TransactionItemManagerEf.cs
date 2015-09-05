@@ -127,20 +127,24 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		#region Insert
 
-		public override void Insert(TransactionItemCommon transactionItem, bool withId = false)
+		public override void Insert(TransactionItemCommon transactionItem, bool? withId = null)
 		{
 			using(var ctx = Utils.InitContextForMsSql(LocalConfig))
-			using(ctx.WithIdentityInsert(ctx.Property(c => c.TransactionItem), activate: withId))
 			{
 				Insert(ctx, transactionItem, withId);
 			}
 		}
 
-		public void Insert(ExinEfMsSqlContext ctx, TransactionItemCommon transactionItem, bool withId = false)
+		public void Insert(ExinEfMsSqlContext ctx, TransactionItemCommon transactionItem, bool? withId = null)
 		{
+			withId = withId ?? LocalConfig.DbInsertId ?? false;
+
 			try
 			{
-				Utils.ExecAdd(ctx.TransactionItem, transactionItem, ctx);
+				using(ctx.WithIdentityInsert(ctx.Property(c => c.TransactionItem), activate: withId.Value))
+				{
+					Utils.ExecAdd(ctx.TransactionItem, transactionItem, ctx);
+				}
 			}
 			catch(Exception e)
 			{
@@ -153,7 +157,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		#region InsertMany
 
-		public override void InsertMany(IEnumerable<TransactionItemCommon> transactionItems, bool withId = false, bool forceOneByOne = false)
+		public override void InsertMany(IEnumerable<TransactionItemCommon> transactionItems, bool? withId = null, bool forceOneByOne = false)
 		{
 			using(var ctx = Utils.InitContextForMsSql(LocalConfig))
 			{
@@ -161,9 +165,11 @@ namespace DAL.DataBase.EntityFramework.Managers
 			}
 		}
 
-		protected virtual void InsertMany(ExinEfMsSqlContext ctx, IEnumerable<TransactionItemCommon> transactionItems, bool withId = false)
+		protected virtual void InsertMany(ExinEfMsSqlContext ctx, IEnumerable<TransactionItemCommon> transactionItems, bool? withId = null)
 		{
-			using(ctx.WithIdentityInsert(ctx.Property(c => c.TransactionItem), activate: withId))
+			withId = withId ?? LocalConfig.DbInsertId ?? false;
+
+			using(ctx.WithIdentityInsert(ctx.Property(c => c.TransactionItem), activate: withId.Value))
 			{
 				var transactionItemsList = transactionItems?.ToList();
 
@@ -407,20 +413,22 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		#region Insert
 
-		public override void Insert(TransactionItemCommon transactionItem, bool withId = false)
+		public override void Insert(TransactionItemCommon transactionItem, bool? withId = null)
 		{
 			using(var ctx = Utils.InitContextForSqlite(LocalConfig))
-			using(ctx.WithIdentityInsert(ctx.Property(c => c.TransactionItem), activate: withId))
 			{
 				Insert(ctx, transactionItem, withId);
 			}
 		}
 
-		public void Insert(ExinEfSqliteContext ctx, TransactionItemCommon transactionItem, bool withId = false)
+		public void Insert(ExinEfSqliteContext ctx, TransactionItemCommon transactionItem, bool? withId = null)
 		{
 			try
 			{
-				Utils.ExecAdd(ctx.TransactionItem, transactionItem, ctx);
+				using(ctx.WithIdentityInsert(ctx.Property(c => c.TransactionItem), activate: withId))
+				{
+					Utils.ExecAdd(ctx.TransactionItem, transactionItem, ctx);
+				}
 			}
 			catch(Exception e)
 			{
@@ -433,7 +441,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 
 		#region InsertMany
 
-		public override void InsertMany(IEnumerable<TransactionItemCommon> transactionItems, bool withId = false, bool forceOneByOne = false)
+		public override void InsertMany(IEnumerable<TransactionItemCommon> transactionItems, bool? withId = null, bool forceOneByOne = false)
 		{
 			using(var ctx = Utils.InitContextForSqlite(LocalConfig))
 			using(var transaction = ctx.Database.BeginTransaction())
@@ -443,7 +451,7 @@ namespace DAL.DataBase.EntityFramework.Managers
 			}
 		}
 
-		protected virtual void InsertMany(ExinEfSqliteContext ctx, IEnumerable<TransactionItemCommon> transactionItems, bool withId = false)
+		protected virtual void InsertMany(ExinEfSqliteContext ctx, IEnumerable<TransactionItemCommon> transactionItems, bool? withId = null)
 		{
 			using(ctx.WithIdentityInsert(ctx.Property(c => c.TransactionItem), activate: withId))
 			{

@@ -15,10 +15,10 @@ namespace DAL.DataBase.EntityFramework
 			switch(repoConfiguration.DbType)
 			{
 				case DbType.SQLite:
-					return new ExinEfSqliteContext(new ExinConnectionString(repoConfiguration).Get);
+					return new ExinEfSqliteContext(repoConfiguration);
 
 				case DbType.MsSql:
-					return new ExinEfMsSqlContext(new ExinConnectionString(repoConfiguration).Get);
+					return new ExinEfMsSqlContext(repoConfiguration);
 
 				default:
 					throw new NotImplementedException(string.Format(Localized.ExinEfContextFactory_is_not_implemented_for_this_DbType__FORMAT__, repoConfiguration.DbType));
@@ -29,32 +29,44 @@ namespace DAL.DataBase.EntityFramework
 namespace DAL.DataBase.EntityFramework.EntitiesSqlite
 {
 	public partial class ExinEfSqliteContext
-	{		
-		/// <summary>
+	{
+		public IRepoConfiguration LocalConfig { get; }
+
+		public ExinEfSqliteContext(IRepoConfiguration repoConfiguration) : base(new ExinConnectionString(repoConfiguration).Get)
+		{
+			LocalConfig = repoConfiguration;
+		}
+
 		/// It creates a new IdentityInsert instance, which implements IDisposable, 
 		/// and does nothing but in ctor sets identity insert on (for the specified 
 		/// table), and in dtor (dispose) sets it off. 
 		/// So you can use this method with 'using(...){...}' context
-		/// </summary>
-		public virtual IdentityInsertSqlite WithIdentityInsert(string tableName, bool activate)
+		public virtual IdentityInsertSqlite WithIdentityInsert(string tableName, bool? activate)
 		{
-			return new IdentityInsertSqlite(this, tableName, activate);
+			activate = activate ?? LocalConfig.DbInsertId ?? false;
+			return new IdentityInsertSqlite(this, tableName, activate.Value);
 		}
 	}
 }
 namespace DAL.DataBase.EntityFramework.EntitiesMsSql
 {
 	public partial class ExinEfMsSqlContext
-	{		
-		/// <summary>
+	{
+		public IRepoConfiguration LocalConfig { get; }
+
+		public ExinEfMsSqlContext(IRepoConfiguration repoConfiguration) : base(new ExinConnectionString(repoConfiguration).Get)
+		{
+			LocalConfig = repoConfiguration;
+		}
+
 		/// It creates a new IdentityInsert instance, which implements IDisposable, 
 		/// and does nothing but in ctor sets identity insert on (for the specified 
 		/// table), and in dtor (dispose) sets it off. 
 		/// So you can use this method with 'using(...){...}' context
-		/// </summary>
-		public virtual IdentityInsertMsSql WithIdentityInsert(string tableName, bool activate)
+		public virtual IdentityInsertMsSql WithIdentityInsert(string tableName, bool? activate)
 		{
-			return new IdentityInsertMsSql(this, tableName, activate);
+			activate = activate ?? LocalConfig.DbInsertId ?? false;
+			return new IdentityInsertMsSql(this, tableName, activate.Value);
 		}
 	}
 }

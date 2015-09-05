@@ -62,8 +62,8 @@ namespace DAL.DataBase.Managers.Base
 		public abstract DateTime GetLastDate();
 		public abstract List<TransactionItem> GetInterval(DateTime fromDate, DateTime toDate, TransactionItemType transactionItemType);
 		public abstract List<TransactionItem> GetAll(TransactionItemType? transactionItemType);
-		public abstract void Insert(TransactionItem transactionItem, bool withId = false);
-		public abstract void InsertMany(IEnumerable<TransactionItem> transactionItems, bool withId = false, bool forceOneByOne = false);
+		public abstract void Insert(TransactionItem transactionItem, bool? withId = null);
+		public abstract void InsertMany(IEnumerable<TransactionItem> transactionItems, bool? withId = null, bool forceOneByOne = false);
 		public abstract int UpdateFullRecord(TransactionItem transactionItem);
 		public abstract int Delete(int id);
 		public abstract int ClearDay(DateTime date, TransactionItemType transactionItemType);

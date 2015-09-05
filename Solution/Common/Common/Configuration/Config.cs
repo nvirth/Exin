@@ -13,6 +13,7 @@ namespace Common.Configuration
 		DbAccessMode DbAccessMode { get; }
 		ReadMode ReadMode { get; }
 		SaveMode SaveMode { get; }
+		bool? DbInsertId { get; }
 	}
 
 	public class RepoConfiguration : IRepoConfiguration
@@ -21,6 +22,7 @@ namespace Common.Configuration
 		public DbAccessMode DbAccessMode { get; set; } = 0;
 		public ReadMode ReadMode { get; set; } = 0;
 		public SaveMode SaveMode { get; set; } = 0;
+		public bool? DbInsertId { get; set; } = null;
 
 		#region Equality members
 
@@ -34,7 +36,8 @@ namespace Common.Configuration
 				DbType == other.DbType &&
 				DbAccessMode == other.DbAccessMode &&
 				ReadMode == other.ReadMode &&
-				SaveMode == other.SaveMode;
+				SaveMode == other.SaveMode &&
+				DbInsertId == other.DbInsertId;
 		}
 
 		public override bool Equals(object obj)
@@ -56,6 +59,7 @@ namespace Common.Configuration
 				hashCode = (hashCode*397) ^ (int) DbAccessMode;
 				hashCode = (hashCode*397) ^ (int) ReadMode;
 				hashCode = (hashCode*397) ^ (int) SaveMode;
+				hashCode = (hashCode*397) ^ DbInsertId.GetHashCode();
 				return hashCode;
 			}
 		}

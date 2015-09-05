@@ -47,7 +47,7 @@ namespace TransportData
 
 		#endregion
 
-		public TransportData_Worker(IRepoConfiguration localConfig)
+		public TransportData_Worker(RepoConfiguration localConfig)
 		{
 			LocalConfig = localConfig;
 			
@@ -56,8 +56,10 @@ namespace TransportData
 			TransactionItemManagerLocal = new TransactionItemManager(LocalConfig, CategoryManagerLocalRead, UnitManagerLocalRead);
 			SummaryItemManagerLocal = new SummaryItemManager(LocalConfig, TransactionItemManagerLocal, CategoryManagerLocalRead);
 
-			CategoryManagerLocalWrite = new ManagerDaoFactory(LocalConfig).CategoryManager;
-			UnitManagerLocalWrite = new ManagerDaoFactory(LocalConfig).UnitManager;
+			var unitCategoryWriterConfig = localConfig.DeepClone();
+			unitCategoryWriterConfig.DbInsertId = true;
+			CategoryManagerLocalWrite = new ManagerDaoFactory(unitCategoryWriterConfig).CategoryManager;
+			UnitManagerLocalWrite = new ManagerDaoFactory(unitCategoryWriterConfig).UnitManager;
 
 			StaticInitializer.InitAllStatic(CategoryManagerLocalRead, UnitManagerLocalRead);
 		}

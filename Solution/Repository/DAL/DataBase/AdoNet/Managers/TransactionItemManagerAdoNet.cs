@@ -185,18 +185,18 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		#region Insert
 
-		public override void Insert(TransactionItem transactionItem, bool withId = false)
+		public override void Insert(TransactionItem transactionItem, bool? withId = null)
 		{
 			using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
 			using(ctx.WithIdentityInsert(TableName, activate: withId))
 			{
-				Insert(ctx, transactionItem, withId);
+				Insert(ctx, transactionItem);
 			}
 		}
 
-		public void Insert(ExinAdoNetContextBase ctx, TransactionItem transactionItem, bool withId = false)
+		public void Insert(ExinAdoNetContextBase ctx, TransactionItem transactionItem)
 		{
-			ctx.Command.CommandText = BuildInsertQuery(withId);
+			ctx.Command.CommandText = BuildInsertQuery(ctx.IsIdentityInsertOn);
 			transactionItem.CopyStandardParams(ctx, LocalConfig.DbType);
 
 			try
@@ -251,7 +251,7 @@ namespace DAL.DataBase.AdoNet.Managers
 
 		#region InsertMany
 
-		public override void InsertMany(IEnumerable<TransactionItem> transactionItems, bool withId = false, bool forceOneByOne = false)
+		public override void InsertMany(IEnumerable<TransactionItem> transactionItems, bool? withId = null, bool forceOneByOne = false)
 		{
 			using(var ctx = ExinAdoNetContextFactory.Create(LocalConfig))
 			{
@@ -259,7 +259,7 @@ namespace DAL.DataBase.AdoNet.Managers
 			}
 		}
 
-		protected virtual void InsertMany(ExinAdoNetContextBase ctx, IEnumerable<TransactionItem> transactionItems, bool withId = false, bool forceOneByOne = false)
+		protected virtual void InsertMany(ExinAdoNetContextBase ctx, IEnumerable<TransactionItem> transactionItems, bool? withId = null, bool forceOneByOne = false)
 		{
 			using(ctx.WithIdentityInsert(TableName, activate: withId))
 			{
@@ -270,14 +270,14 @@ namespace DAL.DataBase.AdoNet.Managers
 
 				if(transactionItemsList.Count == 1)
 				{
-					Insert(ctx, transactionItemsList[0], withId);
+					Insert(ctx, transactionItemsList[0]);
 					return;
 				}
 
 				if(forceOneByOne)
-					InsertMany_OneByOne(transactionItemsList, withId, transactionItemsList.Count, ctx);
+					InsertMany_OneByOne(transactionItemsList, ctx.IsIdentityInsertOn, transactionItemsList.Count, ctx);
 				else
-					InsertMany_Bundled(transactionItemsList, withId, transactionItemsList.Count, ctx);
+					InsertMany_Bundled(transactionItemsList, ctx.IsIdentityInsertOn, transactionItemsList.Count, ctx);
 			}
 		}
 

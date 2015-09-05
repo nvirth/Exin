@@ -2,6 +2,6 @@
 {
 	public partial class ExinEfMsSqlContext
 	{
-		public ExinEfMsSqlContext(string connStrOrName) : base(connStrOrName) { }
+		// This file is just a marker, to make it easier to see this class
 	}
 }

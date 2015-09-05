@@ -240,12 +240,7 @@ namespace TransportData
 			#endregion
 
 			repoConfiguration.DbAccessMode = DbAccessMode.AdoNet;
-
-			// TODO test new solution for "ImportDataToDb"
-			if(repoConfiguration.ReadMode == ReadMode.FromFile)
-				new TransportData_FromFile_ToDb(repoConfiguration.DbType).DoWork();
-			else if(repoConfiguration.ReadMode == ReadMode.FromDb)
-				new TransportData_Worker(repoConfiguration).DoWork();
+			new TransportData_Worker(repoConfiguration).DoWork();
 
 			MessagePresenter.Instance.WriteLine(Localized.Press_any_key_to_continue_);
 			Console.ReadKey();

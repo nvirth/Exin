@@ -40,8 +40,8 @@ namespace DAL.RepoCommon.Interfaces
 		List<TransactionItem> GetInterval(DateTime fromDate, DateTime toDate, TransactionItemType transactionItemType);
 		List<TransactionItem> GetAll(TransactionItemType? transactionItemType);
 
-		void Insert(TransactionItem transactionItem, bool withId = false);
-		void InsertMany(IEnumerable<TransactionItem> transactionItems, bool withId = false, bool forceOneByOne = false);
+		void Insert(TransactionItem transactionItem, bool? withId = null);
+		void InsertMany(IEnumerable<TransactionItem> transactionItems, bool? withId = null, bool forceOneByOne = false);
 
 		int UpdateFullRecord(TransactionItem transactionItem);
 

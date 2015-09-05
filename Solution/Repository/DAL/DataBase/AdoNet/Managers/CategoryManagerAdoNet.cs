@@ -86,6 +86,22 @@ namespace DAL.DataBase.AdoNet.Managers
 				Add(category, ctx);
 			}
 		}
+		public void Add(Category category, ExinAdoNetContextBase ctx)
+		{
+			try
+			{
+				using(ctx.WithIdentityInsert(TableName, activate: LocalConfig.DbInsertId))
+				{
+					BuildInserQueryWithParams(category, ctx);
+					ExecInsertQuery(ctx);
+				}
+			}
+			catch(Exception e)
+			{
+				ExinLog.ger.LogException(Localized.Could_not_insert_the_Category_record, e);
+				throw;
+			}
+		}
 
 		// This is a standard query
 		protected virtual void BuildInserQueryWithParams(Category category, ExinAdoNetContextBase ctx)
@@ -103,20 +119,6 @@ namespace DAL.DataBase.AdoNet.Managers
 		protected virtual void ExecInsertQuery(ExinAdoNetContextBase ctx)
 		{
 			ctx.Command.ExecuteNonQuery();
-		}
-
-		public void Add(Category category, ExinAdoNetContextBase ctx)
-		{
-			try
-			{
-				BuildInserQueryWithParams(category, ctx);
-				ExecInsertQuery(ctx);
-			}
-			catch(Exception e)
-			{
-				ExinLog.ger.LogException(Localized.Could_not_insert_the_Category_record, e);
-				throw;
-			}
 		}
 
 		#endregion
