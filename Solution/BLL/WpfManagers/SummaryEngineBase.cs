@@ -84,8 +84,7 @@ namespace BLL.WpfManagers
 				(tib, plusAmount) =>
 				{
 					Summary.Update(item, plusAmount);
-					TransactionItems.Remove(tib);
-					TransactionItems.InsertIntoSorted(tib);
+					TransactionItems.ReOrder(item);
 				};
 
 			item.PropertyChanged +=
@@ -108,6 +107,8 @@ namespace BLL.WpfManagers
 					var mockEiForAdd = new ExpenseItem() { Amount = +expenseItem.Amount, Category = expenseItem.Category };
 					Summary.Update(mockEiForAdd);
 
+					// TODO BUG we lost the selection in the GridView because we remove the Selected here
+					// (of course only if the SelectedItem's category changed)
 					TransactionItems.Remove(expenseItem);
 					TransactionItems.InsertIntoSorted(expenseItem);
 				};

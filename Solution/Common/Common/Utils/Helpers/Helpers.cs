@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -649,18 +650,53 @@ namespace Common.Utils.Helpers
 		/// </summary>
 		public static void InsertIntoSorted<T>(this IList<T> list, T newItem) where T : IComparable<T>
 		{
-			int i;
-			for(i = 0; i < list.Count; i++)
-			{
-				if(!(list[i].CompareTo(newItem) > 0))
-					break;
-			}
+			var idx = CalcPosition(list, newItem);
 
 			var dispatcher = Application.Current.Dispatcher; // alias
 			if(dispatcher != null)
-				dispatcher.Invoke(() => list.Insert(i, newItem));
+				dispatcher.Invoke(() => list.Insert(idx, newItem));
 			else
-				list.Insert(i, newItem);
+				list.Insert(idx, newItem);
+		}
+		public static int CalcPosition<T>(this IList<T> list, T item) where T : IComparable<T>
+		{
+			int i;
+			bool biggerThanOld;
+			CalcPosition(list, item, out i, out biggerThanOld);
+			return i;
+		}
+		private static void CalcPosition<T>(this IList<T> list, T item, out int position, out bool biggerThanOld) where T : IComparable<T>
+		{
+			biggerThanOld = false;
+
+			int i;
+			for(i = 0; i < list.Count; i++)
+			{
+				var actual = list[i];
+				if(ReferenceEquals(item, actual)) // Skip itself
+				{
+					biggerThanOld = true;
+					continue;
+				}
+
+				if(!(actual.CompareTo(item) > 0))
+					break;
+			}
+			position = i;
+		}
+
+		public static void ReOrder<T>(this ObservableCollection<T> collection, T item) where T : IComparable<T>
+		{
+			var oldPos = collection.IndexOf(item);
+
+			int newPos;
+			bool biggerThanOld;
+			collection.CalcPosition(item, out newPos, out biggerThanOld);
+			newPos = biggerThanOld ? newPos - 1 : newPos;
+			newPos = newPos == collection.Count ? newPos - 1 : newPos;
+
+			if(newPos != oldPos)
+				collection.Move(oldPos, newPos);
 		}
 
 		public static bool SequenceEqual<T>(this IList<T> left, IList<T> right, IEqualityComparer<T> equalityComparer)

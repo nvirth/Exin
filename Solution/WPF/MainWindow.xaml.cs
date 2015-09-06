@@ -97,7 +97,11 @@ namespace WPF
 
 		private async Task Init()
 		{
+#if DEBUG
+			var startDate = new DateTime(2015, 1, 6); // According to FilerepoDeveloper.template
+#else
 			var startDate = DateTime.Today;
+#endif
 
 			var dailyExpenses = await Starter.Start(startDate);
 			Model = new MainWindowViewmodel
