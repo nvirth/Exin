@@ -7,7 +7,18 @@ TransportData --From FileRepo --To DB_MsSql
 After this, exported the data from the 2 db file into txt files with FF/Sqlite Manager; than sorted them with Sublime Text; than diffed them.
 The result showed this:
 
+(ORIGINAL RESULTS - NOT VALID ANYMORE!)
 * There were IncemeItems saved with Category 0 (Category.None) instead of Category 101
 ** This later caused problems by the Statistics
 * There were another problems with the Statistics as well. Wrong calculation with expense categories (checked them with my real data, the new sqlite file was right, which was fresh after TransportData)
 ** I'm not sure if this means that there are still consistency errors in the app in v0.0.3, but probably there are. But there was old data involved as well (2014)
+
+I've done more investigation about this, and it turned out I was wrong. 
+* No statistics data (~monthly summary) is calculated for (monthly) Incomes
+* The queries I've seen contained Unit 101 ("pc") and not Category 101 (which is "food" anyway, and not "others". that's 108)
+** The newer version inserts IncomeItems with unit "pc", while the earlier version with "none". This does not make any sense
+
+(NEW RESULTS - CURRENTLY VALID)
+* Wrong SummaryItem records exist in the production db. This means that those items were probably re-categorised after first insertion; and the summaries were not correctly corrected
+* Interesting, there were only differences between 2014.06.24 - 2015.09.05. The repo's start date is 2009.08, today is 2015.09.06; the patch to v0.0.3 was applied at 2015.06.28
+** So, the problem still exists in V003!
