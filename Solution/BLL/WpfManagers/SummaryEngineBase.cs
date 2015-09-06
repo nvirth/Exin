@@ -166,12 +166,10 @@ namespace BLL.WpfManagers
 			var isValid = true;
 
 			// ExpenseItem's Category is not validated... But you can't ruin it via the GUI
-			// 2015.06.11/nvirth/NOTE: They will! TransactionItemBase is only the reference type,
-			//  the objects are ExpenseItems
 			foreach(var tib in TransactionItems)
 			{
 				var errorMessage = tib.DoValidation();
-				isValid = isValid & string.IsNullOrWhiteSpace(errorMessage);
+				isValid = isValid && string.IsNullOrWhiteSpace(errorMessage);
 			}
 
 			return isValid;
