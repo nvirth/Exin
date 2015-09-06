@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+7.240,-
+---
+r sá: 3.310,-
+a ci: 670,-
+200 g zona: 600,-
+ihay (zvie): 420,-
+7 pc et: 320,-
+3 pc anc: 295,-
+háca: 245,-
+3 pc öe: 240,-
+zám (icsm): 235,-
+100 pc si: 205,-
+akó (rset): 185,-
+eér: 180,-
+es P: 180,-
+ösi (űya): 125,-
+sle: 30,-
+r sá (3): 0,-
+
+]]>
+<DailySummary>7240</DailySummary>
+<ExpenseItem>
+  <Title>r sá</Title>
+  <Amount>3310</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Invoice</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>a ci</Title>
+  <Amount>670</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>zona</Title>
+  <Amount>600</Amount>
+  <Quantity>200</Quantity>
+  <Unit>Gram</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ihay</Title>
+  <Amount>420</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>zvie</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>et</Title>
+  <Amount>320</Amount>
+  <Quantity>7</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>anc</Title>
+  <Amount>295</Amount>
+  <Quantity>3</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>háca</Title>
+  <Amount>245</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>öe</Title>
+  <Amount>240</Amount>
+  <Quantity>3</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>zám</Title>
+  <Amount>235</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>icsm</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>si</Title>
+  <Amount>205</Amount>
+  <Quantity>100</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>akó</Title>
+  <Amount>185</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>rset</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>eér</Title>
+  <Amount>180</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>es P</Title>
+  <Amount>180</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ösi</Title>
+  <Amount>125</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>űya</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>sle</Title>
+  <Amount>30</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>r sá</Title>
+  <Amount>0</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Invoice</Category>
+  <Comment>3</Comment>
+</ExpenseItem>
+</root>

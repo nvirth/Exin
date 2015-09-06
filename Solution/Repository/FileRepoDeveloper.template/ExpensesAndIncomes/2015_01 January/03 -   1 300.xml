@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+1.300,-
+---
+a ci: 670,-
+ihay (zvie): 420,-
+es P: 180,-
+sle: 30,-
+
+]]>
+<DailySummary>1300</DailySummary>
+<ExpenseItem>
+  <Title>a ci</Title>
+  <Amount>670</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ihay</Title>
+  <Amount>420</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>zvie</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>es P</Title>
+  <Amount>180</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>sle</Title>
+  <Amount>30</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+</root>

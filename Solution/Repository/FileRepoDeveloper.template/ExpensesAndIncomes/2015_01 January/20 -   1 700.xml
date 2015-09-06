@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+1.700,-
+---
+sóst (dszm): 800,-
+a ci (z vl): 670,-
+aosr: 200,-
+sle: 30,-
+
+]]>
+<DailySummary>1700</DailySummary>
+<ExpenseItem>
+  <Title>sóst</Title>
+  <Amount>800</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>dszm</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>a ci</Title>
+  <Amount>670</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>z vl</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>aosr</Title>
+  <Amount>200</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>sle</Title>
+  <Amount>30</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+</root>

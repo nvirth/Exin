@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <Category>
+    <ID>0</ID>
+    <Name>None</Name>
+    <DisplayNames>
+      <en-US>None</en-US>
+      <hu-HU>Nincs</hu-HU>
+    </DisplayNames>
+  </Category>
+  <Category>
+    <ID>1</ID>
+    <Name>FullExpenseSummary</Name>
+    <DisplayNames>
+      <en-US>Full expense summary (without category)</en-US>
+      <hu-HU>Teljes kiadás összegzés (kategória nélkül)</hu-HU>
+    </DisplayNames>
+  </Category>
+  <Category>
+    <ID>2</ID>
+    <Name>FullIncomeSummary</Name>
+    <DisplayNames>
+      <en-US>Full income summary (without category)</en-US>
+      <hu-HU>Teljes bevétel összegzés (kategória nélkül)</hu-HU>
+    </DisplayNames>
+  </Category>
+  <Category>
+    <ID>101</ID>
+    <Name>Food</Name>
+    <DisplayNames>
+      <en-US>Food</en-US>
+      <hu-HU>Kaja</hu-HU>
+    </DisplayNames>
+  </Category>
+  <Category>
+    <ID>102</ID>
+    <Name>ConfectionTonic</Name>
+    <DisplayNames>
+      <en-US>Confection, tonic</en-US>
+      <hu-HU>Édesség, üdítő</hu-HU>
+    </DisplayNames>
+  </Category>
+  <Category>
+    <ID>103</ID>
+    <Name>Booze</Name>
+    <DisplayNames>
+      <en-US>Booze</en-US>
+      <hu-HU>Pia</hu-HU>
+    </DisplayNames>
+  </Category>
+  <Category>
+    <ID>104</ID>
+    <Name>Invoice</Name>
+    <DisplayNames>
+      <en-US>Invoice</en-US>
+      <hu-HU>Számla</hu-HU>
+    </DisplayNames>
+  </Category>
+  <Category>
+    <ID>105</ID>
+    <Name>Train</Name>
+    <DisplayNames>
+      <en-US>Train</en-US>
+      <hu-HU>Vonat</hu-HU>
+    </DisplayNames>
+  </Category>
+  <Category>
+    <ID>106</ID>
+    <Name>OtherPublicTransport</Name>
+    <DisplayNames>
+      <en-US>Other public transport</en-US>
+      <hu-HU>Más tömegközlekedés</hu-HU>
+    </DisplayNames>
+  </Category>
+  <Category>
+    <ID>107</ID>
+    <Name>Cigarette</Name>
+    <DisplayNames>
+      <en-US>Cigarette</en-US>
+      <hu-HU>Cigi</hu-HU>
+    </DisplayNames>
+  </Category>
+  <Category>
+    <ID>108</ID>
+    <Name>Others</Name>
+    <DisplayNames>
+      <en-US>Others</en-US>
+      <hu-HU>Egyéb</hu-HU>
+    </DisplayNames>
+  </Category>
+</root>

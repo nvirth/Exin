@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+1.030,-
+---
+oa o (dszm): 800,-
+aosr: 200,-
+sle: 30,-
+zviő (000t): 0,-
+
+]]>
+<DailySummary>1030</DailySummary>
+<ExpenseItem>
+  <Title>oa o</Title>
+  <Amount>800</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>dszm</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>aosr</Title>
+  <Amount>200</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>sle</Title>
+  <Amount>30</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>zviő</Title>
+  <Amount>0</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>000t</Comment>
+</ExpenseItem>
+</root>

@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+28.200,-
+---
+brlt: 22.500,-
+2 pc otjg: 4.700,-
+sáre: 1.000,-
+lrlt (20): 0,-
+
+]]>
+<DailySummary>28200</DailySummary>
+<ExpenseItem>
+  <Title>brlt</Title>
+  <Amount>22500</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Invoice</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>otjg</Title>
+  <Amount>4700</Amount>
+  <Quantity>2</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Train</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>sáre</Title>
+  <Amount>1000</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>lrlt</Title>
+  <Amount>0</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Invoice</Category>
+  <Comment>20</Comment>
+</ExpenseItem>
+</root>

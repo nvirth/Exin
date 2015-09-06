@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+1.000,-
+---
+att (dszm): 800,-
+aosc: 200,-
+
+]]>
+<DailySummary>1000</DailySummary>
+<ExpenseItem>
+  <Title>att</Title>
+  <Amount>800</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>dszm</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>aosc</Title>
+  <Amount>200</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+</root>

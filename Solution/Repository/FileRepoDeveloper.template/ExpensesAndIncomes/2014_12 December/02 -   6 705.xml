@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+6.705,-
+---
+Kbél: 3.450,-
+ony (dszm): 800,-
+a hg (zvie): 740,-
+a cí (oso): 710,-
+ia: 350,-
+aarn: 245,-
+aosk: 200,-
+es P (zvie): 180,-
+sle: 30,-
+
+]]>
+<DailySummary>6705</DailySummary>
+<ExpenseItem>
+  <Title>Kbél</Title>
+  <Amount>3450</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>OtherPublicTransport</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ony</Title>
+  <Amount>800</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>dszm</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>a hg</Title>
+  <Amount>740</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>zvie</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>a cí</Title>
+  <Amount>710</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>oso</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ia</Title>
+  <Amount>350</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>aarn</Title>
+  <Amount>245</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>aosk</Title>
+  <Amount>200</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>es P</Title>
+  <Amount>180</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>zvie</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>sle</Title>
+  <Amount>30</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+</root>

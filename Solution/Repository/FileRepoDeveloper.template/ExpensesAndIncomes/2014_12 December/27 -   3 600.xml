@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+3.600,-
+---
+ikoc: 3.000,-
+oer: 600,-
+
+]]>
+<DailySummary>3600</DailySummary>
+<ExpenseItem>
+  <Title>ikoc</Title>
+  <Amount>3000</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Booze</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>oer</Title>
+  <Amount>600</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Booze</Category>
+  <Comment></Comment>
+</ExpenseItem>
+</root>

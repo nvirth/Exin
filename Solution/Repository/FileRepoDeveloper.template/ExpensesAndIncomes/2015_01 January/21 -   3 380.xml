@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+3.380,-
+---
+áot (dszm): 800,-
+a ci (0 br): 680,-
+a hg (zvie): 670,-
+1 liter e (i): 310,-
+si (ier): 300,-
+si (o éc): 245,-
+aosr: 200,-
+si (iat): 145,-
+sle: 30,-
+
+]]>
+<DailySummary>3380</DailySummary>
+<ExpenseItem>
+  <Title>áot</Title>
+  <Amount>800</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>dszm</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>a ci</Title>
+  <Amount>680</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>0 br</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>a hg</Title>
+  <Amount>670</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>zvie</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>e</Title>
+  <Amount>310</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Liter</Unit>
+  <Category>ConfectionTonic</Category>
+  <Comment>i</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>si</Title>
+  <Amount>300</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>ConfectionTonic</Category>
+  <Comment>ier</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>si</Title>
+  <Amount>245</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>ConfectionTonic</Category>
+  <Comment>o éc</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>aosr</Title>
+  <Amount>200</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>si</Title>
+  <Amount>145</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>ConfectionTonic</Category>
+  <Comment>iat</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>sle</Title>
+  <Amount>30</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+</root>

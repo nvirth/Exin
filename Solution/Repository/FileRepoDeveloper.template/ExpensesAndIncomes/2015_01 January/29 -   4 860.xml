@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+4.860,-
+---
+r sá: 2.750,-
+3 pc ö: 1.110,-
+attz (dszm): 800,-
+aosr: 200,-
+r sá (.0,): 0,-
+
+]]>
+<DailySummary>4860</DailySummary>
+<ExpenseItem>
+  <Title>r sá</Title>
+  <Amount>2750</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Invoice</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ö</Title>
+  <Amount>1110</Amount>
+  <Quantity>3</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Booze</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>attz</Title>
+  <Amount>800</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>dszm</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>aosr</Title>
+  <Amount>200</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>r sá</Title>
+  <Amount>0</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Invoice</Category>
+  <Comment>.0,</Comment>
+</ExpenseItem>
+</root>

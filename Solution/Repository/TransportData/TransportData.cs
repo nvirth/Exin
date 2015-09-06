@@ -14,6 +14,14 @@ using C = Common.Configuration.Constants.TransportData;
 
 namespace TransportData
 {
+	// Often used args:
+	//
+	// --From FileRepo --To DB_SQLite
+	// --From FileRepo --To Db_MsSql
+	// 
+	// --From DB_SQLite --To FileRepo
+	// --From Db_MsSql --To FileRepo
+
 	class ParsedArgs
 	{
 		private static readonly string[] FromToPossibleValuesUpper = new[] { C.FILEREPO, C.DB_MSSQL, C.DB_SQLITE };

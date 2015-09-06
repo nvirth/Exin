@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+4.151,-
+---
+r sá: 2.841,-
+a ci: 670,-
+a se (zvie): 430,-
+eér: 180,-
+sle: 30,-
+r sá (.1,): 0,-
+
+]]>
+<DailySummary>4151</DailySummary>
+<ExpenseItem>
+  <Title>r sá</Title>
+  <Amount>2841</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Invoice</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>a ci</Title>
+  <Amount>670</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>a se</Title>
+  <Amount>430</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>zvie</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>eér</Title>
+  <Amount>180</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>sle</Title>
+  <Amount>30</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>r sá</Title>
+  <Amount>0</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Invoice</Category>
+  <Comment>.1,</Comment>
+</ExpenseItem>
+</root>

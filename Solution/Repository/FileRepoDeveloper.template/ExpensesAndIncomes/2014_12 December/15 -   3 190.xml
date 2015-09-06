@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+3.190,-
+---
+ys á: 1.100,-
+a se (zvie): 700,-
+a se (0 br): 700,-
+ösé (aarn): 280,-
+iásc: 200,-
+eér: 180,-
+sle: 30,-
+
+]]>
+<DailySummary>3190</DailySummary>
+<ExpenseItem>
+  <Title>ys á</Title>
+  <Amount>1100</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>a se</Title>
+  <Amount>700</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>zvie</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>a se</Title>
+  <Amount>700</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>0 br</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ösé</Title>
+  <Amount>280</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>aarn</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>iásc</Title>
+  <Amount>200</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>eér</Title>
+  <Amount>180</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>sle</Title>
+  <Amount>30</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+</root>

@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+3.515,-
+---
+4 liter o (Loló): 1.600,-
+oás: 600,-
+zets: 315,-
+o: 300,-
+2 pc iatc: 290,-
+öimg: 200,-
+eér: 180,-
+sle: 30,-
+
+]]>
+<DailySummary>3515</DailySummary>
+<ExpenseItem>
+  <Title>o</Title>
+  <Amount>1600</Amount>
+  <Quantity>4</Quantity>
+  <Unit>Liter</Unit>
+  <Category>Booze</Category>
+  <Comment>Loló</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>oás</Title>
+  <Amount>600</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>zets</Title>
+  <Amount>315</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Booze</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>o</Title>
+  <Amount>300</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Booze</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>iatc</Title>
+  <Amount>290</Amount>
+  <Quantity>2</Quantity>
+  <Unit>Pc</Unit>
+  <Category>ConfectionTonic</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>öimg</Title>
+  <Amount>200</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Booze</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>eér</Title>
+  <Amount>180</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>sle</Title>
+  <Amount>30</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+</root>

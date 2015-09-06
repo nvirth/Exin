@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+10.060,-
+---
+2 pc sese: 1.800,-
+oik (zvi): 1.790,-
+iink: 1.790,-
+12 pc ló v: 825,-
+et (zvi): 700,-
+a ck: 670,-
+öe (zvi): 600,-
+a se (zvie): 580,-
+acsn (zvi): 380,-
+si (iarz): 315,-
+ömlk (zvi): 210,-
+tok (ome): 200,-
+si (zvi): 170,-
+sle: 30,-
+
+]]>
+<DailySummary>10060</DailySummary>
+<ExpenseItem>
+  <Title>sese</Title>
+  <Amount>1800</Amount>
+  <Quantity>2</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>oik</Title>
+  <Amount>1790</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>zvi</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>iink</Title>
+  <Amount>1790</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ló v</Title>
+  <Amount>825</Amount>
+  <Quantity>12</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>et</Title>
+  <Amount>700</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>zvi</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>a ck</Title>
+  <Amount>670</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>öe</Title>
+  <Amount>600</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>zvi</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>a se</Title>
+  <Amount>580</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>zvie</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>acsn</Title>
+  <Amount>380</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>zvi</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>si</Title>
+  <Amount>315</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>ConfectionTonic</Category>
+  <Comment>iarz</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ömlk</Title>
+  <Amount>210</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>zvi</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>tok</Title>
+  <Amount>200</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>ConfectionTonic</Category>
+  <Comment>ome</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>si</Title>
+  <Amount>170</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>zvi</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>sle</Title>
+  <Amount>30</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+</root>

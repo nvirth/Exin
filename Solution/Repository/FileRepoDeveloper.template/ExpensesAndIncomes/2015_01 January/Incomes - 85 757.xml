@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+85.757,-
+---
+ité (dvu,): 60.757,-
+ua Ö (-5): 20.000,-
+ar d: 5.000,-
+
+]]>
+<IncomeSummary>85757</IncomeSummary>
+<IncomeItem>
+  <Title>ité</Title>
+  <Amount>60757</Amount>
+  <Comment>dvu,</Comment>
+</IncomeItem>
+<IncomeItem>
+  <Title>ua Ö</Title>
+  <Amount>20000</Amount>
+  <Comment>-5</Comment>
+</IncomeItem>
+<IncomeItem>
+  <Title>ar d</Title>
+  <Amount>5000</Amount>
+  <Comment></Comment>
+</IncomeItem>
+</root>

@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+48.350,-
+---
+2 pc etef (etef): 17.180,-
+qshb (o cn): 11.950,-
+2 pc llm (zvie): 7.000,-
+llm (é): 3.500,-
+llm (é): 3.200,-
+2 pc ys: 1.200,-
+á (ö): 1.200,-
+ys á: 1.100,-
+sny (íi): 900,-
+ys (zvie): 600,-
+ihay (zvie): 520,-
+ete (780-): 0,-
+zviő (000t): 0,-
+10 pc áák (nen): 0,-
+
+]]>
+<DailySummary>48350</DailySummary>
+<ExpenseItem>
+  <Title>etef</Title>
+  <Amount>17180</Amount>
+  <Quantity>2</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>etef</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>qshb</Title>
+  <Amount>11950</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>o cn</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>llm</Title>
+  <Amount>7000</Amount>
+  <Quantity>2</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>zvie</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>llm</Title>
+  <Amount>3500</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>é</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>llm</Title>
+  <Amount>3200</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>é</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ys</Title>
+  <Amount>1200</Amount>
+  <Quantity>2</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>á</Title>
+  <Amount>1200</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>ö</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ys á</Title>
+  <Amount>1100</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>sny</Title>
+  <Amount>900</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>íi</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ys</Title>
+  <Amount>600</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>zvie</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ihay</Title>
+  <Amount>520</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>zvie</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ete</Title>
+  <Amount>0</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>780-</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>zviő</Title>
+  <Amount>0</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>000t</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>áák</Title>
+  <Amount>0</Amount>
+  <Quantity>10</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>nen</Comment>
+</ExpenseItem>
+</root>

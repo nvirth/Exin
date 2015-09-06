@@ -1,0 +1,217 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+23.832,-
+---
+1 kg odi (eahz): 2.600,-
+2 pc Gost: 2.400,-
+FF (ácz): 2.250,-
+íszm: 1.970,-
+eszm: 1.816,-
+75 g ach (eahz): 1.294,-
+ö ta (eahz): 1.158,-
+ö ta (eahz): 1.122,-
+btő (eahz): 1.120,-
+3 pc yöls (eahz): 1.074,-
+ö ta (eahz): 905,-
+i br (ácz): 850,-
+2 liter o (ácz): 850,-
+1200 g ogaó (eahz): 787,-
+ogaó (eahz): 756,-
+e (eahz): 706,-
+ö ta (eahz): 704,-
+13 pc aarn (ácz): 650,-
+1 kg oszd (eahz): 360,-
+eöl (ácz): 260,-
+ya (ácz): 200,-
+zviő (100): 0,-
+íszm (9): 0,-
+
+]]>
+<DailySummary>23832</DailySummary>
+<ExpenseItem>
+  <Title>odi</Title>
+  <Amount>2600</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Kg</Unit>
+  <Category>Others</Category>
+  <Comment>eahz</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>Gost</Title>
+  <Amount>2400</Amount>
+  <Quantity>2</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>FF</Title>
+  <Amount>2250</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>ácz</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>íszm</Title>
+  <Amount>1970</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Invoice</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>eszm</Title>
+  <Amount>1816</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Invoice</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ach</Title>
+  <Amount>1294</Amount>
+  <Quantity>75</Quantity>
+  <Unit>Gram</Unit>
+  <Category>Others</Category>
+  <Comment>eahz</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ö ta</Title>
+  <Amount>1158</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>eahz</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ö ta</Title>
+  <Amount>1122</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>eahz</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>btő</Title>
+  <Amount>1120</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>eahz</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>yöls</Title>
+  <Amount>1074</Amount>
+  <Quantity>3</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>eahz</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ö ta</Title>
+  <Amount>905</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>eahz</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>i br</Title>
+  <Amount>850</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>ácz</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>o</Title>
+  <Amount>850</Amount>
+  <Quantity>2</Quantity>
+  <Unit>Liter</Unit>
+  <Category>Booze</Category>
+  <Comment>ácz</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ogaó</Title>
+  <Amount>787</Amount>
+  <Quantity>1200</Quantity>
+  <Unit>Gram</Unit>
+  <Category>Others</Category>
+  <Comment>eahz</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ogaó</Title>
+  <Amount>756</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>eahz</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>e</Title>
+  <Amount>706</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>eahz</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ö ta</Title>
+  <Amount>704</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>eahz</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>aarn</Title>
+  <Amount>650</Amount>
+  <Quantity>13</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>ácz</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>oszd</Title>
+  <Amount>360</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Kg</Unit>
+  <Category>Others</Category>
+  <Comment>eahz</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>eöl</Title>
+  <Amount>260</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>ácz</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ya</Title>
+  <Amount>200</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>ácz</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>zviő</Title>
+  <Amount>0</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>100</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>íszm</Title>
+  <Amount>0</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Invoice</Category>
+  <Comment>9</Comment>
+</ExpenseItem>
+</root>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+2.400,-
+---
+2 pc ia (l bl): 1.400,-
+5 pc ök (l bl): 1.000,-
+
+]]>
+<DailySummary>2400</DailySummary>
+<ExpenseItem>
+  <Title>ia</Title>
+  <Amount>1400</Amount>
+  <Quantity>2</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Booze</Category>
+  <Comment>l bl</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ök</Title>
+  <Amount>1000</Amount>
+  <Quantity>5</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Booze</Category>
+  <Comment>l bl</Comment>
+</ExpenseItem>
+</root>

@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+8.274,-
+---
+1300 g inók: 1.800,-
+ys á: 1.100,-
+ösée (áarp): 720,-
+oás: 600,-
+a se: 520,-
+úevs: 455,-
+úevs: 455,-
+a: 420,-
+iszc: 400,-
+si (unkc): 350,-
+6 pc os: 300,-
+e: 250,-
+si (ia): 239,-
+eöl (oot): 230,-
+375 g er: 215,-
+es P: 180,-
+sle: 30,-
+zyo: 10,-
+
+]]>
+<DailySummary>8274</DailySummary>
+<ExpenseItem>
+  <Title>inók</Title>
+  <Amount>1800</Amount>
+  <Quantity>1300</Quantity>
+  <Unit>Gram</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ys á</Title>
+  <Amount>1100</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ösée</Title>
+  <Amount>720</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>áarp</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>oás</Title>
+  <Amount>600</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>a se</Title>
+  <Amount>520</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>úevs</Title>
+  <Amount>455</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>úevs</Title>
+  <Amount>455</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>a</Title>
+  <Amount>420</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>iszc</Title>
+  <Amount>400</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>si</Title>
+  <Amount>350</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>ConfectionTonic</Category>
+  <Comment>unkc</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>os</Title>
+  <Amount>300</Amount>
+  <Quantity>6</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>e</Title>
+  <Amount>250</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>si</Title>
+  <Amount>239</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>ConfectionTonic</Category>
+  <Comment>ia</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>eöl</Title>
+  <Amount>230</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>oot</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>er</Title>
+  <Amount>215</Amount>
+  <Quantity>375</Quantity>
+  <Unit>Gram</Unit>
+  <Category>Others</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>es P</Title>
+  <Amount>180</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>sle</Title>
+  <Amount>30</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>zyo</Title>
+  <Amount>10</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment></Comment>
+</ExpenseItem>
+</root>

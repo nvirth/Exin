@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+8.158,-
+---
+ászm: 3.588,-
+an,n (ná,): 770,-
+3 pc öe (l): 750,-
+a se: 670,-
+a hg (zvie): 670,-
+zona (ézao): 600,-
+aon: 600,-
+1 liter e: 310,-
+si (ierc): 170,-
+sle: 30,-
+ászm (5): 0,-
+
+]]>
+<DailySummary>8158</DailySummary>
+<ExpenseItem>
+  <Title>ászm</Title>
+  <Amount>3588</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Invoice</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>an,n</Title>
+  <Amount>770</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>ná,</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>öe</Title>
+  <Amount>750</Amount>
+  <Quantity>3</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>l</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>a se</Title>
+  <Amount>670</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>a hg</Title>
+  <Amount>670</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>zvie</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>zona</Title>
+  <Amount>600</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>ézao</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>aon</Title>
+  <Amount>600</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>e</Title>
+  <Amount>310</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Liter</Unit>
+  <Category>ConfectionTonic</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>si</Title>
+  <Amount>170</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>ConfectionTonic</Category>
+  <Comment>ierc</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>sle</Title>
+  <Amount>30</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ászm</Title>
+  <Amount>0</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Invoice</Category>
+  <Comment>5</Comment>
+</ExpenseItem>
+</root>

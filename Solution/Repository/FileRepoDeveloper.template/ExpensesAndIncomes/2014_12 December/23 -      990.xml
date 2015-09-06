@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+990,-
+---
+a cr: 670,-
+snyí: 210,-
+iszc (zvie): 110,-
+
+]]>
+<DailySummary>990</DailySummary>
+<ExpenseItem>
+  <Title>a cr</Title>
+  <Amount>670</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>snyí</Title>
+  <Amount>210</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>iszc</Title>
+  <Amount>110</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>zvie</Comment>
+</ExpenseItem>
+</root>

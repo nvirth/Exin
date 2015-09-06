@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+5.950,-
+---
+ujey (tagf): 2.650,-
+oré (ove,): 1.000,-
+ööl (dszm): 800,-
+a hg (zvie): 750,-
+a ci (lter): 750,-
+
+]]>
+<DailySummary>5950</DailySummary>
+<ExpenseItem>
+  <Title>ujey</Title>
+  <Amount>2650</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>OtherPublicTransport</Category>
+  <Comment>tagf</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>oré</Title>
+  <Amount>1000</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>ove,</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ööl</Title>
+  <Amount>800</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>dszm</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>a hg</Title>
+  <Amount>750</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>zvie</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>a ci</Title>
+  <Amount>750</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>lter</Comment>
+</ExpenseItem>
+</root>

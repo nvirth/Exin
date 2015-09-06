@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+3.665,-
+---
+ászm: 3.665,-
+ászm (6): 0,-
+
+]]>
+<DailySummary>3665</DailySummary>
+<ExpenseItem>
+  <Title>ászm</Title>
+  <Amount>3665</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Invoice</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ászm</Title>
+  <Amount>0</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Invoice</Category>
+  <Comment>6</Comment>
+</ExpenseItem>
+</root>

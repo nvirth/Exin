@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+1.200,-
+---
+10 pc ool (tyet): 1.000,-
+snyí: 200,-
+ábeé (.0F): 0,-
+
+]]>
+<DailySummary>1200</DailySummary>
+<ExpenseItem>
+  <Title>ool</Title>
+  <Amount>1000</Amount>
+  <Quantity>10</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Booze</Category>
+  <Comment>tyet</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>snyí</Title>
+  <Amount>200</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Booze</Category>
+  <Comment></Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ábeé</Title>
+  <Amount>0</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Booze</Category>
+  <Comment>.0F</Comment>
+</ExpenseItem>
+</root>

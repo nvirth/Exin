@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<root>
+<![CDATA[
+
+4.050,-
+---
+2 pc s bk (ség4): 1.120,-
+a ts (OHC-): 1.000,-
+a ts (OROE): 830,-
+a ci (0 br): 680,-
+ihay (zvie): 420,-
+
+]]>
+<DailySummary>4050</DailySummary>
+<ExpenseItem>
+  <Title>s bk</Title>
+  <Amount>1120</Amount>
+  <Quantity>2</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>ség4</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>a ts</Title>
+  <Amount>1000</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>OHC-</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>a ts</Title>
+  <Amount>830</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Others</Category>
+  <Comment>OROE</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>a ci</Title>
+  <Amount>680</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>0 br</Comment>
+</ExpenseItem>
+<ExpenseItem>
+  <Title>ihay</Title>
+  <Amount>420</Amount>
+  <Quantity>1</Quantity>
+  <Unit>Pc</Unit>
+  <Category>Food</Category>
+  <Comment>zvie</Comment>
+</ExpenseItem>
+</root>
