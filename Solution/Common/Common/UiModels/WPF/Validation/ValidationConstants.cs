@@ -29,14 +29,14 @@
 		private const string EnCharOrSpace = @"([a-zA-Z] )";
 		private const string EnCharOrDigit = @"([a-zA-Z]|\d)";
 
-		public const string RegEx_notEmptyOrWhiteSpace = @".*[a-zA-Z]+.*";
-		public const string RegEx_onlyNumbers = @"(-|\+)?[0-9]+";
+		public const string RegEx_minOneLetter = @"^.*[\w-[\d]]+.*$";
+		public const string RegEx_onlyNumbers = @"^(-|\+)?[0-9]+$";
 		public const string RegEx_START_EnChar_EnCharOrDigit_0Ti_END = "^" + EnChar + EnCharOrDigit + "*" + "$";
 		public const string RegEx_START_HuChar_HuCharOrDigitOrSeparator_0Ti_END = "^" + HuChar + HuCharOrDigitOrSeparator + "*" + "$";
 		public const string RegEx_START_HuChar_HuCharOrSpace_0Ti_END = "^" + HuChar + HuCharOrSpace + "*" + "$";
 		public const string RegEx_START_HuChar_HuCharOrSpaceOrComma_0Ti_END = "^" + HuChar + HuCharOrSpaceOrComma + "*" + "$";
 
-		public const string RegEx_notEmptyOrWhiteSpace_errMsg = "RegEx_notEmptyOrWhiteSpace_errMsg";
+		public const string RegEx_minOneLetter_errMsg = "RegEx_minOneLetter_errMsg";
 		public const string RegEx_onlyNumbers_errMsg = "RegEx_onlyNumbers_errMsg";
 		public const string RegExErrMsg_START_EnChar_EnCharOrDigit_0Ti_END = "RegExErrMsg_START_EnChar_EnCharOrDigit_0Ti_END";
 		public const string RegExErrMsg_START_HuChar_HuCharOrDigitOrSeparator_0Ti_END = "RegExErrMsg_START_HuChar_HuCharOrDigitOrSeparator_0Ti_END";

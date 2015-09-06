@@ -249,7 +249,7 @@
   <data name="RangeMinErrorMessageFormat" xml:space="preserve">
     <value>A(z) {0} legalább {1} kell legyen</value>
   </data>
-  <data name="RegEx_notEmptyOrWhiteSpace_errMsg" xml:space="preserve">
+  <data name="RegEx_minOneLetter_errMsg" xml:space="preserve">
     <value>{0}: Nem lehet üres. Legalább 1 betüt tartalmaznia kell!</value>
   </data>
   <data name="RegEx_onlyNumbers_errMsg" xml:space="preserve">

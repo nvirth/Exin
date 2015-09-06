@@ -571,8 +571,8 @@ or if you are familiar with SQL queries, you can also use the SQLite database fi
   <data name="RangeMinErrorMessageFormat" xml:space="preserve">
     <value>The {0} have to be at least {1}</value>
   </data>
-  <data name="RegEx_notEmptyOrWhiteSpace_errMsg" xml:space="preserve">
-    <value>{0}: It can't be empty. It have to contain at least 1 character!</value>
+  <data name="RegEx_minOneLetter_errMsg" xml:space="preserve">
+    <value>{0}: It can't be empty. It have to contain at least 1 alphabetical character!</value>
   </data>
   <data name="RegEx_onlyNumbers_errMsg" xml:space="preserve">
     <value>{0}: This is a numeric field, can only contain numbers!</value>

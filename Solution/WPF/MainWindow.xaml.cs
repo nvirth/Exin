@@ -288,6 +288,10 @@ namespace WPF
 
 		private void AddExpenseButton_OnClick(object sender, RoutedEventArgs e)
 		{
+			var errorMessage = Model.ActualExpenseItem.DoValidation();
+			if (!string.IsNullOrWhiteSpace(errorMessage))
+				return;
+
 			var expenseItem = Model.ActualExpenseItem.DeepClone();
 			expenseItem.Date = SummaryDate.SelectedDate.Value;
 			Model.DailyExpenses.Add(expenseItem);

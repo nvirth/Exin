@@ -29,7 +29,7 @@ namespace Common.UiModels.WPF
 			[Display(Name = ValidationConstants.Title, ResourceType = typeof(Localized))]
 			[Required(ErrorMessageResourceName = ValidationConstants.RequiredErrorMessageFormat, ErrorMessageResourceType = typeof(Localized))]
 			[StringLength(100, ErrorMessageResourceName = ValidationConstants.StringLengthMaxErrorMessageFormat, ErrorMessageResourceType = typeof(Localized))]
-			[RegularExpression(ValidationConstants.RegEx_notEmptyOrWhiteSpace, ErrorMessageResourceName = ValidationConstants.RegEx_notEmptyOrWhiteSpace_errMsg, ErrorMessageResourceType = typeof(Localized))]
+			[RegularExpression(ValidationConstants.RegEx_minOneLetter, ErrorMessageResourceName = ValidationConstants.RegEx_minOneLetter_errMsg, ErrorMessageResourceType = typeof(Localized))]
 			public string Title { get; set; }
 
 			[Display(Name = ValidationConstants.Comment, ResourceType = typeof(Localized))]
