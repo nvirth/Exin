@@ -195,7 +195,9 @@ namespace DAL.DataBase.AdoNet
 
 		protected override void InitProperties()
 		{
-			Connection = new SQLiteConnection(new ExinConnectionString(LocalConfig).Get);
+			var connectionString = new ExinConnectionString(LocalConfig).Get;
+
+			Connection = new SQLiteConnection(connectionString);
 			Command = Connection.CreateCommand();
 			Adapter = new SQLiteDataAdapter();
 			DataSet = new DataSet(C.ExinDataSet);

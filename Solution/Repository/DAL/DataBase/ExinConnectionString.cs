@@ -72,6 +72,9 @@ namespace DAL.DataBase
 	/// </summary>
 	public class MsSqlExinConnectionStringManager : ExinConnectionStringManagerBase
 	{
+		private static string _connStrCache;
+		private static readonly object _lock = new object();
+
 		public MsSqlExinConnectionStringManager(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 		}
@@ -80,9 +83,12 @@ namespace DAL.DataBase
 		{
 			get
 			{
-				if(string.IsNullOrEmpty(_connStr))
-					_connStr = ConfigurationManager.ConnectionStrings[_connStrName].ConnectionString;
+				if(string.IsNullOrEmpty(_connStrCache))
+					lock (_lock)
+						if (string.IsNullOrEmpty(_connStrCache))
+							_connStrCache = ConfigurationManager.ConnectionStrings[_connStrName].ConnectionString;
 
+				_connStr = _connStrCache;
 				return _connStr;
 
 			}
@@ -101,6 +107,9 @@ namespace DAL.DataBase
 	/// </summary>
 	public class SQLiteExinConnectionStringManager : ExinConnectionStringManagerBase
 	{
+		private static string _connStrCache;
+		private static readonly object _lock = new object();
+
 		public SQLiteExinConnectionStringManager(IRepoConfiguration repoConfiguration) : base(repoConfiguration)
 		{
 		}
@@ -109,13 +118,16 @@ namespace DAL.DataBase
 		{
 			get
 			{
-				if(string.IsNullOrEmpty(_connStr))
-				{
-					_connStr = ConfigurationManager.ConnectionStrings[_connStrName].ConnectionString;
-					_connStr = _connStr.Replace(C.SqliteDbFullpathPlaceholder, RepoPaths.SqliteDbFile);
-					_connStr = _connStr.Replace("\\\\", "\\");
-				}
+				if(string.IsNullOrEmpty(_connStrCache))
+					lock (_lock)
+						if (string.IsNullOrEmpty(_connStrCache))
+						{
+							_connStrCache = ConfigurationManager.ConnectionStrings[_connStrName].ConnectionString;
+							_connStrCache = _connStrCache.Replace(C.SqliteDbFullpathPlaceholder, RepoPaths.SqliteDbFile);
+							_connStrCache = _connStrCache.Replace("\\\\", "\\");
+						}
 
+				_connStr = _connStrCache;
 				return _connStr;
 			}
 		}
