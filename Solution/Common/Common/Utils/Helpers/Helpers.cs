@@ -811,13 +811,15 @@ namespace Common.Utils.Helpers
 		/// Creates a deep clone from the given object
 		/// </summary>
 		/// <typeparam name="T">The param type must be marked with the [Serializable] attribute</typeparam>
-		public static T DeepClone<T>(this T source)
+		public static T DeepClone<T>(this T a)
 		{
-			// Don't serialize a null object, simply return the default for that object
-			if(Object.ReferenceEquals(source, null))
-				return default(T);
-
-			return JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(source));
+			using(MemoryStream stream = new MemoryStream())
+			{
+				BinaryFormatter formatter = new BinaryFormatter();
+				formatter.Serialize(stream, a);
+				stream.Position = 0;
+				return (T)formatter.Deserialize(stream);
+			}
 		}
 
 		/// <summary>

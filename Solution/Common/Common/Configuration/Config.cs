@@ -16,6 +16,7 @@ namespace Common.Configuration
 		bool? DbInsertId { get; }
 	}
 
+	[Serializable]
 	public class RepoConfiguration : IRepoConfiguration
 	{
 		public DbType DbType { get; set; } = 0;
