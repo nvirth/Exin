@@ -21,7 +21,7 @@ namespace DAL.RepoCommon.Interfaces
 		void ReplaceMonthlyIncomeSummary(DateTime date);
 
 		List<SummaryItem> GetDaily(DateTime date);
-		List<SummaryItem> GetMontly(DateTime date);
+		List<SummaryItem> GetMonthly(DateTime date);
 		List<SummaryItem> GetYearly(DateTime date);
 	}
 }

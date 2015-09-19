@@ -61,7 +61,7 @@ namespace DAL.RepoCommon.Managers
 			return transactionItems;
 		}
 
-		public List<SummaryItem> GetMontly(DateTime date)
+		public List<SummaryItem> GetMonthly(DateTime date)
 		{
 			var fromDate = new DateTime(date.Year, date.Month, 1);
 			var toDate = new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));

@@ -14,12 +14,12 @@
         PreviewKeyUp="MainWindow_PreviewKeyUp"
         x:Name="mainWindow" MinHeight="480" MinWidth="650" >
     <Window.Resources>
-        <valueConverters:IsDefaultToFontWeightConverter x:Key="isDefaultToFontWeightConverter"/>
-        <valueConverters:NegateBoolConverter x:Key="negateBoolConverter"/>
-        <valueConverters:RemoveButtonConverter x:Key="removeButtonConverter"/>
-        <valueConverters:StringTruncateConverter x:Key="stringTruncate"/>
-        <valueConverters:SummaryToStringConverter x:Key="SummaryToStringConverter"/>
+        <valueConverters:IsDefaultToFontWeightConverter x:Key="IsDefaultToFontWeightConverter"/>
+        <valueConverters:NegateBoolConverter x:Key="NegateBoolConverter"/>
         <valueConverters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+        <valueConverters:RemoveButtonConverter x:Key="RemoveButtonConverter"/>
+        <valueConverters:StringTruncateConverter x:Key="StringTruncate"/>
+        <valueConverters:SummaryToStringConverter x:Key="SummaryToStringConverter"/>
         <Style TargetType="Button">
             <Setter Property="MinWidth" Value="75" />
         </Style>
@@ -75,10 +75,10 @@
                         <TextBlock Text="{x:Static res:Localized.__in_selection__}" Visibility="{Binding SummaryForSelection, Converter={StaticResource NullToVisibilityConverter}, FallbackValue={x:Static Visibility.Collapsed}}" />
                         <TextBlock Text="{Binding Path=SummaryForSelection, Converter={StaticResource SummaryToStringConverter}, ConverterParameter={x:Static valueConverters:SummaryToStringConverterParam.SumOut}}"  Visibility="{Binding SummaryForSelection, Converter={StaticResource NullToVisibilityConverter}, FallbackValue={x:Static Visibility.Collapsed}}" />
                     </StackPanel>
-                    <ListView Grid.Row="1" x:Name="DailyExpensesLW" MouseDoubleClick="DailyExpensesLW_MouseDoubleClick" Margin="10"
+                    <ListView Grid.Row="1" x:Name="DailyExpensesLV" MouseDoubleClick="DailyExpensesLV_MouseDoubleClick" Margin="10"
                             ItemsSource="{Binding}"
                             DataContext="{Binding TransactionItems}"
-                            GridViewColumnHeader.Click ="ListViewsHeaders_OnClick_Sort" KeyUp="DailyExpensesLW_KeyUp"
+                            GridViewColumnHeader.Click ="ListViewsHeaders_OnClick_Sort" KeyUp="DailyExpensesLV_KeyUp"
                             SelectionChanged="DailyExpensesLV_OnSelectionChanged"
                             AlternationCount="2"
                             >
@@ -179,18 +179,18 @@
                                 </WrapPanel.Resources>
                                 <Button Content="{x:Static res:Localized.Save}" Click="SaveDailyExpensesButton_OnClick" 
                                         IsEnabled="{Binding ElementName=DailyExpensesPanel, Path=DataContext.IsModified}" 
-                                        FontWeight="{Binding Path=IsDefault, Converter={StaticResource isDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
+                                        FontWeight="{Binding Path=IsDefault, Converter={StaticResource IsDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
                                         />
                                 <Button Content="{x:Static res:Localized.Add}" Click="AddExpenseButton_OnClick" IsDefault="True"
-                                        IsEnabled="{Binding Path=HasErrors, Converter={StaticResource negateBoolConverter}}" 
-                                        FontWeight="{Binding Path=IsDefault, Converter={StaticResource isDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
+                                        IsEnabled="{Binding Path=HasErrors, Converter={StaticResource NegateBoolConverter}}" 
+                                        FontWeight="{Binding Path=IsDefault, Converter={StaticResource IsDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
                                         />
                                 <Button Content="{x:Static res:Localized.Remove}" Click="RemoveExpenseButton_OnClick"
-                                        IsEnabled="{Binding ElementName=DailyExpensesLW, Path=SelectedIndex, Converter={StaticResource removeButtonConverter}}" 
-                                        FontWeight="{Binding Path=IsDefault, Converter={StaticResource isDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
+                                        IsEnabled="{Binding ElementName=DailyExpensesLV, Path=SelectedIndex, Converter={StaticResource RemoveButtonConverter}}" 
+                                        FontWeight="{Binding Path=IsDefault, Converter={StaticResource IsDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
                                         />
                                 <Button Content="{x:Static res:Localized.New}" Click="NewExpenseButton_OnClick"
-                                        FontWeight="{Binding Path=IsDefault, Converter={StaticResource isDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
+                                        FontWeight="{Binding Path=IsDefault, Converter={StaticResource IsDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
                                         />
                             </WrapPanel>
                         </StackPanel>
@@ -220,15 +220,15 @@
                                 </Style>
                             </WrapPanel.Resources>
                             <Button Content="{x:Static res:Localized.Again}" Click="RedoMonthlyExpensesButton_OnClick"
-                                    FontWeight="{Binding Path=IsDefault, Converter={StaticResource isDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
+                                    FontWeight="{Binding Path=IsDefault, Converter={StaticResource IsDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
                                 />
                         </WrapPanel>
                     </Grid>
-                    <ListView Grid.Row="1" x:Name="MonthlyExpensesLW" MouseDoubleClick="MonthlyExpensesLW_MouseDoubleClick" Margin="10"
+                    <ListView Grid.Row="1" x:Name="MonthlyExpensesLV" MouseDoubleClick="MonthlyExpensesLV_MouseDoubleClick" Margin="10"
                               ItemsSource="{Binding}"
                               DataContext="{Binding TransactionItems}"
                               GridViewColumnHeader.Click ="ListViewsHeaders_OnClick_Sort"
-                              SelectionChanged="MontlyExpensesLV_OnSelectionChanged"
+                              SelectionChanged="MonthlyExpensesLV_OnSelectionChanged"
                               AlternationCount="2"
                               >
                         <ListView.View>
@@ -273,10 +273,10 @@
                         <TextBlock Text="{x:Static res:Localized.__in_selection__}" Visibility="{Binding SummaryForSelection, Converter={StaticResource NullToVisibilityConverter}, FallbackValue={x:Static Visibility.Collapsed}}" />
                         <TextBlock Text="{Binding Path=SummaryForSelection, Converter={StaticResource SummaryToStringConverter}, ConverterParameter={x:Static valueConverters:SummaryToStringConverterParam.SumIn}}" Visibility="{Binding SummaryForSelection, Converter={StaticResource NullToVisibilityConverter}, FallbackValue={x:Static Visibility.Collapsed}}" />
                     </StackPanel>
-                    <ListView  Grid.Row="1" x:Name="MonthlyIncomesLW" Margin="10"
+                    <ListView  Grid.Row="1" x:Name="MonthlyIncomesLV" Margin="10"
                               ItemsSource="{Binding}"
                               DataContext="{Binding TransactionItems}"
-                              GridViewColumnHeader.Click ="ListViewsHeaders_OnClick_Sort" MouseDoubleClick="MonthlyIncomesLW_MouseDoubleClick" KeyUp="MonthlyIncomesLW_KeyUp"
+                              GridViewColumnHeader.Click ="ListViewsHeaders_OnClick_Sort" MouseDoubleClick="MonthlyIncomesLV_MouseDoubleClick" KeyUp="MonthlyIncomesLV_KeyUp"
                               SelectionChanged="MonthlyIncomesLV_OnSelectionChanged"
                               AlternationCount="2"
                               >
@@ -331,18 +331,18 @@
                                 </WrapPanel.Resources>
                                 <Button Content="{x:Static res:Localized.Save}" Click="SaveMonthlyIncomesButton_OnClick" 
                                         IsEnabled="{Binding ElementName=MonthlyIncomesPanel, Path=DataContext.IsModified}" 
-                                        FontWeight="{Binding Path=IsDefault, Converter={StaticResource isDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
+                                        FontWeight="{Binding Path=IsDefault, Converter={StaticResource IsDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
                                         />
                                 <Button Content="{x:Static res:Localized.Add}" Click="AddIncomeButton_OnClick" IsDefault="True"
-                                        IsEnabled="{Binding Path=HasErrors, Converter={StaticResource negateBoolConverter}}" 
-                                        FontWeight="{Binding Path=IsDefault, Converter={StaticResource isDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
+                                        IsEnabled="{Binding Path=HasErrors, Converter={StaticResource NegateBoolConverter}}" 
+                                        FontWeight="{Binding Path=IsDefault, Converter={StaticResource IsDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
                                         />
                                 <Button Content="{x:Static res:Localized.Remove}" Click="RemoveIncomeButton_OnClick"
-                                        IsEnabled="{Binding ElementName=MonthlyIncomesLW, Path=SelectedIndex, Converter={StaticResource removeButtonConverter}}" 
-                                        FontWeight="{Binding Path=IsDefault, Converter={StaticResource isDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
+                                        IsEnabled="{Binding ElementName=MonthlyIncomesLV, Path=SelectedIndex, Converter={StaticResource RemoveButtonConverter}}" 
+                                        FontWeight="{Binding Path=IsDefault, Converter={StaticResource IsDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
                                         />
                                 <Button Content="{x:Static res:Localized.New}" Click="NewIncomeButton_OnClick"
-                                        FontWeight="{Binding Path=IsDefault, Converter={StaticResource isDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
+                                        FontWeight="{Binding Path=IsDefault, Converter={StaticResource IsDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
                                         />
                             </WrapPanel>
                         </StackPanel>
@@ -377,7 +377,7 @@
                                 </Style>
                             </WrapPanel.Resources>
                             <Button Content="{x:Static res:Localized.Again}" Click="RedoStatisticsButton_OnClick"
-                                    FontWeight="{Binding Path=IsDefault, Converter={StaticResource isDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
+                                    FontWeight="{Binding Path=IsDefault, Converter={StaticResource IsDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
                                     />
                         </WrapPanel>
                     </Grid>
@@ -389,7 +389,7 @@
                         <DVC:Chart.Series>
                             <DVC:ColumnSeries 
                                 ItemsSource="{Binding Path=IncomesAndExpenses}"
-                                IndependentValueBinding="{Binding Path=Key.DisplayName, Converter={StaticResource stringTruncate}}"
+                                IndependentValueBinding="{Binding Path=Key.DisplayName, Converter={StaticResource StringTruncate}}"
                                 DependentValueBinding="{Binding Path=Value}"
                                 DataPointStyle="{StaticResource ColumnDataPointStyle}"
                                 />
@@ -407,7 +407,7 @@
             <DatePicker Grid.Row="0" x:Name="SummaryDate" SelectedDateChanged="SummaryDate_SelectedDateChanged" Margin="10, 10, 10, 0" />
             <RichTextBox Grid.Row="1" x:Name="LogTB" VerticalScrollBarVisibility="Visible" IsReadOnly="True" IsReadOnlyCaretVisible="False" Margin="10" />
             <Button Grid.Row="2" Margin="10" Content="{x:Static res:Localized.Clear}" Click="ClearLogButton_OnClick" HorizontalAlignment="Right" 
-                    FontWeight="{Binding Path=IsDefault, Converter={StaticResource isDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
+                    FontWeight="{Binding Path=IsDefault, Converter={StaticResource IsDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
                     />
         </Grid>
     </Grid>

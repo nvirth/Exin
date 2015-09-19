@@ -42,7 +42,7 @@ namespace WPF
 			{
 				_model = value;
 				OnPropertyChanged();
-			}
+            }
 		}
 		
 		#endregion
@@ -276,16 +276,16 @@ namespace WPF
 
 		#region DailyExpenses
 
-		private void DailyExpensesLW_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+		private void DailyExpensesLV_MouseDoubleClick(object sender, MouseButtonEventArgs e)
 		{
 			var originalSource = e.OriginalSource as DependencyObject;
 			if(originalSource != null)
 				if(originalSource.FindAncestor<ListViewItem>() == null)
 					return; // DoubleClick is in ListView, but not in a ListViewItem
 
-			if(DailyExpensesLW.SelectedIndex != -1)
+			if(DailyExpensesLV.SelectedIndex != -1)
 			{
-				var selectedExpenseItem = DailyExpensesLW.SelectedItem as ExpenseItem;
+				var selectedExpenseItem = DailyExpensesLV.SelectedItem as ExpenseItem;
 				Model.ActualExpenseItem = selectedExpenseItem;
 			}
 		}
@@ -309,25 +309,25 @@ namespace WPF
 
 		private void RemoveExpenseButtonClick()
 		{
-			foreach(var selectedItem in DailyExpensesLW.SelectedItems.Cast<ExpenseItem>().ToList()) // There must be a .ToList call, because the source is synchronised immediately
+			foreach(var selectedItem in DailyExpensesLV.SelectedItems.Cast<ExpenseItem>().ToList()) // There must be a .ToList call, because the source is synchronised immediately
 				Model.DailyExpenses.Remove(selectedItem);
 
 			//NewExpenseButtonClick();
 			//NewExpenseTitleTB.Focus();
 		}
 
-		private void DailyExpensesLW_KeyUp(object sender, KeyEventArgs e)
+		private void DailyExpensesLV_KeyUp(object sender, KeyEventArgs e)
 		{
 			if(e.Key == Key.Delete)
 			{
-				var selectedIndex = DailyExpensesLW.SelectedIndex;
+				var selectedIndex = DailyExpensesLV.SelectedIndex;
 				RemoveExpenseButtonClick();
 
-				DailyExpensesLW.SelectedIndex = selectedIndex <= (DailyExpensesLW.Items.Count - 1)
+				DailyExpensesLV.SelectedIndex = selectedIndex <= (DailyExpensesLV.Items.Count - 1)
 					? selectedIndex
-					: (DailyExpensesLW.Items.Count - 1); // It works for empty list (-1)
+					: (DailyExpensesLV.Items.Count - 1); // It works for empty list (-1)
 
-				DailyExpensesLW.Focus();
+				DailyExpensesLV.Focus();
 
 				e.Handled = true;
 			}
@@ -341,7 +341,7 @@ namespace WPF
 		private void NewExpenseButtonClick()
 		{
 			Model.ActualExpenseItem = new ExpenseItem();
-			DailyExpensesLW.SelectedIndex = -1;
+			DailyExpensesLV.SelectedIndex = -1;
 			NewExpenseTitleTB.Focus();
 		}
 
@@ -352,7 +352,7 @@ namespace WPF
 
 		private void DailyExpensesLV_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			var sumSelection = Summary.Summarize(DailyExpensesLW.SelectedItems.Cast<TransactionItemBase>());
+			var sumSelection = Summary.Summarize(DailyExpensesLV.SelectedItems.Cast<TransactionItemBase>());
 			Model.DailyExpenses.SummaryForSelection = sumSelection;
 		}
 
@@ -366,11 +366,11 @@ namespace WPF
 			Model.MonthlyExpenses = new MonthlyExpenses(selectedDate, /* doWork */ true);
 		}
 
-		private void MonthlyExpensesLW_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+		private void MonthlyExpensesLV_MouseDoubleClick(object sender, MouseButtonEventArgs e)
 		{
-			if(MonthlyExpensesLW.SelectedIndex != -1)
+			if(MonthlyExpensesLV.SelectedIndex != -1)
 			{
-				var selectedExpenseItem = (ExpenseItem)MonthlyExpensesLW.SelectedItem;
+				var selectedExpenseItem = (ExpenseItem)MonthlyExpensesLV.SelectedItem;
 				SummaryDate.SelectedDate = selectedExpenseItem.Date;
 				MainTabControl.SelectedIndex = (int)TabSummaryNumber.DailyExpenses;
 
@@ -382,20 +382,20 @@ namespace WPF
 				}
 
 				Model.ActualExpenseItem = equalExpenseItem;
-				DailyExpensesLW.SelectedItem = equalExpenseItem;
+				DailyExpensesLV.SelectedItem = equalExpenseItem;
 
 				//http://stackoverflow.com/questions/13955340/keyboard-focus-does-not-work-on-text-box-in-wpf
 				//The code you posted should set the focus correctly, so something must be occurring afterwards
 				//to move Keyboard Focus out of your TextBox. By setting focus at a later dispatcher priority, 
 				//you'll be ensuring that setting keyboard focus to your SearchCriteriaTextBox gets done last.
 				Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() => NewExpenseTitleTB.Focus()));
-				//Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() => DailyExpensesLW.Focus()));
+				//Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() => DailyExpensesLV.Focus()));
 			}
 		}
 
-		private void MontlyExpensesLV_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+		private void MonthlyExpensesLV_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			var sumSelection = Summary.Summarize(MonthlyExpensesLW.SelectedItems.Cast<TransactionItemBase>());
+			var sumSelection = Summary.Summarize(MonthlyExpensesLV.SelectedItems.Cast<TransactionItemBase>());
 			Model.MonthlyExpenses.SummaryForSelection = sumSelection;
 		}
 
@@ -418,7 +418,7 @@ namespace WPF
 
 		private void RemoveIncomeButtonClick()
 		{
-			foreach(var selectedItem in MonthlyIncomesLW.SelectedItems.Cast<IncomeItem>().ToList()) // There must be a .ToList call, because the source is synchronised immediately
+			foreach(var selectedItem in MonthlyIncomesLV.SelectedItems.Cast<IncomeItem>().ToList()) // There must be a .ToList call, because the source is synchronised immediately
 				Model.MonthlyIncomes.Remove(selectedItem);
 
 			//NewIncomeButtonClick();
@@ -433,36 +433,36 @@ namespace WPF
 		private void NewIncomeButtonClick()
 		{
 			Model.ActualIncomeItem = new IncomeItem();
-			MonthlyIncomesLW.SelectedIndex = -1;
+			MonthlyIncomesLV.SelectedIndex = -1;
 			NewIncomeTitleTB.Focus();
 		}
 
-		private void MonthlyIncomesLW_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+		private void MonthlyIncomesLV_MouseDoubleClick(object sender, MouseButtonEventArgs e)
 		{
 			var originalSource = e.OriginalSource as DependencyObject;
 			if(originalSource != null)
 				if(originalSource.FindAncestor<ListViewItem>() == null)
 					return; // DoubleClick is in ListView, but not in a ListViewItem
 
-			if(MonthlyIncomesLW.SelectedIndex != -1)
+			if(MonthlyIncomesLV.SelectedIndex != -1)
 			{
-				var selectedIncomeItem = MonthlyIncomesLW.SelectedItem as IncomeItem;
+				var selectedIncomeItem = MonthlyIncomesLV.SelectedItem as IncomeItem;
 				Model.ActualIncomeItem = selectedIncomeItem;
 			}
 		}
 
-		private void MonthlyIncomesLW_KeyUp(object sender, KeyEventArgs e)
+		private void MonthlyIncomesLV_KeyUp(object sender, KeyEventArgs e)
 		{
 			if(e.Key == Key.Delete)
 			{
-				var selectedIndex = MonthlyIncomesLW.SelectedIndex;
+				var selectedIndex = MonthlyIncomesLV.SelectedIndex;
 				RemoveIncomeButtonClick();
 
-				MonthlyIncomesLW.SelectedIndex = selectedIndex <= (MonthlyIncomesLW.Items.Count - 1)
+				MonthlyIncomesLV.SelectedIndex = selectedIndex <= (MonthlyIncomesLV.Items.Count - 1)
 					? selectedIndex
-					: (MonthlyIncomesLW.Items.Count - 1); // It works for empty list (-1)
+					: (MonthlyIncomesLV.Items.Count - 1); // It works for empty list (-1)
 
-				MonthlyIncomesLW.Focus();
+				MonthlyIncomesLV.Focus();
 
 				e.Handled = true;
 			}
@@ -475,7 +475,7 @@ namespace WPF
 
 		private void MonthlyIncomesLV_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			var sumSelection = Summary.Summarize(MonthlyIncomesLW.SelectedItems.Cast<TransactionItemBase>());
+			var sumSelection = Summary.Summarize(MonthlyIncomesLV.SelectedItems.Cast<TransactionItemBase>());
 			Model.MonthlyIncomes.SummaryForSelection = sumSelection;
 		}
 
@@ -543,11 +543,11 @@ namespace WPF
 			if(listView == null)
 				throw new ArgumentNullException("listView", "MainWindow.ListView2SummaryEngineBase: Argument 'listView' cannot be null. ");
 
-			if(listView == DailyExpensesLW)
+			if(listView == DailyExpensesLV)
 				return Model.DailyExpenses;
-			else if(listView == MonthlyExpensesLW)
+			else if(listView == MonthlyExpensesLV)
 				return Model.MonthlyExpenses;
-			else if(listView == MonthlyIncomesLW)
+			else if(listView == MonthlyIncomesLV)
 				return Model.MonthlyIncomes;
 			else
 			{
@@ -568,11 +568,11 @@ namespace WPF
 				throw new ArgumentNullException("summaryEngineBaseName");
 
 			if(summaryEngineBaseName == Model.Property(vm => vm.DailyExpenses))
-				return DailyExpensesLW;
+				return DailyExpensesLV;
 			else if(summaryEngineBaseName == Model.Property(vm => vm.MonthlyExpenses))
-				return MonthlyExpensesLW;
+				return MonthlyExpensesLV;
 			else if(summaryEngineBaseName == Model.Property(vm => vm.MonthlyIncomes))
-				return MonthlyIncomesLW;
+				return MonthlyIncomesLV;
 			else
 			{
 				if(returnNull)
@@ -590,17 +590,17 @@ namespace WPF
 				case TabSummaryNumber.DailyExpenses:
 					if(!Model.DailyExpenses.IsReady)
 						Model.DailyExpenses.LoadData();
-					ApplySortDescriptions(DailyExpensesLW, Model.DailyExpenses);
+					ApplySortDescriptions(DailyExpensesLV, Model.DailyExpenses);
 					break;
 				case TabSummaryNumber.MonthlyExpenses:
 					if(!Model.MonthlyExpenses.IsReady)
 						Model.MonthlyExpenses.LoadData();
-					ApplySortDescriptions(MonthlyExpensesLW, Model.MonthlyExpenses);
+					ApplySortDescriptions(MonthlyExpensesLV, Model.MonthlyExpenses);
 					break;
 				case TabSummaryNumber.MonthlyIncomes:
 					if(!Model.MonthlyIncomes.IsReady)
 						Model.MonthlyIncomes.LoadData();
-					ApplySortDescriptions(MonthlyIncomesLW, Model.MonthlyIncomes);
+					ApplySortDescriptions(MonthlyIncomesLV, Model.MonthlyIncomes);
 					break;
 				case TabSummaryNumber.Statistics:
 					break;

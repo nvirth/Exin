@@ -36,7 +36,7 @@ namespace DAL.DataBase.Managers.Base
 			return transactionItems;
 		}
 
-		public List<TransactionItem> GetMontly(DateTime date, TransactionItemType transactionItemType)
+		public List<TransactionItem> GetMonthly(DateTime date, TransactionItemType transactionItemType)
 		{
 			var fromDate = new DateTime(date.Year, date.Month, 1);
 			var toDate = new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
@@ -82,13 +82,13 @@ namespace DAL.DataBase.Managers.Base
 		public List<IncomeItem> GetMonthlyIncomes(DateTime date)
 		{
 			//return GetDaily(date, TransactionItemType.Income);
-			return GetMontly(date, TransactionItemType.Income)
+			return GetMonthly(date, TransactionItemType.Income)
 				.Select(ti => ti.ToIncomeItem()).ToList();
 		}
 
 		public List<ExpenseItem> GetMonthlyExpenses(DateTime date)
 		{
-			return GetMontly(date, TransactionItemType.Expense)
+			return GetMonthly(date, TransactionItemType.Expense)
 				.Select(ti => ti.ToExpenseItem()).ToList();
 		}
 

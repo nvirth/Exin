@@ -35,7 +35,7 @@ namespace DAL.RepoCommon.Interfaces
 	public interface ITransactionItemManagerDb : ITransactionItemManagerDao
 	{
 		List<TransactionItem> GetDaily(DateTime date, TransactionItemType transactionItemType);
-		List<TransactionItem> GetMontly(DateTime date, TransactionItemType transactionItemType);
+		List<TransactionItem> GetMonthly(DateTime date, TransactionItemType transactionItemType);
 		List<TransactionItem> GetYearly(DateTime date, TransactionItemType transactionItemType);
 		List<TransactionItem> GetInterval(DateTime fromDate, DateTime toDate, TransactionItemType transactionItemType);
 		List<TransactionItem> GetAll(TransactionItemType? transactionItemType);
