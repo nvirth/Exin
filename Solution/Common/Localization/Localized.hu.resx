@@ -825,4 +825,7 @@ A beviteli mezőkben:
   <data name="The_repository_is_empty" xml:space="preserve">
     <value>Az adattár üres</value>
   </data>
+  <data name="__in_selection__" xml:space="preserve">
+    <value>, a kijelölésben: </value>
+  </data>
 </root>

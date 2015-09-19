@@ -101,6 +101,8 @@
     <Compile Include="Utils\MenuManager.cs" />
     <Compile Include="Utils\ItemsControlSorter.cs" />
     <Compile Include="Utils\Util.cs" />
+    <Compile Include="ValueConverters\NullToVisibilityConverter.cs" />
+    <Compile Include="ValueConverters\SummaryToStringConverter.cs" />
     <Compile Include="ValueConverters\IsDefaultToFontWeightConverter.cs" />
     <Compile Include="ValueConverters\ChartYAxisMaxConverter.cs" />
     <Compile Include="ValueConverters\ChartColumnBgConverter.cs" />

@@ -133,6 +133,15 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to , in selection: .
+        /// </summary>
+        public static string @__in_selection__ {
+            get {
+                return ResourceManager.GetString("__in_selection__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to - The args From and To are the same.
         /// </summary>
         public static string @__The_args_From_and_To_are_the_same {

@@ -350,6 +350,12 @@ namespace WPF
 			SaveDailyExpenses();
 		}
 
+		private void DailyExpensesLV_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			var sumSelection = Summary.Summarize(DailyExpensesLW.SelectedItems.Cast<TransactionItemBase>());
+			Model.DailyExpenses.SummaryForSelection = sumSelection;
+		}
+
 		#endregion
 
 		#region MonthlyExpenses
@@ -385,6 +391,12 @@ namespace WPF
 				Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() => NewExpenseTitleTB.Focus()));
 				//Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() => DailyExpensesLW.Focus()));
 			}
+		}
+
+		private void MontlyExpensesLV_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			var sumSelection = Summary.Summarize(MonthlyExpensesLW.SelectedItems.Cast<TransactionItemBase>());
+			Model.MonthlyExpenses.SummaryForSelection = sumSelection;
 		}
 
 		#endregion
@@ -461,6 +473,12 @@ namespace WPF
 			SaveMonthlyIncomes();
 		}
 
+		private void MonthlyIncomesLV_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			var sumSelection = Summary.Summarize(MonthlyIncomesLW.SelectedItems.Cast<TransactionItemBase>());
+			Model.MonthlyIncomes.SummaryForSelection = sumSelection;
+		}
+
 		#endregion
 
 		#region Statistics
@@ -497,6 +515,17 @@ namespace WPF
 		private void MenuItem_Exit_OnClick(object sender, RoutedEventArgs e)
 		{
 			MenuManager.Exit(sender, e);
+		}
+
+		#endregion
+
+
+		#region Common
+
+		private void OnListViewSelectionChanged(ListView listView, SummaryEngineBase summaryEngine)
+		{
+			var sumSelection = Summary.Summarize(listView.SelectedItems.Cast<TransactionItemBase>());
+			summaryEngine.SummaryForSelection = sumSelection;
 		}
 
 		#endregion

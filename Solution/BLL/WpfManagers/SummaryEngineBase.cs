@@ -23,6 +23,22 @@ namespace BLL.WpfManagers
 		public ObservableCollection<TransactionItemBase> TransactionItems { get; set; }
 
 		public Summary Summary { get; set; }
+
+		private Summary _summaryForSelection;
+		public Summary SummaryForSelection
+		{
+			get { return _summaryForSelection; }
+			set
+			{
+				if(_summaryForSelection == value)
+					return;
+				
+				_summaryForSelection = value;
+				OnPropertyChanged();
+			}
+		}
+
+
 		protected DatePaths DatePaths;
 
 		private bool _isModified;

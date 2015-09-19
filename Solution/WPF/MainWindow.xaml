@@ -18,6 +18,8 @@
         <valueConverters:NegateBoolConverter x:Key="negateBoolConverter"/>
         <valueConverters:RemoveButtonConverter x:Key="removeButtonConverter"/>
         <valueConverters:StringTruncateConverter x:Key="stringTruncate"/>
+        <valueConverters:SummaryToStringConverter x:Key="SummaryToStringConverter"/>
+        <valueConverters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
         <Style TargetType="Button">
             <Setter Property="MinWidth" Value="75" />
         </Style>
@@ -69,12 +71,15 @@
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
                         <TextBlock Text="{x:Static res:Localized.Daily_sum}"/>
-                        <TextBlock Text="{Binding Path=Summary.SumOut, StringFormat={}{0:c0}, ConverterCulture=Hu-hu}"/>
+                        <TextBlock Text="{Binding Path=Summary.SumOut, StringFormat={}{0:c0}, ConverterCulture=Hu-hu, FallbackValue=?}"/>
+                        <TextBlock Text="{x:Static res:Localized.__in_selection__}" Visibility="{Binding SummaryForSelection, Converter={StaticResource NullToVisibilityConverter}, FallbackValue={x:Static Visibility.Collapsed}}" />
+                        <TextBlock Text="{Binding Path=SummaryForSelection, Converter={StaticResource SummaryToStringConverter}, ConverterParameter={x:Static valueConverters:SummaryToStringConverterParam.SumOut}}"  Visibility="{Binding SummaryForSelection, Converter={StaticResource NullToVisibilityConverter}, FallbackValue={x:Static Visibility.Collapsed}}" />
                     </StackPanel>
                     <ListView Grid.Row="1" x:Name="DailyExpensesLW" MouseDoubleClick="DailyExpensesLW_MouseDoubleClick" Margin="10"
                             ItemsSource="{Binding}"
                             DataContext="{Binding TransactionItems}"
                             GridViewColumnHeader.Click ="ListViewsHeaders_OnClick_Sort" KeyUp="DailyExpensesLW_KeyUp"
+                            SelectionChanged="DailyExpensesLV_OnSelectionChanged"
                             AlternationCount="2"
                             >
                         <ListView.View>
@@ -204,7 +209,9 @@
                     <Grid Grid.Row="0" Margin="10">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{x:Static res:Localized.Monthly_sum}"/>
-                            <TextBlock Text="{Binding Path=Summary.SumOut,StringFormat={}{0:c0}, ConverterCulture=Hu-hu}"/>
+                            <TextBlock Text="{Binding Path=Summary.SumOut,StringFormat={}{0:c0}, ConverterCulture=Hu-hu, FallbackValue=?}"/>
+                            <TextBlock Text="{x:Static res:Localized.__in_selection__}" Visibility="{Binding SummaryForSelection, Converter={StaticResource NullToVisibilityConverter}, FallbackValue={x:Static Visibility.Collapsed}}" />
+                            <TextBlock Text="{Binding Path=SummaryForSelection, Converter={StaticResource SummaryToStringConverter}, ConverterParameter={x:Static valueConverters:SummaryToStringConverterParam.SumOut}}"  Visibility="{Binding SummaryForSelection, Converter={StaticResource NullToVisibilityConverter}, FallbackValue={x:Static Visibility.Collapsed}}" />
                         </StackPanel>
                         <WrapPanel FlowDirection="RightToLeft">
                             <WrapPanel.Resources>
@@ -221,6 +228,7 @@
                               ItemsSource="{Binding}"
                               DataContext="{Binding TransactionItems}"
                               GridViewColumnHeader.Click ="ListViewsHeaders_OnClick_Sort"
+                              SelectionChanged="MontlyExpensesLV_OnSelectionChanged"
                               AlternationCount="2"
                               >
                         <ListView.View>
@@ -261,12 +269,15 @@
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
                         <TextBlock Text="{x:Static res:Localized.Monthly_sum}"/>
-                        <TextBlock Text="{Binding Path=Summary.SumIn, StringFormat={}{0:c0}, ConverterCulture=Hu-hu}"/>
+                        <TextBlock Text="{Binding Path=Summary.SumIn, StringFormat={}{0:c0}, ConverterCulture=Hu-hu, FallbackValue=?}"/>
+                        <TextBlock Text="{x:Static res:Localized.__in_selection__}" Visibility="{Binding SummaryForSelection, Converter={StaticResource NullToVisibilityConverter}, FallbackValue={x:Static Visibility.Collapsed}}" />
+                        <TextBlock Text="{Binding Path=SummaryForSelection, Converter={StaticResource SummaryToStringConverter}, ConverterParameter={x:Static valueConverters:SummaryToStringConverterParam.SumIn}}" Visibility="{Binding SummaryForSelection, Converter={StaticResource NullToVisibilityConverter}, FallbackValue={x:Static Visibility.Collapsed}}" />
                     </StackPanel>
                     <ListView  Grid.Row="1" x:Name="MonthlyIncomesLW" Margin="10"
                               ItemsSource="{Binding}"
                               DataContext="{Binding TransactionItems}"
                               GridViewColumnHeader.Click ="ListViewsHeaders_OnClick_Sort" MouseDoubleClick="MonthlyIncomesLW_MouseDoubleClick" KeyUp="MonthlyIncomesLW_KeyUp"
+                              SelectionChanged="MonthlyIncomesLV_OnSelectionChanged"
                               AlternationCount="2"
                               >
                         <ListView.View>

@@ -825,4 +825,7 @@ or if you are familiar with SQL queries, you can also use the SQLite database fi
   <data name="The_repository_is_empty" xml:space="preserve">
     <value>The repository is empty</value>
   </data>
+  <data name="__in_selection__" xml:space="preserve">
+    <value>, in selection: </value>
+  </data>
 </root>
