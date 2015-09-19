@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  This is the main settings file of the app. 
+-->
+<root>
+  <App>
+    <!-- Can differ from the assembly version. 
+      If so, the xml settings probably did not get updated with the app, maybe because that was not necessary 
+    -->
+    <Version>0.0.4</Version>
+    
+    <!-- The last version where the user made (valid) settings (via GUI) -->
+    <LastInitVersion></LastInitVersion>
+    
+    <Repositories>
+      <!-- Note, that an empty Repo declaration indicates the DevRepo in Debug mode -->
+      <Repo>
+        <!-- Name of the repository. 
+          Empty value means "Default". NOT case sensitive.
+          Must be unique. May only contain English letters and numbers.
+        -->
+        <Name></Name>
+        
+        <!-- Absolute or relative path of the repo. Empty value means "./Repositories/<REPO_NAME>" 
+          You can use these placeholder(s) in it:
+            :REPO_NAME:    - The value of the above Name tag
+            :DEV_REPO:     - Developer repository
+        -->
+        <RootDir></RootDir>
+      </Repo>
+    </Repositories>
+
+    <UserSettings>
+      <!-- Are TransactionItems with future date allowed? (Must not be null) -->
+      <AllowsFutureDate>false</AllowsFutureDate>
+
+      <!-- TransactionItems can be copied to clipboard in this format.
+        Possible values: JSON, XML. (Must not be null)
+      -->
+      <CopyFormat>JSON</CopyFormat>
+
+      <!-- Possible values: EN, HU -->
+      <Language>EN</Language>
+
+      <!-- The name(s) of the current repository(ies), separated by ",".
+        Can be empty, that means the (only one) default repository.
+        E.g. if it's "Foo,BAR" or "foO, bar"; that means 2 repositories
+        with lowercased names "foo" and "bar"
+      -->
+      <CurrentRepoNames></CurrentRepoNames>
+    </UserSettings>
+  </App>
+</root>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  This is the settings file of the repository.
+-->
+<root>
+  <Repo>
+    <!-- Repository version can differ from the App's version. 
+      If so, the repository probably did not get updated with the app, maybe because that was not necessary
+    -->
+    <Version>0.0.4</Version>
+
+    <!-- The last version where the user made (valid) settings (via GUI) -->
+    <LastInitVersion></LastInitVersion>
+
+    <!-- Possible values: HUF, USD. (Must not be null) -->
+    <Currency>HUF</Currency>
+    
+    <!-- Possible values: FromFile, FromDb. (Must not be null) -->
+    <ReadMode>FromDb</ReadMode>
+    <!-- Possible values: OnlyToFile, FileAndDb. (Must not be null) -->
+    <SaveMode>FileAndDb</SaveMode>
+    <!-- Possible values: AdoNet, EntityFramework. (Must not be null) -->
+    <DbAccessMode>AdoNet</DbAccessMode>
+    <!-- Possible values: SQLite, MsSql .Note: MsSql is only for development. (Must not be null) -->
+    <DbType>SQLite</DbType>
+
+    <UserSettings>
+      <!-- A number value which indicates the max value of the Statistics diagram's Y axis (in thousands).
+        Empty value means 200 by HUF, so 200.000 will be the max
+      -->
+      <StatYAxisMax></StatYAxisMax>
+    </UserSettings>
+  </Repo>
+</root>

@@ -72,6 +72,9 @@
     </None>
     <None Include="DB.Developer.publish.xml" />
     <None Include="DB_Release_Publish\DB.publish.xml" />
+    <None Include="ResourcesDefault\RepoSettings.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\ScriptsIgnoredOnImport.sql" />

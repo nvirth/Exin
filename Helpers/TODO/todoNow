@@ -1,9 +1,24 @@
+Implement MainSettings.xml and RepoSettings.xml things
+* Language
+* CopyFormat
+* AllowsFutureDate
+* Read (possibly multiple) repositorties from here, with their configuration
+** CurrentRepoNames
+** :REPO_NAME:
+** :DEV_REPO:
+** Empty Repo declaration indicates the DevRepo in Debug mode
+** RepoName: May only contain English letters and numbers
+* (currency)
+* StatYAxisMax
+* LastInitVersion
+
+Eliminate WPF/Config/... AppSettings.config and ConnectionStrings.config. Use the new xml files instead
+
+---
 TEST TransportData when the args From and To are both DB types
-TEST TransportData as ImportDataToDb
 
 * ExinConnString: Next level of configurability: Managers should have 1 instance, which they could take also in ctor
 ** RepoPaths: no more static
 * InitAllStatic
 * Currency
 * SQLiteSpecific.cs uses Config.Repo. Is it ok so?
-* Lang should be set in appSettings
