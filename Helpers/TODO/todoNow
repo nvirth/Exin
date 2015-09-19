@@ -4,15 +4,12 @@ Implement MainSettings.xml and RepoSettings.xml things
 * AllowsFutureDate
 * Read (possibly multiple) repositorties from here, with their configuration
 ** CurrentRepoNames
-** :REPO_NAME:
-** :DEV_REPO:
-** Empty Repo declaration indicates the DevRepo in Debug mode
-** RepoName: May only contain English letters and numbers
 * (currency)
 * StatYAxisMax
 * LastInitVersion
 
-Eliminate WPF/Config/... AppSettings.config and ConnectionStrings.config. Use the new xml files instead
+* Eliminate WPF/Config/... AppSettings.config and ConnectionStrings.config. Use the new xml files instead
+* Search for "ConfigurationManager.AppSettings" usages
 
 ---
 TEST TransportData when the args From and To are both DB types

@@ -63,8 +63,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\Config.cs" />
+    <Compile Include="Configuration\RepoConfiguration.cs" />
     <Compile Include="Configuration\RepoPaths.cs" />
     <Compile Include="Configuration\Constants.cs" />
+    <Compile Include="Configuration\MainSettings.cs" />
     <Compile Include="Db\ManagersRelief.cs" />
     <Compile Include="Db\Entities\Base\LocalizedEntityBase.cs" />
     <Compile Include="Db\Entities\Category.cs" />

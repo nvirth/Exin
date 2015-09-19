@@ -212,9 +212,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Exin.ico" />
-    <Resource Include="Config\MainSettings.xml">
+    <None Include="Config\MainSettings.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </None>
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

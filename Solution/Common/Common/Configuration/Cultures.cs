@@ -1,12 +1,21 @@
 ﻿using System.Globalization;
 using System.Threading;
+using Common.Log;
 
 namespace Common.Configuration
 {
 	public static class Cultures
 	{
-		public static readonly CultureInfo en_US = new CultureInfo("en-US");
-		public static readonly CultureInfo hu_HU = new CultureInfo("hu-HU");
+		public class C
+		{
+			public const string EN = "EN";
+			public const string HU = "HU";
+			public const string en_US = "en-US";
+			public const string hu_HU = "hu-HU";
+		}
+
+		public static readonly CultureInfo en_US = new CultureInfo(C.en_US);
+		public static readonly CultureInfo hu_HU = new CultureInfo(C.hu_HU);
 
 		public static CultureInfo DefaultCulture => en_US;
 
@@ -37,6 +46,23 @@ namespace Common.Configuration
 		public static void SetToHungarian()
 		{
 			CurrentCulture = hu_HU;
+		}
+
+		public static CultureInfo Parse(string text)
+		{
+			switch(text.ToUpperInvariant())
+			{
+				case C.EN:
+				case C.en_US:
+					return en_US;
+				case C.HU:
+				case C.hu_HU:
+					return hu_HU;
+				case null:
+				default:
+					var msg = "Invalid culture string: " + text;
+					throw ExinLog.ger.LogException(msg, new CultureNotFoundException(msg));
+            }
 		}
 	}
 }

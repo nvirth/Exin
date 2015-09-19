@@ -63,7 +63,6 @@
 			public static class AssemblyNames
 			{
 				public const string TransportData_exe = "TransportData.exe";
-
 			}
 		}
 
@@ -104,6 +103,56 @@
 				public const string Unit = "Unit";
 				public const string Category = "Category";
 				public const string Comment = "Comment";
+			}
+
+			public static class Settings
+			{
+				// MainSettings.xml
+				//
+				// root/App
+				// --Version
+				// --LastInitVersion
+				// --Repositories
+				// ----Repo
+				// ------Name
+				// ------RootDir
+				// --UserSettings
+				// ----AllowsFutureDate
+				// ----CopyFormat
+				// ----Language
+				// ----CurrentRepoNames
+				//
+				// RepoSettings.xml
+				// 
+				// root/Repo
+				// --Version
+				// --LastInitVersion
+				// --Currency
+				// --ReadMode
+				// --SaveMode
+				// --DbAccessMode
+				// --DbType
+				// --UserSettings
+				// ----StatYAxisMax
+				//
+				public const string AllowsFutureDate = "AllowsFutureDate";
+				public const string App = "App";
+				public const string CopyFormat = "CopyFormat";
+				public const string Currency = "Currency";
+				public const string CurrentRepoNames = "CurrentRepoNames";
+				public const string DbAccessMode = "DbAccessMode";
+				public const string DbType = "DbType";
+				public const string Language = "Language";
+				public const string LastInitVersion = "LastInitVersion";
+				public const string Name = "Name";
+				public const string ReadMode = "ReadMode";
+				public const string Repo = "Repo";
+				public const string Repositories = "Repositories";
+				public const string RootDir = "RootDir";
+				public const string SaveMode = "SaveMode";
+				public const string StatYAxisMax = "StatYAxisMax";
+				public const string UserSettings = "UserSettings";
+				public const string Version = "Version";
 			}
 
 			public const string EmptyXmlContent = "<?xml version=\"1.0\"?>" + "<" + CommonTags.root + ">" + "</" + CommonTags.root + ">";

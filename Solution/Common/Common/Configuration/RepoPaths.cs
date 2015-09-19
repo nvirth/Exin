@@ -16,19 +16,21 @@ namespace Common.Configuration
 	/// 
 	/// [Root] <para/>
 	/// --Summaries <para/>
-	/// ----Monthly <para/>
 	/// ----Categorised <para/>
+	/// ----Monthly <para/>
 	/// --ExpensesAndIncomes <para/>
 	/// --Data <para/>
-	/// ----Units.xml <para/>
 	/// ----Categories.xml <para/>
+	/// ----RepoSettings.xml <para/>
+	/// ----Units.xml <para/>
 	/// ----Exin.sqlite <para/>
 	/// --Backup <para>&nbsp;</para>
 	/// 
 	/// [AppExecDir] <para/>
 	/// --ResourcesDefault <para/>
-	/// ----Units.xml <para/>
 	/// ----Categories.xml <para/>
+	/// ----RepoSettings.xml <para/>
+	/// ----Units.xml <para/>
 	/// --SQLite full.sql <para/>
 	/// </summary>
 	public static class RepoPaths
@@ -51,6 +53,7 @@ namespace Common.Configuration
 			//-- Files
 			public const string Units = "Units.xml";
 			public const string Categories = "Categories.xml";
+			public const string RepoSettings = "RepoSettings.xml";
 			public const string SqliteDbFile = "Exin.sqlite";
 			public const string SqliteDbCreateFile = "SQLite full.sql";
 
@@ -84,18 +87,21 @@ namespace Common.Configuration
 		private static readonly string ResourcesDefaultDir = AppExecDir + "\\" + Names.ResourcesDefault;
 
 		//-- Files
-		public static readonly string UnitsFile = DataDir + "\\" + Names.Units;
 		public static readonly string CategoriesFile = DataDir + "\\" + Names.Categories;
+		public static readonly string UnitsFile = DataDir + "\\" + Names.Units;
+		public static readonly string RepoSettingsFile = DataDir + "\\" + Names.RepoSettings;
 		public static readonly string SqliteDbFile = DataDir + "\\" + Names.SqliteDbFile;
 
 		public static readonly string SqliteDbCreateFile = AppExecDir + "\\" + Names.SqliteDbCreateFile;
 
 		private static readonly string CategoriesDefaultFile = ResourcesDefaultDir + "\\" + Names.Categories;
 		private static readonly string UnitsDefaultFile = ResourcesDefaultDir + "\\" + Names.Units;
+		private static readonly string RepoSettingsDefaultFile = ResourcesDefaultDir + "\\" + Names.RepoSettings;
 
 		// -- Methods
 		private static string SetupRootDir()
 		{
+			// TODO eliminate this in favor of RepoSettings.xml
 			var rootDir = ConfigurationManager.AppSettings[C.AppSettingsKeys.RepoRootDir];
 			if(string.IsNullOrWhiteSpace(rootDir))
 				rootDir = AppExecDir;
@@ -133,6 +139,9 @@ namespace Common.Configuration
 
 			if(!File.Exists(CategoriesFile))
 				File.Copy(CategoriesDefaultFile, CategoriesFile);
+
+			if(!File.Exists(RepoSettingsFile))
+				File.Copy(RepoSettingsDefaultFile, RepoSettingsFile);
 		}
 
 		public static bool CheckRepo()
@@ -140,7 +149,7 @@ namespace Common.Configuration
 			if (DirsToCreate.Any(dir => !Directory.Exists(dir)))
 				return false;
 
-			if (!File.Exists(CategoriesFile) || !File.Exists(UnitsFile))
+			if (!File.Exists(CategoriesFile) || !File.Exists(UnitsFile) || !File.Exists(RepoSettingsFile))
 				return false;
 
 			return true;
@@ -157,6 +166,9 @@ namespace Common.Configuration
 
 			using(var categoriesFile = new StreamWriter(CategoriesFile, append: false))
 				categoriesFile.Write(C.Xml.EmptyXmlContent);
+
+			using(var repoSettingsFile = new StreamWriter(RepoSettingsFile, append: false))
+				repoSettingsFile.Write(C.Xml.EmptyXmlContent);
 		}
 
 		private static IEnumerable<string> DirsToCreate
