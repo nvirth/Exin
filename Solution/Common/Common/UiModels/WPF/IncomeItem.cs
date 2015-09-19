@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Linq;
 using Common.Db;
-using C = Common.Configuration.Constants.Xml.Tags;
+using C = Common.Configuration.Constants.Xml.TransactionItem;
 
 namespace Common.UiModels.WPF
 {

@@ -78,8 +78,15 @@
 
 		public static class Xml
 		{
-			public static class Tags
+			public static class CommonTags
 			{
+				public const string root = "root";
+			}
+
+			public static class TransactionItem
+			{
+				public const string root = "root";
+
 				public const string ExpenseItem = "ExpenseItem";
 				public const string IncomeItem = "IncomeItem";
 
@@ -97,11 +104,9 @@
 				public const string Unit = "Unit";
 				public const string Category = "Category";
 				public const string Comment = "Comment";
-
-				public const string root = "root";
 			}
 
-			public const string EmptyXmlContent = "<?xml version=\"1.0\"?>" + "<" + Tags.root + ">" + "</" + Tags.root + ">";
+			public const string EmptyXmlContent = "<?xml version=\"1.0\"?>" + "<" + CommonTags.root + ">" + "</" + CommonTags.root + ">";
 		}
 	}
 }

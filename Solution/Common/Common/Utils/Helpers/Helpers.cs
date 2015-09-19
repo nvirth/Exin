@@ -24,7 +24,7 @@ using Common.Configuration;
 using Common.Log;
 using Localization;
 using Newtonsoft.Json;
-using C = Common.Configuration.Constants.Xml.Tags;
+using C = Common.Configuration.Constants.Xml.TransactionItem;
 
 namespace Common.Utils.Helpers
 {

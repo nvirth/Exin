@@ -7,7 +7,7 @@ using DAL.DataBase.Managers;
 using DAL.FileRepo.Managers.Base;
 using DAL.RepoCommon;
 using DAL.RepoCommon.Interfaces;
-using C = Common.Configuration.Constants.Xml.Tags;
+using C = Common.Configuration.Constants.Xml.TransactionItem;
 
 namespace DAL.FileRepo.Managers
 {
