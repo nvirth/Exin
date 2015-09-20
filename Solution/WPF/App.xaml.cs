@@ -22,9 +22,8 @@ namespace WPF
 			AppDomain.CurrentDomain.UnhandledException += UnhadledExceptionHandler;
 			AppDomain.CurrentDomain.FirstChanceException += FirstChanceExceptionHandler;
 
-			// TODO should be set by AppSettings
-			//Cultures.SetToHungarian();
-			Cultures.SetToEnglish();
+			// Setting the language
+			Cultures.ApplyUserSettings();
 		}
 		
 		protected override void OnStartup(StartupEventArgs e)

@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,6 +17,7 @@ using Common;
 using Common.Annotations;
 using Common.Configuration;
 using Common.Db.Entities;
+using Common.Log;
 using Common.UiModels.WPF;
 using Common.Utils;
 using Common.Utils.Helpers;
@@ -27,6 +29,7 @@ using DAL.RepoCommon.Managers;
 using Localization;
 using WPF.ViewModels;
 using WPF.Utils;
+using WPF.ValueConverters;
 
 namespace WPF
 {
@@ -102,7 +105,7 @@ namespace WPF
 #else
 			var startDate = DateTime.Today;
 #endif
-
+			//-- Model
 			var dailyExpenses = await Starter.Start(startDate);
 			Model = new MainWindowViewmodel
 			{
@@ -115,15 +118,70 @@ namespace WPF
 			Model.ActualIncomeItem = new IncomeItem();
 			Model.Statistics.SetDateToMonthly(startDate);
 
+			//-- SummaryDate
 			// In XAML, the event is bound; but the TextChange event fires this twice... Fix with ..DateChanger
 			SummaryDate.SelectedDateChanged -= SummaryDate_SelectedDateChanged;
 			SummaryDate.SelectedDate = startDate;
 			Model.DateChanger = new DatePickerFromCodeDateChanger(SummaryDate, SummaryDate_SelectedDateChanged);
 
-			SummaryDate.DisplayDateEnd = DateTime.Today;
+			if(!Config.MainSettings.UserSettings.AllowsFutureDate)
+				SummaryDate.DisplayDateEnd = DateTime.Today;
 
+			//-- Others
 			ItemsControlSorter.Init(this);
 			MenuManager.Init(this);
+
+			InitStatistics();
+
+			//TODO remove
+			//this.SetBinding(YAxisMaxProperty, new Binding("Text") {
+			//	Source = YAxisMaxTB,
+			//});
+
+			//Task.Run(() => {
+			//	while (true)
+			//	{
+			//		Thread.Sleep(1000);
+			//		Dispatcher.Invoke(() => {
+			//			MessagePresenter.Instance.WriteLine(YAxisMax.ToString());
+			//		});
+			//	}
+			//});
+		}
+
+		//TODO remove
+		//public static readonly DependencyProperty YAxisMaxProperty = DependencyProperty.Register("YAxisMax", typeof(int), typeof(MainWindow), new PropertyMetadata(default(int), (o, args) => {}));
+		//public int YAxisMax
+		//{
+		//	get { return (int)GetValue(YAxisMaxProperty); }
+		//	set { SetValue(YAxisMaxProperty, value); MessagePresenter.Instance.WriteLine("SET"); }
+		//}
+
+		private void InitStatistics()
+		{
+			//-- Set the Chart's Y Axis's Maximum property
+			int yAxisMax;
+			var converter = new ChartYAxisMaxConverter();
+
+			var yAxisMaxConfig = Config.Repo.Settings.UserSettings.StatYAxisMax;
+			if(yAxisMaxConfig.HasValue)
+				yAxisMax = yAxisMaxConfig.Value;
+			else
+				switch(Config.Repo.Settings.Currency)
+				{
+					case Currenies.USD:
+						yAxisMax = 2;
+						break;
+					case Currenies.HUF:
+						yAxisMax = 200;
+						break;
+					default:
+						yAxisMax = 0;
+						ExinLog.ger.LogError("Unexpected currency by Statistics/YAxisMax default value");
+						break;
+				}
+
+			YAxis.Maximum = converter.Convert(yAxisMax);
 		}
 
 		#region Event handler methods
@@ -486,6 +544,13 @@ namespace WPF
 		private void RedoStatisticsButton_OnClick(object sender, RoutedEventArgs e)
 		{
 			Model.Statistics.Refresh();
+		}
+
+		private void YAxisMaxTB_OnLostFocus(object sender, RoutedEventArgs e)
+		{
+			var textBox = (TextBox)sender;
+			var yAxisMax = int.Parse(textBox.Text);
+			Config.Repo.Settings.UserSettings.StatYAxisMax = yAxisMax;
 		}
 
 		#endregion

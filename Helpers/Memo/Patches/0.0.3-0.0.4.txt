@@ -1,0 +1,18 @@
+v0.0.4 is the release of the MainSettings.xml and RepoSettings.xml:
+* Solution/WPF/Config/MainSettings.xml <--> <InstallDir>/Config/MainSettings.xml
+* Solution/Repository/DB/ResourcesDefault/RepoSettings.xml <--> <InstallDir>/ResourcesDefault/RepoSettings.xml 
+
+So, for an existing repo
+1. You have to extract the values for these xml files.
+	Solution/WPF/Config/AppSettings.config <--> <InstallDir>/Config/AppSettings.config
+	Solution/WPF/Config/ConnectionStrings.config <--> <InstallDir>/Config/ConnectionStrings.config
+1.1. AppSettings
+* Important:
+	RepoRootDir <--> MainSettings: App/Repositories/Repo/RootDir
+* Others:
+	ReadMode <--> RepoSettings: Repo/ReadMode
+	SaveMode <--> RepoSettings: Repo/SaveMode
+	DbAccessMode <--> RepoSettings: Repo/DbAccessMode
+	DbType <--> RepoSettings: Repo/DbType
+1.2. ConnectionStrings
+* (Nothing to do yet)

@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Common.Db.Entities;
 using Common.Log;
+using Common.UiModels.WPF.Base;
 using Common.UiModels.WPF.Validation;
 using Common.Utils.Helpers;
 using Localization;
@@ -17,17 +18,40 @@ namespace Common.Configuration
 {
 	public class RepoSettings : RepoConfiguration
 	{
-		public class UserSettingsXml
+		public class UserSettingsXml : NotifyPropertyChanged
 		{
-			public int? StatYAxisMax { get; private set; }
+			#region Properties
+
+			private int? _statYAxisMax;
+			public int? StatYAxisMax
+			{
+				get { return _statYAxisMax; }
+				set
+				{
+					if(_statYAxisMax == value)
+						return;
+
+					_statYAxisMax = value;
+					_xElement.Element(C.StatYAxisMax).SetValue(value);
+					OnPropertyChanged();
+				}
+			}
+			#endregion
+
+			private XElement _xElement;
+
+			public UserSettingsXml(XElement xElement)
+			{
+				_xElement = xElement;
+			}
 
 			public static UserSettingsXml Parse(XElement xml)
 			{
 				try
 				{
-					var instance = new UserSettingsXml()
+					var instance = new UserSettingsXml(xml)
 					{
-						StatYAxisMax = xml.ParseIntNullable(C.StatYAxisMax),
+						_statYAxisMax = xml.ParseIntNullable(C.StatYAxisMax),
 					};
 					instance.InitAndValidate();
 					return instance;
@@ -50,6 +74,17 @@ namespace Common.Configuration
 
 		public UserSettingsXml UserSettings { get; private set; }
 
+		private XElement _xmlDoc;
+		private object _xmlDocLock = new object();
+
+		private string _xmlFilePath;
+
+		private RepoSettings(string xmlFilePath, XElement xmlDoc)
+		{
+			_xmlFilePath = xmlFilePath;
+            _xmlDoc = xmlDoc;
+		}
+
 		public static RepoSettings Read(string xmlFilePath)
 		{
 			try
@@ -63,7 +98,7 @@ namespace Common.Configuration
 					var readMode = xml.ParseString(C.ReadMode);
 					var saveMode = xml.ParseString(C.SaveMode);
 
-					var result = new RepoSettings
+					var result = new RepoSettings(xmlFilePath, xmlDoc)
 					{
 						Version = Version.Parse(versionStr),
 						LastInitVersion = Version.Parse(lastInitVersionStr),
@@ -78,7 +113,7 @@ namespace Common.Configuration
 				})
 				.First();
 
-				instance.Validate();
+				instance.InitAndValidate();
 				return instance;
 			}
 			catch(Exception e)
@@ -88,7 +123,7 @@ namespace Common.Configuration
 			}
 		}
 
-		private void Validate()
+		private void InitAndValidate()
 		{
 			if(!Currenies.IsValid(Currency))
 				throw new ConfigurationErrorsException("Invalid currency: {0}. The available ones: {1}".Formatted(Currency, Currenies.Available.Join("; ")));
@@ -100,6 +135,20 @@ namespace Common.Configuration
 
 			if(LastInitVersion > Version)
 				throw new ConfigurationErrorsException("LastInitVersion > Version");
+
+			//--
+
+			UserSettings.PropertyChanged += (sender, args) => {
+				switch(args.PropertyName)
+				{
+					case C.StatYAxisMax:
+						lock(_xmlDocLock)
+						{
+							_xmlDoc.Save(_xmlFilePath);
+						}
+						break;
+				}
+			};
 		}
 	}
 }

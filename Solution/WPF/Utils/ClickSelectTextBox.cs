@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -7,6 +9,19 @@ namespace WPF.Utils
 {
 	public class ClickSelectTextBox : TextBox
 	{
+		#region Properties
+
+		public static readonly DependencyProperty IsNumericProperty = DependencyProperty.Register(
+			"IsNumeric", typeof (bool), typeof (ClickSelectTextBox), new PropertyMetadata(default(bool)));
+
+		public bool IsNumeric
+		{
+			get { return (bool) GetValue(IsNumericProperty); }
+			set { SetValue(IsNumericProperty, value); }
+		}
+
+		#endregion
+
 		public ClickSelectTextBox()
 		{
 			AddHandler(PreviewMouseLeftButtonDownEvent,
@@ -15,10 +30,48 @@ namespace WPF.Utils
 			  new RoutedEventHandler(SelectAllText), true);
 			AddHandler(MouseDoubleClickEvent,
 			  new RoutedEventHandler(SelectAllText), true);
+
+			PreviewTextInput += OnPreviewTextInput;
+			DataObject.AddPastingHandler(this, OnPaste);
 		}
 
-		private static void SelectivelyIgnoreMouseButton(object sender,
-														 MouseButtonEventArgs e)
+		private static void OnPaste(object sender, DataObjectPastingEventArgs e)
+		{
+			if(e.DataObject.GetDataPresent(DataFormats.Text))
+			{
+				var text = (String)e.DataObject.GetData(typeof(String));
+				if(!IsValid(text))
+					e.CancelCommand();
+			}
+			else
+			{
+				e.CancelCommand();
+			}
+		}
+
+		protected override void OnPreviewTextInput(TextCompositionEventArgs e)
+		{
+			//TODO test
+			base.OnPreviewTextInput(e);
+		}
+
+		private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+		{
+			if(!IsNumeric)
+				return;
+
+			if(!IsValid(e.Text))
+				e.Handled = true;
+		}
+
+		private static bool IsValid(string text)
+		{
+			var regex = new Regex(@"^[-+]?[\d]*$"); //TODO float
+			var isValid = regex.IsMatch(text);
+			return isValid;
+		}
+
+		private static void SelectivelyIgnoreMouseButton(object sender, MouseButtonEventArgs e)
 		{
 			// Find the TextBox
 			DependencyObject parent = e.OriginalSource as UIElement;

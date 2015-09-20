@@ -36,7 +36,7 @@
       <!-- TransactionItems can be copied to clipboard in this format.
         Possible values: JSON, XML. (Must not be null)
       -->
-      <CopyFormat>JSON</CopyFormat>
+      <CopyFormat>XML</CopyFormat>
 
       <!-- Possible values: EN, HU -->
       <Language>EN</Language>

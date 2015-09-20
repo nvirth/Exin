@@ -367,7 +367,9 @@
                             </StackPanel.Resources>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{x:Static res:Localized.Y_axis_max__}" />
-                                <utils:ClickSelectTextBox Text="{Binding Maximum, ElementName=YAxis, Converter={StaticResource ChartYAxisMaxConverter}, UpdateSourceTrigger=PropertyChanged}" Width="30" />
+                                <utils:ClickSelectTextBox x:Name="YAxisMaxTB" Width="30" LostFocus="YAxisMaxTB_OnLostFocus" IsNumeric="True"
+                                                          Text="{Binding Maximum, ElementName=YAxis, Converter={StaticResource ChartYAxisMaxConverter}, UpdateSourceTrigger=PropertyChanged}" 
+                                                          />
                             </StackPanel>
                         </StackPanel>
                         <WrapPanel FlowDirection="RightToLeft">
@@ -383,6 +385,7 @@
                     </Grid>
                     <DVC:Chart Grid.Row="1" BorderThickness="0" Padding="10,0" LegendStyle="{StaticResource LegendStyle}" >
                         <DVC:Chart.Axes>
+                            <!-- Maximum is set from code! -->
                             <DVC:LinearAxis Orientation="Y" Minimum="0" Maximum="200000" x:Name="YAxis" ShowGridLines="True" 
                                             AxisLabelStyle="{StaticResource NumericAxisLabelStyle}" />
                         </DVC:Chart.Axes>

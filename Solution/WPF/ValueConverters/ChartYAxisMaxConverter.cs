@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Globalization;
+using System.Text.RegularExpressions;
 using System.Windows.Data;
+using Common.Log;
 
 namespace WPF.ValueConverters
 {
 	public class ChartYAxisMaxConverter : IValueConverter
 	{
+		private static Regex Regex = new Regex(@"\D");
+
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			var doubleValue = (double) value;
@@ -14,8 +18,29 @@ namespace WPF.ValueConverters
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			var intValue = int.Parse((string)value);
-			return intValue * 1000;
+			try
+			{
+				var stringValue = (string)value;
+				if(string.IsNullOrWhiteSpace(stringValue))
+					return 0;
+
+				stringValue = Regex.Replace(stringValue, "");
+				if(string.IsNullOrWhiteSpace(stringValue))
+					return 0;
+
+				var intValue = int.Parse(stringValue);
+				return intValue * 1000;
+			}
+			catch (Exception e)
+			{
+				ExinLog.ger.LogException("Warning! Unexpected error uccored in ChartYAxisMaxConverter.ConvertBack", e);
+				return 0;
+			}
+		}
+
+		public int Convert(int value)
+		{
+			return value * 1000;
 		}
 	}
 }

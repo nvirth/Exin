@@ -1,17 +1,13 @@
 Implement MainSettings.xml and RepoSettings.xml things
-* Language
 * CopyFormat
-* AllowsFutureDate
-* Read (possibly multiple) repositorties from here, with their configuration
-** CurrentRepoNames
-* (currency)
-* StatYAxisMax
+* Currency
 * LastInitVersion
 
 * Eliminate WPF/Config/... AppSettings.config and ConnectionStrings.config. Use the new xml files instead
 * Search for "ConfigurationManager.AppSettings" usages
+* SummaryDate -> SummaryDatePicker
 
-localization to config error messages (because they will appear on ui)
+localization to config error messages (because they would appear on ui)
 
 ---
 TEST TransportData when the args From and To are both DB types

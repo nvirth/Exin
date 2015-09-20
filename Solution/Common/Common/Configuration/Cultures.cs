@@ -48,6 +48,11 @@ namespace Common.Configuration
 			CurrentCulture = hu_HU;
 		}
 
+		public static void ApplyUserSettings()
+		{
+			CurrentCulture = Config.MainSettings.UserSettings.Language;
+		}
+
 		public static CultureInfo Parse(string text)
 		{
 			switch(text.ToUpperInvariant())
