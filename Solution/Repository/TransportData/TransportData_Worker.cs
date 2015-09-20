@@ -235,10 +235,10 @@ namespace TransportData
 
 		private void ClearAllSqliteTables()
 		{
-			PromptBackupWarning(Localized.___SQLite_database___0_.Formatted(RepoPaths.SqliteDbFile));
+			PromptBackupWarning(Localized.___SQLite_database___0_.Formatted(Config.Repo.Paths.SqliteDbFile));
 
 			Helpers.ExecuteWithTimeMeasuring(() => {
-				using (var dbFileStream = File.OpenWrite(RepoPaths.SqliteDbFile))
+				using (var dbFileStream = File.OpenWrite(Config.Repo.Paths.SqliteDbFile))
 					dbFileStream.SetLength(0);
 
 				var sqliteCreateScript = File.ReadAllText(RepoPaths.SqliteDbCreateFile);
@@ -256,14 +256,14 @@ namespace TransportData
 		private void ClearFileRepo()
 		{
 			var sb = new StringBuilder();
-			sb.AppendLine(" * {0}: {1}".Formatted(RepoPaths.Names.Units, RepoPaths.UnitsFile));
-			sb.AppendLine(" * {0}: {1}".Formatted(RepoPaths.Names.Categories, RepoPaths.CategoriesFile));
-			sb.AppendLine(Localized.____0__directory___1_.Formatted(RepoPaths.Names.ExpensesAndIncomes, RepoPaths.ExpensesAndIncomesDir));
-			sb.AppendLine(Localized.____0__directory___1_.Formatted(RepoPaths.Names.Summaries, RepoPaths.SummariesDir));
+			sb.AppendLine(" * {0}: {1}".Formatted(RepoPaths.Names.Units, Config.Repo.Paths.UnitsFile));
+			sb.AppendLine(" * {0}: {1}".Formatted(RepoPaths.Names.Categories, Config.Repo.Paths.CategoriesFile));
+			sb.AppendLine(Localized.____0__directory___1_.Formatted(RepoPaths.Names.ExpensesAndIncomes, Config.Repo.Paths.ExpensesAndIncomesDir));
+			sb.AppendLine(Localized.____0__directory___1_.Formatted(RepoPaths.Names.Summaries, Config.Repo.Paths.SummariesDir));
 
 			PromptBackupWarning(sb.ToString());
 
-			Helpers.ExecuteWithTimeMeasuring(RepoPaths.ClearFileRepo, Localized.Clearing_file_repository);
+			Helpers.ExecuteWithTimeMeasuring(Config.Repo.Paths.ClearFileRepo, Localized.Clearing_file_repository);
 		}
 
 		private void PromptBackupWarning(string backupMsg)

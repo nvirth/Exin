@@ -15,12 +15,12 @@ namespace DAL.DataBase
 	{
 		public static bool IsDbOk(DbType dbType = 0)
 		{
-			dbType = dbType == 0 ? Config.Repo.DbType : dbType;
+			dbType = dbType == 0 ? Config.Repo.Settings.DbType : dbType;
 
 			if(dbType != DbType.SQLite)
 				return true;
 
-			if(File.Exists(RepoPaths.SqliteDbFile) && new FileInfo(RepoPaths.SqliteDbFile).Length != 0)
+			if(File.Exists(Config.Repo.Paths.SqliteDbFile) && new FileInfo(Config.Repo.Paths.SqliteDbFile).Length != 0)
 				return true;
 
 			return false;
@@ -28,12 +28,12 @@ namespace DAL.DataBase
 
 		public static async Task InitSqliteFileIfNeeded(DbType dbType = 0)
 		{
-			dbType = dbType == 0 ? Config.Repo.DbType : dbType;
+			dbType = dbType == 0 ? Config.Repo.Settings.DbType : dbType;
 
 			if (IsDbOk(dbType))
 				return;
 
-			MessagePresenter.Instance.WriteError(string.Format(Localized.Could_not_find_the_SQLite_database_file__here__0__FORMAT__, RepoPaths.SqliteDbFile));
+			MessagePresenter.Instance.WriteError(string.Format(Localized.Could_not_find_the_SQLite_database_file__here__0__FORMAT__, Config.Repo.Paths.SqliteDbFile));
 			MessagePresenter.Instance.WriteLine(Localized.The_application_will_now_create_the_database_file__this_can_take_even_a_few_minutes_);
 			MessagePresenter.Instance.WriteLine(Localized.Please__wait_until_it_s_done);
 			MessagePresenter.Instance.WriteLine();

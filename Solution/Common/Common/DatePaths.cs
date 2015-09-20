@@ -38,7 +38,7 @@ namespace Common
 				_monthDirName = value;
 				DaysInMonth = DateTime.DaysInMonth(Date.Year, Date.Month);
 
-				MonthDirPath = Path.Combine(RepoPaths.ExpensesAndIncomesDir, MonthDirName);
+				MonthDirPath = Path.Combine(Config.Repo.Paths.ExpensesAndIncomesDir, MonthDirName);
 				MonthDir = new DirectoryInfo(MonthDirPath);
 
 				if(!MonthDir.Exists)

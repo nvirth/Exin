@@ -22,9 +22,10 @@ namespace Common.Configuration
 
 		//--
 
-		public static MainSettings MainSettings = MainSettings.Read(MainSettingsFilePath);
+		public static readonly MainSettings MainSettings = MainSettings.Read(MainSettingsFilePath);
 
-		public static IRepoConfiguration Repo { get; } = new RepoConfiguration()
+		// TODO implement multiple repos...
+		public static Repo Repo { get; } = new Repo(MainSettings.Repositories[0].RootDir)
 		{
 			DbAccessMode = EnumHelpers.Parse<DbAccessMode>(ConfigurationManager.AppSettings[C.DbAccessMode], ignoreCase: true),
 			DbType = EnumHelpers.Parse<DbType>(ConfigurationManager.AppSettings[C.DbType], ignoreCase: true),

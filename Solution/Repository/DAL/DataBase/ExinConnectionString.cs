@@ -123,7 +123,7 @@ namespace DAL.DataBase
 						if (string.IsNullOrEmpty(_connStrCache))
 						{
 							_connStrCache = ConfigurationManager.ConnectionStrings[_connStrName].ConnectionString;
-							_connStrCache = _connStrCache.Replace(C.SqliteDbFullpathPlaceholder, RepoPaths.SqliteDbFile);
+							_connStrCache = _connStrCache.Replace(C.SqliteDbFullpathPlaceholder, Config.Repo.Paths.SqliteDbFile);
 							_connStrCache = _connStrCache.Replace("\\\\", "\\");
 						}
 

@@ -33,7 +33,7 @@ namespace Common.Configuration
 	/// ----Units.xml <para/>
 	/// --SQLite full.sql <para/>
 	/// </summary>
-	public static class RepoPaths
+	public class RepoPaths
 	{
 		/// <summary>
 		/// Provides the concrete file/dir names
@@ -62,59 +62,82 @@ namespace Common.Configuration
 			public const string MonthlyIncomesSum = "Incomes." + Config.FileExtension;
 		}
 
-		public static class DirectoryInfos
+		public class DirectoryInfosClass //TODO rename
 		{
-			public static readonly DirectoryInfo Root = new DirectoryInfo(RootDir);
-			public static readonly DirectoryInfo Summaries = new DirectoryInfo(SummariesDir);
-			public static readonly DirectoryInfo MonthlySummaries = new DirectoryInfo(MonthlySummariesDir);
-			public static readonly DirectoryInfo CategorisedSummaries = new DirectoryInfo(CategorisedSummariesDir);
-			public static readonly DirectoryInfo ExpensesAndIncomes = new DirectoryInfo(ExpensesAndIncomesDir);
-			public static readonly DirectoryInfo Data = new DirectoryInfo(DataDir);
-			public static readonly DirectoryInfo Backup = new DirectoryInfo(BackupDir);
+			public readonly DirectoryInfo Root;
+			public readonly DirectoryInfo Summaries;
+			public readonly DirectoryInfo MonthlySummaries;
+			public readonly DirectoryInfo CategorisedSummaries;
+			public readonly DirectoryInfo ExpensesAndIncomes;
+			public readonly DirectoryInfo Data;
+			public readonly DirectoryInfo Backup;
+
+			public DirectoryInfosClass(RepoPaths repoPaths)
+			{
+				Root = new DirectoryInfo(repoPaths.RootDir);
+				Summaries = new DirectoryInfo(repoPaths.SummariesDir);
+				MonthlySummaries = new DirectoryInfo(repoPaths.MonthlySummariesDir);
+				CategorisedSummaries = new DirectoryInfo(repoPaths.CategorisedSummariesDir);
+				ExpensesAndIncomes = new DirectoryInfo(repoPaths.ExpensesAndIncomesDir);
+				Data = new DirectoryInfo(repoPaths.DataDir);
+				Backup = new DirectoryInfo(repoPaths.BackupDir);
+			}
 		}
+		public readonly DirectoryInfosClass DirectoryInfos;
 
-		//-- Directories
+		//-- Static Directories
 		public static readonly string AppExecDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-		public static readonly string RootDir = SetupRootDir();
-
-		public static readonly string SummariesDir = RootDir + "\\" + Names.Summaries;
-		public static readonly string MonthlySummariesDir = SummariesDir + "\\" + Names.Monthly;
-		public static readonly string CategorisedSummariesDir = SummariesDir + "\\" + Names.Categorised;
-		public static readonly string ExpensesAndIncomesDir = RootDir + "\\" + Names.ExpensesAndIncomes;
-		public static readonly string DataDir = RootDir + "\\" + Names.Data;
-		public static readonly string BackupDir = RootDir + "\\" + Names.Backup;
-
 		private static readonly string ResourcesDefaultDir = AppExecDir + "\\" + Names.ResourcesDefault;
 
-		//-- Files
-		public static readonly string CategoriesFile = DataDir + "\\" + Names.Categories;
-		public static readonly string UnitsFile = DataDir + "\\" + Names.Units;
-		public static readonly string RepoSettingsFile = DataDir + "\\" + Names.RepoSettings;
-		public static readonly string SqliteDbFile = DataDir + "\\" + Names.SqliteDbFile;
-
+		//-- Static Files
 		public static readonly string SqliteDbCreateFile = AppExecDir + "\\" + Names.SqliteDbCreateFile;
-
 		private static readonly string CategoriesDefaultFile = ResourcesDefaultDir + "\\" + Names.Categories;
 		private static readonly string UnitsDefaultFile = ResourcesDefaultDir + "\\" + Names.Units;
 		private static readonly string RepoSettingsDefaultFile = ResourcesDefaultDir + "\\" + Names.RepoSettings;
 
-		// -- Methods
-		private static string SetupRootDir()
-		{
-			// TODO eliminate this in favor of RepoSettings.xml
-			var rootDir = ConfigurationManager.AppSettings[C.AppSettingsKeys.RepoRootDir];
-			if(string.IsNullOrWhiteSpace(rootDir))
-				rootDir = AppExecDir;
-			else if(!Path.IsPathRooted(rootDir))
-				throw new ConfigurationErrorsException(Localized.The__RootDir__config_entry_either_have_to_be_empty_or_contain_a_full_path__);
+		//-- Directories
+		public readonly string RootDir;
 
-			return rootDir;
+		public readonly string SummariesDir;
+		public readonly string MonthlySummariesDir;
+		public readonly string CategorisedSummariesDir;
+		public readonly string ExpensesAndIncomesDir;
+		public readonly string DataDir;
+		public readonly string BackupDir;
+
+		//-- Files
+		public readonly string CategoriesFile;
+		public readonly string UnitsFile;
+		public readonly string RepoSettingsFile;
+		public readonly string SqliteDbFile;
+
+		// -- Methods
+
+		public RepoPaths(string rootDir)
+		{
+			//-- Directories
+			RootDir = rootDir;
+			SummariesDir = RootDir + "\\" + Names.Summaries;
+			MonthlySummariesDir = SummariesDir + "\\" + Names.Monthly;
+			CategorisedSummariesDir = SummariesDir + "\\" + Names.Categorised;
+			ExpensesAndIncomesDir = RootDir + "\\" + Names.ExpensesAndIncomes;
+			DataDir = RootDir + "\\" + Names.Data;
+			BackupDir = RootDir + "\\" + Names.Backup;
+
+			//-- Files
+			CategoriesFile = DataDir + "\\" + Names.Categories;
+			UnitsFile = DataDir + "\\" + Names.Units;
+			RepoSettingsFile = DataDir + "\\" + Names.RepoSettings;
+			SqliteDbFile = DataDir + "\\" + Names.SqliteDbFile;
+
+			//--
+			DirectoryInfos = new DirectoryInfosClass(this);
 		}
 
 		/// <summary>
 		/// For debug purposes
 		/// </summary>
-		public static void PrintRepoStructure()
+		public void PrintRepoStructure()
 		{
 			MessagePresenter.Instance.WriteLine("The app's directory structure: ");
 			DirsToCreate.ForEach(MessagePresenter.Instance.WriteLine);
@@ -125,7 +148,7 @@ namespace Common.Configuration
 		/// to their newly created place. The initialization is not full in case of using
 		/// SQLite db, then a call to SQLiteSpecific.InitSqliteFileIfNeeded() is also necessary 
 		/// </summary>
-		public static void InitRepo(bool silent = false)
+		public void InitRepo(bool silent = false)
 		{
 			foreach(var dir in DirsToCreate)
 			{
@@ -144,20 +167,20 @@ namespace Common.Configuration
 				File.Copy(RepoSettingsDefaultFile, RepoSettingsFile);
 		}
 
-		public static bool CheckRepo()
+		public bool CheckRepo()
 		{
-			if (DirsToCreate.Any(dir => !Directory.Exists(dir)))
+			if(DirsToCreate.Any(dir => !Directory.Exists(dir)))
 				return false;
 
-			if (!File.Exists(CategoriesFile) || !File.Exists(UnitsFile) || !File.Exists(RepoSettingsFile))
+			if(!File.Exists(CategoriesFile) || !File.Exists(UnitsFile) || !File.Exists(RepoSettingsFile))
 				return false;
 
 			return true;
 		}
 
-		public static void ClearFileRepo()
+		public void ClearFileRepo()
 		{
-			foreach (var dirPath in FileRepoDirsToRecreate)
+			foreach(var dirPath in FileRepoDirsToRecreate)
 				Helpers.RecreateDirectory(dirPath);
 
 
@@ -171,7 +194,7 @@ namespace Common.Configuration
 				repoSettingsFile.Write(C.Xml.EmptyXmlContent);
 		}
 
-		private static IEnumerable<string> DirsToCreate
+		private IEnumerable<string> DirsToCreate
 		{
 			get
 			{
@@ -185,7 +208,7 @@ namespace Common.Configuration
 			}
 		}
 
-		private static IEnumerable<string> FileRepoDirsToRecreate
+		private IEnumerable<string> FileRepoDirsToRecreate
 		{
 			get
 			{

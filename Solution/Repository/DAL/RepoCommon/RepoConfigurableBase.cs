@@ -18,10 +18,10 @@ namespace DAL.RepoCommon
 			var mutableConfig = repoConfiguration as RepoConfiguration ?? new RepoConfiguration();
 			repoConfiguration = repoConfiguration ?? mutableConfig;
 
-			mutableConfig.DbType = repoConfiguration.DbType == 0 ? Config.Repo.DbType : repoConfiguration.DbType;
-			mutableConfig.DbAccessMode = repoConfiguration.DbAccessMode == 0 ? Config.Repo.DbAccessMode : repoConfiguration.DbAccessMode;
-			mutableConfig.ReadMode = repoConfiguration.ReadMode == 0 ? Config.Repo.ReadMode : repoConfiguration.ReadMode;
-			mutableConfig.SaveMode = repoConfiguration.SaveMode == 0 ? Config.Repo.SaveMode : repoConfiguration.SaveMode;
+			mutableConfig.DbType = repoConfiguration.DbType == 0 ? Config.Repo.Settings.DbType : repoConfiguration.DbType;
+			mutableConfig.DbAccessMode = repoConfiguration.DbAccessMode == 0 ? Config.Repo.Settings.DbAccessMode : repoConfiguration.DbAccessMode;
+			mutableConfig.ReadMode = repoConfiguration.ReadMode == 0 ? Config.Repo.Settings.ReadMode : repoConfiguration.ReadMode;
+			mutableConfig.SaveMode = repoConfiguration.SaveMode == 0 ? Config.Repo.Settings.SaveMode : repoConfiguration.SaveMode;
 
 			LocalConfig = mutableConfig;
 		}

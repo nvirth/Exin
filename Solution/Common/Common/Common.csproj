@@ -63,7 +63,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\Config.cs" />
+    <Compile Include="Configuration\RepoSettings.cs" />
     <Compile Include="Configuration\RepoConfiguration.cs" />
+    <Compile Include="Configuration\Repo.cs" />
     <Compile Include="Configuration\RepoPaths.cs" />
     <Compile Include="Configuration\Constants.cs" />
     <Compile Include="Configuration\MainSettings.cs" />

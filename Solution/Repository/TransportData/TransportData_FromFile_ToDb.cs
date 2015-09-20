@@ -164,7 +164,7 @@ namespace TransportData
 			string searchPattern = "*";
 			Regex directoryFilter = new Regex(@"^\d{4}_\d{2} .*$");
 
-			var monthDirectories = RepoPaths.DirectoryInfos.Root // TODO this was wrong. It should be here ExpensesAndIncemsDir!
+			var monthDirectories = Config.Repo.Paths.DirectoryInfos.Root // TODO this was wrong. It should be here ExpensesAndIncemsDir!
 				.EnumerateDirectories(searchPattern)
 				.Where(di => directoryFilter.IsMatch(di.Name));
 
@@ -320,7 +320,7 @@ namespace TransportData
 					break;
 
 				case DbType.SQLite:
-					using(var dbFileStream = File.OpenWrite(RepoPaths.SqliteDbFile))
+					using(var dbFileStream = File.OpenWrite(Config.Repo.Paths.SqliteDbFile))
 					{
 						dbFileStream.SetLength(0);
 					}

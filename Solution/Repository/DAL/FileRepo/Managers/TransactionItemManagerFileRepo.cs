@@ -38,7 +38,7 @@ namespace DAL.FileRepo.Managers
 		{
 			var directoryFilter = new Regex(@"^\d{4}_\d{2} .*$");   // eg.: "2009_10 " + .*
 
-			var monthDirs = RepoPaths.DirectoryInfos.ExpensesAndIncomes
+			var monthDirs = Config.Repo.Paths.DirectoryInfos.ExpensesAndIncomes
 				.EnumerateDirectories()
 				.Where(di => directoryFilter.IsMatch(di.Name))
 				.OrderBy(di => di.Name);

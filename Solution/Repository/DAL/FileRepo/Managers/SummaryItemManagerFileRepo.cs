@@ -53,7 +53,7 @@ namespace DAL.FileRepo.Managers
 		{
             MessagePresenter.Instance.WriteError(
 				Localized.Reading_statistics_from_File_Repository_is_not_implemented___ETC_MSG +
-				RepoPaths.SummariesDir);
+				Config.Repo.Paths.SummariesDir);
 
 			return new List<SummaryItem>();
 		}
@@ -189,9 +189,9 @@ namespace DAL.FileRepo.Managers
 				//s += SummaryItem.SumOut.ToExinStringMonthlyFileName() + " - ";
 				//s += "█".Repeat(SummaryItem.SumOut / 5000) + "." + Config.FileExtension;
 
-				var oldFile = RepoPaths.DirectoryInfos.MonthlySummaries.EnumerateFiles()
+				var oldFile = Config.Repo.Paths.DirectoryInfos.MonthlySummaries.EnumerateFiles()
 					.FirstOrDefault(file => file.Name.StartsWith(actualYearAndMonthLocal));
-				var destinationFilePath = Path.Combine(RepoPaths.MonthlySummariesDir, newFileName);
+				var destinationFilePath = Path.Combine(Config.Repo.Paths.MonthlySummariesDir, newFileName);
 
 				Helpers.CreateNewFileDeleteOld(destinationFilePath, oldFile, datePaths.MonthlyExpensesFile);
 
@@ -254,7 +254,7 @@ namespace DAL.FileRepo.Managers
 
 			try
 			{
-				var statisticsFile = RepoPaths.DirectoryInfos.CategorisedSummaries.EnumerateFiles()
+				var statisticsFile = Config.Repo.Paths.DirectoryInfos.CategorisedSummaries.EnumerateFiles()
 					.First(file => file.Name.Contains(expenseCategory));
 
 				statisticsFilePath = statisticsFile.FullName;
@@ -268,7 +268,7 @@ namespace DAL.FileRepo.Managers
 			}
 			catch(Exception) // Did not exist statistics file
 			{
-				var lastFile = RepoPaths.DirectoryInfos.CategorisedSummaries.EnumerateFiles().LastOrDefault();
+				var lastFile = Config.Repo.Paths.DirectoryInfos.CategorisedSummaries.EnumerateFiles().LastOrDefault();
 
 				string start;
 				if(lastFile == null)
@@ -283,7 +283,7 @@ namespace DAL.FileRepo.Managers
 				}
 
 				var statisticsFileName = start + " - " + expenseCategory;
-				statisticsFilePath = Path.Combine(RepoPaths.CategorisedSummariesDir, statisticsFileName);
+				statisticsFilePath = Path.Combine(Config.Repo.Paths.CategorisedSummariesDir, statisticsFileName);
 				statisticsData = new List<string> { newDataRow };
 			}
 

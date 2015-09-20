@@ -15,7 +15,7 @@ namespace DAL.FileRepo.Managers
 	{
 		public List<Unit> GetAll()
 		{
-			var xmlDoc = XElement.Load(RepoPaths.UnitsFile);
+			var xmlDoc = XElement.Load(Config.Repo.Paths.UnitsFile);
 			var units = xmlDoc.Elements(C.Unit).Select(xml => new Unit
 			{
 				ID = ((int) xml.Element(C.ID)),
@@ -27,9 +27,9 @@ namespace DAL.FileRepo.Managers
 
 		public void Add(Unit unit)
 		{
-			var xmlDoc = XElement.Load(RepoPaths.UnitsFile);
+			var xmlDoc = XElement.Load(Config.Repo.Paths.UnitsFile);
 			xmlDoc.Add(unit.ToXml());
-			xmlDoc.Save(RepoPaths.UnitsFile);
+			xmlDoc.Save(Config.Repo.Paths.UnitsFile);
 		}
 	}
 }

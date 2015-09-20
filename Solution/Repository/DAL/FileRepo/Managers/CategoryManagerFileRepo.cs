@@ -15,7 +15,7 @@ namespace DAL.FileRepo.Managers
 	{
 		public List<Category> GetAll()
 		{
-			var xmlDoc = XElement.Load(RepoPaths.CategoriesFile);
+			var xmlDoc = XElement.Load(Config.Repo.Paths.CategoriesFile);
 			var categories = xmlDoc.Elements(C.Category).Select(xml => new Category
 			{
 				ID = ((int)xml.Element(C.ID)),
@@ -27,9 +27,9 @@ namespace DAL.FileRepo.Managers
 
 		public void Add(Category category)
 		{
-			var xmlDoc = XElement.Load(RepoPaths.CategoriesFile);
+			var xmlDoc = XElement.Load(Config.Repo.Paths.CategoriesFile);
 			xmlDoc.Add(category.ToXml());
-			xmlDoc.Save(RepoPaths.CategoriesFile);
+			xmlDoc.Save(Config.Repo.Paths.CategoriesFile);
 		}
 	}
 }
