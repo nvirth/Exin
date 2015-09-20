@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using Common;
 using Common.Configuration;
@@ -43,6 +44,30 @@ namespace DAL.DataBase
 
 	public abstract class ExinConnectionStringManagerBase : RepoConfigurableBase
 	{
+		// TODO this won't fit, go back to the config file instead; but parse it manually instead of the ConfigurationManager class
+		private static Dictionary<string, string> _availableConnectionStrings;
+		public static Dictionary<string, string> AvailableConnectionStrings
+		{
+			get
+			{
+				if(_availableConnectionStrings == null)
+				{
+					_availableConnectionStrings = new Dictionary<string, string>(4) {
+						{C.SQLite_AdoNet_ConnStr, "data source=#SQLITE_REPO_FULLPATH#"},
+						{C.SQLite_EF_ConnStr, "metadata=res://*/DataBase.EntityFramework.EntitiesSqlite.ExinEf.csdl|res://*/DataBase.EntityFramework.EntitiesSqlite.ExinEf.ssdl|res://*/DataBase.EntityFramework.EntitiesSqlite.ExinEf.msl;provider=System.Data.SQLite;provider connection string=&quot;data source=#SQLITE_REPO_FULLPATH#&quot;"},
+#if DEBUG
+						{C.MsSql_AdoNet_ConnStr, "Data Source=.;Initial Catalog=ExinDeveloper;Integrated Security=True"},
+						{C.MsSql_EF_ConnStr, "metadata=res://*/DataBase.EntityFramework.EntitiesMsSql.ExinEfMsSql.csdl|res://*/DataBase.EntityFramework.EntitiesMsSql.ExinEfMsSql.ssdl|res://*/DataBase.EntityFramework.EntitiesMsSql.ExinEfMsSql.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=.;initial catalog=ExinDeveloper;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;"}
+#else
+						{C.MsSql_AdoNet_ConnStr, "Data Source=.;Initial Catalog=Exin;Integrated Security=True"},
+						{C.MsSql_EF_ConnStr, "metadata=res://*/DataBase.EntityFramework.EntitiesMsSql.ExinEfMsSql.csdl|res://*/DataBase.EntityFramework.EntitiesMsSql.ExinEfMsSql.ssdl|res://*/DataBase.EntityFramework.EntitiesMsSql.ExinEfMsSql.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=.;initial catalog=Exin;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;"}
+#endif
+					};
+				}
+				return _availableConnectionStrings;
+			}
+		}
+
 		protected abstract string _adoNetConnStrName { get; }
 		protected abstract string _efConnStrName { get; }
 		protected string _connStrName;
@@ -86,7 +111,7 @@ namespace DAL.DataBase
 				if(string.IsNullOrEmpty(_connStrCache))
 					lock (_lock)
 						if (string.IsNullOrEmpty(_connStrCache))
-							_connStrCache = ConfigurationManager.ConnectionStrings[_connStrName].ConnectionString;
+							_connStrCache = AvailableConnectionStrings[_connStrName];
 
 				_connStr = _connStrCache;
 				return _connStr;
@@ -122,7 +147,7 @@ namespace DAL.DataBase
 					lock (_lock)
 						if (string.IsNullOrEmpty(_connStrCache))
 						{
-							_connStrCache = ConfigurationManager.ConnectionStrings[_connStrName].ConnectionString;
+							_connStrCache = AvailableConnectionStrings[_connStrName];
 							_connStrCache = _connStrCache.Replace(C.SqliteDbFullpathPlaceholder, Config.Repo.Paths.SqliteDbFile);
 							_connStrCache = _connStrCache.Replace("\\\\", "\\");
 						}

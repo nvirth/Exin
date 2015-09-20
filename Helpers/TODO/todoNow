@@ -3,11 +3,9 @@ Implement MainSettings.xml and RepoSettings.xml things
 * Currency
 * LastInitVersion
 
-* Eliminate WPF/Config/... AppSettings.config and ConnectionStrings.config. Use the new xml files instead
-* Search for "ConfigurationManager.AppSettings" usages
-* SummaryDate -> SummaryDatePicker
-
-localization to config error messages (because they would appear on ui)
+* Go back WPF/Config/ConnectionStrings.config; but parse it manually instead of the ConfigurationManager class
+* localization to config error messages (because they would appear on ui)
+* TransportData: Currently does not run from VS, only from WPF/bin/.. (because of the MainSettings.xml location)
 
 ---
 TEST TransportData when the args From and To are both DB types
