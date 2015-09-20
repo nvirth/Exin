@@ -1,11 +1,23 @@
+* ConnectionStrings in the system: config files exist, but they are not in use in the ExinConnectionString already and yet. They've been removed already, and not reapplied yet.
+** We won't need to manually read this config file, the ConfigurationManager will fit. This way, every App.config file has to have the config file's location; but that's the same - and changless - everywhere. So we story the ConnectionString data in 1 place.
+*** BTW, the .csproj files have to be modified in the .exe projects; we have to set these files to be copied.
+**** TODO write memo for this
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="..\Common\Common\bin\$(Configuration)\Config\ConnectionStrings.config" DestinationFolder="$(TargetDir)Config\" />
+  </Target>
+
 Implement MainSettings.xml and RepoSettings.xml things
 * CopyFormat
 * Currency
 * LastInitVersion
-
-* Go back WPF/Config/ConnectionStrings.config; but parse it manually instead of the ConfigurationManager class
 * localization to config error messages (because they would appear on ui)
-* TransportData: Currently does not run from VS, only from WPF/bin/.. (because of the MainSettings.xml location)
+* TransportData: How should it work in the new system?
+** Currently can't work from VS in Release mode (but that's not a problem)
+** TransportData: Currently does not run from VS, only from WPF/bin/.. (because of the MainSettings.xml location)
+* Starting problem with MainSettings.xml: If a new, virgin app starts, it will crash on the RepoRoot validation
+** Started to fix this, but still need testing
+
+NOTE: We may rename Common/Config folder, we copy the files in it manually on PostBuild
 
 ---
 TEST TransportData when the args From and To are both DB types

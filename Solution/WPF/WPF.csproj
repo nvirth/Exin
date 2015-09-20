@@ -148,17 +148,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="Config\ConnectionStrings.config">
-      <TransformOnBuild>true</TransformOnBuild>
-    </None>
-    <None Include="Config\ConnectionStrings.Debug.config">
-      <DependentUpon>ConnectionStrings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="Config\ConnectionStrings.Release.config">
-      <DependentUpon>ConnectionStrings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -201,9 +190,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Exin.ico" />
-    <None Include="Config\MainSettings.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -219,6 +205,6 @@
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild">
-    <Copy SourceFiles="..\Repository\TransportData\bin\$(Configuration)\TransportData.exe.config" DestinationFolder="$(TargetDir)" />
+    <Copy SourceFiles="..\Common\Common\bin\$(Configuration)\Config\ConnectionStrings.config" DestinationFolder="$(TargetDir)Config\" />
   </Target>
 </Project>

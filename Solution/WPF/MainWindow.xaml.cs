@@ -56,6 +56,11 @@ namespace WPF
 		{
 			InitializeComponent();
 			MessagePresenterManager.WireToRichTextBox(LogTB, Dispatcher);
+
+			InitFirstRepoRootIfNeeded();
+			Config.InitRepo();
+			ShowConfig();
+
 			StaticInitializer.InitAllStatic();
 			InitOptimize();
 
@@ -106,8 +111,9 @@ namespace WPF
 #else
 			var startDate = DateTime.Today;
 #endif
-			await InitModel(startDate);
+			await SQLiteSpecific.InitSqliteFileIfNeeded(); // Has to be the first!
 
+			InitModel(startDate); 
 			InitSummaryDatePicker(startDate);
 			ItemsControlSorter.Init(this);
 			MenuManager.Init(this);
@@ -125,12 +131,10 @@ namespace WPF
 				SummaryDatePicker.DisplayDateEnd = DateTime.Today;
 		}
 
-		private async Task InitModel(DateTime startDate)
+		private void InitModel(DateTime startDate)
 		{
-			var dailyExpenses = await Starter.Start(startDate);
-
 			Model = new MainWindowViewmodel {
-				DailyExpenses = dailyExpenses,
+				DailyExpenses = new DailyExpenses(startDate, /*doWork*/ true),
 				MonthlyExpenses = new MonthlyExpenses(startDate, /*doWork*/ false),
 				MonthlyIncomes = new MonthlyIncomes(startDate, /*doWork*/ false),
 			};
@@ -168,8 +172,35 @@ namespace WPF
 			YAxis.Maximum = converter.Convert(yAxisMax);
 		}
 
-		#endregion
+		private static void InitFirstRepoRootIfNeeded()
+		{
+			var firstRepoPaths = new RepoPaths(Config.FirstRepoRootPath);
+			if(firstRepoPaths.CheckRepo())
+				return;
 
+			MessagePresenter.Instance.WriteError(string.Format(Localized.Could_not_find_the_Exin_s_work_directory_here__0__FORMAT__, Config.FirstRepoRootPath));
+			MessagePresenter.Instance.WriteLine(Localized.The_app_will_now_create_the_necessary_directories);
+			MessagePresenter.Instance.WriteLine();
+
+			firstRepoPaths.InitRepo();
+
+			MessagePresenter.Instance.WriteLine();
+			MessagePresenter.Instance.WriteLine(Localized.All_created_successfully_);
+			MessagePresenter.Instance.WriteLineSeparator();
+		}
+
+		private static void ShowConfig()
+		{
+			MessagePresenter.Instance.WriteLine(Localized.The_Exin_expenses_incomes_summarizer_application_welcomes_you_);
+			MessagePresenter.Instance.WriteLine(Localized.The_application_s_configuration_);
+			MessagePresenter.Instance.WriteLine(" - " + Config.Repo.Settings.ReadMode.ToLocalizedDescriptionString());
+			MessagePresenter.Instance.WriteLine(" - " + Config.Repo.Settings.SaveMode.ToLocalizedDescriptionString());
+			MessagePresenter.Instance.WriteLine(" - " + Config.Repo.Settings.DbAccessMode.ToLocalizedDescriptionString());
+			MessagePresenter.Instance.WriteLine(" - " + Config.Repo.Settings.DbType.ToLocalizedDescriptionString());
+			MessagePresenter.Instance.WriteLineSeparator();
+		}
+
+		#endregion
 
 		#region Event handler methods
 

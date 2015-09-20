@@ -84,9 +84,10 @@
   <Import Project="$(SlowCheetahTargets)" Condition="Exists('$(SlowCheetahTargets)')" Label="SlowCheetah" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
+  -->
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild">
+    <Copy SourceFiles="..\..\Common\Common\bin\$(Configuration)\Config\ConnectionStrings.config" DestinationFolder="$(TargetDir)Config\" />
   </Target>
-  -->
 </Project>

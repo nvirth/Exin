@@ -46,7 +46,6 @@
     <Compile Include="WpfManagers\MonthlyExpenses.cs" />
     <Compile Include="WpfManagers\SummaryEngineBase.cs" />
     <Compile Include="WpfManagers\DailyExpenses.cs" />
-    <Compile Include="Starter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SummaryManager.cs" />
   </ItemGroup>

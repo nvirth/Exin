@@ -230,6 +230,8 @@ namespace TransportData
 		{
 			//StartDebugger();
 			MessagePresenterManager.WireToConsole();
+			Config.InitRepo();
+
 			AppDomain.CurrentDomain.UnhandledException += UnhadledExceptionHandler;
 
 			#region Parsing args

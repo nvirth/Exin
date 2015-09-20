@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.IO;
 using Common.Log;
 using Common.Utils.Helpers;
 using Localization;
@@ -10,7 +11,19 @@ namespace Common.Configuration
 	public static class Config
 	{
 #if DEBUG
-		public const string FileRepoDeveloperPath = @"..\..\..\Repository\FileRepoDeveloper";
+		private static string _fileRepoDeveloperPath;
+		public static string FileRepoDeveloperPath
+		{
+			get
+			{
+				if (_fileRepoDeveloperPath == null)
+				{
+					var solutionRoot = ProjectInfos.GetSolutionsRootDircetory(AppName);
+					_fileRepoDeveloperPath = Path.Combine(solutionRoot.FullName, @"Solution\Repository\FileRepoDeveloper");
+				}
+				return _fileRepoDeveloperPath;
+			}
+		}
 #endif
 		public const string MainSettingsFilePath = @".\Config\MainSettings.xml";
 		public const string AppName = "Exin";
@@ -22,6 +35,15 @@ namespace Common.Configuration
 		//--
 
 		public static readonly MainSettings MainSettings = MainSettings.Read(MainSettingsFilePath);
-		public static readonly IRepo Repo = new Repo(MainSettings.Repositories[0].RootDir); // TODO implement multiple repos...
+		public static string FirstRepoRootPath => MainSettings.Repositories[0].RootDir;
+		public static IRepo Repo; // TODO implement multiple repos...
+
+		public static void InitRepo()
+		{
+			// We have to delay this init, because of starting problem. If the repo not exists,
+			// does it mean that the user deleted it, or just starts the app the first time?
+
+			Repo = new Repo(FirstRepoRootPath);
+		}
 	}
 }

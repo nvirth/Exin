@@ -81,8 +81,9 @@ namespace Common.Configuration
 				{
 					RootDir = RootDir.Replace(RepoNamePlaceholder, Name);
 
-					if(!Directory.Exists(RootDir))
-						throw new DirectoryNotFoundException(RootDir);
+					// TODO Starting problem: If a new, virgin app starts, it will crash on this
+					//if(!Directory.Exists(RootDir))
+					//	throw new DirectoryNotFoundException(RootDir);
 				}
 			}
 		}
