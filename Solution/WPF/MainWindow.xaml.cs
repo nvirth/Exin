@@ -50,6 +50,8 @@ namespace WPF
 		
 		#endregion
 
+		#region Ctor, Init
+
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -57,7 +59,7 @@ namespace WPF
 			StaticInitializer.InitAllStatic();
 			InitOptimize();
 
-			LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
+			LanguageProperty.OverrideMetadata(typeof (FrameworkElement), new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
 
 			// For init, these have to be off. These will be turned on again at the end of ContentRendered
 			MainTabControl.SelectionChanged -= MainTabControl_SelectionChanged;
@@ -69,8 +71,7 @@ namespace WPF
 			// events; and so can do (an do) all the validations requested in the event at once (and not all in one
 			// at the end)
 			this.ContentRendered +=
-				async (sender, args) =>
-				{
+				async (sender, args) => {
 					await Init();
 
 					// For init, we turned these off in the ctor
@@ -87,12 +88,12 @@ namespace WPF
 			// (it's independent form the DB type, so MsSql and Sqlite also do the same)
 			// And somehow, if we force the app to get the Categories from the DB before
 			// entering the eventhandler, we will get them faster
-			if(Config.Repo.Settings.ReadMode != ReadMode.FromDb || Config.Repo.Settings.DbAccessMode != DbAccessMode.EntityFramework)
+			if (Config.Repo.Settings.ReadMode != ReadMode.FromDb || Config.Repo.Settings.DbAccessMode != DbAccessMode.EntityFramework)
 				return;
 
 			// In case we use SQLite and do not have the DB file yet, first we need to init that...
 			// We will do it in the Init method
-			if(SQLiteSpecific.IsDbOk())
+			if (SQLiteSpecific.IsDbOk())
 			{
 				var categoryNone = CategoryManager.Instance.GetCategoryNone;
 			}
@@ -105,57 +106,40 @@ namespace WPF
 #else
 			var startDate = DateTime.Today;
 #endif
-			//-- Model
+			await InitModel(startDate);
+
+			InitSummaryDatePicker(startDate);
+			ItemsControlSorter.Init(this);
+			MenuManager.Init(this);
+			InitStatistics();
+		}
+
+		private void InitSummaryDatePicker(DateTime startDate)
+		{
+			// In XAML, the event is bound; but the TextChange event fires this twice... Fix with ..DateChanger
+			SummaryDatePicker.SelectedDateChanged -= SummaryDatePicker_SelectedDateChanged;
+			SummaryDatePicker.SelectedDate = startDate;
+			Model.DateChanger = new DatePickerFromCodeDateChanger(SummaryDatePicker, SummaryDatePicker_SelectedDateChanged);
+
+			if (!Config.MainSettings.UserSettings.AllowsFutureDate)
+				SummaryDatePicker.DisplayDateEnd = DateTime.Today;
+		}
+
+		private async Task InitModel(DateTime startDate)
+		{
 			var dailyExpenses = await Starter.Start(startDate);
-			Model = new MainWindowViewmodel
-			{
+
+			Model = new MainWindowViewmodel {
 				DailyExpenses = dailyExpenses,
 				MonthlyExpenses = new MonthlyExpenses(startDate, /*doWork*/ false),
 				MonthlyIncomes = new MonthlyIncomes(startDate, /*doWork*/ false),
 			};
+
 			// These MUST NOT be in the object initializer (so these would be validated at now)
 			Model.ActualExpenseItem = new ExpenseItem();
 			Model.ActualIncomeItem = new IncomeItem();
 			Model.Statistics.SetDateToMonthly(startDate);
-
-			//-- SummaryDate
-			// In XAML, the event is bound; but the TextChange event fires this twice... Fix with ..DateChanger
-			SummaryDate.SelectedDateChanged -= SummaryDate_SelectedDateChanged;
-			SummaryDate.SelectedDate = startDate;
-			Model.DateChanger = new DatePickerFromCodeDateChanger(SummaryDate, SummaryDate_SelectedDateChanged);
-
-			if(!Config.MainSettings.UserSettings.AllowsFutureDate)
-				SummaryDate.DisplayDateEnd = DateTime.Today;
-
-			//-- Others
-			ItemsControlSorter.Init(this);
-			MenuManager.Init(this);
-
-			InitStatistics();
-
-			//TODO remove
-			//this.SetBinding(YAxisMaxProperty, new Binding("Text") {
-			//	Source = YAxisMaxTB,
-			//});
-
-			//Task.Run(() => {
-			//	while (true)
-			//	{
-			//		Thread.Sleep(1000);
-			//		Dispatcher.Invoke(() => {
-			//			MessagePresenter.Instance.WriteLine(YAxisMax.ToString());
-			//		});
-			//	}
-			//});
 		}
-
-		//TODO remove
-		//public static readonly DependencyProperty YAxisMaxProperty = DependencyProperty.Register("YAxisMax", typeof(int), typeof(MainWindow), new PropertyMetadata(default(int), (o, args) => {}));
-		//public int YAxisMax
-		//{
-		//	get { return (int)GetValue(YAxisMaxProperty); }
-		//	set { SetValue(YAxisMaxProperty, value); MessagePresenter.Instance.WriteLine("SET"); }
-		//}
 
 		private void InitStatistics()
 		{
@@ -164,10 +148,10 @@ namespace WPF
 			var converter = new ChartYAxisMaxConverter();
 
 			var yAxisMaxConfig = Config.Repo.Settings.UserSettings.StatYAxisMax;
-			if(yAxisMaxConfig.HasValue)
+			if (yAxisMaxConfig.HasValue)
 				yAxisMax = yAxisMaxConfig.Value;
 			else
-				switch(Config.Repo.Settings.Currency)
+				switch (Config.Repo.Settings.Currency)
 				{
 					case Currenies.USD:
 						yAxisMax = 2;
@@ -183,6 +167,9 @@ namespace WPF
 
 			YAxis.Maximum = converter.Convert(yAxisMax);
 		}
+
+		#endregion
+
 
 		#region Event handler methods
 
@@ -213,7 +200,7 @@ namespace WPF
 
 			if(onlyControl || onlyAlt || onlyAltControl)
 			{
-				var date = SummaryDate.SelectedDate ?? DateTime.Today;
+				var date = SummaryDatePicker.SelectedDate ?? DateTime.Today;
 				var key = e.Key == Key.System ? e.SystemKey : e.Key;
 				bool handled = true;
 
@@ -273,7 +260,7 @@ namespace WPF
 			}
 		}
 
-		private void SummaryDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+		private void SummaryDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
 		{
 			// -- Save
 
@@ -355,7 +342,7 @@ namespace WPF
 				return;
 
 			var expenseItem = Model.ActualExpenseItem.DeepClone();
-			expenseItem.Date = SummaryDate.SelectedDate.Value;
+			expenseItem.Date = SummaryDatePicker.SelectedDate.Value;
 			Model.DailyExpenses.Add(expenseItem);
 			NewExpenseTitleTB.Focus();
 		}
@@ -420,7 +407,7 @@ namespace WPF
 
 		private void RedoMonthlyExpensesButton_OnClick(object sender, RoutedEventArgs e)
 		{
-			var selectedDate = SummaryDate.SelectedDate ?? DateTime.Now;
+			var selectedDate = SummaryDatePicker.SelectedDate ?? DateTime.Now;
 			Model.MonthlyExpenses = new MonthlyExpenses(selectedDate, /* doWork */ true);
 		}
 
@@ -429,7 +416,7 @@ namespace WPF
 			if(MonthlyExpensesLV.SelectedIndex != -1)
 			{
 				var selectedExpenseItem = (ExpenseItem)MonthlyExpensesLV.SelectedItem;
-				SummaryDate.SelectedDate = selectedExpenseItem.Date;
+				SummaryDatePicker.SelectedDate = selectedExpenseItem.Date;
 				MainTabControl.SelectedIndex = (int)TabSummaryNumber.DailyExpenses;
 
 				var equalExpenseItem = Model.DailyExpenses.GetTheEqual(selectedExpenseItem);
@@ -464,7 +451,7 @@ namespace WPF
 		private void AddIncomeButton_OnClick(object sender, RoutedEventArgs e)
 		{
 			var incomeItem = Model.ActualIncomeItem.DeepClone();
-			incomeItem.Date = SummaryDate.SelectedDate.Value;
+			incomeItem.Date = SummaryDatePicker.SelectedDate.Value;
 			Model.MonthlyIncomes.Add(incomeItem);
 			NewIncomeTitleTB.Focus();
 		}

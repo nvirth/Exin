@@ -407,7 +407,7 @@
                 <RowDefinition />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <DatePicker Grid.Row="0" x:Name="SummaryDate" SelectedDateChanged="SummaryDate_SelectedDateChanged" Margin="10, 10, 10, 0" />
+            <DatePicker Grid.Row="0" x:Name="SummaryDatePicker" SelectedDateChanged="SummaryDatePicker_SelectedDateChanged" Margin="10, 10, 10, 0" />
             <RichTextBox Grid.Row="1" x:Name="LogTB" VerticalScrollBarVisibility="Visible" IsReadOnly="True" IsReadOnlyCaretVisible="False" Margin="10" />
             <Button Grid.Row="2" Margin="10" Content="{x:Static res:Localized.Clear}" Click="ClearLogButton_OnClick" HorizontalAlignment="Right" 
                     FontWeight="{Binding Path=IsDefault, Converter={StaticResource IsDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"

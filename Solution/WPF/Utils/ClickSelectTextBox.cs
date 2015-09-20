@@ -49,12 +49,6 @@ namespace WPF.Utils
 			}
 		}
 
-		protected override void OnPreviewTextInput(TextCompositionEventArgs e)
-		{
-			//TODO test
-			base.OnPreviewTextInput(e);
-		}
-
 		private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
 		{
 			if(!IsNumeric)
