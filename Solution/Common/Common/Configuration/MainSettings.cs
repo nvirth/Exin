@@ -126,8 +126,8 @@ namespace Common.Configuration
 			}
 		}
 
-		public string Version { get; private set; }
-		public string LastInitVersion { get; private set; }
+		public Version Version { get; private set; }
+		public Version LastInitVersion { get; private set; }
 
 		public List<RepoXml> Repositories { get; private set; }
 		public UserSettingsXml UserSettings { get; private set; }
@@ -137,12 +137,18 @@ namespace Common.Configuration
 			try
 			{
 				var xmlDoc = XElement.Load(xmlFilePath);
-				var instance = xmlDoc.Elements(C.App).Select(xml => new MainSettings
-				{
-					Version = xml.ParseString(C.Version),
-					LastInitVersion = xml.ParseString(C.LastInitVersion),
-					UserSettings = UserSettingsXml.Parse(xml.Element(C.UserSettings)),
-					Repositories = xml.Element(C.Repositories).Elements(C.Repo).Select(RepoXml.Parse).ToList(),
+				var instance = xmlDoc.Elements(C.App).Select(xml => {
+					var versionStr = xml.ParseString(C.Version);
+					var lastInitVersionStr = xml.ParseString(C.LastInitVersion);
+
+					var result = new MainSettings 
+					{
+						Version = Version.Parse(versionStr),
+						LastInitVersion = Version.Parse(lastInitVersionStr),
+						UserSettings = UserSettingsXml.Parse(xml.Element(C.UserSettings)),
+						Repositories = xml.Element(C.Repositories).Elements(C.Repo).Select(RepoXml.Parse).ToList(),
+					};
+					return result;
 				})
 				.First();
 
@@ -174,6 +180,9 @@ namespace Common.Configuration
 				var msg = "These CurrentRepository values point to non-existing repo(s): {0}".Formatted(brokenRepoNames.Join("; "));
                 throw new ConfigurationErrorsException(msg);
 			}
+
+			if(LastInitVersion > Version)
+				throw new ConfigurationErrorsException("LastInitVersion > Version");
 		}
 	}
 	public static class MainSettingsHelpers // TODO move and use this
@@ -189,6 +198,25 @@ namespace Common.Configuration
 			var element = xml.Element(xName);
 			var result = (bool)element;
 			return result;
+		}
+		public static int ParseInt(this XElement xml, string xName)
+		{
+			var element = xml.Element(xName);
+			var result = (int)element;
+			return result;
+		}
+		public static int? ParseIntNullable(this XElement xml, string xName)
+		{
+			var element = xml.Element(xName);
+			if(element == null || element.IsEmpty) //IsEmpty won't work for "<Tag></Tag>", only for "<Tag />"
+				return null;
+
+			var stringValue = ((string)element).Trim();
+			if(string.IsNullOrWhiteSpace(stringValue))
+				return null;
+
+			var intValue = (int)element;
+			return intValue;
 		}
 	}
 }

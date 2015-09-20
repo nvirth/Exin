@@ -16,7 +16,7 @@ namespace Common.Configuration
 		RepoSettings Settings { get; }
 	}
 
-	public class Repo : RepoConfiguration, IRepo
+	public class Repo : IRepo
 	{
 		public RepoPaths Paths { get; private set; }
 		public RepoSettings Settings { get; private set; }
@@ -24,7 +24,7 @@ namespace Common.Configuration
 		public Repo(string rootDir)
 		{
 			Paths = new RepoPaths(rootDir);
-			Settings = new RepoSettings(Paths);
+			Settings = RepoSettings.Read(Paths.RepoSettingsFile);
 		}
 	}
 }

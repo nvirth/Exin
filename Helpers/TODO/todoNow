@@ -11,6 +11,8 @@ Implement MainSettings.xml and RepoSettings.xml things
 * Eliminate WPF/Config/... AppSettings.config and ConnectionStrings.config. Use the new xml files instead
 * Search for "ConfigurationManager.AppSettings" usages
 
+localization to config error messages (because they will appear on ui)
+
 ---
 TEST TransportData when the args From and To are both DB types
 

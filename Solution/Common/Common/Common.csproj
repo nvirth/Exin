@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\Config.cs" />
+    <Compile Include="Configuration\Currenies.cs" />
     <Compile Include="Configuration\RepoSettings.cs" />
     <Compile Include="Configuration\RepoConfiguration.cs" />
     <Compile Include="Configuration\Repo.cs" />

@@ -4,13 +4,13 @@
 -->
 <root>
   <App>
-    <!-- Can differ from the assembly version. 
+    <!-- Can differ from the assembly version. (Must not be null)
       If so, the xml settings probably did not get updated with the app, maybe because that was not necessary 
     -->
     <Version>0.0.4</Version>
     
-    <!-- The last version where the user made (valid) settings (via GUI) -->
-    <LastInitVersion></LastInitVersion>
+    <!-- The last version where the user made (valid) settings (via GUI). (Must not be null) -->
+    <LastInitVersion>0.0.0.0</LastInitVersion>
     
     <Repositories>
       <!-- Note, that an empty Repo declaration indicates the DevRepo in Debug mode -->
