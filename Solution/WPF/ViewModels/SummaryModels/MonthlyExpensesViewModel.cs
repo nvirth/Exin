@@ -8,7 +8,11 @@ namespace WPF.ViewModels.SummaryModels
 		public MonthlyExpenses MonthlyExpenses
 		{
 			get { return (MonthlyExpenses)SummaryEngine; }
-			set { SummaryEngine = value; }
+			set
+			{
+				SummaryEngine = value;
+				OnPropertyChanged();
+			}
 		}
 	}
 }

@@ -26,21 +26,18 @@ namespace WPF.ViewModels
 		private DailyExpensesViewModel _dailyExpensesViewModel;
 		public DailyExpensesViewModel DailyExpensesViewModel => _dailyExpensesViewModel ?? (_dailyExpensesViewModel = new DailyExpensesViewModel());
 
+		#region Delegated sub-properties
 
-		#region Obsolete
-
-		[Obsolete("Should be replaced with SummaryViewModel")]
 		public DailyExpenses DailyExpenses
 		{
 			get { return DailyExpensesViewModel.DailyExpenses; }
 			set
 			{
 				DailyExpensesViewModel.DailyExpenses = value;
-				OnPropertyChanged(); 
-			}
+				OnPropertyChanged();
+            }
 		}
 
-		[Obsolete("Should be replaced with SummaryViewModel")]
 		public MonthlyExpenses MonthlyExpenses
 		{
 			get { return MonthlyExpensesViewModel.MonthlyExpenses; }
@@ -51,7 +48,6 @@ namespace WPF.ViewModels
 			}
 		}
 
-		[Obsolete("Should be replaced with SummaryViewModel")]
 		public MonthlyIncomes MonthlyIncomes
 		{
 			get { return MonthlyIncomesViewModel.MonthlyIncomes; }
@@ -62,7 +58,6 @@ namespace WPF.ViewModels
 			}
 		}
 
-		[Obsolete("Should be replaced with SummaryViewModel")]
 		public IncomeItem ActualIncomeItem
 		{
 			get { return MonthlyIncomesViewModel.ActualIncomeItem; }
@@ -75,7 +70,6 @@ namespace WPF.ViewModels
 			}
 		}
 
-		[Obsolete("Should be replaced with SummaryViewModel")]
 		public ExpenseItem ActualExpenseItem
 		{
 			get { return DailyExpensesViewModel.ActualExpenseItem; }
@@ -90,13 +84,12 @@ namespace WPF.ViewModels
 
 		#endregion
 
-
 		private ObservableCollection<Category> _allCategories;
 		public ObservableCollection<Category> AllCategories => _allCategories ?? (_allCategories = new ObservableCollection<Category>(CategoryManager.Instance.GetAllValid()));
 
 		private ObservableCollection<Unit> _allUnits;
 		public ObservableCollection<Unit> AllUnits => _allUnits ?? (_allUnits = new ObservableCollection<Unit>(UnitManager.Instance.GetAllValid()));
 
-		public DatePickerFromCodeDateChanger DateChanger;
+		public DatePickerFromCodeDateChanger DateChanger { get; set; }
 	}
 }

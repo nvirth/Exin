@@ -8,13 +8,21 @@ namespace WPF.ViewModels.SummaryModels
 		public DailyExpenses DailyExpenses
 		{
 			get { return (DailyExpenses)SummaryEngine; }
-			set { SummaryEngine = value; }
+			set
+			{
+				SummaryEngine = value;
+				OnPropertyChanged();
+			}
 		}
 
 		public ExpenseItem ActualExpenseItem
 		{
 			get { return (ExpenseItem)ActualItem; }
-			set { ActualItem = value; }
+			set
+			{
+				ActualItem = value; 
+				OnPropertyChanged();
+			}
 		}
 	}
 }
