@@ -145,7 +145,7 @@
 
                                 <!--Column 1-->
                                 <utils:ClickSelectTextBox x:Name="NewExpenseTitleTB" Text="{validation:Binding Path=Title}" Grid.Row="0" Grid.Column="1" />
-                                <utils:ClickSelectTextBox Text="{validation:Binding Path=Amount}" Grid.Row="1" Grid.Column="1" />
+                                <utils:ClickSelectTextBox Text="{validation:Binding Path=Amount}" Grid.Row="1" Grid.Column="1" IsNumeric="True" />
                                 <ComboBox x:Name="CategoryCB" Grid.Row="2" Grid.Column="1" 
                                           ItemsSource="{Binding ElementName=mainWindow, Path=ViewModel.AllCategories}"
                                           SelectedItem="{Binding Path=Category}"
@@ -157,7 +157,7 @@
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
-                                <utils:ClickSelectTextBox Text="{validation:Binding Path=Quantity}" Grid.Row="3" Grid.Column="1" />
+                                <utils:ClickSelectTextBox Text="{validation:Binding Path=Quantity}" Grid.Row="3" Grid.Column="1" IsNumeric="True" />
                                 <ComboBox x:Name="UnitCB" Grid.Row="4" Grid.Column="1" 
                                           ItemsSource="{Binding ElementName=mainWindow, Path=ViewModel.AllUnits}"
                                           SelectedItem="{Binding Path=Unit}"
@@ -321,7 +321,7 @@
 
                                 <!--Column 1-->
                                 <utils:ClickSelectTextBox x:Name="NewIncomeTitleTB" Text="{validation:Binding Path=Title}" Grid.Row="0" Grid.Column="1" />
-                                <utils:ClickSelectTextBox Text="{validation:Binding Path=Amount}" Grid.Row="1" Grid.Column="1" />
+                                <utils:ClickSelectTextBox Text="{validation:Binding Path=Amount}" Grid.Row="1" Grid.Column="1" IsNumeric="True" />
                                 <utils:ClickSelectTextBox Text="{validation:Binding Path=Comment}" Grid.Row="2" Grid.Column="1" />
                             </Grid>
                             <WrapPanel Margin="0,10,0,0" FlowDirection="RightToLeft">

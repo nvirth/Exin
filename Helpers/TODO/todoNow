@@ -1,5 +1,3 @@
-* The Amount numeric field is problematic...
-
 * ConnectionStrings in the system: config files exist, but they are not in use in the ExinConnectionString already and yet. They've been removed already, and not reapplied yet.
 ** We won't need to manually read this config file, the ConfigurationManager will fit. This way, every App.config file has to have the config file's location; but that's the same - and changless - everywhere. So we story the ConnectionString data in 1 place.
 *** BTW, the .csproj files have to be modified in the .exe projects; we have to set these files to be copied.
