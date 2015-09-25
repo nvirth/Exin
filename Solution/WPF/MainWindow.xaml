@@ -368,7 +368,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{x:Static res:Localized.Y_axis_max__}" />
                                 <utils:ClickSelectTextBox x:Name="YAxisMaxTB" Width="30" LostFocus="YAxisMaxTB_OnLostFocus" IsNumeric="True"
-                                                          Text="{Binding Maximum, ElementName=YAxis, Converter={StaticResource ChartYAxisMaxConverter}, UpdateSourceTrigger=PropertyChanged}" 
+                                                          Text="{Binding Maximum, ElementName=YAxis, Converter={StaticResource ChartYAxisMaxConverter}, UpdateSourceTrigger=PropertyChanged, Delay=500}" 
                                                           />
                             </StackPanel>
                         </StackPanel>
