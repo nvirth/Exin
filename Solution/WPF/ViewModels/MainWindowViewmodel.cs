@@ -11,7 +11,7 @@ namespace WPF.ViewModels
 {
 	public class MainWindowViewmodel : ChainedCommonBase
 	{
-		// Singleton instance here
+		// Singleton instance here (<-- ???)
 		private StatisticsViewmodel _statistics = new StatisticsViewmodel();
 		public StatisticsViewmodel Statistics
 		{

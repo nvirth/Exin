@@ -354,10 +354,8 @@ namespace WPF
 
 		private void DailyExpensesLV_MouseDoubleClick(object sender, MouseButtonEventArgs e)
 		{
-			var originalSource = e.OriginalSource as DependencyObject;
-			if(originalSource != null)
-				if(originalSource.FindAncestor<ListViewItem>() == null)
-					return; // DoubleClick is in ListView, but not in a ListViewItem
+			if(!CheckIfLisviewitemGotClicked(e))
+				return; // DoubleClick is in ListView, but not in a ListViewItem
 
 			if(DailyExpensesLV.SelectedIndex != -1)
 			{
@@ -369,7 +367,7 @@ namespace WPF
 		private void AddExpenseButton_OnClick(object sender, RoutedEventArgs e)
 		{
 			var errorMessage = Model.ActualExpenseItem.DoValidation();
-			if (!string.IsNullOrWhiteSpace(errorMessage))
+			if(!string.IsNullOrWhiteSpace(errorMessage))
 				return;
 
 			var expenseItem = Model.ActualExpenseItem.DeepClone();
@@ -444,6 +442,9 @@ namespace WPF
 
 		private void MonthlyExpensesLV_MouseDoubleClick(object sender, MouseButtonEventArgs e)
 		{
+			if(!CheckIfLisviewitemGotClicked(e))
+				return; // DoubleClick is in ListView, but not in a ListViewItem
+
 			if(MonthlyExpensesLV.SelectedIndex != -1)
 			{
 				var selectedExpenseItem = (ExpenseItem)MonthlyExpensesLV.SelectedItem;
@@ -515,10 +516,8 @@ namespace WPF
 
 		private void MonthlyIncomesLV_MouseDoubleClick(object sender, MouseButtonEventArgs e)
 		{
-			var originalSource = e.OriginalSource as DependencyObject;
-			if(originalSource != null)
-				if(originalSource.FindAncestor<ListViewItem>() == null)
-					return; // DoubleClick is in ListView, but not in a ListViewItem
+			if(!CheckIfLisviewitemGotClicked(e))
+				return; // DoubleClick is in ListView, but not in a ListViewItem
 
 			if(MonthlyIncomesLV.SelectedIndex != -1)
 			{
@@ -705,6 +704,15 @@ namespace WPF
 			dataView.Refresh();
 		}
 
+		private bool CheckIfLisviewitemGotClicked(RoutedEventArgs e)
+		{
+			var originalSource = e.OriginalSource as DependencyObject;
+			if(originalSource != null)
+				if(originalSource.FindAncestor<ListViewItem>() == null)
+					return false; // DoubleClick is in ListView, but not in a ListViewItem
+
+			return true;
+		}
 		#region Save
 
 		private MessageBoxResult PromptSaveWindow(MessageBoxButton buttons, bool saveDailyExpenses = true, bool saveMonthlyIncomes = true)
