@@ -12,10 +12,10 @@ using WPF.ViewModels.SummaryModels;
 
 namespace WPF.ViewModels
 {
-	public class MainWindowViewmodel : ChainedCommonBase
+	public class MainWindowViewModel : ChainedCommonBase
 	{
-		private StatisticsViewmodel _statistics;
-		public StatisticsViewmodel Statistics => _statistics ?? (_statistics = new StatisticsViewmodel());
+		private StatisticsViewModel _statistics;
+		public StatisticsViewModel Statistics => _statistics ?? (_statistics = new StatisticsViewModel());
 
 		private MonthlyIncomesViewModel _monthlyIncomesViewModel;
 		public MonthlyIncomesViewModel MonthlyIncomesViewModel => _monthlyIncomesViewModel ?? (_monthlyIncomesViewModel = new MonthlyIncomesViewModel());

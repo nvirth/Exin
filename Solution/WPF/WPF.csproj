@@ -114,8 +114,8 @@
     <Compile Include="ViewModels\SummaryModels\MonthlyExpensesViewModel.cs" />
     <Compile Include="ViewModels\SummaryModels\DailyExpensesViewModel.cs" />
     <Compile Include="ViewModels\SummaryModels\SummaryViewModelBase.cs" />
-    <Compile Include="ViewModels\MainWindowViewmodel.cs" />
-    <Compile Include="ViewModels\StatisticsViewmodel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\StatisticsViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

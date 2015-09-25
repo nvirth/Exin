@@ -11,7 +11,7 @@ using DAL.RepoCommon.Managers;
 
 namespace WPF.ViewModels
 {
-	public class StatisticsViewmodel : ChainedCommonBase
+	public class StatisticsViewModel : ChainedCommonBase
 	{
 		public DateTime StartDate { get; set; }
 		public DateTime EndDate { get; set; }

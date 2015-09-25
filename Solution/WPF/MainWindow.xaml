@@ -10,7 +10,7 @@
         xmlns:utils="clr-namespace:WPF.Utils"
         Title="{x:Static res:Localized.WindowTitle}" Height="600" Width="800" WindowStartupLocation="CenterScreen"
         Closing="MainWindow_OnClosing"
-        DataContext="{Binding Path=Model, RelativeSource={RelativeSource Self}}"
+        DataContext="{Binding Path=ViewModel, RelativeSource={RelativeSource Self}}"
         PreviewKeyUp="MainWindow_PreviewKeyUp"
         x:Name="mainWindow" MinHeight="480" MinWidth="650" >
     <Window.Resources>
@@ -107,7 +107,7 @@
                         </ListView.View>
                     </ListView>
                     <GroupBox Grid.Row="2" x:Name="ActualExpenseGP" Header="{x:Static res:Localized.New_daily_expense}" Margin="10" Padding="10"
-                        DataContext="{Binding ElementName=mainWindow, Path=Model.ActualExpenseItem}"      
+                        DataContext="{Binding ElementName=mainWindow, Path=ViewModel.ActualExpenseItem}"      
                         >
                         <StackPanel>
                             <Grid>
@@ -147,7 +147,7 @@
                                 <utils:ClickSelectTextBox x:Name="NewExpenseTitleTB" Text="{validation:Binding Path=Title}" Grid.Row="0" Grid.Column="1" />
                                 <utils:ClickSelectTextBox Text="{validation:Binding Path=Amount}" Grid.Row="1" Grid.Column="1" />
                                 <ComboBox x:Name="CategoryCB" Grid.Row="2" Grid.Column="1" 
-                                          ItemsSource="{Binding ElementName=mainWindow, Path=Model.AllCategories}"
+                                          ItemsSource="{Binding ElementName=mainWindow, Path=ViewModel.AllCategories}"
                                           SelectedItem="{Binding Path=Category}"
                                           PreviewTextInput="CategoryCB_PreviewTextInput" 
                                           >
@@ -159,7 +159,7 @@
                                 </ComboBox>
                                 <utils:ClickSelectTextBox Text="{validation:Binding Path=Quantity}" Grid.Row="3" Grid.Column="1" />
                                 <ComboBox x:Name="UnitCB" Grid.Row="4" Grid.Column="1" 
-                                          ItemsSource="{Binding ElementName=mainWindow, Path=Model.AllUnits}"
+                                          ItemsSource="{Binding ElementName=mainWindow, Path=ViewModel.AllUnits}"
                                           SelectedItem="{Binding Path=Unit}"
                                           PreviewTextInput="UnitCB_PreviewTextInput"
                                           >
@@ -290,7 +290,7 @@
                         </ListView.View>
                     </ListView>
                     <GroupBox Grid.Row="2" x:Name="ActualIncomeGP" Header="{x:Static res:Localized.New_monthly_income}"  Margin="10" Padding="10"
-                              DataContext="{Binding ElementName=mainWindow, Path=Model.ActualIncomeItem}"
+                              DataContext="{Binding ElementName=mainWindow, Path=ViewModel.ActualIncomeItem}"
                               >
                         <StackPanel>
                             <Grid>

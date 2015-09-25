@@ -39,13 +39,13 @@ namespace WPF
 
 		#region MainWindowViewmodel
 
-		private MainWindowViewmodel _model;
-		public MainWindowViewmodel Model
+		private MainWindowViewModel _viewModel;
+		public MainWindowViewModel ViewModel
 		{
-			get { return _model; }
+			get { return _viewModel; }
 			set
 			{
-				_model = value;
+				_viewModel = value;
 				OnPropertyChanged();
 			}
 		}
@@ -206,7 +206,7 @@ namespace WPF
 			// In XAML, the event is bound; but the TextChange event fires this twice... Fix with ..DateChanger
 			SummaryDatePicker.SelectedDateChanged -= SummaryDatePicker_SelectedDateChanged;
 			SummaryDatePicker.SelectedDate = startDate;
-			Model.DateChanger = new DatePickerFromCodeDateChanger(SummaryDatePicker, SummaryDatePicker_SelectedDateChanged);
+			ViewModel.DateChanger = new DatePickerFromCodeDateChanger(SummaryDatePicker, SummaryDatePicker_SelectedDateChanged);
 
 			if(!Config.MainSettings.UserSettings.AllowsFutureDate)
 				SummaryDatePicker.DisplayDateEnd = DateTime.Today;
@@ -214,17 +214,17 @@ namespace WPF
 
 		private void InitModel(DateTime startDate)
 		{
-			Model = new MainWindowViewmodel {
+			ViewModel = new MainWindowViewModel {
 				DailyExpenses = new DailyExpenses(startDate, /*doWork*/ true),
 				MonthlyExpenses = new MonthlyExpenses(startDate, /*doWork*/ false),
 				MonthlyIncomes = new MonthlyIncomes(startDate, /*doWork*/ false),
 			};
 
 			// These MUST NOT be in the object initializer (so these would be validated at now)
-			Model.ActualExpenseItem = new ExpenseItem();
-			Model.ActualIncomeItem = new IncomeItem();
+			ViewModel.ActualExpenseItem = new ExpenseItem();
+			ViewModel.ActualIncomeItem = new IncomeItem();
 
-			Model.Statistics.SetDateToMonthly(startDate);
+			ViewModel.Statistics.SetDateToMonthly(startDate);
 		}
 
 		private void InitStatistics()
@@ -368,7 +368,7 @@ namespace WPF
 							break;
 					}
 				}
-				Model.DateChanger.ChangeSelectedDate(date);
+				ViewModel.DateChanger.ChangeSelectedDate(date);
 				e.Handled = handled;
 			}
 		}
@@ -386,11 +386,11 @@ namespace WPF
 			var isNewMonth = selectedDate.Month != originalDate.Month || selectedDate.Year != originalDate.Year;
 			if(isNewMonth)
 			{
-				Model.MonthlyExpenses = new MonthlyExpenses(selectedDate, /*doWork*/ false);
-				Model.MonthlyIncomes = new MonthlyIncomes(selectedDate, /*doWork*/ false);
+				ViewModel.MonthlyExpenses = new MonthlyExpenses(selectedDate, /*doWork*/ false);
+				ViewModel.MonthlyIncomes = new MonthlyIncomes(selectedDate, /*doWork*/ false);
 			}
-			Model.DailyExpenses = new DailyExpenses(selectedDate, /*doWork*/ false); // There is anyway a new day
-			Model.Statistics.SetDateToMonthly(selectedDate);
+			ViewModel.DailyExpenses = new DailyExpenses(selectedDate, /*doWork*/ false); // There is anyway a new day
+			ViewModel.Statistics.SetDateToMonthly(selectedDate);
 
 			SwitchMainTab();
 		}
@@ -424,7 +424,7 @@ namespace WPF
 
 		private void ListViewsQuantityHeader_OnClick_Sort(object sender, RoutedEventArgs e)
 		{
-			var propertyName = Model.ActualExpenseItem.Property(ei => ei.Quantity);
+			var propertyName = ViewModel.ActualExpenseItem.Property(ei => ei.Quantity);
 			ItemsControlSorter.SortControl(e, sortByProperty: propertyName);
 			e.Handled = true;
 		}
@@ -442,7 +442,7 @@ namespace WPF
 			if(DailyExpensesLV.SelectedIndex != -1)
 			{
 				var selectedExpenseItem = DailyExpensesLV.SelectedItem as ExpenseItem;
-				Model.ActualExpenseItem = selectedExpenseItem;
+				ViewModel.ActualExpenseItem = selectedExpenseItem;
 
 				HighlightSelectedEditedDailyExpenseItem();
 			}
@@ -450,13 +450,13 @@ namespace WPF
 
 		private void AddExpenseButton_OnClick(object sender, RoutedEventArgs e)
 		{
-			var errorMessage = Model.ActualExpenseItem.DoValidation();
+			var errorMessage = ViewModel.ActualExpenseItem.DoValidation();
 			if(!string.IsNullOrWhiteSpace(errorMessage))
 				return;
 
-			var expenseItem = Model.ActualExpenseItem.DeepClone();
+			var expenseItem = ViewModel.ActualExpenseItem.DeepClone();
 			expenseItem.Date = SummaryDatePicker.SelectedDate.Value;
-			Model.DailyExpenses.Add(expenseItem);
+			ViewModel.DailyExpenses.Add(expenseItem);
 			NewExpenseTitleTB.Focus();
 		}
 
@@ -476,7 +476,7 @@ namespace WPF
 				if(previousSelectedEdited == selectedItem)
 					RemovePreviousSelectedEditedDailyExpenseItem();
 
-				Model.DailyExpenses.Remove(selectedItem);
+				ViewModel.DailyExpenses.Remove(selectedItem);
 			}
 
 			//NewExpenseButtonClick();
@@ -507,7 +507,7 @@ namespace WPF
 
 		private void NewExpenseButtonClick()
 		{
-			Model.ActualExpenseItem = new ExpenseItem();
+			ViewModel.ActualExpenseItem = new ExpenseItem();
 			DailyExpensesLV.SelectedIndex = -1;
 			NewExpenseTitleTB.Focus();
 			RemovePreviousSelectedEditedDailyExpenseItem();
@@ -521,7 +521,7 @@ namespace WPF
 		private void DailyExpensesLV_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var sumSelection = Summary.Summarize(DailyExpensesLV.SelectedItems.Cast<TransactionItemBase>());
-			Model.DailyExpenses.SummaryForSelection = sumSelection;
+			ViewModel.DailyExpenses.SummaryForSelection = sumSelection;
 		}
 
 		#endregion
@@ -531,7 +531,7 @@ namespace WPF
 		private void RedoMonthlyExpensesButton_OnClick(object sender, RoutedEventArgs e)
 		{
 			var selectedDate = SummaryDatePicker.SelectedDate ?? DateTime.Now;
-			Model.MonthlyExpenses = new MonthlyExpenses(selectedDate, /* doWork */ true);
+			ViewModel.MonthlyExpenses = new MonthlyExpenses(selectedDate, /* doWork */ true);
 		}
 
 		private void MonthlyExpensesLV_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -545,14 +545,14 @@ namespace WPF
 				SummaryDatePicker.SelectedDate = selectedExpenseItem.Date;
 				MainTabControl.SelectedIndex = (int)TabSummaryNumber.DailyExpenses;
 
-				var equalExpenseItem = Model.DailyExpenses.GetTheEqual(selectedExpenseItem);
+				var equalExpenseItem = ViewModel.DailyExpenses.GetTheEqual(selectedExpenseItem);
 				if(equalExpenseItem == null)
 				{
 					MessagePresenter.Instance.WriteError(Localized.The_chosen_expense_item_already_exists__);
 					return;
 				}
 
-				Model.ActualExpenseItem = equalExpenseItem;
+				ViewModel.ActualExpenseItem = equalExpenseItem;
 				DailyExpensesLV.SelectedItem = equalExpenseItem;
 
 				//http://stackoverflow.com/questions/13955340/keyboard-focus-does-not-work-on-text-box-in-wpf
@@ -567,7 +567,7 @@ namespace WPF
 		private void MonthlyExpensesLV_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var sumSelection = Summary.Summarize(MonthlyExpensesLV.SelectedItems.Cast<TransactionItemBase>());
-			Model.MonthlyExpenses.SummaryForSelection = sumSelection;
+			ViewModel.MonthlyExpenses.SummaryForSelection = sumSelection;
 		}
 
 		#endregion
@@ -576,9 +576,9 @@ namespace WPF
 
 		private void AddIncomeButton_OnClick(object sender, RoutedEventArgs e)
 		{
-			var incomeItem = Model.ActualIncomeItem.DeepClone();
+			var incomeItem = ViewModel.ActualIncomeItem.DeepClone();
 			incomeItem.Date = SummaryDatePicker.SelectedDate.Value;
-			Model.MonthlyIncomes.Add(incomeItem);
+			ViewModel.MonthlyIncomes.Add(incomeItem);
 			NewIncomeTitleTB.Focus();
 		}
 
@@ -598,7 +598,7 @@ namespace WPF
 				if(previousSelectedEdited == selectedItem)
 					RemovePreviousSelectedEditedMonthlyIncomeItem();
 
-				Model.MonthlyIncomes.Remove(selectedItem);
+				ViewModel.MonthlyIncomes.Remove(selectedItem);
 			}
 
 			//NewIncomeButtonClick();
@@ -612,7 +612,7 @@ namespace WPF
 
 		private void NewIncomeButtonClick()
 		{
-			Model.ActualIncomeItem = new IncomeItem();
+			ViewModel.ActualIncomeItem = new IncomeItem();
 			MonthlyIncomesLV.SelectedIndex = -1;
 			NewIncomeTitleTB.Focus();
 			RemovePreviousSelectedEditedMonthlyIncomeItem();
@@ -626,7 +626,7 @@ namespace WPF
 			if(MonthlyIncomesLV.SelectedIndex != -1)
 			{
 				var selectedIncomeItem = MonthlyIncomesLV.SelectedItem as IncomeItem;
-				Model.ActualIncomeItem = selectedIncomeItem;
+				ViewModel.ActualIncomeItem = selectedIncomeItem;
 
 				HighlightSelectedEditedMonthlyIncomeItem();
 			}
@@ -657,7 +657,7 @@ namespace WPF
 		private void MonthlyIncomesLV_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var sumSelection = Summary.Summarize(MonthlyIncomesLV.SelectedItems.Cast<TransactionItemBase>());
-			Model.MonthlyIncomes.SummaryForSelection = sumSelection;
+			ViewModel.MonthlyIncomes.SummaryForSelection = sumSelection;
 		}
 
 		#endregion
@@ -666,7 +666,7 @@ namespace WPF
 
 		private void RedoStatisticsButton_OnClick(object sender, RoutedEventArgs e)
 		{
-			Model.Statistics.Refresh();
+			ViewModel.Statistics.Refresh();
 		}
 
 		private void YAxisMaxTB_OnLostFocus(object sender, RoutedEventArgs e)
@@ -732,11 +732,11 @@ namespace WPF
 				throw new ArgumentNullException("listView", "MainWindow.ListView2SummaryEngineBase: Argument 'listView' cannot be null. ");
 
 			if(listView == DailyExpensesLV)
-				return Model.DailyExpenses;
+				return ViewModel.DailyExpenses;
 			else if(listView == MonthlyExpensesLV)
-				return Model.MonthlyExpenses;
+				return ViewModel.MonthlyExpenses;
 			else if(listView == MonthlyIncomesLV)
-				return Model.MonthlyIncomes;
+				return ViewModel.MonthlyIncomes;
 			else
 			{
 				if(returnNull)
@@ -755,11 +755,11 @@ namespace WPF
 			if(summaryEngineBaseName == null)
 				throw new ArgumentNullException("summaryEngineBaseName");
 
-			if(summaryEngineBaseName == Model.Property(vm => vm.DailyExpenses))
+			if(summaryEngineBaseName == ViewModel.Property(vm => vm.DailyExpenses))
 				return DailyExpensesLV;
-			else if(summaryEngineBaseName == Model.Property(vm => vm.MonthlyExpenses))
+			else if(summaryEngineBaseName == ViewModel.Property(vm => vm.MonthlyExpenses))
 				return MonthlyExpensesLV;
-			else if(summaryEngineBaseName == Model.Property(vm => vm.MonthlyIncomes))
+			else if(summaryEngineBaseName == ViewModel.Property(vm => vm.MonthlyIncomes))
 				return MonthlyIncomesLV;
 			else
 			{
@@ -776,19 +776,19 @@ namespace WPF
 			switch(tabSummaryNumber)
 			{
 				case TabSummaryNumber.DailyExpenses:
-					if(!Model.DailyExpenses.IsReady)
-						Model.DailyExpenses.LoadData();
-					ApplySortDescriptions(DailyExpensesLV, Model.DailyExpenses);
+					if(!ViewModel.DailyExpenses.IsReady)
+						ViewModel.DailyExpenses.LoadData();
+					ApplySortDescriptions(DailyExpensesLV, ViewModel.DailyExpenses);
 					break;
 				case TabSummaryNumber.MonthlyExpenses:
-					if(!Model.MonthlyExpenses.IsReady)
-						Model.MonthlyExpenses.LoadData();
-					ApplySortDescriptions(MonthlyExpensesLV, Model.MonthlyExpenses);
+					if(!ViewModel.MonthlyExpenses.IsReady)
+						ViewModel.MonthlyExpenses.LoadData();
+					ApplySortDescriptions(MonthlyExpensesLV, ViewModel.MonthlyExpenses);
 					break;
 				case TabSummaryNumber.MonthlyIncomes:
-					if(!Model.MonthlyIncomes.IsReady)
-						Model.MonthlyIncomes.LoadData();
-					ApplySortDescriptions(MonthlyIncomesLV, Model.MonthlyIncomes);
+					if(!ViewModel.MonthlyIncomes.IsReady)
+						ViewModel.MonthlyIncomes.LoadData();
+					ApplySortDescriptions(MonthlyIncomesLV, ViewModel.MonthlyIncomes);
 					break;
 				case TabSummaryNumber.Statistics:
 					break;
@@ -891,10 +891,10 @@ namespace WPF
 
 		private MessageBoxResult PromptSaveWindow(MessageBoxButton buttons, bool saveDailyExpenses = true, bool saveMonthlyIncomes = true)
 		{
-			if(Model.DailyExpenses.IsModified || Model.MonthlyIncomes.IsModified)
+			if(ViewModel.DailyExpenses.IsModified || ViewModel.MonthlyIncomes.IsModified)
 			{
-				var needSaveDailyExpenses = saveDailyExpenses && Model.DailyExpenses.IsModified;
-				var needSaveMonthlyIncomes = saveMonthlyIncomes && Model.MonthlyIncomes.IsModified;
+				var needSaveDailyExpenses = saveDailyExpenses && ViewModel.DailyExpenses.IsModified;
+				var needSaveMonthlyIncomes = saveMonthlyIncomes && ViewModel.MonthlyIncomes.IsModified;
 
 				var msg = Localized.Save_changes_ + " (";
 				msg += needSaveDailyExpenses ? Localized.daily_expenses__LowerCase : "";
@@ -912,12 +912,12 @@ namespace WPF
 		{
 			var errorMsg = "";
 
-			if(saveDailyExpenses && Model.DailyExpenses.IsModified)
+			if(saveDailyExpenses && ViewModel.DailyExpenses.IsModified)
 			{
 				MessagePresenter.Instance.WriteLineSeparator();
 				try
 				{
-					Model.DailyExpenses.SaveData();
+					ViewModel.DailyExpenses.SaveData();
 					MessagePresenter.Instance.WriteLine(Localized.Daily_expenses_saved_successfully__);
 				}
 				catch(Exception ex)
@@ -928,12 +928,12 @@ namespace WPF
 					errorMsg += msg;
 				}
 			}
-			if(saveMonthlyIncomes && Model.MonthlyIncomes.IsModified)
+			if(saveMonthlyIncomes && ViewModel.MonthlyIncomes.IsModified)
 			{
 				MessagePresenter.Instance.WriteLineSeparator();
 				try
 				{
-					Model.MonthlyIncomes.SaveData();
+					ViewModel.MonthlyIncomes.SaveData();
 					MessagePresenter.Instance.WriteLine(Localized.Monthly_incomes_saved_successfully__);
 				}
 				catch(Exception ex)
