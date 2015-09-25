@@ -828,4 +828,10 @@ A beviteli mezőkben:
   <data name="__in_selection__" xml:space="preserve">
     <value>, a kijelölésben: </value>
   </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Másol</value>
+  </data>
+  <data name="Add_copy" xml:space="preserve">
+    <value>Másolat hozzáadása</value>
+  </data>
 </root>

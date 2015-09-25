@@ -268,6 +268,15 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add copy.
+        /// </summary>
+        public static string Add_copy {
+            get {
+                return ResourceManager.GetString("Add_copy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Again.
         /// </summary>
         public static string Again {
@@ -466,6 +475,15 @@ namespace Localization {
             get {
                 return ResourceManager.GetString("Configuration_error__can_t_use_ReadMode_FromFile_and_SaveMode_OnlyToDb_together__" +
                         "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy.
+        /// </summary>
+        public static string Copy {
+            get {
+                return ResourceManager.GetString("Copy", resourceCulture);
             }
         }
         

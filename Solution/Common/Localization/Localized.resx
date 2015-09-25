@@ -828,4 +828,10 @@ or if you are familiar with SQL queries, you can also use the SQLite database fi
   <data name="__in_selection__" xml:space="preserve">
     <value>, in selection: </value>
   </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="Add_copy" xml:space="preserve">
+    <value>Add copy</value>
+  </data>
 </root>
