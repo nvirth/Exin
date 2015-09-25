@@ -1,5 +1,9 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
+using Common.Configuration;
+using Common.UiModels.WPF;
 using Common.Utils;
+using Common.Utils.Helpers;
 using Localization;
 
 namespace WPF.Utils
@@ -18,6 +22,16 @@ namespace WPF.Utils
 
 		public static void Copy(object sender, RoutedEventArgs e)
 		{
+			// TODO this is just a sketch yet, for DailyExpenses
+			//Config.MainSettings.UserSettings.CopyFormat
+			var xml = _mainWindow.DailyExpensesLV.SelectedItems
+				.Cast<ExpenseItem>()
+				.Select(ei => ei.ToXml().ToString())
+				.Join("\r\n");
+
+			if(!string.IsNullOrWhiteSpace(xml))
+				Clipboard.SetText(xml, TextDataFormat.Text);
+
 			MessagePresenter.Instance.WriteLine(Localized.Copy_menuitem_is_not_implemented_yet);
 		}
 
