@@ -31,10 +31,7 @@ namespace WPF.ViewModels
 			OnPropertyChanged(this.Property(x => x.IncomesAndExpenses));
 		}
 
-		private Summary Summary
-		{
-			get { return SummaryManager.Instance.GetInterval(StartDate, EndDate); }
-		}
+		private Summary Summary => SummaryManager.Instance.GetInterval(StartDate, EndDate);
 
 		private IEnumerable<KeyValuePair<Category, int>> Incomes
 		{

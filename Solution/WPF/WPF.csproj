@@ -110,6 +110,10 @@
     <Compile Include="ValueConverters\NegateBoolConverter.cs" />
     <Compile Include="ValueConverters\RemoveButtonConverter.cs" />
     <Compile Include="ValueConverters\StringTruncateConverter.cs" />
+    <Compile Include="ViewModels\SummaryModels\MonthlyIncomesViewModel.cs" />
+    <Compile Include="ViewModels\SummaryModels\MonthlyExpensesViewModel.cs" />
+    <Compile Include="ViewModels\SummaryModels\DailyExpensesViewModel.cs" />
+    <Compile Include="ViewModels\SummaryModels\SummaryViewModelBase.cs" />
     <Compile Include="ViewModels\MainWindowViewmodel.cs" />
     <Compile Include="ViewModels\StatisticsViewmodel.cs" />
     <Page Include="MainWindow.xaml">

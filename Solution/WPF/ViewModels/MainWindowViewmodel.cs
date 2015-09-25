@@ -1,106 +1,102 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using BLL.WpfManagers;
 using Common.Db.Entities;
 using Common.UiModels.WPF;
 using Common.UiModels.WPF.Base;
+using Common.Utils.Helpers;
 using DAL.DataBase.Managers;
 using DAL.RepoCommon.Managers;
 using WPF.Utils;
+using WPF.ViewModels.SummaryModels;
 
 namespace WPF.ViewModels
 {
 	public class MainWindowViewmodel : ChainedCommonBase
 	{
-		// Singleton instance here (<-- ???)
-		private StatisticsViewmodel _statistics = new StatisticsViewmodel();
-		public StatisticsViewmodel Statistics
-		{
-			get { return _statistics; }
-			set
-			{
-				_statistics = value;
-				OnPropertyChanged();
-			}
-		}
+		private StatisticsViewmodel _statistics;
+		public StatisticsViewmodel Statistics => _statistics ?? (_statistics = new StatisticsViewmodel());
 
-		private DailyExpenses _dailyExpenses;
+		private MonthlyIncomesViewModel _monthlyIncomesViewModel;
+		public MonthlyIncomesViewModel MonthlyIncomesViewModel => _monthlyIncomesViewModel ?? (_monthlyIncomesViewModel = new MonthlyIncomesViewModel());
+
+		private MonthlyExpensesViewModel _monthlyExpensesViewModel;
+		public MonthlyExpensesViewModel MonthlyExpensesViewModel => _monthlyExpensesViewModel ?? (_monthlyExpensesViewModel = new MonthlyExpensesViewModel());
+
+		private DailyExpensesViewModel _dailyExpensesViewModel;
+		public DailyExpensesViewModel DailyExpensesViewModel => _dailyExpensesViewModel ?? (_dailyExpensesViewModel = new DailyExpensesViewModel());
+
+
+		#region Obsolete
+
+		[Obsolete("Should be replaced with SummaryViewModel")]
 		public DailyExpenses DailyExpenses
 		{
-			get { return _dailyExpenses; }
+			get { return DailyExpensesViewModel.DailyExpenses; }
 			set
 			{
-				SaveSort(_dailyExpenses, value);
-				_dailyExpenses = value;
-				OnPropertyChanged();
+				DailyExpensesViewModel.DailyExpenses = value;
+				OnPropertyChanged(); 
 			}
 		}
 
-		private MonthlyExpenses _monthlyExpenses;
+		[Obsolete("Should be replaced with SummaryViewModel")]
 		public MonthlyExpenses MonthlyExpenses
 		{
-			get { return _monthlyExpenses; }
+			get { return MonthlyExpensesViewModel.MonthlyExpenses; }
 			set
 			{
-				SaveSort(_monthlyExpenses, value);
-				_monthlyExpenses = value;
+				MonthlyExpensesViewModel.MonthlyExpenses = value;
 				OnPropertyChanged();
 			}
 		}
 
-		private MonthlyIncomes _monthlyIncomes;
+		[Obsolete("Should be replaced with SummaryViewModel")]
 		public MonthlyIncomes MonthlyIncomes
 		{
-			get { return _monthlyIncomes; }
+			get { return MonthlyIncomesViewModel.MonthlyIncomes; }
 			set
 			{
-				SaveSort(MonthlyIncomes, value);
-				_monthlyIncomes = value;
-				OnPropertyChanged();
+				MonthlyIncomesViewModel.MonthlyIncomes = value;
+				OnPropertyChanged(); 
 			}
 		}
 
-		private IncomeItem _actualIncomeItem;
+		[Obsolete("Should be replaced with SummaryViewModel")]
 		public IncomeItem ActualIncomeItem
 		{
-			get { return _actualIncomeItem; }
+			get { return MonthlyIncomesViewModel.ActualIncomeItem; }
 			set
 			{
-				_actualIncomeItem = value;
-
-				_actualIncomeItem.IsValidationOn = false;
+				MonthlyIncomesViewModel.ActualIncomeItem = value;
+				MonthlyIncomesViewModel.ActualIncomeItem.IsValidationOn = false;
 				OnPropertyChanged();
-				_actualIncomeItem.IsValidationOn = true;
+				MonthlyIncomesViewModel.ActualIncomeItem.IsValidationOn = true;
 			}
 		}
 
-		private ExpenseItem _actualExpenseItem;
+		[Obsolete("Should be replaced with SummaryViewModel")]
 		public ExpenseItem ActualExpenseItem
 		{
-			get { return _actualExpenseItem; }
+			get { return DailyExpensesViewModel.ActualExpenseItem; }
 			set
 			{
-				_actualExpenseItem = value;
-
-				_actualExpenseItem.IsValidationOn = false;
-				OnPropertyChanged();
-				_actualExpenseItem.IsValidationOn = true;
+				DailyExpensesViewModel.ActualExpenseItem = value;
+				DailyExpensesViewModel.ActualExpenseItem.IsValidationOn = false;
+				OnPropertyChanged(); 
+				DailyExpensesViewModel.ActualExpenseItem.IsValidationOn = true;
 			}
 		}
+
+		#endregion
+
 
 		private ObservableCollection<Category> _allCategories;
 		public ObservableCollection<Category> AllCategories => _allCategories ?? (_allCategories = new ObservableCollection<Category>(CategoryManager.Instance.GetAllValid()));
 
-	    private ObservableCollection<Unit> _allUnits;
+		private ObservableCollection<Unit> _allUnits;
 		public ObservableCollection<Unit> AllUnits => _allUnits ?? (_allUnits = new ObservableCollection<Unit>(UnitManager.Instance.GetAllValid()));
 
-	    public DatePickerFromCodeDateChanger DateChanger;
-
-		// ---
-
-		private void SaveSort(SummaryEngineBase oldValue, SummaryEngineBase newValue)
-		{
-			if(oldValue != null)
-				newValue.SortDescriptions = oldValue.SortDescriptions;
-		}
+		public DatePickerFromCodeDateChanger DateChanger;
 	}
 }

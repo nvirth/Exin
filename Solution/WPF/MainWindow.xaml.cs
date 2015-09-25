@@ -223,6 +223,7 @@ namespace WPF
 			// These MUST NOT be in the object initializer (so these would be validated at now)
 			Model.ActualExpenseItem = new ExpenseItem();
 			Model.ActualIncomeItem = new IncomeItem();
+
 			Model.Statistics.SetDateToMonthly(startDate);
 		}
 

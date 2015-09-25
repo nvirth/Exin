@@ -353,7 +353,7 @@
             </TabItem>
             <TabItem Header="{x:Static res:Localized.Statistics}">
                 <Grid x:Name="StatisticsPanel" 
-                            DataContext="{Binding Path=Statistics}"
+                            DataContext="{Binding Path=Statistics, Mode=OneWay}"
                     >
                     <Grid.Resources>
                         <ResourceDictionary Source="ResourceDictionaries/ChartResources.xaml" />
