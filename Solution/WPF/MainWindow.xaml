@@ -181,7 +181,7 @@
                                         IsEnabled="{Binding ElementName=DailyExpensesPanel, Path=DataContext.IsModified}" 
                                         FontWeight="{Binding Path=IsDefault, Converter={StaticResource IsDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
                                         />
-                                <Button Content="{Binding ElementName=mainWindow, Path=DailyExpensesAddButtonLabel}" 
+                                <Button Content="{Binding ElementName=mainWindow, Path=ViewModel.DailyExpensesViewModel.AddButtonLabel}" 
                                         Click="AddExpenseButton_OnClick" IsDefault="True"
                                         IsEnabled="{Binding Path=HasErrors, Converter={StaticResource NegateBoolConverter}}" 
                                         FontWeight="{Binding Path=IsDefault, Converter={StaticResource IsDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
@@ -334,7 +334,7 @@
                                         IsEnabled="{Binding ElementName=MonthlyIncomesPanel, Path=DataContext.IsModified}" 
                                         FontWeight="{Binding Path=IsDefault, Converter={StaticResource IsDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
                                         />
-                                <Button Content="{Binding ElementName=mainWindow, Path=MonthlyIncomesAddButtonLabel}" 
+                                <Button Content="{Binding ElementName=mainWindow, Path=ViewModel.MonthlyIncomesViewModel.AddButtonLabel}" 
                                         Click="AddIncomeButton_OnClick" IsDefault="True"
                                         IsEnabled="{Binding Path=HasErrors, Converter={StaticResource NegateBoolConverter}}" 
                                         FontWeight="{Binding Path=IsDefault, Converter={StaticResource IsDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"

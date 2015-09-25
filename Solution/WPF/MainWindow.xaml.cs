@@ -51,83 +51,6 @@ namespace WPF
 		}
 
 		#endregion
-		#region PrevDailyExpenseSeIdx
-
-		/// The index of the previous Selected-Edited daily expense item
-		private int _prevDailyExpenseSeIdx = -1;
-		public int PrevDailyExpenseSeIdx
-		{
-			get { return _prevDailyExpenseSeIdx; }
-			set
-			{
-				if(_prevDailyExpenseSeIdx == value)
-					return;
-
-				_prevDailyExpenseSeIdx = value;
-				OnPropertyChanged();
-				OnPropertyChanged(this.Property(x => x.DailyExpensesAddButtonLabel));
-			}
-		}
-
-		#endregion
-		#region PrevDailyExpenseOriginalFontWeight
-
-		/// The original FontWeight of the previous Selected-Edited daily expense item
-		private FontWeight _prevDailyExpenseOriginalFontWeight;
-		public FontWeight PrevDailyExpenseOriginalFontWeight
-		{
-			get { return _prevDailyExpenseOriginalFontWeight; }
-			set
-			{
-				if(_prevDailyExpenseOriginalFontWeight == value)
-					return;
-
-				_prevDailyExpenseOriginalFontWeight = value;
-				OnPropertyChanged();
-			}
-		}
-
-		#endregion
-		#region PrevMonthlyIncomeSeIdx
-
-		/// The index of the previous Selected-Edited montly income item
-		private int _prevMonthlyIncomeSeIdx;
-		public int PrevMonthlyIncomeSeIdx
-		{
-			get { return _prevMonthlyIncomeSeIdx; }
-			set
-			{
-				if(_prevMonthlyIncomeSeIdx == value)
-					return;
-
-				_prevMonthlyIncomeSeIdx = value;
-				OnPropertyChanged();
-				OnPropertyChanged(this.Property(x => x.MonthlyIncomesAddButtonLabel));
-			}
-		}
-
-		#endregion
-		#region PrevMonthlyIncomeOriginalFontWeight
-
-		/// The original FontWeight of the previous Selected-Edited montly income item
-		private FontWeight _prevMonthlyIncomeOriginalFontWeight;
-		public FontWeight PrevMonthlyIncomeOriginalFontWeight
-		{
-			get { return _prevMonthlyIncomeOriginalFontWeight; }
-			set
-			{
-				if(_prevMonthlyIncomeOriginalFontWeight == value)
-					return;
-
-				_prevMonthlyIncomeOriginalFontWeight = value;
-				OnPropertyChanged();
-			}
-		}
-
-		#endregion
-
-		public string DailyExpensesAddButtonLabel => PrevDailyExpenseSeIdx < 0 ? Localized.Add : Localized.Copy;
-		public string MonthlyIncomesAddButtonLabel => PrevMonthlyIncomeSeIdx < 0 ? Localized.Add : Localized.Copy;
 
 		#endregion
 
@@ -194,7 +117,7 @@ namespace WPF
 #endif
 			await SQLiteSpecific.InitSqliteFileIfNeeded(); // Has to be the first!
 
-			InitModel(startDate);
+			InitViewModel(startDate);
 			InitSummaryDatePicker(startDate);
 			ItemsControlSorter.Init(this);
 			MenuManager.Init(this);
@@ -212,13 +135,17 @@ namespace WPF
 				SummaryDatePicker.DisplayDateEnd = DateTime.Today;
 		}
 
-		private void InitModel(DateTime startDate)
+		private void InitViewModel(DateTime startDate)
 		{
 			ViewModel = new MainWindowViewModel {
 				DailyExpenses = new DailyExpenses(startDate, /*doWork*/ true),
 				MonthlyExpenses = new MonthlyExpenses(startDate, /*doWork*/ false),
 				MonthlyIncomes = new MonthlyIncomes(startDate, /*doWork*/ false),
 			};
+
+			ViewModel.DailyExpensesViewModel.ListView = DailyExpensesLV;
+			ViewModel.MonthlyExpensesViewModel.ListView = MonthlyExpensesLV;
+			ViewModel.MonthlyIncomesViewModel.ListView = MonthlyIncomesLV;
 
 			// These MUST NOT be in the object initializer (so these would be validated at now)
 			ViewModel.ActualExpenseItem = new ExpenseItem();
@@ -443,8 +370,6 @@ namespace WPF
 			{
 				var selectedExpenseItem = DailyExpensesLV.SelectedItem as ExpenseItem;
 				ViewModel.ActualExpenseItem = selectedExpenseItem;
-
-				HighlightSelectedEditedDailyExpenseItem();
 			}
 		}
 
@@ -467,17 +392,8 @@ namespace WPF
 
 		private void RemoveExpenseButtonClick()
 		{
-			object previousSelectedEdited = null;
-			if(PrevDailyExpenseSeIdx > 0 && PrevDailyExpenseSeIdx < DailyExpensesLV.Items.Count)
-				previousSelectedEdited = DailyExpensesLV.Items[PrevDailyExpenseSeIdx];
-
 			foreach(var selectedItem in DailyExpensesLV.SelectedItems.Cast<ExpenseItem>().ToList()) // There must be a .ToList call, because the source is synchronised immediately
-			{
-				if(previousSelectedEdited == selectedItem)
-					RemovePreviousSelectedEditedDailyExpenseItem();
-
 				ViewModel.DailyExpenses.Remove(selectedItem);
-			}
 
 			//NewExpenseButtonClick();
 			//NewExpenseTitleTB.Focus();
@@ -510,7 +426,6 @@ namespace WPF
 			ViewModel.ActualExpenseItem = new ExpenseItem();
 			DailyExpensesLV.SelectedIndex = -1;
 			NewExpenseTitleTB.Focus();
-			RemovePreviousSelectedEditedDailyExpenseItem();
 		}
 
 		private void SaveDailyExpensesButton_OnClick(object sender, RoutedEventArgs e)
@@ -589,17 +504,8 @@ namespace WPF
 
 		private void RemoveIncomeButtonClick()
 		{
-			object previousSelectedEdited = null;
-			if(PrevMonthlyIncomeSeIdx > 0 && PrevMonthlyIncomeSeIdx < MonthlyIncomesLV.Items.Count)
-				previousSelectedEdited = MonthlyIncomesLV.Items[PrevMonthlyIncomeSeIdx];
-
 			foreach(var selectedItem in MonthlyIncomesLV.SelectedItems.Cast<ExpenseItem>().ToList()) // There must be a .ToList call, because the source is synchronised immediately
-			{
-				if(previousSelectedEdited == selectedItem)
-					RemovePreviousSelectedEditedMonthlyIncomeItem();
-
 				ViewModel.MonthlyIncomes.Remove(selectedItem);
-			}
 
 			//NewIncomeButtonClick();
 			//NewIncomeTitleTB.Focus();
@@ -615,7 +521,6 @@ namespace WPF
 			ViewModel.ActualIncomeItem = new IncomeItem();
 			MonthlyIncomesLV.SelectedIndex = -1;
 			NewIncomeTitleTB.Focus();
-			RemovePreviousSelectedEditedMonthlyIncomeItem();
 		}
 
 		private void MonthlyIncomesLV_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -627,8 +532,6 @@ namespace WPF
 			{
 				var selectedIncomeItem = MonthlyIncomesLV.SelectedItem as IncomeItem;
 				ViewModel.ActualIncomeItem = selectedIncomeItem;
-
-				HighlightSelectedEditedMonthlyIncomeItem();
 			}
 		}
 
@@ -818,73 +721,6 @@ namespace WPF
 					return false; // DoubleClick is in ListView, but not in a ListViewItem
 
 			return true;
-		}
-
-		/// Adds highlight to the new selected-and-edited item in the ListView; and removes the highlight from the previous
-		private void HighlightSelectedEdited(ListView listView, ref int prevHighlightedIdx, ref FontWeight prevOriginalFontWeight)
-		{
-			if(prevHighlightedIdx != -1)
-			{
-				RemovePreviousSelectedEdited(listView, ref prevHighlightedIdx, ref prevOriginalFontWeight);
-			}
-			prevHighlightedIdx = listView.SelectedIndex;
-
-			var lvItem = (ListViewItem)listView.ItemContainerGenerator.ContainerFromIndex(listView.SelectedIndex);
-
-			prevOriginalFontWeight = lvItem.FontWeight;
-			lvItem.FontWeight = FontWeights.Bold;
-		}
-		private void HighlightSelectedEditedDailyExpenseItem()
-		{
-			var prevDailyExpenseSeIdx = PrevDailyExpenseSeIdx;
-			var prevDailyExpenseOriginalFontWeight = PrevDailyExpenseOriginalFontWeight;
-
-			HighlightSelectedEdited(DailyExpensesLV, ref prevDailyExpenseSeIdx, ref prevDailyExpenseOriginalFontWeight);
-
-			PrevDailyExpenseSeIdx = prevDailyExpenseSeIdx;
-			PrevDailyExpenseOriginalFontWeight = prevDailyExpenseOriginalFontWeight;
-		}
-		private void HighlightSelectedEditedMonthlyIncomeItem()
-		{
-			var prevMonthlyIncomeSeIdx = PrevMonthlyIncomeSeIdx;
-			var prevMonthlyIncomeOriginalFontWeight = PrevMonthlyIncomeOriginalFontWeight;
-
-			HighlightSelectedEdited(MonthlyIncomesLV, ref prevMonthlyIncomeSeIdx, ref prevMonthlyIncomeOriginalFontWeight);
-
-			PrevMonthlyIncomeSeIdx = prevMonthlyIncomeSeIdx;
-			PrevMonthlyIncomeOriginalFontWeight = prevMonthlyIncomeOriginalFontWeight;
-		}
-
-		/// Removes the highlight from the previous selected-and-edited item
-		private void RemovePreviousSelectedEdited(ListView listView, ref int prevHighlightedIdx, ref FontWeight prevOriginalFontWeight)
-		{
-			if(prevHighlightedIdx < 0 || prevHighlightedIdx >= listView.Items.Count)
-				return;
-
-			var prevLvItem = (ListViewItem)listView.ItemContainerGenerator.ContainerFromIndex(prevHighlightedIdx);
-			prevLvItem.FontWeight = prevOriginalFontWeight;
-
-			prevHighlightedIdx = -1;
-		}
-		private void RemovePreviousSelectedEditedDailyExpenseItem()
-		{
-			var prevDailyExpenseSeIdx = PrevDailyExpenseSeIdx;
-			var prevDailyExpenseOriginalFontWeight = PrevDailyExpenseOriginalFontWeight;
-
-			RemovePreviousSelectedEdited(DailyExpensesLV, ref prevDailyExpenseSeIdx, ref prevDailyExpenseOriginalFontWeight);
-
-			PrevDailyExpenseSeIdx = prevDailyExpenseSeIdx;
-			PrevDailyExpenseOriginalFontWeight = prevDailyExpenseOriginalFontWeight;
-		}
-		private void RemovePreviousSelectedEditedMonthlyIncomeItem()
-		{
-			var prevMonthlyIncomeSeIdx = PrevMonthlyIncomeSeIdx;
-			var prevMonthlyIncomeOriginalFontWeight = PrevMonthlyIncomeOriginalFontWeight;
-
-			RemovePreviousSelectedEdited(MonthlyIncomesLV, ref prevMonthlyIncomeSeIdx, ref prevMonthlyIncomeOriginalFontWeight);
-
-			PrevMonthlyIncomeSeIdx = prevMonthlyIncomeSeIdx;
-			PrevMonthlyIncomeOriginalFontWeight = prevMonthlyIncomeOriginalFontWeight;
 		}
 
 		#region Save

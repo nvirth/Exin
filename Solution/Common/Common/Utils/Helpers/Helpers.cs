@@ -38,6 +38,24 @@ namespace Common.Utils.Helpers
 
 		#region Normal methods
 
+		public static string CallerMemberName([CallerMemberName] string fnName = null)
+		{
+			return fnName;
+		}
+		public static string GetTag(object instance, [CallerMemberName] string fnName = null)
+		{
+			return GetTag(instance.GetType().Name, fnName);
+		}
+		public static string GetTag(Type type, [CallerMemberName] string fnName = null)
+		{
+			return GetTag(type.Name, fnName);
+		}
+		private static string GetTag(string typeName, string fnName)
+		{
+			var result = string.Format("{0}.{1}: ", typeName, fnName);
+			return result;
+		}
+
 		#region Console
 
 		public static void ExecuteWithConsoleColor(ConsoleColor color, Action action)
