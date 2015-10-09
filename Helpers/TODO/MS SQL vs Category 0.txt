@@ -1,0 +1,13 @@
+The problem is not in MS SQL, it does work properly!
+There are Check Constraints on the TransactionItem table; one of them gets violated, that is visible on the picture.
+The real problem is that the SQLite file does not have these constraints! The tool with which we convert the MS SQL db into SQLite does not convert the Check Constraints!
+
+There are check constraints in SQLite though; the syntax looks like this:
+
+CREATE TABLE test (
+  id       integer PRIMARY KEY NOT NULL UNIQUE,
+  status   text NOT NULL,
+  enddate  date,
+  /* Checks */
+  CHECK (status IN ("Current", "Complete"))
+);
