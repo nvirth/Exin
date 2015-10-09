@@ -220,7 +220,7 @@
                                     <Setter Property="Margin" Value="10,0,0,0"></Setter>
                                 </Style>
                             </WrapPanel.Resources>
-                            <Button Content="{x:Static res:Localized.Again}" Click="RedoMonthlyExpensesButton_OnClick"
+                            <Button Content="{x:Static res:Localized.Refresh}" Click="RedoMonthlyExpensesButton_OnClick"
                                     FontWeight="{Binding Path=IsDefault, Converter={StaticResource IsDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
                                 />
                         </WrapPanel>
@@ -380,7 +380,7 @@
                                     <Setter Property="Margin" Value="10,0,0,0"></Setter>
                                 </Style>
                             </WrapPanel.Resources>
-                            <Button Content="{x:Static res:Localized.Again}" Click="RedoStatisticsButton_OnClick"
+                            <Button Content="{x:Static res:Localized.Refresh}" Click="RedoStatisticsButton_OnClick"
                                     FontWeight="{Binding Path=IsDefault, Converter={StaticResource IsDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
                                     />
                         </WrapPanel>

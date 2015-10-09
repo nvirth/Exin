@@ -277,15 +277,6 @@ namespace Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Again.
-        /// </summary>
-        public static string Again {
-            get {
-                return ResourceManager.GetString("Again", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to All created successfully. .
         /// </summary>
         public static string All_created_successfully {
@@ -1414,6 +1405,15 @@ namespace Localization {
         public static string Reading_statistics_from_File_Repository_is_not_implemented___ETC_MSG {
             get {
                 return ResourceManager.GetString("Reading_statistics_from_File_Repository_is_not_implemented___ETC_MSG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refresh.
+        /// </summary>
+        public static string Refresh {
+            get {
+                return ResourceManager.GetString("Refresh", resourceCulture);
             }
         }
         

@@ -234,8 +234,8 @@ or if you are familiar with SQL queries, you can also use the SQLite database fi
   <data name="Y_axis_max__" xml:space="preserve">
     <value>Y axis max (thousands): </value>
   </data>
-  <data name="Again" xml:space="preserve">
-    <value>Again</value>
+  <data name="Refresh" xml:space="preserve">
+    <value>Refresh</value>
   </data>
   <data name="Todays_" xml:space="preserve">
     <value>Today's </value>
