@@ -234,6 +234,8 @@ namespace TransportData
 
 			AppDomain.CurrentDomain.UnhandledException += UnhadledExceptionHandler;
 
+			//ExinLog.ger.LogError("[INFO] TransportData started");
+
 			#region Parsing args
 
 			var parsedArgs = new ParsedArgs(args);
