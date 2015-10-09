@@ -62,7 +62,7 @@ namespace Common.Configuration
 			public const string MonthlyIncomesSum = "Incomes." + Config.FileExtension;
 		}
 
-		public class DirectoryInfosClass //TODO rename
+		public class DirectoryInfosClass
 		{
 			public readonly DirectoryInfo Root;
 			public readonly DirectoryInfo Summaries;
