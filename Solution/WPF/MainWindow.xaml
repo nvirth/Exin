@@ -45,13 +45,15 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="2*" MinWidth="420" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <e:MainMenu Grid.Row="0" Grid.ColumnSpan="2" MainWindow="{Binding RelativeSource={RelativeSource AncestorType={x:Type wpf:MainWindow}}}" />
+        <GridSplitter Grid.Row="1" Grid.Column="1" Width="3" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
+        <e:MainMenu Grid.Row="0" Grid.ColumnSpan="3" MainWindow="{Binding RelativeSource={RelativeSource AncestorType={x:Type wpf:MainWindow}}}" />
         <TabControl x:Name="MainTabControl" Grid.Column="0" Grid.Row="1" Margin="10" SelectionChanged="MainTabControl_SelectionChanged">
             <TabItem Header="{x:Static res:Localized.Daily_expenses}">
                 <Grid x:Name="DailyExpensesPanel" 
@@ -396,7 +398,7 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <Grid Grid.Column="1" Grid.Row="1"  >
+        <Grid Grid.Column="2" Grid.Row="1"  >
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
