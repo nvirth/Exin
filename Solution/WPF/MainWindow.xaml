@@ -8,6 +8,8 @@
         xmlns:validation="clr-namespace:Common.UiModels.WPF.Validation;assembly=Common"
         xmlns:res="clr-namespace:Localization;assembly=Localization"
         xmlns:utils="clr-namespace:WPF.Utils"
+        xmlns:e="clr-namespace:WPF.Controls"
+        xmlns:wpf="clr-namespace:WPF"
         Title="{x:Static res:Localized.WindowTitle}" Height="600" Width="800" WindowStartupLocation="CenterScreen"
         Closing="MainWindow_OnClosing"
         DataContext="{Binding Path=ViewModel, RelativeSource={RelativeSource Self}}"
@@ -49,16 +51,7 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Menu IsMainMenu="True" Grid.Row="0" Grid.ColumnSpan="2" >
-            <MenuItem Header="_Main">
-                <MenuItem Header="_Copy" Click="MenuItem_Copy_OnClick" />
-                <MenuItem Header="_Options" Click="MenuItem_Options_OnClick" />
-                <MenuItem Header="_Shortcuts" Click="MenuItem_Shortcuts_OnClick" />
-                <MenuItem Header="_Search" Click="MenuItem_Search_OnClick" />
-                <Separator />
-                <MenuItem Header="_Exit" Click="MenuItem_Exit_OnClick" />
-            </MenuItem>
-        </Menu>
+        <e:MainMenu Grid.Row="0" Grid.ColumnSpan="2" MainWindow="{Binding RelativeSource={RelativeSource AncestorType={x:Type wpf:MainWindow}}}" />
         <TabControl x:Name="MainTabControl" Grid.Column="0" Grid.Row="1" Margin="10" SelectionChanged="MainTabControl_SelectionChanged">
             <TabItem Header="{x:Static res:Localized.Daily_expenses}">
                 <Grid x:Name="DailyExpensesPanel" 

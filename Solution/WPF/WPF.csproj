@@ -95,10 +95,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\MainMenu.xaml.cs">
+      <DependentUpon>MainMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\ClickSelectTextBox.cs" />
     <Compile Include="Utils\DatePickerFromCodeDateChanger.cs" />
     <Compile Include="Utils\ItemsControlSorterCore.cs" />
-    <Compile Include="Utils\MenuManager.cs" />
+    <Compile Include="Controls\ViewModels\MainMenuViewModel.cs" />
     <Compile Include="Utils\ItemsControlSorter.cs" />
     <Compile Include="Utils\Util.cs" />
     <Compile Include="ValueConverters\NullToVisibilityConverter.cs" />
@@ -116,6 +119,10 @@
     <Compile Include="ViewModels\SummaryModels\SummaryViewModelBase.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\StatisticsViewModel.cs" />
+    <Page Include="Controls\MainMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

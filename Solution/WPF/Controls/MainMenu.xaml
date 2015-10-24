@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="WPF.Controls.MainMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPF.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             >
+    <Grid x:Name="LayoutRoot">
+        <Menu IsMainMenu="True" >
+            <MenuItem Header="_Main">
+                <MenuItem Header="_Copy" Click="MenuItem_Copy_OnClick" />
+                <MenuItem Header="_Options" Click="MenuItem_Options_OnClick" />
+                <MenuItem Header="_Shortcuts" Click="MenuItem_Shortcuts_OnClick" />
+                <MenuItem Header="_Search" Click="MenuItem_Search_OnClick" />
+                <Separator />
+                <MenuItem Header="_Exit" Click="MenuItem_Exit_OnClick" />
+            </MenuItem>
+        </Menu>
+    </Grid>
+</UserControl>

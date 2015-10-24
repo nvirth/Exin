@@ -120,7 +120,6 @@ namespace WPF
 			InitViewModel(startDate);
 			InitSummaryDatePicker(startDate);
 			ItemsControlSorter.Init(this);
-			MenuManager.Init(this);
 			InitStatistics();
 		}
 
@@ -580,36 +579,6 @@ namespace WPF
 		}
 
 		#endregion
-
-		#region Menu (delegating)
-
-		private void MenuItem_Copy_OnClick(object sender, RoutedEventArgs e)
-		{
-			MenuManager.Copy(sender, e);
-		}
-
-		private void MenuItem_Options_OnClick(object sender, RoutedEventArgs e)
-		{
-			MenuManager.Options(sender, e);
-		}
-
-		private void MenuItem_Shortcuts_OnClick(object sender, RoutedEventArgs e)
-		{
-			MenuManager.Shortcuts(sender, e);
-		}
-
-		private void MenuItem_Search_OnClick(object sender, RoutedEventArgs e)
-		{
-			MenuManager.Search(sender, e);
-		}
-
-		private void MenuItem_Exit_OnClick(object sender, RoutedEventArgs e)
-		{
-			MenuManager.Exit(sender, e);
-		}
-
-		#endregion
-
 
 		#region Common
 
