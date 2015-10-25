@@ -145,9 +145,9 @@ namespace WPF
 		private void InitViewModel(DateTime startDate)
 		{
 			var viewModel = new MainWindowViewModel {
-				DailyExpenses = new DailyExpenses(startDate, /*doWork*/ true),
-				MonthlyExpenses = new MonthlyExpenses(startDate, /*doWork*/ false),
-				MonthlyIncomes = new MonthlyIncomes(startDate, /*doWork*/ false),
+				DailyExpensesManager = new DailyExpensesManager(startDate, /*doWork*/ true),
+				MonthlyExpensesManager = new MonthlyExpensesManager(startDate, /*doWork*/ false),
+				MonthlyIncomesManager = new MonthlyIncomesManager(startDate, /*doWork*/ false),
 			};
 
 			viewModel.DailyExpensesViewModel.ListView = DailyExpensesLV;
@@ -325,10 +325,10 @@ namespace WPF
 			var isNewMonth = selectedDate.Month != originalDate.Month || selectedDate.Year != originalDate.Year;
 			if(isNewMonth)
 			{
-				ViewModel.MonthlyExpenses = new MonthlyExpenses(selectedDate, /*doWork*/ false);
-				ViewModel.MonthlyIncomes = new MonthlyIncomes(selectedDate, /*doWork*/ false);
+				ViewModel.MonthlyExpensesManager = new MonthlyExpensesManager(selectedDate, /*doWork*/ false);
+				ViewModel.MonthlyIncomesManager = new MonthlyIncomesManager(selectedDate, /*doWork*/ false);
 			}
-			ViewModel.DailyExpenses = new DailyExpenses(selectedDate, /*doWork*/ false); // There is anyway a new day
+			ViewModel.DailyExpensesManager = new DailyExpensesManager(selectedDate, /*doWork*/ false); // There is anyway a new day
 			ViewModel.Statistics.SetDateToMonthly(selectedDate);
 
 			SwitchMainTab();
@@ -393,7 +393,7 @@ namespace WPF
 		private void DailyExpensesLV_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var sumSelection = Summary.Summarize(DailyExpensesLV.SelectedItems.Cast<TransactionItemBase>());
-			ViewModel.DailyExpenses.SummaryForSelection = sumSelection;
+			ViewModel.DailyExpensesManager.SummaryForSelection = sumSelection;
 		}
 
 		#endregion
@@ -403,7 +403,7 @@ namespace WPF
 		private void RedoMonthlyExpensesButton_OnClick(object sender, RoutedEventArgs e)
 		{
 			var selectedDate = SummaryDatePicker.SelectedDate ?? DateTime.Now;
-			ViewModel.MonthlyExpenses = new MonthlyExpenses(selectedDate, /* doWork */ true);
+			ViewModel.MonthlyExpensesManager = new MonthlyExpensesManager(selectedDate, /* doWork */ true);
 		}
 
 		private void MonthlyExpensesLV_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -417,7 +417,7 @@ namespace WPF
 				SummaryDatePicker.SelectedDate = selectedExpenseItem.Date;
 				MainTabControl.SelectedIndex = (int)TabSummaryNumber.DailyExpenses;
 
-				var equalExpenseItem = ViewModel.DailyExpenses.GetTheEqual(selectedExpenseItem);
+				var equalExpenseItem = ViewModel.DailyExpensesManager.GetTheEqual(selectedExpenseItem);
 				if(equalExpenseItem == null)
 				{
 					MessagePresenter.Instance.WriteError(Localized.The_chosen_expense_item_already_exists__);
@@ -439,7 +439,7 @@ namespace WPF
 		private void MonthlyExpensesLV_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var sumSelection = Summary.Summarize(MonthlyExpensesLV.SelectedItems.Cast<TransactionItemBase>());
-			ViewModel.MonthlyExpenses.SummaryForSelection = sumSelection;
+			ViewModel.MonthlyExpensesManager.SummaryForSelection = sumSelection;
 		}
 
 		#endregion
@@ -478,7 +478,7 @@ namespace WPF
 		private void MonthlyIncomesLV_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var sumSelection = Summary.Summarize(MonthlyIncomesLV.SelectedItems.Cast<TransactionItemBase>());
-			ViewModel.MonthlyIncomes.SummaryForSelection = sumSelection;
+			ViewModel.MonthlyIncomesManager.SummaryForSelection = sumSelection;
 		}
 
 		#endregion
@@ -523,11 +523,11 @@ namespace WPF
 				throw new ArgumentNullException("listView", "MainWindow.ListView2SummaryEngineBase: Argument 'listView' cannot be null. ");
 
 			if(listView == DailyExpensesLV)
-				return ViewModel.DailyExpenses;
+				return ViewModel.DailyExpensesManager;
 			else if(listView == MonthlyExpensesLV)
-				return ViewModel.MonthlyExpenses;
+				return ViewModel.MonthlyExpensesManager;
 			else if(listView == MonthlyIncomesLV)
-				return ViewModel.MonthlyIncomes;
+				return ViewModel.MonthlyIncomesManager;
 			else
 			{
 				if(returnNull)
@@ -546,11 +546,11 @@ namespace WPF
 			if(summaryEngineBaseName == null)
 				throw new ArgumentNullException("summaryEngineBaseName");
 
-			if(summaryEngineBaseName == ViewModel.Property(vm => vm.DailyExpenses))
+			if(summaryEngineBaseName == ViewModel.Property(vm => vm.DailyExpensesManager))
 				return DailyExpensesLV;
-			else if(summaryEngineBaseName == ViewModel.Property(vm => vm.MonthlyExpenses))
+			else if(summaryEngineBaseName == ViewModel.Property(vm => vm.MonthlyExpensesManager))
 				return MonthlyExpensesLV;
-			else if(summaryEngineBaseName == ViewModel.Property(vm => vm.MonthlyIncomes))
+			else if(summaryEngineBaseName == ViewModel.Property(vm => vm.MonthlyIncomesManager))
 				return MonthlyIncomesLV;
 			else
 			{
@@ -567,19 +567,19 @@ namespace WPF
 			switch(tabSummaryNumber)
 			{
 				case TabSummaryNumber.DailyExpenses:
-					if(!ViewModel.DailyExpenses.IsReady)
-						ViewModel.DailyExpenses.LoadData();
-					ApplySortDescriptions(DailyExpensesLV, ViewModel.DailyExpenses);
+					if(!ViewModel.DailyExpensesManager.IsReady)
+						ViewModel.DailyExpensesManager.LoadData();
+					ApplySortDescriptions(DailyExpensesLV, ViewModel.DailyExpensesManager);
 					break;
 				case TabSummaryNumber.MonthlyExpenses:
-					if(!ViewModel.MonthlyExpenses.IsReady)
-						ViewModel.MonthlyExpenses.LoadData();
-					ApplySortDescriptions(MonthlyExpensesLV, ViewModel.MonthlyExpenses);
+					if(!ViewModel.MonthlyExpensesManager.IsReady)
+						ViewModel.MonthlyExpensesManager.LoadData();
+					ApplySortDescriptions(MonthlyExpensesLV, ViewModel.MonthlyExpensesManager);
 					break;
 				case TabSummaryNumber.MonthlyIncomes:
-					if(!ViewModel.MonthlyIncomes.IsReady)
-						ViewModel.MonthlyIncomes.LoadData();
-					ApplySortDescriptions(MonthlyIncomesLV, ViewModel.MonthlyIncomes);
+					if(!ViewModel.MonthlyIncomesManager.IsReady)
+						ViewModel.MonthlyIncomesManager.LoadData();
+					ApplySortDescriptions(MonthlyIncomesLV, ViewModel.MonthlyIncomesManager);
 					break;
 				case TabSummaryNumber.Statistics:
 					break;

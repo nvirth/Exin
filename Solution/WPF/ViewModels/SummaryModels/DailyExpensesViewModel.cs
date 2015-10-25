@@ -14,11 +14,11 @@ namespace WPF.ViewModels.SummaryModels
 		public override SummaryEngineBase SummaryEngine
 		{
 			get { return base.SummaryEngine; }
-			protected set { DailyExpenses = (DailyExpenses)value; }
+			protected set { DailyExpensesManager = (DailyExpensesManager)value; }
 		}
-		public DailyExpenses DailyExpenses
+		public DailyExpensesManager DailyExpensesManager
 		{
-			get { return (DailyExpenses)SummaryEngine; }
+			get { return (DailyExpensesManager)SummaryEngine; }
 			set
 			{
 				base.SummaryEngine = value;

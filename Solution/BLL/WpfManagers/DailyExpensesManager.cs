@@ -13,15 +13,15 @@ using Localization;
 
 namespace BLL.WpfManagers
 {
-	public class DailyExpenses : SummaryEngineBase
+	public class DailyExpensesManager : SummaryEngineBase
 	{
 		#region Ctors
 
-		public DailyExpenses(bool doWork = true) : this(DateTime.Now, doWork)
+		public DailyExpensesManager(bool doWork = true) : this(DateTime.Now, doWork)
 		{ }
-		public DailyExpenses(DateTime dateTime, bool doWork = true) : this(new DatePaths(dateTime), doWork)
+		public DailyExpensesManager(DateTime dateTime, bool doWork = true) : this(new DatePaths(dateTime), doWork)
 		{ }
-		public DailyExpenses(DatePaths datePaths, bool doWork = true) : base(datePaths, doWork)
+		public DailyExpensesManager(DatePaths datePaths, bool doWork = true) : base(datePaths, doWork)
 		{ }
 
 		#endregion

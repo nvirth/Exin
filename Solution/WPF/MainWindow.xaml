@@ -14,7 +14,7 @@
         Closing="MainWindow_OnClosing"
         DataContext="{Binding Path=ViewModel, RelativeSource={RelativeSource Self}}"
         PreviewKeyUp="MainWindow_PreviewKeyUp"
-        x:Name="mainWindow" MinHeight="480" MinWidth="640" >
+        x:Name="Window" MinHeight="480" MinWidth="640" >
     <Window.Resources>
         <valueConverters:IsDefaultToFontWeightConverter x:Key="IsDefaultToFontWeightConverter"/>
         <valueConverters:NegateBoolConverter x:Key="NegateBoolConverter"/>
@@ -57,7 +57,7 @@
         <TabControl x:Name="MainTabControl" Grid.Column="0" Grid.Row="1" Margin="10" SelectionChanged="MainTabControl_SelectionChanged">
             <TabItem Header="{x:Static res:Localized.Daily_expenses}">
                 <Grid x:Name="DailyExpensesPanel" 
-                            DataContext="{Binding Path=DailyExpenses}"
+                            DataContext="{Binding Path=DailyExpensesManager}"
                             >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -102,9 +102,9 @@
                         </ListView.View>
                     </ListView>
                     <e:NewTransactionForm Grid.Row="2" x:Name="ActualExpenseGP"
-                        DataContext="{Binding ElementName=mainWindow, Path=ViewModel.DailyExpensesViewModel.ActualExpenseItem}" 
-                        MainWindowViewModel="{Binding ElementName=mainWindow, Path=ViewModel}"
-                        ViewModel="{Binding ElementName=mainWindow, Path=ViewModel.DailyExpensesViewModel}"
+                        DataContext="{Binding ElementName=Window, Path=ViewModel.DailyExpensesViewModel.ActualExpenseItem}" 
+                        MainWindowViewModel="{Binding ElementName=Window, Path=ViewModel}"
+                        ViewModel="{Binding ElementName=Window, Path=ViewModel.DailyExpensesViewModel}"
                         Date="{Binding ElementName=SummaryDatePicker, Path=SelectedDate}"
                         Type="Expense"
                     />
@@ -112,7 +112,7 @@
             </TabItem>
             <TabItem Header="{x:Static res:Localized.Monthly_expenses}">
                 <Grid x:Name="MonthlyExpensesPanel" 
-                            DataContext="{Binding Path=MonthlyExpenses}"
+                            DataContext="{Binding Path=MonthlyExpensesManager}"
                             >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -173,7 +173,7 @@
             </TabItem>
             <TabItem Header="{x:Static res:Localized.Monthly_incomes}">
                 <Grid x:Name="MonthlyIncomesPanel" 
-                            DataContext="{Binding Path=MonthlyIncomes}"
+                            DataContext="{Binding Path=MonthlyIncomesManager}"
                             >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -202,9 +202,9 @@
                         </ListView.View>
                     </ListView>
                     <e:NewTransactionForm Grid.Row="2" x:Name="ActualIncomeGP"
-                        DataContext="{Binding ElementName=mainWindow, Path=ViewModel.MonthlyIncomesViewModel.ActualIncomeItem}" 
-                        MainWindowViewModel="{Binding ElementName=mainWindow, Path=ViewModel}" 
-                        ViewModel="{Binding ElementName=mainWindow, Path=ViewModel.MonthlyIncomesViewModel}"
+                        DataContext="{Binding ElementName=Window, Path=ViewModel.MonthlyIncomesViewModel.ActualIncomeItem}" 
+                        MainWindowViewModel="{Binding ElementName=Window, Path=ViewModel}" 
+                        ViewModel="{Binding ElementName=Window, Path=ViewModel.MonthlyIncomesViewModel}"
                         Date="{Binding ElementName=SummaryDatePicker, Path=SelectedDate}"
                         Type="Income"
                     />
@@ -269,7 +269,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <DatePicker Grid.Row="0" x:Name="SummaryDatePicker" Margin="10, 10, 10, 0"
-                        SelectedDate="{Binding ElementName=mainWindow, Path=StartDate, Mode=OneTime}">
+                        SelectedDate="{Binding ElementName=Window, Path=StartDate, Mode=OneTime}">
                         <!-- Set from code:
                             SelectedDateChanged="SummaryDatePicker_SelectedDateChanged"
                         -->

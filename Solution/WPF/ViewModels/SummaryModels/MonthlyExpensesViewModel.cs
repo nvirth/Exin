@@ -5,9 +5,9 @@ namespace WPF.ViewModels.SummaryModels
 {
 	public class MonthlyExpensesViewModel : SummaryViewModelBase
 	{
-		public MonthlyExpenses MonthlyExpenses
+		public MonthlyExpensesManager MonthlyExpensesManager
 		{
-			get { return (MonthlyExpenses)SummaryEngine; }
+			get { return (MonthlyExpensesManager)SummaryEngine; }
 			set
 			{
 				SummaryEngine = value;

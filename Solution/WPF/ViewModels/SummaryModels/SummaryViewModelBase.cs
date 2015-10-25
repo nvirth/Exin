@@ -27,7 +27,7 @@ namespace WPF.ViewModels.SummaryModels
 				_summaryEngine = value;
 				OnPropertyChanged();
 
-				_summaryEngine.TransactionItems.CollectionChanged += CheckIfPreviousSeceltedEditedRemoved;
+				_summaryEngine.TransactionItems.CollectionChanged += EnsurePreviousSeceltedEditedRemoved;
 			}
 		}
 
@@ -169,7 +169,7 @@ namespace WPF.ViewModels.SummaryModels
 			PrevSelectedEditedItem = null;
 		}
 
-		private void CheckIfPreviousSeceltedEditedRemoved(object sender, NotifyCollectionChangedEventArgs e)
+		private void EnsurePreviousSeceltedEditedRemoved(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			switch(e.Action)
 			{

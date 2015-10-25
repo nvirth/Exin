@@ -11,11 +11,11 @@ using Localization;
 
 namespace BLL.WpfManagers
 {
-	public class MonthlyIncomes : SummaryEngineBase
+	public class MonthlyIncomesManager : SummaryEngineBase
 	{
-		public MonthlyIncomes(bool doWork = true) : this(DateTime.Now, doWork) { }
-		public MonthlyIncomes(DateTime dateTime, bool doWork = true) : this(new DatePaths(dateTime), doWork) { }
-		public MonthlyIncomes(DatePaths datePaths, bool doWork = true) : base(datePaths, doWork) { }
+		public MonthlyIncomesManager(bool doWork = true) : this(DateTime.Now, doWork) { }
+		public MonthlyIncomesManager(DateTime dateTime, bool doWork = true) : this(new DatePaths(dateTime), doWork) { }
+		public MonthlyIncomesManager(DatePaths datePaths, bool doWork = true) : base(datePaths, doWork) { }
 
 		protected override void ReadDataMessage()
 		{

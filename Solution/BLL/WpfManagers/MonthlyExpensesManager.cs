@@ -8,13 +8,13 @@ using Localization;
 
 namespace BLL.WpfManagers
 {
-	public class MonthlyExpenses : SummaryEngineBase
+	public class MonthlyExpensesManager : SummaryEngineBase
 	{
 		#region Ctors
 
-		public MonthlyExpenses(bool doWork = true) : this(DateTime.Now, doWork) { }
-		public MonthlyExpenses(DateTime dateTime, bool doWork = true) : this(new DatePaths(dateTime), doWork) { }
-		public MonthlyExpenses(DatePaths datePaths, bool doWork = true) : base(datePaths, doWork) { }
+		public MonthlyExpensesManager(bool doWork = true) : this(DateTime.Now, doWork) { }
+		public MonthlyExpensesManager(DateTime dateTime, bool doWork = true) : this(new DatePaths(dateTime), doWork) { }
+		public MonthlyExpensesManager(DatePaths datePaths, bool doWork = true) : base(datePaths, doWork) { }
 
 		#endregion
 

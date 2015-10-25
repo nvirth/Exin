@@ -36,7 +36,7 @@ namespace WPF.ViewModels
 			// 
 			MonthlyIncomesViewModel.PropertyChanged += (sender, args) => {
 				var actualIncomeItemStr = this.Property(x => x.ActualIncomeItem);
-				var monthlyIncomesStr = this.Property(x => x.MonthlyIncomes);
+				var monthlyIncomesStr = this.Property(x => x.MonthlyIncomesManager);
 
 				if(args.PropertyName == monthlyIncomesStr)
 					OnPropertyChanged(monthlyIncomesStr);
@@ -44,13 +44,13 @@ namespace WPF.ViewModels
 					OnPropertyChanged(actualIncomeItemStr);
 			};
 			MonthlyExpensesViewModel.PropertyChanged += (sender, args) => {
-				var monthlyExpensesStr = this.Property(x => x.MonthlyExpenses);
+				var monthlyExpensesStr = this.Property(x => x.MonthlyExpensesManager);
 				if(args.PropertyName == monthlyExpensesStr)
 					OnPropertyChanged(monthlyExpensesStr);
 			};
 			DailyExpensesViewModel.PropertyChanged += (sender, args) => {
 				var actualExpenseItemStr = this.Property(x => x.ActualExpenseItem);
-				var dailyExpensesStr = this.Property(x => x.DailyExpenses);
+				var dailyExpensesStr = this.Property(x => x.DailyExpensesManager);
 
 				if(args.PropertyName == dailyExpensesStr)
 					OnPropertyChanged(dailyExpensesStr);
@@ -61,32 +61,32 @@ namespace WPF.ViewModels
 
 		#region Delegated sub-properties
 
-		public DailyExpenses DailyExpenses
+		public DailyExpensesManager DailyExpensesManager
 		{
-			get { return DailyExpensesViewModel.DailyExpenses; }
+			get { return DailyExpensesViewModel.DailyExpensesManager; }
 			set
 			{
-				DailyExpensesViewModel.DailyExpenses = value;
+				DailyExpensesViewModel.DailyExpensesManager = value;
 				OnPropertyChanged();
             }
 		}
 
-		public MonthlyExpenses MonthlyExpenses
+		public MonthlyExpensesManager MonthlyExpensesManager
 		{
-			get { return MonthlyExpensesViewModel.MonthlyExpenses; }
+			get { return MonthlyExpensesViewModel.MonthlyExpensesManager; }
 			set
 			{
-				MonthlyExpensesViewModel.MonthlyExpenses = value;
+				MonthlyExpensesViewModel.MonthlyExpensesManager = value;
 				OnPropertyChanged();
 			}
 		}
 
-		public MonthlyIncomes MonthlyIncomes
+		public MonthlyIncomesManager MonthlyIncomesManager
 		{
-			get { return MonthlyIncomesViewModel.MonthlyIncomes; }
+			get { return MonthlyIncomesViewModel.MonthlyIncomesManager; }
 			set
 			{
-				MonthlyIncomesViewModel.MonthlyIncomes = value;
+				MonthlyIncomesViewModel.MonthlyIncomesManager = value;
 				OnPropertyChanged(); 
 			}
 		}
@@ -133,12 +133,12 @@ namespace WPF.ViewModels
 		{
 			var errorMsg = "";
 
-			if(saveDailyExpenses && DailyExpenses.IsModified)
+			if(saveDailyExpenses && DailyExpensesManager.IsModified)
 			{
 				MessagePresenter.Instance.WriteLineSeparator();
 				try
 				{
-					DailyExpenses.SaveData();
+					DailyExpensesManager.SaveData();
 					MessagePresenter.Instance.WriteLine(Localized.Daily_expenses_saved_successfully__);
 				}
 				catch(Exception ex)
@@ -149,12 +149,12 @@ namespace WPF.ViewModels
 					errorMsg += msg;
 				}
 			}
-			if(saveMonthlyIncomes && MonthlyIncomes.IsModified)
+			if(saveMonthlyIncomes && MonthlyIncomesManager.IsModified)
 			{
 				MessagePresenter.Instance.WriteLineSeparator();
 				try
 				{
-					MonthlyIncomes.SaveData();
+					MonthlyIncomesManager.SaveData();
 					MessagePresenter.Instance.WriteLine(Localized.Monthly_incomes_saved_successfully__);
 				}
 				catch(Exception ex)
@@ -237,10 +237,10 @@ namespace WPF.ViewModels
 
 		public MessageBoxResult PromptSaveWindow(MessageBoxButton buttons, bool saveDailyExpenses = true, bool saveMonthlyIncomes = true)
 		{
-			if(DailyExpenses.IsModified || MonthlyIncomes.IsModified)
+			if(DailyExpensesManager.IsModified || MonthlyIncomesManager.IsModified)
 			{
-				var needSaveDailyExpenses = saveDailyExpenses && DailyExpenses.IsModified;
-				var needSaveMonthlyIncomes = saveMonthlyIncomes && MonthlyIncomes.IsModified;
+				var needSaveDailyExpenses = saveDailyExpenses && DailyExpensesManager.IsModified;
+				var needSaveMonthlyIncomes = saveMonthlyIncomes && MonthlyIncomesManager.IsModified;
 
 				var msg = Localized.Save_changes_ + " (";
 				msg += needSaveDailyExpenses ? Localized.daily_expenses__LowerCase : "";
