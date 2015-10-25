@@ -392,8 +392,7 @@ namespace WPF
 
 		private void DailyExpensesLV_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			var sumSelection = Summary.Summarize(DailyExpensesLV.SelectedItems.Cast<TransactionItemBase>());
-			ViewModel.DailyExpensesManager.SummaryForSelection = sumSelection;
+			OnListViewSelectionChanged(DailyExpensesLV, ViewModel.DailyExpensesManager);
 		}
 
 		#endregion
@@ -438,8 +437,7 @@ namespace WPF
 
 		private void MonthlyExpensesLV_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			var sumSelection = Summary.Summarize(MonthlyExpensesLV.SelectedItems.Cast<TransactionItemBase>());
-			ViewModel.MonthlyExpensesManager.SummaryForSelection = sumSelection;
+			OnListViewSelectionChanged(MonthlyExpensesLV, ViewModel.MonthlyExpensesManager);
 		}
 
 		#endregion
@@ -477,8 +475,7 @@ namespace WPF
 
 		private void MonthlyIncomesLV_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			var sumSelection = Summary.Summarize(MonthlyIncomesLV.SelectedItems.Cast<TransactionItemBase>());
-			ViewModel.MonthlyIncomesManager.SummaryForSelection = sumSelection;
+			OnListViewSelectionChanged(MonthlyIncomesLV, ViewModel.MonthlyIncomesManager);
 		}
 
 		#endregion
@@ -503,8 +500,15 @@ namespace WPF
 
 		private void OnListViewSelectionChanged(ListView listView, SummaryEngineBase summaryEngine)
 		{
-			var sumSelection = Summary.Summarize(listView.SelectedItems.Cast<TransactionItemBase>());
-			summaryEngine.SummaryForSelection = sumSelection;
+			if(listView.SelectedItems.Count > 1)
+			{
+				var sumSelection = Summary.Summarize(listView.SelectedItems.Cast<TransactionItemBase>());
+				summaryEngine.SummaryForSelection = sumSelection;
+			}
+			else
+			{
+				summaryEngine.SummaryForSelection = null;
+			}
 		}
 
 		#endregion
