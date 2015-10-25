@@ -86,7 +86,7 @@ namespace WPF
 					// For init, we turned these off in the ctor
 					MainTabControl.SelectionChanged += MainTabControl_SelectionChanged;
 					this.IsEnabled = true;
-					NewExpenseTitleTB.Focus();
+					ActualExpenseGP.TitleTb.Focus();
 				};
 		}
 
@@ -108,17 +108,25 @@ namespace WPF
 			}
 		}
 
+		public DateTime StartDate
+		{
+			get
+			{
+#if DEBUG
+				return new DateTime(2015, 1, 6); // According to FilerepoDeveloper.template
+#else
+				return DateTime.Today;
+#endif
+			}
+		}
+
+
 		private async Task Init()
 		{
-#if DEBUG
-			var startDate = new DateTime(2015, 1, 6); // According to FilerepoDeveloper.template
-#else
-			var startDate = DateTime.Today;
-#endif
 			await SQLiteSpecific.InitSqliteFileIfNeeded(); // Has to be the first!
 
-			InitViewModel(startDate);
-			InitSummaryDatePicker(startDate);
+			InitViewModel(StartDate);
+			InitSummaryDatePicker(StartDate);
 			ItemsControlSorter.Init(this);
 			InitStatistics();
 		}
@@ -136,21 +144,26 @@ namespace WPF
 
 		private void InitViewModel(DateTime startDate)
 		{
-			ViewModel = new MainWindowViewModel {
+			var viewModel = new MainWindowViewModel {
 				DailyExpenses = new DailyExpenses(startDate, /*doWork*/ true),
 				MonthlyExpenses = new MonthlyExpenses(startDate, /*doWork*/ false),
 				MonthlyIncomes = new MonthlyIncomes(startDate, /*doWork*/ false),
 			};
 
-			ViewModel.DailyExpensesViewModel.ListView = DailyExpensesLV;
-			ViewModel.MonthlyExpensesViewModel.ListView = MonthlyExpensesLV;
-			ViewModel.MonthlyIncomesViewModel.ListView = MonthlyIncomesLV;
+			viewModel.DailyExpensesViewModel.ListView = DailyExpensesLV;
+			viewModel.MonthlyExpensesViewModel.ListView = MonthlyExpensesLV;
+			viewModel.MonthlyIncomesViewModel.ListView = MonthlyIncomesLV;
 
-			// These MUST NOT be in the object initializer (so these would be validated at now)
-			ViewModel.ActualExpenseItem = new ExpenseItem();
-			ViewModel.ActualIncomeItem = new IncomeItem();
+			viewModel.DailyExpensesViewModel.TitleTextBox = ActualExpenseGP.TitleTb;
+			viewModel.MonthlyIncomesViewModel.TitleTextBox = ActualIncomeGP.TitleTb;
 
-			ViewModel.Statistics.SetDateToMonthly(startDate);
+			viewModel.Statistics.SetDateToMonthly(startDate);
+
+			ViewModel = viewModel;
+
+			// These MUST NOT be in the object initializer (so these would be validated now)
+			viewModel.ActualExpenseItem = new ExpenseItem();
+			viewModel.ActualIncomeItem = new IncomeItem();
 		}
 
 		private void InitStatistics()
@@ -216,7 +229,7 @@ namespace WPF
 
 		private async void MainWindow_OnClosing(object sender, CancelEventArgs e)
 		{
-			var messageBoxResult = SaveWithPromptYesNoCancel();
+			var messageBoxResult = ViewModel.SaveWithPromptYesNoCancel();
 			if(messageBoxResult == MessageBoxResult.Cancel)
 			{
 				e.Cancel = true; // Exit revoked, so do not exit
@@ -303,7 +316,7 @@ namespace WPF
 		{
 			// -- Save
 
-			SaveWithPromptYesNo();
+			ViewModel.SaveWithPromptYesNo();
 
 			// -- Change
 			var selectedDate = (e.AddedItems[0] as DateTime?) ?? DateTime.Today;
@@ -324,18 +337,6 @@ namespace WPF
 		private void MainTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			SwitchMainTab();
-		}
-
-		private void CategoryCB_PreviewTextInput(object sender, TextCompositionEventArgs e)
-		{
-			Func<object, string> stringSelector = comboBoxItem => ((Category)comboBoxItem).DisplayName;
-			CategoryCB.ComboBoxSearchKey(sender, e, stringSelector);
-		}
-
-		private void UnitCB_PreviewTextInput(object sender, TextCompositionEventArgs e)
-		{
-			Func<object, string> stringSelector = comboBoxItem => ((Unit)comboBoxItem).DisplayName;
-			UnitCB.ComboBoxSearchKey(sender, e, stringSelector);
 		}
 
 		private void ClearLogButton_OnClick(object sender, RoutedEventArgs e)
@@ -372,38 +373,12 @@ namespace WPF
 			}
 		}
 
-		private void AddExpenseButton_OnClick(object sender, RoutedEventArgs e)
-		{
-			var errorMessage = ViewModel.ActualExpenseItem.DoValidation();
-			if(!string.IsNullOrWhiteSpace(errorMessage))
-				return;
-
-			var expenseItem = ViewModel.ActualExpenseItem.DeepClone();
-			expenseItem.Date = SummaryDatePicker.SelectedDate.Value;
-			ViewModel.DailyExpenses.Add(expenseItem);
-			NewExpenseTitleTB.Focus();
-		}
-
-		private void RemoveExpenseButton_OnClick(object sender, RoutedEventArgs e)
-		{
-			RemoveExpenseButtonClick();
-		}
-
-		private void RemoveExpenseButtonClick()
-		{
-			foreach(var selectedItem in DailyExpensesLV.SelectedItems.Cast<ExpenseItem>().ToList()) // There must be a .ToList call, because the source is synchronised immediately
-				ViewModel.DailyExpenses.Remove(selectedItem);
-
-			//NewExpenseButtonClick();
-			//NewExpenseTitleTB.Focus();
-		}
-
 		private void DailyExpensesLV_KeyUp(object sender, KeyEventArgs e)
 		{
 			if(e.Key == Key.Delete)
 			{
 				var selectedIndex = DailyExpensesLV.SelectedIndex;
-				RemoveExpenseButtonClick();
+				ViewModel.DailyExpensesViewModel.Remove();
 
 				DailyExpensesLV.SelectedIndex = selectedIndex <= (DailyExpensesLV.Items.Count - 1)
 					? selectedIndex
@@ -413,23 +388,6 @@ namespace WPF
 
 				e.Handled = true;
 			}
-		}
-
-		private void NewExpenseButton_OnClick(object sender, RoutedEventArgs e)
-		{
-			NewExpenseButtonClick();
-		}
-
-		private void NewExpenseButtonClick()
-		{
-			ViewModel.ActualExpenseItem = new ExpenseItem();
-			DailyExpensesLV.SelectedIndex = -1;
-			NewExpenseTitleTB.Focus();
-		}
-
-		private void SaveDailyExpensesButton_OnClick(object sender, RoutedEventArgs e)
-		{
-			SaveDailyExpenses();
 		}
 
 		private void DailyExpensesLV_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -473,7 +431,7 @@ namespace WPF
 				//The code you posted should set the focus correctly, so something must be occurring afterwards
 				//to move Keyboard Focus out of your TextBox. By setting focus at a later dispatcher priority, 
 				//you'll be ensuring that setting keyboard focus to your SearchCriteriaTextBox gets done last.
-				Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() => NewExpenseTitleTB.Focus()));
+				Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() => ActualExpenseGP.TitleTb.Focus()));
 				//Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() => DailyExpensesLV.Focus()));
 			}
 		}
@@ -487,40 +445,6 @@ namespace WPF
 		#endregion
 
 		#region MonthlyIncomes
-
-		private void AddIncomeButton_OnClick(object sender, RoutedEventArgs e)
-		{
-			var incomeItem = ViewModel.ActualIncomeItem.DeepClone();
-			incomeItem.Date = SummaryDatePicker.SelectedDate.Value;
-			ViewModel.MonthlyIncomes.Add(incomeItem);
-			NewIncomeTitleTB.Focus();
-		}
-
-		private void RemoveIncomeButton_OnClick(object sender, RoutedEventArgs e)
-		{
-			RemoveIncomeButtonClick();
-		}
-
-		private void RemoveIncomeButtonClick()
-		{
-			foreach(var selectedItem in MonthlyIncomesLV.SelectedItems.Cast<ExpenseItem>().ToList()) // There must be a .ToList call, because the source is synchronised immediately
-				ViewModel.MonthlyIncomes.Remove(selectedItem);
-
-			//NewIncomeButtonClick();
-			//NewIncomeTitleTB.Focus();
-		}
-
-		private void NewIncomeButton_OnClick(object sender, RoutedEventArgs e)
-		{
-			NewIncomeButtonClick();
-		}
-
-		private void NewIncomeButtonClick()
-		{
-			ViewModel.ActualIncomeItem = new IncomeItem();
-			MonthlyIncomesLV.SelectedIndex = -1;
-			NewIncomeTitleTB.Focus();
-		}
 
 		private void MonthlyIncomesLV_MouseDoubleClick(object sender, MouseButtonEventArgs e)
 		{
@@ -539,7 +463,7 @@ namespace WPF
 			if(e.Key == Key.Delete)
 			{
 				var selectedIndex = MonthlyIncomesLV.SelectedIndex;
-				RemoveIncomeButtonClick();
+				ViewModel.MonthlyIncomesViewModel.Remove();
 
 				MonthlyIncomesLV.SelectedIndex = selectedIndex <= (MonthlyIncomesLV.Items.Count - 1)
 					? selectedIndex
@@ -549,11 +473,6 @@ namespace WPF
 
 				e.Handled = true;
 			}
-		}
-
-		private void SaveMonthlyIncomesButton_OnClick(object sender, RoutedEventArgs e)
-		{
-			SaveMonthlyIncomes();
 		}
 
 		private void MonthlyIncomesLV_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -692,153 +611,25 @@ namespace WPF
 			return true;
 		}
 
-		#region Save
-
-		private MessageBoxResult PromptSaveWindow(MessageBoxButton buttons, bool saveDailyExpenses = true, bool saveMonthlyIncomes = true)
-		{
-			if(ViewModel.DailyExpenses.IsModified || ViewModel.MonthlyIncomes.IsModified)
-			{
-				var needSaveDailyExpenses = saveDailyExpenses && ViewModel.DailyExpenses.IsModified;
-				var needSaveMonthlyIncomes = saveMonthlyIncomes && ViewModel.MonthlyIncomes.IsModified;
-
-				var msg = Localized.Save_changes_ + " (";
-				msg += needSaveDailyExpenses ? Localized.daily_expenses__LowerCase : "";
-				msg += needSaveDailyExpenses && needSaveMonthlyIncomes ? ", " : "";
-				msg += needSaveMonthlyIncomes ? Localized.monthly_incomes__LowerCase : "";
-				msg += ')';
-
-				return MessageBox.Show(msg, Localized.Save, buttons, MessageBoxImage.Question);
-			}
-
-			return MessageBoxResult.None;
-		}
-
-		private bool Save(bool saveDailyExpenses = true, bool saveMonthlyIncomes = true)
-		{
-			var errorMsg = "";
-
-			if(saveDailyExpenses && ViewModel.DailyExpenses.IsModified)
-			{
-				MessagePresenter.Instance.WriteLineSeparator();
-				try
-				{
-					ViewModel.DailyExpenses.SaveData();
-					MessagePresenter.Instance.WriteLine(Localized.Daily_expenses_saved_successfully__);
-				}
-				catch(Exception ex)
-				{
-					var msg = Localized.Could_not_save_the_daily_expenses_ + ex.Message + "\r\n";
-					MessagePresenter.Instance.WriteError(msg);
-					MessagePresenter.Instance.WriteException(ex);
-					errorMsg += msg;
-				}
-			}
-			if(saveMonthlyIncomes && ViewModel.MonthlyIncomes.IsModified)
-			{
-				MessagePresenter.Instance.WriteLineSeparator();
-				try
-				{
-					ViewModel.MonthlyIncomes.SaveData();
-					MessagePresenter.Instance.WriteLine(Localized.Monthly_incomes_saved_successfully__);
-				}
-				catch(Exception ex)
-				{
-					var msg = Localized.Could_not_save_the_monthly_incomes_ + ex.Message + "\r\n";
-					MessagePresenter.Instance.WriteError(msg);
-					MessagePresenter.Instance.WriteException(ex);
-					errorMsg += msg;
-				}
-			}
-
-			if(!String.IsNullOrEmpty(errorMsg))
-			{
-				Util.PromptErrorWindow(errorMsg);
-				return false;
-			}
-			return true;
-		}
-
-		private MessageBoxResult SaveWithPromptYesNo(bool saveDailyExpenses = true, bool saveMonthlyIncomes = true)
-		{
-			var messageBoxResult = PromptSaveWindow(MessageBoxButton.YesNo, saveDailyExpenses, saveMonthlyIncomes);
-			switch(messageBoxResult)
-			{
-				case MessageBoxResult.Yes:
-					Save(saveDailyExpenses, saveMonthlyIncomes);
-					break;
-
-				case MessageBoxResult.No:
-				case MessageBoxResult.None:
-					break;
-			}
-			return messageBoxResult;
-		}
-
-		private MessageBoxResult SaveWithPromptOkCancel(bool saveDailyExpenses = true, bool saveMonthlyIncomes = true)
-		{
-			var messageBoxResult = PromptSaveWindow(MessageBoxButton.OKCancel, saveDailyExpenses, saveMonthlyIncomes);
-			switch(messageBoxResult)
-			{
-				case MessageBoxResult.OK:
-					Save(saveDailyExpenses, saveMonthlyIncomes);
-					break;
-
-				case MessageBoxResult.Cancel:
-				case MessageBoxResult.None:
-					break;
-			}
-			return messageBoxResult;
-		}
-
-		private MessageBoxResult SaveWithPromptYesNoCancel(bool saveDailyExpenses = true, bool saveMonthlyIncomes = true)
-		{
-			var messageBoxResult = PromptSaveWindow(MessageBoxButton.YesNoCancel, saveDailyExpenses, saveMonthlyIncomes);
-			switch(messageBoxResult)
-			{
-				case MessageBoxResult.Yes:
-					Save(saveDailyExpenses, saveMonthlyIncomes);
-					break;
-
-				case MessageBoxResult.No:
-				case MessageBoxResult.None:
-					break;
-
-				case MessageBoxResult.Cancel:
-					break;
-			}
-			return messageBoxResult;
-		}
-
-		private MessageBoxResult SaveDailyExpenses()
-		{
-			return SaveWithPromptOkCancel(saveDailyExpenses: true, saveMonthlyIncomes: false);
-		}
-
-		private MessageBoxResult SaveMonthlyIncomes()
-		{
-			return SaveWithPromptOkCancel(saveDailyExpenses: false, saveMonthlyIncomes: true);
-		}
-
+		// TODO ?
 		private MessageBoxResult SaveAccordingToOpenedTab()
 		{
 			var messageBoxResult = MessageBoxResult.None;
 			switch((TabSummaryNumber)MainTabControl.SelectedIndex)
 			{
 				case TabSummaryNumber.DailyExpenses:
-					messageBoxResult = SaveDailyExpenses();
+					messageBoxResult = ViewModel.SaveDailyExpenses();
 					break;
 				case TabSummaryNumber.MonthlyExpenses:
 					break;
 				case TabSummaryNumber.MonthlyIncomes:
-					messageBoxResult = SaveMonthlyIncomes();
+					messageBoxResult = ViewModel.SaveMonthlyIncomes();
 					break;
 				default:
 					throw new Exception();
 			}
 			return messageBoxResult;
 		}
-
-		#endregion
 
 		#endregion
 

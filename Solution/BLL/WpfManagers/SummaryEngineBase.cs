@@ -39,7 +39,8 @@ namespace BLL.WpfManagers
 		}
 
 
-		protected DatePaths DatePaths;
+		protected readonly DatePaths DatePaths;
+		public DateTime Date => DatePaths.Date;
 
 		private bool _isModified;
 		public bool IsModified

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using BLL.WpfManagers;
@@ -17,10 +18,10 @@ namespace WPF.ViewModels.SummaryModels
 		#region SummaryEngine
 
 		private SummaryEngineBase _summaryEngine;
-		protected SummaryEngineBase SummaryEngine
+		public virtual SummaryEngineBase SummaryEngine
 		{
 			get { return _summaryEngine; }
-			set
+			protected set
 			{
 				Util.SaveSort(_summaryEngine, value);
 				_summaryEngine = value;
@@ -35,10 +36,10 @@ namespace WPF.ViewModels.SummaryModels
 		#region ActualItem
 
 		private TransactionItemBase _actualItem;
-		protected TransactionItemBase ActualItem
+		public virtual TransactionItemBase ActualItem
 		{
 			get { return _actualItem; }
-			set
+			protected set
 			{
 				if(_actualItem == value)
 					return;
@@ -69,10 +70,13 @@ namespace WPF.ViewModels.SummaryModels
 					var msg = "{0}ListView should be initialized".Formatted(Helpers.GetTag(this));
 					throw ExinLog.ger.LogException(msg, new InvalidOperationException(msg));
 				}
-
 				return _listView;
 			}
-			set { _listView = value; }
+			set
+			{
+				_listView = value;
+				OnPropertyChanged();
+			}
 		}
 
 		#endregion

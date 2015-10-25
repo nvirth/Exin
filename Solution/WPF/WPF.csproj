@@ -98,12 +98,16 @@
     <Compile Include="Controls\MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NewTransactionForm.xaml.cs">
+      <DependentUpon>NewTransactionForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\ClickSelectTextBox.cs" />
     <Compile Include="Utils\DatePickerFromCodeDateChanger.cs" />
     <Compile Include="Utils\ItemsControlSorterCore.cs" />
     <Compile Include="Controls\ViewModels\MainMenuViewModel.cs" />
     <Compile Include="Utils\ItemsControlSorter.cs" />
     <Compile Include="Utils\Util.cs" />
+    <Compile Include="ValueConverters\HideIfIncomeConverter.cs" />
     <Compile Include="ValueConverters\NullToVisibilityConverter.cs" />
     <Compile Include="ValueConverters\SummaryToStringConverter.cs" />
     <Compile Include="ValueConverters\IsDefaultToFontWeightConverter.cs" />
@@ -116,10 +120,15 @@
     <Compile Include="ViewModels\SummaryModels\MonthlyIncomesViewModel.cs" />
     <Compile Include="ViewModels\SummaryModels\MonthlyExpensesViewModel.cs" />
     <Compile Include="ViewModels\SummaryModels\DailyExpensesViewModel.cs" />
+    <Compile Include="ViewModels\SummaryModels\MutableSummaryViewModelBase.cs" />
     <Compile Include="ViewModels\SummaryModels\SummaryViewModelBase.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\StatisticsViewModel.cs" />
     <Page Include="Controls\MainMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NewTransactionForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
