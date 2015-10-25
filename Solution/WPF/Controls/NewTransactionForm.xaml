@@ -97,7 +97,7 @@
                                         IsEnabled="{Binding ElementName=UserControl, Path=ViewModel.SummaryEngine.IsModified}" 
                                         FontWeight="{Binding Path=IsDefault, Converter={StaticResource IsDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
                                         />
-                    <Button Content="{Binding ElementName=UserControl, Path=ViewModel.AddButtonLabel}" 
+                    <Button Content="{Binding ElementName=UserControl, Path=ViewModel.AddButtonLabel, FallbackValue={x:Static res:Localized.Add}}" 
                                         Click="Add_OnClick" IsDefault="True"
                                         IsEnabled="{Binding Path=HasErrors, Converter={StaticResource NegateBoolConverter}}" 
                                         FontWeight="{Binding Path=IsDefault, Converter={StaticResource IsDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
