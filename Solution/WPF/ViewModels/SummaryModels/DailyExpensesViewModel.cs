@@ -21,6 +21,9 @@ namespace WPF.ViewModels.SummaryModels
 			get { return (DailyExpensesManager)ManagerBase; }
 			set
 			{
+				if(base.ManagerBase == value)
+					return;
+
 				base.ManagerBase = value;
 				OnPropertyChanged();
 			}
@@ -36,6 +39,9 @@ namespace WPF.ViewModels.SummaryModels
 			get { return (ExpenseItem)ActualItem; }
 			set
 			{
+				if(base.ActualItem == value)
+					return;
+
 				base.ActualItem = value;
 
 				ActualItem.IsValidationOn = false;

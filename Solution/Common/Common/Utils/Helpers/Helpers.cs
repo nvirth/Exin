@@ -680,10 +680,11 @@ namespace Common.Utils.Helpers
 		{
 			int i;
 			bool biggerThanOld;
-			CalcPosition(list, item, out i, out biggerThanOld);
+			var comparer = new ComparableComparer<T>();
+			CalcPosition(list, item, comparer, out i, out biggerThanOld);
 			return i;
 		}
-		private static void CalcPosition<T>(this IList<T> list, T item, out int position, out bool biggerThanOld) where T : IComparable<T>
+		private static void CalcPosition<T>(this IList<T> list, T item, IComparer<T> comparer, out int position, out bool biggerThanOld) where T : IComparable<T>
 		{
 			biggerThanOld = false;
 
@@ -696,20 +697,21 @@ namespace Common.Utils.Helpers
 					biggerThanOld = true;
 					continue;
 				}
-
-				if(!(actual.CompareTo(item) > 0))
+				
+                if(!(comparer.Compare(actual, item) > 0))
 					break;
 			}
 			position = i;
 		}
 
-		public static void ReOrder<T>(this ObservableCollection<T> collection, T item) where T : IComparable<T>
+		public static void ReOrder<T>(this ObservableCollection<T> collection, T item, IComparer<T> comparer = null) where T : IComparable<T>
 		{
+			comparer = comparer ?? new ComparableComparer<T>();
 			var oldPos = collection.IndexOf(item);
 
 			int newPos;
 			bool biggerThanOld;
-			collection.CalcPosition(item, out newPos, out biggerThanOld);
+			collection.CalcPosition(item, comparer, out newPos, out biggerThanOld);
 			newPos = biggerThanOld ? newPos - 1 : newPos;
 			newPos = newPos == collection.Count ? newPos - 1 : newPos;
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Common;
@@ -124,10 +125,19 @@ namespace BLL.WpfManagers
 					var mockEiForAdd = new ExpenseItem() { Amount = +expenseItem.Amount, Category = expenseItem.Category };
 					Summary.Update(mockEiForAdd);
 
-					// TODO BUG we lost the selection in the GridView because we remove the Selected here
-					// (of course only if the SelectedItem's category changed)
-					TransactionItems.Remove(expenseItem);
-					TransactionItems.InsertIntoSorted(expenseItem);
+					// We need normal, per amount sorting here. The data is always sorted by amount in the background,
+					// only the view of it can be sorted by other properties
+					TransactionItems.ReOrder(expenseItem);
+
+					//TransactionItems.ReOrder(expenseItem, Comparer<TransactionItemBase>.Create((tib1, tib2) => {
+					//	var ei1 = (ExpenseItem)tib1;
+					//	var ei2 = (ExpenseItem)tib2;
+					//	var compareResult = ExpenseItem.CategoryComparerInstance.Compare(ei1, ei2);
+					//	return compareResult;
+					//}));
+
+					//TransactionItems.Remove(expenseItem);
+					//TransactionItems.InsertIntoSorted(expenseItem);
 				};
 
 			TransactionItems.InsertIntoSorted(item);

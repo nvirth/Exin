@@ -115,6 +115,7 @@
     <Compile Include="Utils\FileManagerSafe\FileManagerSafe.cs" />
     <Compile Include="Utils\MessagePresenterManager.cs" />
     <Compile Include="Utils\Helpers\ProjectInfos.cs" />
+    <Compile Include="Utils\ComparableComparer.cs" />
     <Compile Include="Utils\TaskManager.cs" />
   </ItemGroup>
   <ItemGroup>

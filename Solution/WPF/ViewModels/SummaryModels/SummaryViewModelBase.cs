@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using BLL.WpfManagers;
@@ -27,7 +28,8 @@ namespace WPF.ViewModels.SummaryModels
 				_managerBase = value;
 				OnPropertyChanged();
 
-				_managerBase.TransactionItems.CollectionChanged += EnsurePreviousSeceltedEditedRemoved;
+				RemovePreviousSelectedEditedHighlight(); // TODO is this ok here?
+                _managerBase.TransactionItems.CollectionChanged += HandleSeceltedEdited_OnTransactionCollectionChanged;
 			}
 		}
 
@@ -169,15 +171,37 @@ namespace WPF.ViewModels.SummaryModels
 			PrevSelectedEditedItem = null;
 		}
 
-		private void EnsurePreviousSeceltedEditedRemoved(object sender, NotifyCollectionChangedEventArgs e)
+		private async void HandleSeceltedEdited_OnTransactionCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			switch(e.Action)
 			{
 				case NotifyCollectionChangedAction.Remove:
 				case NotifyCollectionChangedAction.Replace:
 				case NotifyCollectionChangedAction.Reset:
-					if(e.OldItems.Contains(PrevSelectedEditedItem))
+					if(e.OldItems.Contains(PrevSelectedEditedItem)) // Ensure previous Selected-Edited is removed
 						RemovePreviousSelectedEditedHighlight();
+					break;
+
+				case NotifyCollectionChangedAction.Move:
+					if(e.OldItems.Contains(PrevSelectedEditedItem)) // Refresh SE boldness
+					{
+						// Here, the ListView (usually) did not update the layout yet
+						// Probably this method is before the ListView-updater method in the invocation
+						// list of the event. So my first idea was to use a Deferred object here, which
+						// waits until a ListView.LayoutUpdated event gets fired.
+						// But we must not depend on such things like order in an event's invocation list;
+						// it could be swapped any time.
+						//
+						// So we rather just wait here. Wait until the current execution stack of the main
+						// thread runs out. This way, we can be sure that the ListView's event handler
+						// has been run before our logic
+						//
+						// Theory tested with CPU Killer 3 (on 97% load)
+						//
+						await Task.Delay(1);
+						RemovePreviousSelectedEditedHighlight();
+						HighlightSelectedEdited();
+					}
 					break;
 			}
 		}

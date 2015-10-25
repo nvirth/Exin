@@ -107,6 +107,7 @@
     <Compile Include="Controls\ViewModels\MainMenuViewModel.cs" />
     <Compile Include="Utils\ItemsControlSorter.cs" />
     <Compile Include="Utils\Util.cs" />
+    <Compile Include="ValueConverters\SelectedEditedMultiConverter.cs" />
     <Compile Include="ValueConverters\HideIfIncomeConverter.cs" />
     <Compile Include="ValueConverters\NullToVisibilityConverter.cs" />
     <Compile Include="ValueConverters\SummaryToStringConverter.cs" />

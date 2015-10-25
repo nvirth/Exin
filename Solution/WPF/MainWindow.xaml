@@ -16,6 +16,7 @@
         PreviewKeyUp="MainWindow_PreviewKeyUp"
         x:Name="Window" MinHeight="480" MinWidth="640" >
     <Window.Resources>
+        <valueConverters:SelectedEditedMultiConverter x:Key="SelectedEditedMultiConverter"/>
         <valueConverters:IsDefaultToFontWeightConverter x:Key="IsDefaultToFontWeightConverter"/>
         <valueConverters:NegateBoolConverter x:Key="NegateBoolConverter"/>
         <valueConverters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
@@ -86,6 +87,12 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock>
+                                                <TextBlock.FontWeight>
+                                                    <MultiBinding Converter="{StaticResource SelectedEditedMultiConverter}">
+                                                        <Binding ElementName="ActualExpenseGP" Path="ViewModel.ActualItem" />
+                                                        <Binding />
+                                                    </MultiBinding>
+                                                </TextBlock.FontWeight>
                                                 <TextBlock.Text>
                                                     <MultiBinding StringFormat="{}{0} {1}">
                                                         <Binding Path="Quantity"/>

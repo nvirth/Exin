@@ -117,10 +117,31 @@ namespace Common.UiModels.WPF
 		}
 
 		private static readonly IEqualityComparer<ExpenseItem> DefaultComparerInstance = new DefaultEqualityComparer();
+		public static IEqualityComparer<ExpenseItem> DefaultExpenseItemComparer => DefaultComparerInstance;
+	}
 
-		public static IEqualityComparer<ExpenseItem> DefaultExpenseItemComparer
+	public partial class ExpenseItem //Category comparer
+	{
+		private sealed class CategoryComparer : IComparer<ExpenseItem>
 		{
-			get { return DefaultComparerInstance; }
+			public int Compare(ExpenseItem x, ExpenseItem y)
+			{
+				var xNull = x?.Category == null;
+				if(xNull || y == null)
+				{
+					if(xNull && y == null)
+						return 0;
+					else if(xNull)
+						return -1;
+					else //if(y == null)
+						return +1;
+				}
+
+				var result = x.Category.CompareTo(y.Category);
+				return result;
+			}
 		}
+		private static readonly IComparer<ExpenseItem> _categoryComparerInstance = new CategoryComparer();
+		public static IComparer<ExpenseItem> CategoryComparerInstance => _categoryComparerInstance;
 	}
 }

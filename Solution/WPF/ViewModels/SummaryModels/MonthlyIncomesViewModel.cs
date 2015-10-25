@@ -21,6 +21,9 @@ namespace WPF.ViewModels.SummaryModels
 			get { return (MonthlyIncomesManager)ManagerBase; }
 			set
 			{
+				if(base.ManagerBase == value)
+					return;
+
 				base.ManagerBase = value;
 				OnPropertyChanged();
 			}
@@ -36,6 +39,9 @@ namespace WPF.ViewModels.SummaryModels
 			get { return (IncomeItem)ActualItem; }
 			set
 			{
+				if(base.ActualItem == value)
+					return;
+
 				base.ActualItem = value;
 
 				ActualItem.IsValidationOn = false;
