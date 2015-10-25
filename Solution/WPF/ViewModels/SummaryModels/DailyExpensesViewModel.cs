@@ -11,17 +11,17 @@ namespace WPF.ViewModels.SummaryModels
 			return new ExpenseItem();
 		}
 
-		public override SummaryEngineBase SummaryEngine
+		public override SummaryEngineBase ManagerBase
 		{
-			get { return base.SummaryEngine; }
-			protected set { DailyExpensesManager = (DailyExpensesManager)value; }
+			get { return base.ManagerBase; }
+			protected set { Manager = (DailyExpensesManager)value; }
 		}
-		public DailyExpensesManager DailyExpensesManager
+		public DailyExpensesManager Manager
 		{
-			get { return (DailyExpensesManager)SummaryEngine; }
+			get { return (DailyExpensesManager)ManagerBase; }
 			set
 			{
-				base.SummaryEngine = value;
+				base.ManagerBase = value;
 				OnPropertyChanged();
 			}
 		}

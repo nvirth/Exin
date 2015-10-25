@@ -53,11 +53,11 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <GridSplitter Grid.Row="1" Grid.Column="1" Width="3" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
-        <e:MainMenu Grid.Row="0" Grid.ColumnSpan="3" MainWindow="{Binding RelativeSource={RelativeSource AncestorType={x:Type wpf:MainWindow}}}" />
+        <e:MainMenu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" MainWindow="{Binding RelativeSource={RelativeSource AncestorType={x:Type wpf:MainWindow}}}" />
         <TabControl x:Name="MainTabControl" Grid.Column="0" Grid.Row="1" Margin="10" SelectionChanged="MainTabControl_SelectionChanged">
             <TabItem Header="{x:Static res:Localized.Daily_expenses}">
                 <Grid x:Name="DailyExpensesPanel" 
-                            DataContext="{Binding Path=DailyExpensesManager}"
+                            DataContext="{Binding Path=DailyExpensesViewModel.Manager}"
                             >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -112,7 +112,7 @@
             </TabItem>
             <TabItem Header="{x:Static res:Localized.Monthly_expenses}">
                 <Grid x:Name="MonthlyExpensesPanel" 
-                            DataContext="{Binding Path=MonthlyExpensesManager}"
+                            DataContext="{Binding Path=MonthlyExpensesViewModel.Manager}"
                             >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -173,7 +173,7 @@
             </TabItem>
             <TabItem Header="{x:Static res:Localized.Monthly_incomes}">
                 <Grid x:Name="MonthlyIncomesPanel" 
-                            DataContext="{Binding Path=MonthlyIncomesManager}"
+                            DataContext="{Binding Path=MonthlyIncomesViewModel.Manager}"
                             >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />

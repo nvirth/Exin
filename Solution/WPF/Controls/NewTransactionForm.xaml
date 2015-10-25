@@ -94,7 +94,7 @@
                         </Style>
                     </WrapPanel.Resources>
                     <Button Content="{x:Static res:Localized.Save}" Click="Save_OnClick" 
-                                        IsEnabled="{Binding ElementName=UserControl, Path=ViewModel.SummaryEngine.IsModified}" 
+                                        IsEnabled="{Binding ElementName=UserControl, Path=ViewModel.ManagerBase.IsModified}" 
                                         FontWeight="{Binding Path=IsDefault, Converter={StaticResource IsDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
                                         />
                     <Button Content="{Binding ElementName=UserControl, Path=ViewModel.AddButtonLabel, FallbackValue={x:Static res:Localized.Add}}" 

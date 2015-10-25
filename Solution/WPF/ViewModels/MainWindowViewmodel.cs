@@ -30,95 +30,6 @@ namespace WPF.ViewModels
 		private DailyExpensesViewModel _dailyExpensesViewModel;
 		public DailyExpensesViewModel DailyExpensesViewModel => _dailyExpensesViewModel ?? (_dailyExpensesViewModel = new DailyExpensesViewModel());
 
-		public MainWindowViewModel()
-		{
-			// "Bind" delegated properties to their origins by firing PropertyChanged when they do
-			// 
-			MonthlyIncomesViewModel.PropertyChanged += (sender, args) => {
-				var actualIncomeItemStr = this.Property(x => x.ActualIncomeItem);
-				var monthlyIncomesStr = this.Property(x => x.MonthlyIncomesManager);
-
-				if(args.PropertyName == monthlyIncomesStr)
-					OnPropertyChanged(monthlyIncomesStr);
-				else if(args.PropertyName == actualIncomeItemStr)
-					OnPropertyChanged(actualIncomeItemStr);
-			};
-			MonthlyExpensesViewModel.PropertyChanged += (sender, args) => {
-				var monthlyExpensesStr = this.Property(x => x.MonthlyExpensesManager);
-				if(args.PropertyName == monthlyExpensesStr)
-					OnPropertyChanged(monthlyExpensesStr);
-			};
-			DailyExpensesViewModel.PropertyChanged += (sender, args) => {
-				var actualExpenseItemStr = this.Property(x => x.ActualExpenseItem);
-				var dailyExpensesStr = this.Property(x => x.DailyExpensesManager);
-
-				if(args.PropertyName == dailyExpensesStr)
-					OnPropertyChanged(dailyExpensesStr);
-				else if(args.PropertyName == actualExpenseItemStr)
-					OnPropertyChanged(actualExpenseItemStr);
-			};
-		}
-
-		#region Delegated sub-properties
-
-		public DailyExpensesManager DailyExpensesManager
-		{
-			get { return DailyExpensesViewModel.DailyExpensesManager; }
-			set
-			{
-				DailyExpensesViewModel.DailyExpensesManager = value;
-				OnPropertyChanged();
-            }
-		}
-
-		public MonthlyExpensesManager MonthlyExpensesManager
-		{
-			get { return MonthlyExpensesViewModel.MonthlyExpensesManager; }
-			set
-			{
-				MonthlyExpensesViewModel.MonthlyExpensesManager = value;
-				OnPropertyChanged();
-			}
-		}
-
-		public MonthlyIncomesManager MonthlyIncomesManager
-		{
-			get { return MonthlyIncomesViewModel.MonthlyIncomesManager; }
-			set
-			{
-				MonthlyIncomesViewModel.MonthlyIncomesManager = value;
-				OnPropertyChanged(); 
-			}
-		}
-
-		public IncomeItem ActualIncomeItem
-		{
-			get { return MonthlyIncomesViewModel.ActualIncomeItem; }
-			set
-			{
-				MonthlyIncomesViewModel.ActualIncomeItem = value;
-
-				MonthlyIncomesViewModel.ActualIncomeItem.IsValidationOn = false;
-				OnPropertyChanged();
-				MonthlyIncomesViewModel.ActualIncomeItem.IsValidationOn = true;
-			}
-		}
-
-		public ExpenseItem ActualExpenseItem
-		{
-			get { return DailyExpensesViewModel.ActualExpenseItem; }
-			set
-			{
-				DailyExpensesViewModel.ActualExpenseItem = value;
-
-				DailyExpensesViewModel.ActualExpenseItem.IsValidationOn = false;
-				OnPropertyChanged(); 
-				DailyExpensesViewModel.ActualExpenseItem.IsValidationOn = true;
-			}
-		}
-
-		#endregion
-
 		private ObservableCollection<Category> _allCategories;
 		public ObservableCollection<Category> AllCategories => _allCategories ?? (_allCategories = new ObservableCollection<Category>(CategoryManager.Instance.GetAllValid()));
 
@@ -133,12 +44,12 @@ namespace WPF.ViewModels
 		{
 			var errorMsg = "";
 
-			if(saveDailyExpenses && DailyExpensesManager.IsModified)
+			if(saveDailyExpenses && DailyExpensesViewModel.Manager.IsModified)
 			{
 				MessagePresenter.Instance.WriteLineSeparator();
 				try
 				{
-					DailyExpensesManager.SaveData();
+					DailyExpensesViewModel.Manager.SaveData();
 					MessagePresenter.Instance.WriteLine(Localized.Daily_expenses_saved_successfully__);
 				}
 				catch(Exception ex)
@@ -149,12 +60,12 @@ namespace WPF.ViewModels
 					errorMsg += msg;
 				}
 			}
-			if(saveMonthlyIncomes && MonthlyIncomesManager.IsModified)
+			if(saveMonthlyIncomes && MonthlyIncomesViewModel.Manager.IsModified)
 			{
 				MessagePresenter.Instance.WriteLineSeparator();
 				try
 				{
-					MonthlyIncomesManager.SaveData();
+					MonthlyIncomesViewModel.Manager.SaveData();
 					MessagePresenter.Instance.WriteLine(Localized.Monthly_incomes_saved_successfully__);
 				}
 				catch(Exception ex)
@@ -237,10 +148,10 @@ namespace WPF.ViewModels
 
 		public MessageBoxResult PromptSaveWindow(MessageBoxButton buttons, bool saveDailyExpenses = true, bool saveMonthlyIncomes = true)
 		{
-			if(DailyExpensesManager.IsModified || MonthlyIncomesManager.IsModified)
+			if(DailyExpensesViewModel.Manager.IsModified || MonthlyIncomesViewModel.Manager.IsModified)
 			{
-				var needSaveDailyExpenses = saveDailyExpenses && DailyExpensesManager.IsModified;
-				var needSaveMonthlyIncomes = saveMonthlyIncomes && MonthlyIncomesManager.IsModified;
+				var needSaveDailyExpenses = saveDailyExpenses && DailyExpensesViewModel.Manager.IsModified;
+				var needSaveMonthlyIncomes = saveMonthlyIncomes && MonthlyIncomesViewModel.Manager.IsModified;
 
 				var msg = Localized.Save_changes_ + " (";
 				msg += needSaveDailyExpenses ? Localized.daily_expenses__LowerCase : "";

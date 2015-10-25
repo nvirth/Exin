@@ -11,17 +11,17 @@ namespace WPF.ViewModels.SummaryModels
 			return new IncomeItem();
 		}
 
-		public override SummaryEngineBase SummaryEngine
+		public override SummaryEngineBase ManagerBase
 		{
-			get { return base.SummaryEngine; }
-			protected set { MonthlyIncomesManager = (MonthlyIncomesManager)value; }
+			get { return base.ManagerBase; }
+			protected set { Manager = (MonthlyIncomesManager)value; }
 		}
-		public MonthlyIncomesManager MonthlyIncomesManager
+		public MonthlyIncomesManager Manager
 		{
-			get { return (MonthlyIncomesManager)SummaryEngine; }
+			get { return (MonthlyIncomesManager)ManagerBase; }
 			set
 			{
-				base.SummaryEngine = value;
+				base.ManagerBase = value;
 				OnPropertyChanged();
 			}
 		}

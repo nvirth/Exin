@@ -50,7 +50,7 @@ namespace WPF.ViewModels.SummaryModels
 		public void Remove()
 		{
 			foreach(var selectedItem in ListView.SelectedItems.Cast<TransactionItemBase>().ToList()) // There must be a .ToList call, because the source is synchronised immediately
-				SummaryEngine.Remove(selectedItem);
+				ManagerBase.Remove(selectedItem);
 
 			//NewExpenseButtonClick();
 			//NewExpenseTitleTB.Focus();
@@ -63,8 +63,8 @@ namespace WPF.ViewModels.SummaryModels
 				return;
 
 			var item = ActualItem.DeepClone();
-			item.Date = SummaryEngine.Date;
-			SummaryEngine.Add(item);
+			item.Date = ManagerBase.Date;
+			ManagerBase.Add(item);
 			TitleTextBox.Focus();
 		}
 	}

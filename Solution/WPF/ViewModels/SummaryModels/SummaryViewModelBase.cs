@@ -17,17 +17,17 @@ namespace WPF.ViewModels.SummaryModels
 	{
 		#region SummaryEngine
 
-		private SummaryEngineBase _summaryEngine;
-		public virtual SummaryEngineBase SummaryEngine
+		private SummaryEngineBase _managerBase;
+		public virtual SummaryEngineBase ManagerBase
 		{
-			get { return _summaryEngine; }
+			get { return _managerBase; }
 			protected set
 			{
-				Util.SaveSort(_summaryEngine, value);
-				_summaryEngine = value;
+				Util.SaveSort(_managerBase, value);
+				_managerBase = value;
 				OnPropertyChanged();
 
-				_summaryEngine.TransactionItems.CollectionChanged += EnsurePreviousSeceltedEditedRemoved;
+				_managerBase.TransactionItems.CollectionChanged += EnsurePreviousSeceltedEditedRemoved;
 			}
 		}
 

@@ -144,26 +144,26 @@ namespace WPF
 
 		private void InitViewModel(DateTime startDate)
 		{
-			var viewModel = new MainWindowViewModel {
-				DailyExpensesManager = new DailyExpensesManager(startDate, /*doWork*/ true),
-				MonthlyExpensesManager = new MonthlyExpensesManager(startDate, /*doWork*/ false),
-				MonthlyIncomesManager = new MonthlyIncomesManager(startDate, /*doWork*/ false),
-			};
+			var viewModel = new MainWindowViewModel();
 
+			viewModel.DailyExpensesViewModel.Manager = new DailyExpensesManager(startDate, /*doWork*/ true);
 			viewModel.DailyExpensesViewModel.ListView = DailyExpensesLV;
-			viewModel.MonthlyExpensesViewModel.ListView = MonthlyExpensesLV;
-			viewModel.MonthlyIncomesViewModel.ListView = MonthlyIncomesLV;
-
 			viewModel.DailyExpensesViewModel.TitleTextBox = ActualExpenseGP.TitleTb;
+
+			viewModel.MonthlyExpensesViewModel.Manager = new MonthlyExpensesManager(startDate, /*doWork*/ false);
+			viewModel.MonthlyExpensesViewModel.ListView = MonthlyExpensesLV;
+
+			viewModel.MonthlyIncomesViewModel.Manager = new MonthlyIncomesManager(startDate, /*doWork*/ false);
+			viewModel.MonthlyIncomesViewModel.ListView = MonthlyIncomesLV;
 			viewModel.MonthlyIncomesViewModel.TitleTextBox = ActualIncomeGP.TitleTb;
 
 			viewModel.Statistics.SetDateToMonthly(startDate);
 
 			ViewModel = viewModel;
 
-			// These MUST NOT be in the object initializer (so these would be validated now)
-			viewModel.ActualExpenseItem = new ExpenseItem();
-			viewModel.ActualIncomeItem = new IncomeItem();
+			// These have to be assigned delayed, to avoid their validation
+			viewModel.DailyExpensesViewModel.ActualExpenseItem = new ExpenseItem();
+			viewModel.MonthlyIncomesViewModel.ActualIncomeItem = new IncomeItem();
 		}
 
 		private void InitStatistics()
@@ -325,10 +325,10 @@ namespace WPF
 			var isNewMonth = selectedDate.Month != originalDate.Month || selectedDate.Year != originalDate.Year;
 			if(isNewMonth)
 			{
-				ViewModel.MonthlyExpensesManager = new MonthlyExpensesManager(selectedDate, /*doWork*/ false);
-				ViewModel.MonthlyIncomesManager = new MonthlyIncomesManager(selectedDate, /*doWork*/ false);
+				ViewModel.MonthlyExpensesViewModel.Manager = new MonthlyExpensesManager(selectedDate, /*doWork*/ false);
+				ViewModel.MonthlyIncomesViewModel.Manager = new MonthlyIncomesManager(selectedDate, /*doWork*/ false);
 			}
-			ViewModel.DailyExpensesManager = new DailyExpensesManager(selectedDate, /*doWork*/ false); // There is anyway a new day
+			ViewModel.DailyExpensesViewModel.Manager = new DailyExpensesManager(selectedDate, /*doWork*/ false); // There is anyway a new day
 			ViewModel.Statistics.SetDateToMonthly(selectedDate);
 
 			SwitchMainTab();
@@ -351,7 +351,7 @@ namespace WPF
 
 		private void ListViewsQuantityHeader_OnClick_Sort(object sender, RoutedEventArgs e)
 		{
-			var propertyName = ViewModel.ActualExpenseItem.Property(ei => ei.Quantity);
+			var propertyName = ViewModel.DailyExpensesViewModel.ActualExpenseItem.Property(ei => ei.Quantity);
 			ItemsControlSorter.SortControl(e, sortByProperty: propertyName);
 			e.Handled = true;
 		}
@@ -369,7 +369,7 @@ namespace WPF
 			if(DailyExpensesLV.SelectedIndex != -1)
 			{
 				var selectedExpenseItem = DailyExpensesLV.SelectedItem as ExpenseItem;
-				ViewModel.ActualExpenseItem = selectedExpenseItem;
+				ViewModel.DailyExpensesViewModel.ActualExpenseItem = selectedExpenseItem;
 			}
 		}
 
@@ -392,7 +392,7 @@ namespace WPF
 
 		private void DailyExpensesLV_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			OnListViewSelectionChanged(DailyExpensesLV, ViewModel.DailyExpensesManager);
+			OnListViewSelectionChanged(DailyExpensesLV, ViewModel.DailyExpensesViewModel.Manager);
 		}
 
 		#endregion
@@ -402,7 +402,7 @@ namespace WPF
 		private void RedoMonthlyExpensesButton_OnClick(object sender, RoutedEventArgs e)
 		{
 			var selectedDate = SummaryDatePicker.SelectedDate ?? DateTime.Now;
-			ViewModel.MonthlyExpensesManager = new MonthlyExpensesManager(selectedDate, /* doWork */ true);
+			ViewModel.MonthlyExpensesViewModel.Manager= new MonthlyExpensesManager(selectedDate, /* doWork */ true);
 		}
 
 		private void MonthlyExpensesLV_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -416,14 +416,14 @@ namespace WPF
 				SummaryDatePicker.SelectedDate = selectedExpenseItem.Date;
 				MainTabControl.SelectedIndex = (int)TabSummaryNumber.DailyExpenses;
 
-				var equalExpenseItem = ViewModel.DailyExpensesManager.GetTheEqual(selectedExpenseItem);
+				var equalExpenseItem = ViewModel.DailyExpensesViewModel.Manager.GetTheEqual(selectedExpenseItem);
 				if(equalExpenseItem == null)
 				{
 					MessagePresenter.Instance.WriteError(Localized.The_chosen_expense_item_already_exists__);
 					return;
 				}
 
-				ViewModel.ActualExpenseItem = equalExpenseItem;
+				ViewModel.DailyExpensesViewModel.ActualExpenseItem = equalExpenseItem;
 				DailyExpensesLV.SelectedItem = equalExpenseItem;
 
 				//http://stackoverflow.com/questions/13955340/keyboard-focus-does-not-work-on-text-box-in-wpf
@@ -437,7 +437,7 @@ namespace WPF
 
 		private void MonthlyExpensesLV_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			OnListViewSelectionChanged(MonthlyExpensesLV, ViewModel.MonthlyExpensesManager);
+			OnListViewSelectionChanged(MonthlyExpensesLV, ViewModel.MonthlyExpensesViewModel.Manager);
 		}
 
 		#endregion
@@ -452,7 +452,7 @@ namespace WPF
 			if(MonthlyIncomesLV.SelectedIndex != -1)
 			{
 				var selectedIncomeItem = MonthlyIncomesLV.SelectedItem as IncomeItem;
-				ViewModel.ActualIncomeItem = selectedIncomeItem;
+				ViewModel.MonthlyIncomesViewModel.ActualIncomeItem = selectedIncomeItem;
 			}
 		}
 
@@ -475,7 +475,7 @@ namespace WPF
 
 		private void MonthlyIncomesLV_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			OnListViewSelectionChanged(MonthlyIncomesLV, ViewModel.MonthlyIncomesManager);
+			OnListViewSelectionChanged(MonthlyIncomesLV, ViewModel.MonthlyIncomesViewModel.Manager);
 		}
 
 		#endregion
@@ -527,11 +527,11 @@ namespace WPF
 				throw new ArgumentNullException("listView", "MainWindow.ListView2SummaryEngineBase: Argument 'listView' cannot be null. ");
 
 			if(listView == DailyExpensesLV)
-				return ViewModel.DailyExpensesManager;
+				return ViewModel.DailyExpensesViewModel.Manager;
 			else if(listView == MonthlyExpensesLV)
-				return ViewModel.MonthlyExpensesManager;
+				return ViewModel.MonthlyExpensesViewModel.Manager;
 			else if(listView == MonthlyIncomesLV)
-				return ViewModel.MonthlyIncomesManager;
+				return ViewModel.MonthlyIncomesViewModel.Manager;
 			else
 			{
 				if(returnNull)
@@ -541,49 +541,25 @@ namespace WPF
 			}
 		}
 
-		/// <summary>
-		/// Note that this would not work as a Dictionary, 
-		/// unless you always refresh the object references
-		/// </summary>
-		public ListView SummaryEngineBase2ListView(string summaryEngineBaseName, bool returnNull = false)
-		{
-			if(summaryEngineBaseName == null)
-				throw new ArgumentNullException("summaryEngineBaseName");
-
-			if(summaryEngineBaseName == ViewModel.Property(vm => vm.DailyExpensesManager))
-				return DailyExpensesLV;
-			else if(summaryEngineBaseName == ViewModel.Property(vm => vm.MonthlyExpensesManager))
-				return MonthlyExpensesLV;
-			else if(summaryEngineBaseName == ViewModel.Property(vm => vm.MonthlyIncomesManager))
-				return MonthlyIncomesLV;
-			else
-			{
-				if(returnNull)
-					return null;
-
-				throw new Exception(string.Format("The SummaryEngineBase's name '{0}' does not have any ListView pair.", summaryEngineBaseName));
-			}
-		}
-
 		private void SwitchMainTab()
 		{
 			var tabSummaryNumber = (TabSummaryNumber)MainTabControl.SelectedIndex;
 			switch(tabSummaryNumber)
 			{
 				case TabSummaryNumber.DailyExpenses:
-					if(!ViewModel.DailyExpensesManager.IsReady)
-						ViewModel.DailyExpensesManager.LoadData();
-					ApplySortDescriptions(DailyExpensesLV, ViewModel.DailyExpensesManager);
+					if(!ViewModel.DailyExpensesViewModel.Manager.IsReady)
+						ViewModel.DailyExpensesViewModel.Manager.LoadData();
+					ApplySortDescriptions(DailyExpensesLV, ViewModel.DailyExpensesViewModel.Manager);
 					break;
 				case TabSummaryNumber.MonthlyExpenses:
-					if(!ViewModel.MonthlyExpensesManager.IsReady)
-						ViewModel.MonthlyExpensesManager.LoadData();
-					ApplySortDescriptions(MonthlyExpensesLV, ViewModel.MonthlyExpensesManager);
+					if(!ViewModel.MonthlyExpensesViewModel.Manager.IsReady)
+						ViewModel.MonthlyExpensesViewModel.Manager.LoadData();
+					ApplySortDescriptions(MonthlyExpensesLV, ViewModel.MonthlyExpensesViewModel.Manager);
 					break;
 				case TabSummaryNumber.MonthlyIncomes:
-					if(!ViewModel.MonthlyIncomesManager.IsReady)
-						ViewModel.MonthlyIncomesManager.LoadData();
-					ApplySortDescriptions(MonthlyIncomesLV, ViewModel.MonthlyIncomesManager);
+					if(!ViewModel.MonthlyIncomesViewModel.Manager.IsReady)
+						ViewModel.MonthlyIncomesViewModel.Manager.LoadData();
+					ApplySortDescriptions(MonthlyIncomesLV, ViewModel.MonthlyIncomesViewModel.Manager);
 					break;
 				case TabSummaryNumber.Statistics:
 					break;
