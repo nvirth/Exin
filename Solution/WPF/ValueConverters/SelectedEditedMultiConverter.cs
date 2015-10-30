@@ -16,12 +16,15 @@ namespace WPF.ValueConverters
 		public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
 		{
 			if(values?.Length != 2)
-				return FontWeights.Normal;
+				//return FontWeights.Normal;
+				return false;
+
 
 			var formItem = values[0];
 			var listItem = values[1];
 
-			var result = formItem == listItem ? FontWeights.Bold : FontWeights.Normal;
+			//var result = formItem == listItem ? FontWeights.Bold : FontWeights.Normal;
+			var result = formItem == listItem;
 			return result;
 		}
 

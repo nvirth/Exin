@@ -10,6 +10,7 @@
         xmlns:utils="clr-namespace:WPF.Utils"
         xmlns:e="clr-namespace:WPF.Controls"
         xmlns:wpf="clr-namespace:WPF"
+        xmlns:models="clr-namespace:Common.UiModels.WPF;assembly=Common"
         Title="{x:Static res:Localized.WindowTitle}" Height="600" Width="800" WindowStartupLocation="CenterScreen"
         Closing="MainWindow_OnClosing"
         DataContext="{Binding Path=ViewModel, RelativeSource={RelativeSource Self}}"
@@ -78,6 +79,21 @@
                             SelectionChanged="DailyExpensesLV_OnSelectionChanged"
                             AlternationCount="2"
                             >
+                        <ListView.Resources>
+                            <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource {x:Type ListViewItem}}" >
+                                <Style.Triggers>
+                                    <DataTrigger Value="true">
+                                        <DataTrigger.Binding>
+                                            <MultiBinding Converter="{StaticResource SelectedEditedMultiConverter}">
+                                                <Binding ElementName="ActualExpenseGP" Path="ViewModel.ActualItem" />
+                                                <Binding />
+                                            </MultiBinding>
+                                        </DataTrigger.Binding>
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.Resources>
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="{x:Static res:Localized.Title}" DisplayMemberBinding="{Binding Path=Title}" />
@@ -87,12 +103,6 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock>
-                                                <TextBlock.FontWeight>
-                                                    <MultiBinding Converter="{StaticResource SelectedEditedMultiConverter}">
-                                                        <Binding ElementName="ActualExpenseGP" Path="ViewModel.ActualItem" />
-                                                        <Binding />
-                                                    </MultiBinding>
-                                                </TextBlock.FontWeight>
                                                 <TextBlock.Text>
                                                     <MultiBinding StringFormat="{}{0} {1}">
                                                         <Binding Path="Quantity"/>
@@ -200,6 +210,21 @@
                               SelectionChanged="MonthlyIncomesLV_OnSelectionChanged"
                               AlternationCount="2"
                               >
+                        <ListView.Resources>
+                            <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource {x:Type ListViewItem}}" >
+                                <Style.Triggers>
+                                    <DataTrigger Value="true">
+                                        <DataTrigger.Binding>
+                                            <MultiBinding Converter="{StaticResource SelectedEditedMultiConverter}">
+                                                <Binding ElementName="ActualIncomeGP" Path="ViewModel.ActualItem" />
+                                                <Binding />
+                                            </MultiBinding>
+                                        </DataTrigger.Binding>
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.Resources>
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="{x:Static res:Localized.Title}" DisplayMemberBinding="{Binding Path=Title}" />

@@ -28,8 +28,8 @@ namespace WPF.ViewModels.SummaryModels
 				_managerBase = value;
 				OnPropertyChanged();
 
-				RemovePreviousSelectedEditedHighlight(); // TODO is this ok here?
-                _managerBase.TransactionItems.CollectionChanged += HandleSeceltedEdited_OnTransactionCollectionChanged;
+				SetAddButtonLabel(isAdd: true);
+                _managerBase.TransactionItems.CollectionChanged += EnsurePreviousSeceltedEditedGotRemoved;
 			}
 		}
 
@@ -46,10 +46,9 @@ namespace WPF.ViewModels.SummaryModels
 				if(_actualItem == value)
 					return;
 
-				var oldValue = _actualItem;
 				_actualItem = value;
 
-				RefreshSelectedEdited(oldValue, value);
+				SetAddButtonLabel(isAdd: !ManagerBase.TransactionItems.Contains(value));
 
 				// New item is not valid by default; Title is empty
 				_actualItem.IsValidationOn = false;
@@ -85,123 +84,29 @@ namespace WPF.ViewModels.SummaryModels
 
 		#region Selected-Edited
 
-		public string AddButtonLabel => PrevSelectedEditedItem == null ? Localized.Add : Localized.Copy;
+		#region AddButtonLabel
 
-		#region PrevSelectedEditedItem
+		public string AddButtonLabel { get; private set; }
 
-		/// The previous Selected-Edited item
-		private TransactionItemBase _prevSelectedEditedItem;
-		public TransactionItemBase PrevSelectedEditedItem
+		/// <param name="isAdd">True: Add, False: Copy</param>
+		private void SetAddButtonLabel(bool isAdd)
 		{
-			get { return _prevSelectedEditedItem; }
-			set
-			{
-				if(_prevSelectedEditedItem == value)
-					return;
-
-				_prevSelectedEditedItem = value;
-				OnPropertyChanged();
-				OnPropertyChanged(this.Property(x => x.AddButtonLabel));
-			}
+			// { return PrevSelectedEditedItem == null ? Localized.Add : Localized.Copy; }
+			AddButtonLabel = isAdd ? Localized.Add : Localized.Copy;
+			OnPropertyChanged(this.Property(x => x.AddButtonLabel));
 		}
 
 		#endregion
 
-		#region PrevSelectedEditedOriginalFontWeight
-
-		/// The original FontWeight of the previous Selected-Edited item
-		private FontWeight _prevSelectedEditedOriginalFontWeight;
-		public FontWeight PrevSelectedEditedOriginalFontWeight
-		{
-			get { return _prevSelectedEditedOriginalFontWeight; }
-			set
-			{
-				if(_prevSelectedEditedOriginalFontWeight == value)
-					return;
-
-				_prevSelectedEditedOriginalFontWeight = value;
-				OnPropertyChanged();
-			}
-		}
-
-		#endregion
-
-		private void RefreshSelectedEdited(TransactionItemBase prevItem, TransactionItemBase newItem)
-		{
-			if(ListView.SelectedItem == newItem) // Contains would be enough for us now. But this is faster :)
-			{
-				if(PrevSelectedEditedItem != null && PrevSelectedEditedItem != prevItem)
-					ExinLog.ger.LogError("[WARN] PrevSelectedEditedItem != prevItem");
-
-				RemovePreviousSelectedEditedHighlight();
-				HighlightSelectedEdited();
-			}
-			else
-			{
-				RemovePreviousSelectedEditedHighlight();
-			}
-		}
-
-		/// Adds highlight to the new selected-and-edited item in the ListView. Removes the highlight from the previous, if exists
-		private void HighlightSelectedEdited()
-		{
-			if(PrevSelectedEditedItem != null)
-				RemovePreviousSelectedEditedHighlight();
-
-			// Currently, this is the "ActualSelectedEditedItem"; we just store here a reference for later
-			PrevSelectedEditedItem = (TransactionItemBase)ListView.SelectedItem; // TODO what if multiple selection?
-
-			var lvItem = (ListViewItem)ListView.ItemContainerGenerator.ContainerFromIndex(ListView.SelectedIndex);
-
-			PrevSelectedEditedOriginalFontWeight = lvItem.FontWeight;
-			lvItem.FontWeight = FontWeights.Bold;
-		}
-
-		private void RemovePreviousSelectedEditedHighlight()
-		{
-			if(PrevSelectedEditedItem == null)
-				return;
-
-			var prevLvItem = (ListViewItem)ListView.ItemContainerGenerator.ContainerFromItem(PrevSelectedEditedItem);
-			if(prevLvItem != null)
-				prevLvItem.FontWeight = PrevSelectedEditedOriginalFontWeight;
-			else
-				ExinLog.ger.LogError("[WARN] The stored reference for the previous Selected-Edited item is invalid. It will be cleared now anyway. ");
-
-			PrevSelectedEditedItem = null;
-		}
-
-		private async void HandleSeceltedEdited_OnTransactionCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		private void EnsurePreviousSeceltedEditedGotRemoved(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			switch(e.Action)
 			{
 				case NotifyCollectionChangedAction.Remove:
 				case NotifyCollectionChangedAction.Replace:
 				case NotifyCollectionChangedAction.Reset:
-					if(e.OldItems.Contains(PrevSelectedEditedItem)) // Ensure previous Selected-Edited is removed
-						RemovePreviousSelectedEditedHighlight();
-					break;
-
-				case NotifyCollectionChangedAction.Move:
-					if(e.OldItems.Contains(PrevSelectedEditedItem)) // Refresh SE boldness
-					{
-						// Here, the ListView (usually) did not update the layout yet
-						// Probably this method is before the ListView-updater method in the invocation
-						// list of the event. So my first idea was to use a Deferred object here, which
-						// waits until a ListView.LayoutUpdated event gets fired.
-						// But we must not depend on such things like order in an event's invocation list;
-						// it could be swapped any time.
-						//
-						// So we rather just wait here. Wait until the current execution stack of the main
-						// thread runs out. This way, we can be sure that the ListView's event handler
-						// has been run before our logic
-						//
-						// Theory tested with CPU Killer 3 (on 97% load)
-						//
-						await Task.Delay(1);
-						RemovePreviousSelectedEditedHighlight();
-						HighlightSelectedEdited();
-					}
+					if(e.OldItems.Contains(ActualItem))
+						SetAddButtonLabel(isAdd: true);
 					break;
 			}
 		}
