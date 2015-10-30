@@ -419,7 +419,7 @@ namespace WPF
 				var equalExpenseItem = ViewModel.DailyExpensesViewModel.Manager.GetTheEqual(selectedExpenseItem);
 				if(equalExpenseItem == null)
 				{
-					MessagePresenter.Instance.WriteError(Localized.The_chosen_expense_item_already_exists__);
+					MessagePresenter.Instance.WriteError(Localized.The_chosen_expense_item_does_not_exists_anymore__);
 					return;
 				}
 

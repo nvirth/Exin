@@ -709,8 +709,8 @@ or if you are familiar with SQL queries, you can also use the SQLite database fi
   <data name="_from_this__database_" xml:space="preserve">
     <value>┌-(from this, database)</value>
   </data>
-  <data name="The_chosen_expense_item_already_exists__" xml:space="preserve">
-    <value>The chosen expense item already exists. </value>
+  <data name="The_chosen_expense_item_does_not_exists_anymore__" xml:space="preserve">
+    <value>The chosen expense item does not exists anymore. </value>
   </data>
   <data name="Error_" xml:space="preserve">
     <value>Error!</value>

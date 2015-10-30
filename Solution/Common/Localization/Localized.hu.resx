@@ -712,7 +712,7 @@ A beviteli mezőkben:
   <data name="Error_" xml:space="preserve">
     <value>Hiba!</value>
   </data>
-  <data name="The_chosen_expense_item_already_exists__" xml:space="preserve">
+  <data name="The_chosen_expense_item_does_not_exists_anymore__" xml:space="preserve">
     <value>A kiválasztott kiadás egység már nem létezik. </value>
   </data>
   <data name="Save_changes_" xml:space="preserve">

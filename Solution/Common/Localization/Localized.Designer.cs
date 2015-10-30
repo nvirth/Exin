@@ -1726,11 +1726,11 @@ namespace Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The chosen expense item already exists. .
+        ///   Looks up a localized string similar to The chosen expense item does not exists anymore. .
         /// </summary>
-        public static string The_chosen_expense_item_already_exists__ {
+        public static string The_chosen_expense_item_does_not_exists_anymore__ {
             get {
-                return ResourceManager.GetString("The_chosen_expense_item_already_exists__", resourceCulture);
+                return ResourceManager.GetString("The_chosen_expense_item_does_not_exists_anymore__", resourceCulture);
             }
         }
         
