@@ -86,11 +86,10 @@ namespace Common.Configuration
 		public readonly DirectoryInfosClass DirectoryInfos;
 
 		//-- Static Directories
-		public static readonly string AppExecDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-		private static readonly string ResourcesDefaultDir = AppExecDir + "\\" + Names.ResourcesDefault;
+		private static readonly string ResourcesDefaultDir = Config.AppExecDir + "\\" + Names.ResourcesDefault;
 
 		//-- Static Files
-		public static readonly string SqliteDbCreateFile = AppExecDir + "\\" + Names.SqliteDbCreateFile;
+		public static readonly string SqliteDbCreateFile = Config.AppExecDir + "\\" + Names.SqliteDbCreateFile;
 		private static readonly string CategoriesDefaultFile = ResourcesDefaultDir + "\\" + Names.Categories;
 		private static readonly string UnitsDefaultFile = ResourcesDefaultDir + "\\" + Names.Units;
 		private static readonly string RepoSettingsDefaultFile = ResourcesDefaultDir + "\\" + Names.RepoSettings;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
+using System.Reflection;
 using Common.Log;
 using Common.Utils.Helpers;
 using Localization;
@@ -25,7 +26,8 @@ namespace Common.Configuration
 			}
 		}
 #endif
-		public const string MainSettingsFilePath = @".\Config\MainSettings.xml";
+		public static readonly string AppExecDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+		public static readonly string MainSettingsFilePath = Path.Combine(AppExecDir, @".\Config\MainSettings.xml");
 		public const string AppName = "Exin";
 		public const int CategoryValidFrom = 100;
 		public const int UnitValidFrom = 100;
