@@ -1,12 +1,20 @@
-v0.0.4 is the release of the MainSettings.xml and RepoSettings.xml:
-* Solution/WPF/Config/MainSettings.xml <--> <InstallDir>/Config/MainSettings.xml
-* Solution/Repository/DB/ResourcesDefault/RepoSettings.xml <--> <InstallDir>/ResourcesDefault/RepoSettings.xml 
+The v0.0.4 is the release of the MainSettings.xml and RepoSettings.xml.
+No automatic patch has been made for it.
+If you want to upgrade an existing v0.0.3 app to v0.0.4, you have to manually patch it.
 
-So, for an existing repo
-1. You have to extract the values for these xml files.
-	Solution/WPF/Config/AppSettings.config <--> <InstallDir>/Config/AppSettings.config
-	Solution/WPF/Config/ConnectionStrings.config <--> <InstallDir>/Config/ConnectionStrings.config
-1.1. AppSettings
+Used placeholders:
+<OldVersionInstallDir> : The installation directory of the old version
+<NewVersionInstallDir> : The installation directory of the new version*
+<RepoRoot>             : The existing repository's root directory
+*Put it first into a separate directory
+
+0. Create a backup of your data and old version app.
+1. Manually copy these files:
+	<NewVersionInstallDir>/ResourcesDefault/RepoSettings.xml  --> <RepoRoot>/Data/RepoSettings.xml
+1.1. If you have your <RepoRoot> under <OldVersionInstallDir>, copy into into <NewVersionInstallDir>
+2. You have to extract the values for these xml files:
+	<OldVersionInstallDir>/Config/AppSettings.config         <--> <NewVersionInstallDir>/Config/MainSettings.xml
+2.1. AppSettings
 * Important:
 	RepoRootDir <--> MainSettings: App/Repositories/Repo/RootDir
 * Others:
@@ -14,5 +22,3 @@ So, for an existing repo
 	SaveMode <--> RepoSettings: Repo/SaveMode
 	DbAccessMode <--> RepoSettings: Repo/DbAccessMode
 	DbType <--> RepoSettings: Repo/DbType
-1.2. ConnectionStrings
-* (Nothing to do yet)
