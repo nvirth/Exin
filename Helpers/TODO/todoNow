@@ -1,23 +1,23 @@
-* ConnectionStrings in the system: config files exist, but they are not in use in the ExinConnectionString already and yet. They've been removed already, and not reapplied yet.
-** We won't need to manually read this config file, the ConfigurationManager will fit. This way, every App.config file has to have the config file's location; but that's the same - and changless - everywhere. So we story the ConnectionString data in 1 place.
-*** BTW, the .csproj files have to be modified in the .exe projects; we have to set these files to be copied.
-**** TODO write memo for this
-  <Target Name="AfterBuild">
-    <Copy SourceFiles="..\Common\Common\bin\$(Configuration)\Config\ConnectionStrings.config" DestinationFolder="$(TargetDir)Config\" />
-  </Target>
+* Log
+* Copy
+* Markers
+* Xaml extract
 
 Implement MainSettings.xml and RepoSettings.xml things
 * CopyFormat
 * Currency
 * LastInitVersion
+* Starting problem with MainSettings.xml: If a new, virgin app starts, it will crash on the RepoRoot validation
+** Started to fix this, but still need testing
+
 * localization to config error messages (because they would appear on ui)
 * TransportData: How should it work in the new system?
 ** Currently can't work from VS in Release mode (but that's not a problem)
 ** TransportData: Currently does not run from VS, only from WPF/bin/.. (because of the MainSettings.xml location)
-* Starting problem with MainSettings.xml: If a new, virgin app starts, it will crash on the RepoRoot validation
-** Started to fix this, but still need testing
+*** Maybe we only should copy that file on build, like by the WPF project
+* TransportData in the new MsSql/SQLite repo system should check the CLI args, and compare them to the RepoSettings.xml. At least alert the user that eg if the RepoSettings has a configuration of DbType.SQLite, than don't want to import data from MsSql, because probably that db won't exists - in better case; but the xml has a default value for the database name as "ExinDeveloper"; so it could be that another repo's data will be transported, and the current's overriden with it
 
-NOTE: We may rename Common/Config folder, we copy the files in it manually on PostBuild
+* DatePaths -> ctor arg: Repo
 
 ---
 TEST TransportData when the args From and To are both DB types

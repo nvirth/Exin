@@ -140,11 +140,6 @@ namespace Common
 
 		#region Constructors
 
-		public DatePaths()
-			: this(DateTime.Now)
-		{
-		}
-
 		public DatePaths(DateTime dateTime)
 		{
 			_date = dateTime.AddDays(-1).AddMonths(-1); // Important, init, Null-Exception without it

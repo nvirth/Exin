@@ -186,38 +186,4 @@ namespace Common.Configuration
 				throw new ConfigurationErrorsException("LastInitVersion > Version");
 		}
 	}
-	public static class MainSettingsHelpers // TODO move and use this
-	{
-		public static string ParseString(this XElement xml, string xName)
-		{
-			var element = xml.Element(xName);
-			var result = ((string) element).Trim();
-			return result;
-		}
-		public static bool ParseBool(this XElement xml, string xName)
-		{
-			var element = xml.Element(xName);
-			var result = (bool)element;
-			return result;
-		}
-		public static int ParseInt(this XElement xml, string xName)
-		{
-			var element = xml.Element(xName);
-			var result = (int)element;
-			return result;
-		}
-		public static int? ParseIntNullable(this XElement xml, string xName)
-		{
-			var element = xml.Element(xName);
-			if(element == null || element.IsEmpty) //IsEmpty won't work for "<Tag></Tag>", only for "<Tag />"
-				return null;
-
-			var stringValue = ((string)element).Trim();
-			if(string.IsNullOrWhiteSpace(stringValue))
-				return null;
-
-			var intValue = (int)element;
-			return intValue;
-		}
-	}
 }

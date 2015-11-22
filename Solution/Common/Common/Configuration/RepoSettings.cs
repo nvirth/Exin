@@ -67,12 +67,90 @@ namespace Common.Configuration
 			{
 			}
 		}
+		public class MsSqlSettingsXml : NotifyPropertyChanged
+		{
+			public class ConnectionStringsXml : NotifyPropertyChanged
+			{
+				public string AdoNet { get; private set; }
+				public string EntityFramework { get; private set; }
+
+				private XElement _xElement;
+
+				public ConnectionStringsXml(XElement xElement)
+				{
+					_xElement = xElement;
+				}
+
+				public static ConnectionStringsXml Parse(XElement xml)
+				{
+					try
+					{
+						var instance = new ConnectionStringsXml(xml) {
+							AdoNet = xml.ParseString(C.AdoNet),
+							EntityFramework = xml.ParseString(C.EntityFramework),
+						};
+						instance.InitAndValidate();
+						return instance;
+					}
+					catch(Exception e)
+					{
+						ExinLog.ger.LogException("Could not parse RepoSettings.ConnectionStringsXml. ", e);
+						throw;
+					}
+				}
+
+				private void InitAndValidate()
+				{
+					// Validation (yet for the existence) of these xml members are done on the fly,
+					// but only if these members are necessary
+				}
+				public bool ValidateAdoNet()
+				{
+					return !string.IsNullOrWhiteSpace(AdoNet);
+				}
+				public bool ValidateEntityFramework()
+				{
+					return !string.IsNullOrWhiteSpace(EntityFramework);
+				}
+			}
+
+			public ConnectionStringsXml ConnectionStrings { get; set; }
+
+			private XElement _xElement;
+
+			public MsSqlSettingsXml(XElement xElement)
+			{
+				_xElement = xElement;
+			}
+
+			public static MsSqlSettingsXml Parse(XElement xml)
+			{
+				try
+				{
+					var instance = new MsSqlSettingsXml(xml) {
+						ConnectionStrings = ConnectionStringsXml.Parse(xml.Element(C.ConnectionStrings)),
+					};
+					instance.InitAndValidate();
+					return instance;
+				}
+				catch(Exception e)
+				{
+					ExinLog.ger.LogException("Could not parse RepoSettings.MsSqlSettingsXml. ", e);
+					throw;
+				}
+			}
+
+			private void InitAndValidate()
+			{
+			}
+		}
 
 		public Version Version { get; private set; }
 		public Version LastInitVersion { get; private set; }
 		public string Currency { get; private set; }
 
 		public UserSettingsXml UserSettings { get; private set; }
+		public MsSqlSettingsXml MsSqlSettings { get; private set; }
 
 		private XElement _xmlDoc;
 		private object _xmlDocLock = new object();
@@ -104,6 +182,7 @@ namespace Common.Configuration
 						LastInitVersion = Version.Parse(lastInitVersionStr),
 						Currency = xml.ParseString(C.Currency),
 						UserSettings = UserSettingsXml.Parse(xml.Element(C.UserSettings)),
+						MsSqlSettings = MsSqlSettingsXml.Parse(xml.Element(C.MsSqlSettings)),
 						DbAccessMode = EnumHelpers.Parse<DbAccessMode>(dbAccessMode, ignoreCase: true),
 						DbType = EnumHelpers.Parse<DbType>(dbType, ignoreCase: true),
 						ReadMode = EnumHelpers.Parse<ReadMode>(readMode, ignoreCase: true),

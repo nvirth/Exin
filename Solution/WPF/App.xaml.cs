@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Runtime.ExceptionServices;
 using System.Windows;
+using System.Windows.Markup;
 using System.Windows.Navigation;
 using Common.Configuration;
 using Common.Log;
@@ -68,7 +69,17 @@ namespace WPF
 			else
 			{
 				ExinLog.ger.LogException(errMsg, exception);
-				promptMsg += exception.Message;
+
+				var plusMessage = exception.Message;
+
+				if(exception.InnerException != null)
+				{
+					// Here we can gather those unhandled exception types, which wraps the information
+					if(exception is XamlParseException)
+						plusMessage = exception.InnerException.Message;
+				}
+
+				promptMsg += plusMessage;
 			}
 
 			if(e.IsTerminating)

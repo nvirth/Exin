@@ -134,16 +134,24 @@
 				// --DbType
 				// --UserSettings
 				// ----StatYAxisMax
+				// --MsSqlSettings
+				// ----ConnectionStrings
+				// ------AdoNet
+				// ------EntityFramework
 				//
+				public const string AdoNet = "AdoNet";
 				public const string AllowsFutureDate = "AllowsFutureDate";
 				public const string App = "App";
+				public const string ConnectionStrings = "ConnectionStrings";
 				public const string CopyFormat = "CopyFormat";
 				public const string Currency = "Currency";
 				public const string CurrentRepoNames = "CurrentRepoNames";
 				public const string DbAccessMode = "DbAccessMode";
 				public const string DbType = "DbType";
+				public const string EntityFramework = "EntityFramework";
 				public const string Language = "Language";
 				public const string LastInitVersion = "LastInitVersion";
+				public const string MsSqlSettings = "MsSqlSettings";
 				public const string Name = "Name";
 				public const string ReadMode = "ReadMode";
 				public const string Repo = "Repo";

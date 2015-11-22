@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Configuration;
 using Common;
 using Common.Log;
 using Common.UiModels.WPF;
@@ -161,6 +162,10 @@ namespace BLL.WpfManagers
 			{
 				ReadDataMessage();
 				ReadData();
+			}
+			catch(ConfigurationErrorsException e)
+			{
+				throw;
 			}
 			catch(Exception e)
 			{

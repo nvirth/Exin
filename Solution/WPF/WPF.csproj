@@ -227,7 +227,6 @@
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild">
-    <Copy SourceFiles="..\Common\Common\bin\$(Configuration)\Config\ConnectionStrings.config" DestinationFolder="$(TargetDir)Config\" />
     <Copy SourceFiles="..\Repository\TransportData\bin\$(Configuration)\TransportData.exe.config" DestinationFolder="$(TargetDir)" />
   </Target>
 </Project>

@@ -42,7 +42,7 @@ namespace Common.Configuration
 
 		public static void InitRepo()
 		{
-			// We have to delay this init, because of starting problem. If the repo not exists,
+			// We have to delay this init, because of starting problem. If the repo does not exists,
 			// does it mean that the user deleted it, or just starts the app the first time?
 
 			Repo = new Repo(FirstRepoRootPath);

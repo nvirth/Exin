@@ -24,7 +24,6 @@ using Common.Configuration;
 using Common.Log;
 using Localization;
 using Newtonsoft.Json;
-using C = Common.Configuration.Constants.Xml.TransactionItem;
 
 namespace Common.Utils.Helpers
 {
@@ -641,17 +640,6 @@ namespace Common.Utils.Helpers
 
 		#region IEnumerable
 
-		public static XElement ToXmlShallow<T>(this IEnumerable<T> listToConvert, Func<T, bool> filter = null, string rootName = C.root)
-		{
-			var list = (filter == null) ? listToConvert : listToConvert.Where(filter);
-			return new XElement(rootName,
-				(from node in list
-				 select new XElement(typeof(T).Name,
-					 from subnode in node.GetType().GetRuntimeProperties()
-					 select new XElement(subnode.Name, subnode.GetValue(node, null)))));
-
-		}
-
 		public static void ForEach<T>(this IEnumerable<T> source, Action<T> action)
 		{
 			foreach(T element in source)
@@ -807,60 +795,6 @@ namespace Common.Utils.Helpers
 		public static string ToJson(this object value)
 		{
 			return JsonConvert.SerializeObject(value, Formatting.Indented);
-		}
-
-		/// <summary>
-		/// Don't use this; the ToXml is a better version
-		/// </summary>
-		public static XElement ToXmlShallow(this object obj)
-		{
-			IEnumerable<XElement> xElements =
-				from property in obj.GetType().GetRuntimeProperties()
-				select new XElement(property.Name, property.GetValue(obj));
-
-			return new XElement(obj.GetType().Name, xElements);
-		}
-
-		public static XElement ToXml(this object obj)
-		{
-			var type = obj.GetType();
-
-			// If obj is value type or string, then return it wrapped
-			if(type.IsValueType || (obj is string))
-				return new XElement(type.Name.ToFriendlyUrl(), obj);
-
-			// If obj is a class (but not string), iterate it's properties, and serialize them to xml format
-			IEnumerable<XElement> xElements =
-				type.GetRuntimeProperties()
-					.Select(property =>
-							{
-								object propertyValue = property.GetValue(obj);
-								if(propertyValue != null)
-								{
-									var propertyType = propertyValue.GetType();
-
-									// If the property is not a value type or a string, call .ToXml to the property as well
-									if(!propertyType.IsValueType && !(propertyValue is string))
-									{
-										var enumerablePropertyValue = propertyValue as IEnumerable<object>;
-										if(enumerablePropertyValue != null)
-										{
-											// If an IEnumerable type is empty, don't attach it to the xml
-											propertyValue = enumerablePropertyValue.Any()
-												? (object)propertyValue.ToXml()
-												: null; // enumerablePropertyValue.GetType().Name + " = null";
-										}
-										else // Non-IEnumberable types
-										{
-											propertyValue = propertyValue.ToXml();
-										}
-									}
-								}
-
-								return new XElement(property.Name.ToFriendlyUrl(), propertyValue);
-							});
-
-			return new XElement(type.Name.ToFriendlyUrl(), xElements);
 		}
 
 		/// <summary>
