@@ -646,6 +646,12 @@ namespace Common.Utils.Helpers
 				action(element);
 		}
 
+		public static IEnumerable<T> Yield<T>(this T item)
+		{
+			if(item != null)
+				yield return item;
+		}
+
 		#endregion
 
 		#region IList

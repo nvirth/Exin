@@ -110,6 +110,7 @@
     <Compile Include="Configuration\Cultures.cs" />
     <Compile Include="Utils\Helpers\EnumHelpers.cs" />
     <Compile Include="Utils\Helpers\XmlHelpers.cs" />
+    <Compile Include="Utils\LocalizedDisplayNameAttribute.cs" />
     <Compile Include="Utils\MessagePresenter.cs" />
     <Compile Include="Utils\AutoMapperHelpers.cs" />
     <Compile Include="Utils\BindingDecoratorBase.cs" />

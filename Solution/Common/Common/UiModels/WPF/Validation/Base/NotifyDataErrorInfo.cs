@@ -5,8 +5,10 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
+using Common.Log;
 using Common.UiModels.WPF.Base;
 using Common.Utils.Helpers;
+using Localization;
 
 namespace Common.UiModels.WPF.Validation.Base
 {
@@ -135,9 +137,21 @@ namespace Common.UiModels.WPF.Validation.Base
 					validationAttribute =>
 					{
 						var displayName = propertyName;
-						var displayAttribute = metaPropertyInfo.GetCustomAttribute(typeof(DisplayAttribute)) as DisplayAttribute;
-						if(displayAttribute != null)
-							displayName = displayAttribute.Name;
+
+						var displayNameAttribute = metaPropertyInfo.GetCustomAttribute(typeof(DisplayNameAttribute)) as DisplayNameAttribute;
+						if(displayNameAttribute != null)
+						{
+							displayName = displayNameAttribute.DisplayName;
+						}
+						else
+						{
+							var displayAttribute = metaPropertyInfo.GetCustomAttribute(typeof(DisplayAttribute)) as DisplayAttribute;
+
+							if(displayAttribute != null)
+								displayName = displayAttribute.Name;
+							else
+								ExinLog.ger.LogError("WARN: Could not find the DisplayName for: {0}.{1}".Formatted(this.GetType().Name, propertyName)); // TODO localization
+						}
 
 						return validationAttribute.FormatErrorMessage(displayName);
 					})
