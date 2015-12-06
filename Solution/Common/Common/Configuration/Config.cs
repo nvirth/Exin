@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.IO;
 using System.Reflection;
+using Common.Configuration.Settings;
 using Common.Log;
 using Common.Utils.Helpers;
 using Localization;

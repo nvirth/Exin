@@ -6,36 +6,69 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
-using Common.Db.Entities;
 using Common.Log;
+using Common.UiModels.WPF.Base;
 using Common.UiModels.WPF.Validation;
 using Common.Utils.Helpers;
 using Localization;
 using C = Common.Configuration.Constants.Xml.Settings;
 
-namespace Common.Configuration
+namespace Common.Configuration.Settings
 {
-	public enum CopyFormat
-	{
-		Xml, Json
-	}
-
-	public class MainSettings
+	public class MainSettings : XmlSettingsBase
 	{
 		public const string DefaultRepoName = "Default";
 		public const string DefaultRootDir = @".\Repositories\" + RepoNamePlaceholder;
 		public const string RepoNamePlaceholder = ":REPO_NAME:";
 
-		public class RepoXml
+		public class RepoXml : NotifyPropertyChanged
 		{
-			public string Name { get; private set; }
-			public string RootDir { get; private set; }
+			#region Leaf xml properties
+
+			private string _name;
+			public string Name
+			{
+				get { return _name; }
+				set
+				{
+					if(_name == value)
+						return;
+
+					_name = value;
+					_xElement.Element(C.Name).SetValue(value);
+					OnPropertyChanged();
+				}
+			}
+
+			private string _rootDir;
+			public string RootDir
+			{
+				get { return _rootDir; }
+				set
+				{
+					if(_rootDir == value)
+						return;
+
+					_rootDir = value;
+					_xElement.Element(C.RootDir).SetValue(value);
+					OnPropertyChanged();
+				}
+			}
+
+			#endregion
+
+			private readonly XElement _xElement;
+
+			public RepoXml(XElement xElement)
+			{
+				_xElement = xElement;
+			}
 
 			public static RepoXml Parse(XElement xml)
 			{
 				try
 				{
-					var instance = new RepoXml()
+					var instance = new RepoXml(xml)
 					{
 						Name = xml.ParseString(C.Name),
 						RootDir = xml.ParseString(C.RootDir),
@@ -87,14 +120,80 @@ namespace Common.Configuration
 				}
 			}
 		}
-		public class UserSettingsXml
+		public class UserSettingsXml : NotifyPropertyChanged
 		{
 			public const char CurrentRepoNamesSeparator = ',';
 
-			public string[] CurrentRepoNames { get; private set; }
-			public bool AllowsFutureDate { get; private set; }
-			public CultureInfo Language { get; private set; }
-			public CopyFormat CopyFormat { get; private set; }
+			#region Leaf xml properties
+
+			private string[] _currentRepoNames;
+			public string[] CurrentRepoNames
+			{
+				get { return _currentRepoNames; }
+				set
+				{
+					if(_currentRepoNames == value)
+						return;
+
+					_currentRepoNames = value;
+					_xElement.Element(C.CurrentRepoNames).SetValue(value);
+					OnPropertyChanged();
+				}
+			}
+
+			private bool _allowsFutureDate;
+			public bool AllowsFutureDate
+			{
+				get { return _allowsFutureDate; }
+				set
+				{
+					if(_allowsFutureDate == value)
+						return;
+
+					_allowsFutureDate = value;
+					_xElement.Element(C.AllowsFutureDate).SetValue(value);
+					OnPropertyChanged();
+				}
+			}
+
+			private CultureInfo _language;
+			public CultureInfo Language
+			{
+				get { return _language; }
+				set
+				{
+					if(_language == value)
+						return;
+
+					_language = value;
+					_xElement.Element(C.Language).SetValue(value);
+					OnPropertyChanged();
+				}
+			}
+
+			private CopyFormat _copyFormat;
+			public CopyFormat CopyFormat
+			{
+				get { return _copyFormat; }
+				set
+				{
+					if(_copyFormat == value)
+						return;
+
+					_copyFormat = value;
+					_xElement.Element(C.CopyFormat).SetValue(value);
+					OnPropertyChanged();
+				}
+			}
+
+			#endregion
+
+			private readonly XElement _xElement;
+
+			public UserSettingsXml(XElement xElement)
+			{
+				_xElement = xElement;
+			}
 
 			public static UserSettingsXml Parse(XElement xml)
 			{
@@ -103,7 +202,7 @@ namespace Common.Configuration
 					var languageStr = xml.ParseString(C.Language);
 					var copyFormatStr = xml.ParseString(C.CopyFormat);
 
-					var instance = new UserSettingsXml()
+					var instance = new UserSettingsXml(xml)
 					{
 						CurrentRepoNames = xml.ParseString(C.CurrentRepoNames).ToLowerInvariant().Split(CurrentRepoNamesSeparator),
 						AllowsFutureDate = xml.ParseBool(C.AllowsFutureDate),
@@ -127,11 +226,46 @@ namespace Common.Configuration
 			}
 		}
 
-		public Version Version { get; private set; }
-		public Version LastInitVersion { get; private set; }
+		#region Leaf xml properties
+
+		private Version _version;
+		public Version Version
+		{
+			get { return _version; }
+			set
+			{
+				if(_version == value)
+					return;
+
+				_version = value;
+				XElement.Element(C.Version).SetValue(value);
+				OnPropertyChanged();
+			}
+		}
+
+		private Version _lastInitVersion;
+		public Version LastInitVersion
+		{
+			get { return _lastInitVersion; }
+			set
+			{
+				if(_lastInitVersion == value)
+					return;
+
+				_lastInitVersion = value;
+				XElement.Element(C.LastInitVersion).SetValue(value);
+				OnPropertyChanged();
+			}
+		}
+
+		#endregion
 
 		public List<RepoXml> Repositories { get; private set; }
 		public UserSettingsXml UserSettings { get; private set; }
+
+		private MainSettings(string xmlFilePath, XElement xmlDoc, XElement xElement) : base(xmlFilePath, xmlDoc, xElement)
+		{
+		}
 
 		public static MainSettings Read(string xmlFilePath)
 		{
@@ -142,7 +276,7 @@ namespace Common.Configuration
 					var versionStr = xml.ParseString(C.Version);
 					var lastInitVersionStr = xml.ParseString(C.LastInitVersion);
 
-					var result = new MainSettings 
+					var result = new MainSettings(xmlFilePath, xmlDoc, xml)
 					{
 						Version = Version.Parse(versionStr),
 						LastInitVersion = Version.Parse(lastInitVersionStr),
@@ -153,7 +287,7 @@ namespace Common.Configuration
 				})
 				.First();
 
-				instance.Validate();
+				instance.InitAndValidate();
 				return instance;
 			}
 			catch (Exception e)
@@ -163,7 +297,7 @@ namespace Common.Configuration
 			}
 		}
 
-		private void Validate()
+		private void InitAndValidate()
 		{
 			var repoNames = Repositories.Select(r => r.Name.ToLowerInvariant()).Distinct().ToList();
 
@@ -184,6 +318,12 @@ namespace Common.Configuration
 
 			if(LastInitVersion > Version)
 				throw new ConfigurationErrorsException("LastInitVersion > Version");
+
+			// --
+
+			UserSettings.PropertyChanged += (sender, args) => OnPropertyChanged(C.UserSettings);
+			Repositories.ForEach(repoXml => repoXml.PropertyChanged += (sender, args) => OnPropertyChanged(C.Repositories));
+            Init();
 		}
 	}
 }

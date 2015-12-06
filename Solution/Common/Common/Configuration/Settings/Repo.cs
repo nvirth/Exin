@@ -1,14 +1,4 @@
-using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using Common.Utils;
-using Common.Utils.Helpers;
-using Localization;
-using C = Common.Configuration.Constants;
-
-namespace Common.Configuration
+namespace Common.Configuration.Settings
 {
 	public interface IRepo
 	{

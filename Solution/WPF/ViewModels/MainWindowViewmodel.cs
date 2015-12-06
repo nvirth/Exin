@@ -38,6 +38,9 @@ namespace WPF.ViewModels
 
 		public DatePickerFromCodeDateChanger DateChanger { get; set; }
 
+		private ClipboardManager _clipboardManager;
+		public ClipboardManager ClipboardManager => _clipboardManager ?? (_clipboardManager = new ClipboardManager());
+
 		#region Save
 
 		public bool Save(bool saveDailyExpenses = true, bool saveMonthlyIncomes = true)

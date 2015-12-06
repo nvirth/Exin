@@ -159,6 +159,8 @@ namespace WPF
 
 			viewModel.Statistics.SetDateToMonthly(startDate);
 
+			viewModel.ClipboardManager.MainWindow = this;
+
 			ViewModel = viewModel;
 
 			// These have to be assigned delayed, to avoid their validation
@@ -388,6 +390,10 @@ namespace WPF
 
 				e.Handled = true;
 			}
+			else
+			{
+				HandleClipboardKeyCombinations(e);
+			}
 		}
 
 		private void DailyExpensesLV_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -470,6 +476,10 @@ namespace WPF
 				MonthlyIncomesLV.Focus();
 
 				e.Handled = true;
+			}
+			else
+			{
+				HandleClipboardKeyCombinations(e);
 			}
 		}
 
@@ -626,5 +636,18 @@ namespace WPF
 		}
 
 		#endregion
+
+		private void MonthlyExpensesLV_OnKeyUp(object sender, KeyEventArgs e)
+		{
+			HandleClipboardKeyCombinations(e);
+		}
+
+		private void HandleClipboardKeyCombinations(KeyEventArgs e)
+		{
+			if(e.IsKeyCombinationPressed(Key.C, ModifierKeys.Control, onlyModifierKeys: true))
+			{
+				ViewModel.ClipboardManager.Copy();
+			}
+		}
 	}
 }

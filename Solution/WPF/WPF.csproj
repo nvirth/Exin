@@ -103,11 +103,13 @@
       <DependentUpon>NewTransactionForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\ClickSelectTextBox.cs" />
+    <Compile Include="Utils\ClipboardManager.cs" />
     <Compile Include="Utils\DatePickerFromCodeDateChanger.cs" />
     <Compile Include="Utils\ItemsControlSorterCore.cs" />
     <Compile Include="Controls\ViewModels\MainMenuViewModel.cs" />
     <Compile Include="Utils\ItemsControlSorter.cs" />
     <Compile Include="Utils\Util.cs" />
+    <Compile Include="ValueConverters\CopyFormatToFontWeightConverter.cs" />
     <Compile Include="ValueConverters\SelectedEditedMultiConverter.cs" />
     <Compile Include="ValueConverters\HideIfIncomeConverter.cs" />
     <Compile Include="ValueConverters\NullToVisibilityConverter.cs" />

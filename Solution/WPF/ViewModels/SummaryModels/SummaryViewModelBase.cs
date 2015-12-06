@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,6 +12,8 @@ using Common.UiModels.WPF.Base;
 using Common.Utils.Helpers;
 using Localization;
 using WPF.Utils;
+using Common.Configuration;
+using Common.Configuration.Settings;
 
 namespace WPF.ViewModels.SummaryModels
 {
@@ -112,5 +115,36 @@ namespace WPF.ViewModels.SummaryModels
 		}
 
 		#endregion
+
+		public void CopySelectionToClipboard(CopyFormat? copyFormat = null)
+		{
+			copyFormat = copyFormat ?? Config.MainSettings.UserSettings.CopyFormat;
+			var selectedTransactions = ListView.SelectedItems.Cast<TransactionItemBase>();
+			string resultString = "";
+
+			switch(copyFormat)
+			{
+				case CopyFormat.Xml:
+					resultString = selectedTransactions
+						.Select(ei => ei.ToXml().ToString())
+						.Join("\r\n");
+					break;
+				case CopyFormat.Json:
+					resultString = selectedTransactions
+						.Select(ei => ei.ToXml().ToJson())
+						.Join(",\r\n");
+					break;
+				case CopyFormat.Csv:
+					ExinLog.ger.LogError("This CopyFormat is not impleneted yet: " + copyFormat);
+					break;
+				default:
+					throw new NotImplementedException("This CopyFormat is not impleneted yet: " + copyFormat);
+			}
+
+			if(!string.IsNullOrWhiteSpace(resultString))
+				Clipboard.SetText(resultString, TextDataFormat.Text);
+
+			Config.MainSettings.UserSettings.CopyFormat = copyFormat.Value;
+		}
 	}
 }

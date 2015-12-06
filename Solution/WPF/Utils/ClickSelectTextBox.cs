@@ -7,6 +7,7 @@ using System.Windows.Media;
 
 namespace WPF.Utils
 {
+	// TODO move into Controls
 	public class ClickSelectTextBox : TextBox
 	{
 		#region Properties

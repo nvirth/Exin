@@ -4,13 +4,35 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPF.Controls"
+             xmlns:c="clr-namespace:Common.Configuration;assembly=Common"
+             xmlns:valueConverters="clr-namespace:WPF.ValueConverters"
+             xmlns:settings="clr-namespace:Common.Configuration.Settings;assembly=Common"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              >
     <Grid x:Name="LayoutRoot">
+        <Grid.Resources>
+            <valueConverters:CopyFormatToFontWeightConverter x:Key="CopyFormatToFontWeightConverter" />
+        </Grid.Resources>
         <Menu IsMainMenu="True" >
             <MenuItem Header="_Main">
-                <MenuItem Header="_Copy" Click="MenuItem_Copy_OnClick" />
+                <MenuItem Header="_Copy" >
+                    <MenuItem Click="MenuItem_CopyXml_OnClick">
+                        <MenuItem.Header>
+                            <TextBlock Text="XML" FontWeight="{Binding Source={x:Static c:Config.MainSettings}, Path=UserSettings.CopyFormat, Converter={StaticResource CopyFormatToFontWeightConverter}, ConverterParameter={x:Static settings:CopyFormat.Xml} }" />
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem Click="MenuItem_CopyJson_OnClick">
+                        <MenuItem.Header>
+                            <TextBlock Text="JSON" FontWeight="{Binding Source={x:Static c:Config.MainSettings}, Path=UserSettings.CopyFormat, Converter={StaticResource CopyFormatToFontWeightConverter}, ConverterParameter={x:Static settings:CopyFormat.Json} }" />
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem Click="MenuItem_CopyCsv_OnClick">
+                        <MenuItem.Header>
+                            <TextBlock Text="CSV" FontWeight="{Binding Source={x:Static c:Config.MainSettings}, Path=UserSettings.CopyFormat, Converter={StaticResource CopyFormatToFontWeightConverter}, ConverterParameter={x:Static settings:CopyFormat.Csv} }" />
+                        </MenuItem.Header>
+                    </MenuItem>
+                </MenuItem>
                 <MenuItem Header="_Options" Click="MenuItem_Options_OnClick" />
                 <MenuItem Header="_Shortcuts" Click="MenuItem_Shortcuts_OnClick" />
                 <MenuItem Header="_Search" Click="MenuItem_Search_OnClick" />

@@ -49,7 +49,7 @@ namespace Common.UiModels.WPF
 	[Serializable]
 	public partial class ExpenseItem
 	{
-		public override XElement ToXml()
+		public override XElement ToXml() // TODO with/without Date
 		{
 			return new XElement(C.ExpenseItem, new object[]
 			{

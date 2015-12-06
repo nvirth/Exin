@@ -863,6 +863,12 @@ namespace Common.Utils.Helpers
 
 		#region StopWatch
 
+		public static Stopwatch WithStart(this Stopwatch stopwatch)
+		{
+			stopwatch.Start();
+			return stopwatch;
+		}
+
 		public static string ToFormattedString(this Stopwatch stopwatch)
 		{
 			var min = stopwatch.Elapsed.Minutes;

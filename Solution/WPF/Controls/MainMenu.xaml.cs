@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Common.Configuration;
+using Common.Configuration.Settings;
 using Common.Log;
 using WPF.Controls.ViewModels;
 using WPF.Utils;
@@ -61,9 +63,17 @@ namespace WPF.Controls
 			LayoutRoot.DataContext = this;
 		}
 
-		private void MenuItem_Copy_OnClick(object sender, RoutedEventArgs e)
+		private void MenuItem_CopyXml_OnClick(object sender, RoutedEventArgs e)
 		{
-			MainMenuViewModel.Copy(sender, e);
+			MainMenuViewModel.Copy(CopyFormat.Xml);
+		}
+		private void MenuItem_CopyJson_OnClick(object sender, RoutedEventArgs e)
+		{
+			MainMenuViewModel.Copy(CopyFormat.Json);
+		}
+		private void MenuItem_CopyCsv_OnClick(object sender, RoutedEventArgs e)
+		{
+			MainMenuViewModel.Copy(CopyFormat.Csv);
 		}
 
 		private void MenuItem_Options_OnClick(object sender, RoutedEventArgs e)

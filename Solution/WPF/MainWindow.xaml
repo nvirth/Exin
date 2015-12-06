@@ -160,6 +160,7 @@
                               GridViewColumnHeader.Click ="ListViewsHeaders_OnClick_Sort"
                               SelectionChanged="MonthlyExpensesLV_OnSelectionChanged"
                               AlternationCount="2"
+                              KeyUp="MonthlyExpensesLV_OnKeyUp"
                               >
                         <ListView.View>
                             <GridView>

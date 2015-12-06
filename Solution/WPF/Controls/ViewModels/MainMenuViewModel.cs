@@ -1,9 +1,14 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows;
+using Common;
+using Common.Configuration;
+using Common.Configuration.Settings;
 using Common.UiModels.WPF;
 using Common.Utils;
 using Common.Utils.Helpers;
 using Localization;
+using WPF.ViewModels.SummaryModels;
 
 namespace WPF.Controls.ViewModels
 {
@@ -16,19 +21,9 @@ namespace WPF.Controls.ViewModels
 			_mainWindow = mainWindow;
 		}
 
-		public void Copy(object sender, RoutedEventArgs e)
+		public void Copy(CopyFormat? copyFormat = null)
 		{
-			// TODO this is just a sketch yet, for DailyExpenses
-			//Config.MainSettings.UserSettings.CopyFormat
-			var xml = _mainWindow.DailyExpensesLV.SelectedItems
-				.Cast<ExpenseItem>()
-				.Select(ei => ei.ToXml().ToString())
-				.Join("\r\n");
-
-			if(!string.IsNullOrWhiteSpace(xml))
-				Clipboard.SetText(xml, TextDataFormat.Text);
-
-			MessagePresenter.Instance.WriteLine(Localized.Copy_menuitem_is_not_implemented_yet);
+			_mainWindow.ViewModel.ClipboardManager.Copy(copyFormat);
 		}
 
 		public void Options(object sender, RoutedEventArgs e)

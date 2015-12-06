@@ -1,26 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Xml.Linq;
-using Common.Db.Entities;
 using Common.Log;
 using Common.UiModels.WPF.Base;
-using Common.UiModels.WPF.Validation;
 using Common.Utils.Helpers;
 using Localization;
 using C = Common.Configuration.Constants.Xml.Settings;
 
-namespace Common.Configuration
+namespace Common.Configuration.Settings
 {
-	public class RepoSettings : RepoConfiguration
+	public class RepoSettings : XmlSettingsBase
 	{
 		public class UserSettingsXml : NotifyPropertyChanged
 		{
-			#region Properties
+			#region Leaf xml properties
 
 			private int? _statYAxisMax;
 			public int? StatYAxisMax
@@ -38,7 +32,7 @@ namespace Common.Configuration
 			}
 			#endregion
 
-			private XElement _xElement;
+			private readonly XElement _xElement;
 
 			public UserSettingsXml(XElement xElement)
 			{
@@ -71,10 +65,41 @@ namespace Common.Configuration
 		{
 			public class ConnectionStringsXml : NotifyPropertyChanged
 			{
-				public string AdoNet { get; private set; }
-				public string EntityFramework { get; private set; }
+				#region Leaf xml properties
 
-				private XElement _xElement;
+				private string _adoNet;
+				public string AdoNet
+				{
+					get { return _adoNet; }
+					set
+					{
+						if(_adoNet == value)
+							return;
+
+						_adoNet = value;
+						_xElement.Element(C.AdoNet).SetValue(value);
+						OnPropertyChanged();
+					}
+				}
+
+				private string _entityFramework;
+				public string EntityFramework
+				{
+					get { return _entityFramework; }
+					set
+					{
+						if(_entityFramework == value)
+							return;
+
+						_entityFramework = value;
+						_xElement.Element(C.EntityFramework).SetValue(value);
+						OnPropertyChanged();
+					}
+				}
+
+				#endregion
+
+				private readonly XElement _xElement;
 
 				public ConnectionStringsXml(XElement xElement)
 				{
@@ -114,9 +139,9 @@ namespace Common.Configuration
 				}
 			}
 
-			public ConnectionStringsXml ConnectionStrings { get; set; }
+			public ConnectionStringsXml ConnectionStrings { get; private set; }
 
-			private XElement _xElement;
+			private readonly XElement _xElement;
 
 			public MsSqlSettingsXml(XElement xElement)
 			{
@@ -142,25 +167,124 @@ namespace Common.Configuration
 
 			private void InitAndValidate()
 			{
+				ConnectionStrings.PropertyChanged += (sender, args) => OnPropertyChanged(C.ConnectionStrings);
 			}
 		}
-
-		public Version Version { get; private set; }
-		public Version LastInitVersion { get; private set; }
-		public string Currency { get; private set; }
 
 		public UserSettingsXml UserSettings { get; private set; }
 		public MsSqlSettingsXml MsSqlSettings { get; private set; }
 
-		private XElement _xmlDoc;
-		private object _xmlDocLock = new object();
+		#region Leaf xml properties
 
-		private string _xmlFilePath;
-
-		private RepoSettings(string xmlFilePath, XElement xmlDoc)
+		private Version _version;
+		public Version Version
 		{
-			_xmlFilePath = xmlFilePath;
-            _xmlDoc = xmlDoc;
+			get { return _version; }
+			set
+			{
+				if(_version == value)
+					return;
+
+				_version = value;
+				XElement.Element(C.Version).SetValue(value);
+				OnPropertyChanged();
+			}
+		}
+
+		private Version _lastInitVersion;
+		public Version LastInitVersion
+		{
+			get { return _lastInitVersion; }
+			set
+			{
+				if(_lastInitVersion == value)
+					return;
+
+				_lastInitVersion = value;
+				XElement.Element(C.LastInitVersion).SetValue(value);
+				OnPropertyChanged();
+			}
+		}
+
+		private string _currency;
+		public string Currency
+		{
+			get { return _currency; }
+			set
+			{
+				if(_currency == value)
+					return;
+
+				_currency = value;
+				XElement.Element(C.Currency).SetValue(value);
+				OnPropertyChanged();
+			}
+		}
+
+		private DbType _dbType;
+		public DbType DbType
+		{
+			get { return _dbType; }
+			set
+			{
+				if(_dbType == value)
+					return;
+
+				_dbType = value;
+				XElement.Element(C.DbType).SetValue(value);
+				OnPropertyChanged();
+			}
+		}
+
+		private DbAccessMode _dbAccessMode;
+		public DbAccessMode DbAccessMode
+		{
+			get { return _dbAccessMode; }
+			set
+			{
+				if(_dbAccessMode == value)
+					return;
+
+				_dbAccessMode = value;
+				XElement.Element(C.DbAccessMode).SetValue(value);
+				OnPropertyChanged();
+			}
+		}
+
+		private ReadMode _readMode;
+		public ReadMode ReadMode
+		{
+			get { return _readMode; }
+			set
+			{
+				if(_readMode == value)
+					return;
+
+				_readMode = value;
+				XElement.Element(C.ReadMode).SetValue(value);
+				OnPropertyChanged();
+			}
+		}
+
+		private SaveMode _saveMode;
+		public SaveMode SaveMode
+		{
+			get { return _saveMode; }
+			set
+			{
+				if(_saveMode == value)
+					return;
+
+				_saveMode = value;
+				XElement.Element(C.SaveMode).SetValue(value);
+				OnPropertyChanged();
+			}
+		}
+
+		#endregion
+
+		private RepoSettings(string xmlFilePath, XElement xmlDoc, XElement xElement) : base(xmlFilePath, xmlDoc, xElement)
+		{
 		}
 
 		public static RepoSettings Read(string xmlFilePath)
@@ -176,7 +300,7 @@ namespace Common.Configuration
 					var readMode = xml.ParseString(C.ReadMode);
 					var saveMode = xml.ParseString(C.SaveMode);
 
-					var result = new RepoSettings(xmlFilePath, xmlDoc)
+					var result = new RepoSettings(xmlFilePath, xmlDoc, xml)
 					{
 						Version = Version.Parse(versionStr),
 						LastInitVersion = Version.Parse(lastInitVersionStr),
@@ -217,17 +341,9 @@ namespace Common.Configuration
 
 			//--
 
-			UserSettings.PropertyChanged += (sender, args) => {
-				switch(args.PropertyName)
-				{
-					case C.StatYAxisMax:
-						lock(_xmlDocLock)
-						{
-							_xmlDoc.Save(_xmlFilePath);
-						}
-						break;
-				}
-			};
+			UserSettings.PropertyChanged += (sender, args) => OnPropertyChanged(C.UserSettings);
+			MsSqlSettings.PropertyChanged += (sender, args) => OnPropertyChanged(C.MsSqlSettings);
+			Init();
 		}
 	}
 }

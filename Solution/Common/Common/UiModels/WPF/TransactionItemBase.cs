@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Xml.Linq;
 using Common.Db;
 using Common.Db.Entities;
 using Common.UiModels.WPF.Base;
 using Common.Utils.Helpers;
+using CsvHelper;
 
 namespace Common.UiModels.WPF
 {
@@ -133,6 +135,26 @@ namespace Common.UiModels.WPF
 		#region Abstract methods
 
 		public abstract XElement ToXml();
+		
+		// TODO implement CSV
+		//public abstract string ToCsv();
+		//public string ToCsv()
+		//{
+		//	try
+		//	{
+		//		var stringWriter = new StringWriter();
+		//		var csvWriter = new CsvWriter(stringWriter);
+		//		csvWriter.Configuration.AutoMap(this.GetType());
+		//		csvWriter.WriteRecord(this);
+		//		var result = stringWriter.ToString();
+		//		return result;
+		//	}
+		//	catch(Exception e)
+		//	{
+		//		Console.WriteLine(e);
+		//		return "";
+		//	}
+		//}
 
 		#endregion
 

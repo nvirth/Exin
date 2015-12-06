@@ -44,6 +44,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\theSolution\packages\AutoMapper.3.0.0\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
+    <Reference Include="CsvHelper, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>..\..\theSolution\packages\CsvHelper.2.13.5.0\lib\net40-client\CsvHelper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\theSolution\packages\log4net.2.0.2\lib\net40-full\log4net.dll</HintPath>
     </Reference>
@@ -70,12 +74,14 @@
   <ItemGroup>
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Configuration\Currenies.cs" />
-    <Compile Include="Configuration\RepoSettings.cs" />
+    <Compile Include="Configuration\Settings\CopyFormat.cs" />
+    <Compile Include="Configuration\Settings\XmlSettingsBase.cs" />
+    <Compile Include="Configuration\Settings\RepoSettings.cs" />
     <Compile Include="Configuration\RepoConfiguration.cs" />
-    <Compile Include="Configuration\Repo.cs" />
+    <Compile Include="Configuration\Settings\Repo.cs" />
     <Compile Include="Configuration\RepoPaths.cs" />
     <Compile Include="Configuration\Constants.cs" />
-    <Compile Include="Configuration\MainSettings.cs" />
+    <Compile Include="Configuration\Settings\MainSettings.cs" />
     <Compile Include="Db\ManagersRelief.cs" />
     <Compile Include="Db\Entities\Base\LocalizedEntityBase.cs" />
     <Compile Include="Db\Entities\Category.cs" />
@@ -100,6 +106,7 @@
     <Compile Include="UiModels\WPF\Validation\Entities\TransactionItemBase.cs" />
     <Compile Include="UiModels\WPF\Validation\ValidationConstants.cs" />
     <Compile Include="Utils\ApplicationRunningHelper.cs" />
+    <Compile Include="Utils\ClipboardNotification.cs" />
     <Compile Include="Utils\Helpers\ConfigurationManagerExtensions.cs" />
     <Compile Include="Utils\Helpers\Helpers.cs" />
     <Compile Include="Log\LogConfig.cs" />
@@ -109,6 +116,7 @@
     <Compile Include="Log\LogRenderer.cs" />
     <Compile Include="Configuration\Cultures.cs" />
     <Compile Include="Utils\Helpers\EnumHelpers.cs" />
+    <Compile Include="Utils\Helpers\UiHelpers.cs" />
     <Compile Include="Utils\Helpers\XmlHelpers.cs" />
     <Compile Include="Utils\LocalizedDisplayNameAttribute.cs" />
     <Compile Include="Utils\MessagePresenter.cs" />
