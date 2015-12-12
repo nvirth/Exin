@@ -23,6 +23,8 @@ namespace WPF
 			AppDomain.CurrentDomain.UnhandledException += UnhadledExceptionHandler;
 			AppDomain.CurrentDomain.FirstChanceException += FirstChanceExceptionHandler;
 
+			// TODO setup log here
+
 			// Setting the language
 			Cultures.ApplyUserSettings();
 		}

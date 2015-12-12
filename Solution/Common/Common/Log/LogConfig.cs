@@ -6,5 +6,7 @@
 		public const int XML = 1;
 
         public static int LogDataMode => JSON;
+
+		// TODO log setup from xml: logDataFormat, logLevel, logPurgeInterval
 	}
 }

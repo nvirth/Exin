@@ -44,6 +44,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\theSolution\packages\AutoMapper.3.0.0\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\..\theSolution\packages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Common.Logging.Portable, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\..\theSolution\packages\Common.Logging.Portable.3.3.1\lib\net40\Common.Logging.Portable.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="CsvHelper, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
       <HintPath>..\..\theSolution\packages\CsvHelper.2.13.5.0\lib\net40-client\CsvHelper.dll</HintPath>
       <Private>True</Private>
@@ -90,6 +98,19 @@
     <Compile Include="Db\Entities\Unit.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="DatePaths.cs" />
+    <Compile Include="Log\New\CommonLogging\AggregateLogger.cs" />
+    <Compile Include="Log\New\CommonLogging\AggregateLoggerFactoryAdapter.cs" />
+    <Compile Include="Log\New\CommonLogging\VariableContextKeys.cs" />
+    <Compile Include="Log\New\CommonLogging\WpfRichTextBoxLogger.cs" />
+    <Compile Include="Log\New\CommonLogging\ConsoleColorOutLogger.cs" />
+    <Compile Include="Log\New\CommonLogging\Log4NetLogger.cs" />
+    <Compile Include="Log\New\CommonLogging\DebugWriteLogger.cs" />
+    <Compile Include="Log\New\Core\LogLevels.cs" />
+    <Compile Include="Log\New\Core\ForStackTraceException.cs" />
+    <Compile Include="Log\New\Core\IExinLog.cs" />
+    <Compile Include="Log\New\Core\Log.cs" />
+    <Compile Include="Log\New\Log4Net\Log4NetLog.cs" />
+    <Compile Include="Log\New\LogInit.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UiModels\WPF\Base\ChainedValidationBase.cs" />

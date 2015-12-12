@@ -62,113 +62,40 @@ namespace Common.Utils
 		{
 			FetchMessagePresenter(ref messagePresenter);
 
-			messagePresenter.WriteEvent +=
-				s => Dispatcher.Invoke(
-					() =>
-					{
-						var msg = s.FixWpfRtbNewLines();
-						richTextBox.AppendText(msg ?? "");
-						richTextBox.ScrollToEnd();
-					});
-
-			messagePresenter.WriteLineEvent +=
-				s => Dispatcher.Invoke(
-					() =>
-					{
-						var msg = s.FixWpfRtbNewLines();
-						richTextBox.AppendText(msg ?? "");
-						richTextBox.AppendText(WpfRtbNewLine);
-						richTextBox.ScrollToEnd();
-					});
-
-			messagePresenter.WriteLineSeparatorEvent +=
-				() => Dispatcher.Invoke(
-					() =>
-					{
-						richTextBox.AppendText("------------------");
-						richTextBox.AppendText(WpfRtbNewLine);
-						richTextBox.ScrollToEnd();
-					});
-
-			messagePresenter.WriteExceptionEvent +=
-				e => Dispatcher.Invoke(() => WriteLogRed_Wpf_RichTextbox(e.Message, richTextBox));
-
-			messagePresenter.WriteErrorEvent +=
-				s => Dispatcher.Invoke(() => WriteLogRed_Wpf_RichTextbox(s, richTextBox));
+			messagePresenter.WriteEvent += s => Dispatcher.Invoke(() => AppendToWpfRichTextbox(s, richTextBox));
+			messagePresenter.WriteLineEvent += s => Dispatcher.Invoke(() => AppendToWpfRichTextbox(s, richTextBox, newLineAtEnd: true));
+			messagePresenter.WriteLineSeparatorEvent += () => Dispatcher.Invoke(() => AppendToWpfRichTextbox("------------------", richTextBox, newLineAtEnd: true));
+			messagePresenter.WriteExceptionEvent += e => Dispatcher.Invoke(() => AppendToWpfRichTextbox(e.Message, richTextBox, Brushes.Red, newLineAtEnd: true));
+			messagePresenter.WriteErrorEvent += s => Dispatcher.Invoke(() => AppendToWpfRichTextbox(s, richTextBox, Brushes.Red, newLineAtEnd: true));
 		}
 
-		private static void WriteLogRed_Wpf_RichTextbox(string msg, RichTextBoxWpf richTextBox)
+		public static void AppendToWpfRichTextbox(string msg, RichTextBoxWpf richTextBox, Brush textColor = null, bool newLineAtEnd = false, bool scrollToEnd = true)
 		{
-			msg = msg.FixWpfRtbNewLines();
+			msg = msg.FixWpfRtbNewLines() ?? "";
 
-			var textRange = new TextRange(richTextBox.Document.ContentEnd, richTextBox.Document.ContentEnd);
-			textRange.Text = msg;
-			textRange.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Red);
+			if(textColor == null)
+			{
+				richTextBox.AppendText(msg);
+			}
+			else
+			{
+				var textRange = new TextRange(richTextBox.Document.ContentEnd, richTextBox.Document.ContentEnd);
+				var originalTextColor = textRange.GetPropertyValue(TextElement.ForegroundProperty) as Brush;
 
-			textRange = new TextRange(richTextBox.Document.ContentEnd, richTextBox.Document.ContentEnd);
-			textRange.Text = " ";
-			textRange.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Black);
+				textRange.Text = msg;
+				textRange.ApplyPropertyValue(TextElement.ForegroundProperty, textColor);
 
-			richTextBox.AppendText(WpfRtbNewLine);
+				textRange = new TextRange(richTextBox.Document.ContentEnd, richTextBox.Document.ContentEnd);
+				textRange.Text = " ";
+				textRange.ApplyPropertyValue(TextElement.ForegroundProperty, originalTextColor ?? Brushes.Black);
+			}
+
+			if(newLineAtEnd)
+				richTextBox.AppendText(WpfRtbNewLine);
+
 			richTextBox.ScrollToEnd();
 		}
 
 		#endregion
-
-		#region RichTextBox (WinForms)
-
-		public static void WireToWinFormsRichTextBox(RichTextBoxWinForms richTextBox, MessagePresenter messagePresenter = null)
-		{
-			FetchMessagePresenter(ref messagePresenter);
-
-			messagePresenter.WriteEvent +=
-				s => richTextBox.Invoke(
-					(Action)(() =>
-					{
-						richTextBox.AppendText(s ?? "");
-						richTextBox.ScrollToCaret();
-					}));
-
-			messagePresenter.WriteLineEvent +=
-				s => richTextBox.Invoke(
-					(Action)(() =>
-					{
-						richTextBox.AppendText(s ?? "");
-						richTextBox.AppendText(Environment.NewLine);
-						richTextBox.ScrollToCaret();
-					}));
-
-			messagePresenter.WriteLineSeparatorEvent +=
-				() => richTextBox.Invoke(
-					(Action)(() =>
-					{
-						richTextBox.AppendText("------------------");
-						richTextBox.AppendText(Environment.NewLine);
-						richTextBox.ScrollToCaret();
-					}));
-
-			messagePresenter.WriteExceptionEvent +=
-				e => richTextBox.Invoke((Action)(() => WriteLogRed_WinForms_RichTextbox(e.Message, richTextBox)));
-
-			messagePresenter.WriteErrorEvent +=
-				s => richTextBox.Invoke((Action)(() => WriteLogRed_WinForms_RichTextbox(s, richTextBox)));
-		}
-
-		private static void WriteLogRed_WinForms_RichTextbox(string msg, RichTextBoxWinForms richTextBox)
-		{
-			msg = msg ?? "";
-
-			int length = richTextBox.TextLength;  // at end of text
-			richTextBox.AppendText(msg);
-			richTextBox.SelectionStart = length;
-			richTextBox.SelectionLength = msg.Length;
-			richTextBox.SelectionColor = Color.Red;
-
-			richTextBox.AppendText(Environment.NewLine);
-			richTextBox.ScrollToCaret();
-		}
-
-		#endregion
-
 	}
 }

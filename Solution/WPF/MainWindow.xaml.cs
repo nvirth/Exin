@@ -60,6 +60,7 @@ namespace WPF
 		{
 			InitializeComponent();
 			MessagePresenterManager.WireToRichTextBox(LogTB, Dispatcher);
+			// TODO setup log here
 
 			InitFirstRepoRootIfNeeded();
 			Config.InitRepo();
