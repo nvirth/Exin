@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Common.Log.New.CommonLogging.Loggers.Base;
 using Common.Logging.Simple;
 using Common.Logging;
 using Common.Log.New.Core;
@@ -11,7 +12,7 @@ namespace Common.Log.New.CommonLogging
 	/// Sends log messages to <see cref="Console.Out" />.
 	/// </summary>
 	/// <author>Gilles Bayon</author>
-	public class ConsoleColorOutLogger : AbstractSimpleLogger, IExinLog
+	public class ConsoleColorOutLogger : AbstractSimpleLoggerBase
 	{
 		private static readonly Dictionary<LogLevel, ConsoleColor> Colors = new Dictionary<LogLevel, ConsoleColor> {
 			{ LogLevel.Fatal, ConsoleColor.Red },
@@ -57,11 +58,6 @@ namespace Common.Log.New.CommonLogging
 		}
 
 		#endregion
-
-		public void Write(LogLevel logLevel, object message, Exception exception)
-		{
-			WriteInternal(logLevel, message, exception);
-		}
 
 		protected override void WriteInternal(LogLevel level, object message, Exception e)
 		{

@@ -6,6 +6,7 @@ using System.Windows.Markup;
 using System.Windows.Navigation;
 using Common.Configuration;
 using Common.Log;
+using Common.Log.New;
 using Common.Utils.Helpers;
 using Localization;
 using WPF.Utils;
@@ -23,10 +24,11 @@ namespace WPF
 			AppDomain.CurrentDomain.UnhandledException += UnhadledExceptionHandler;
 			AppDomain.CurrentDomain.FirstChanceException += FirstChanceExceptionHandler;
 
-			// TODO setup log here
-
 			// Setting the language
 			Cultures.ApplyUserSettings();
+
+			// Initializing the log system
+			LogInit.InitWpfAppLogLoggers();
 		}
 		
 		protected override void OnStartup(StartupEventArgs e)

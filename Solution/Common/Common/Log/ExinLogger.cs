@@ -29,6 +29,12 @@ namespace Common.Log
 		}
 
 		// TODO logging to UI should be localized, but logging to logs must not!
+
+		//public Exception LogException(string msg, Exception e, object data = null, bool logToUi)
+		//{ }
+		//
+		//public Exception LogException(string msg, Exception e, object data = null)
+
 		public Exception LogException(string msg, Exception e, object data = null, bool logToUi = true)
 		{
 			if(logToUi)

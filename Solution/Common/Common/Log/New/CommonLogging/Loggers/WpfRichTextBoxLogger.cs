@@ -7,11 +7,12 @@ using Common.Logging;
 using Common.Log.New.Core;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Common.Log.New.CommonLogging.Loggers.Base;
 using Common.Utils;
 
 namespace Common.Log.New.CommonLogging
 {
-	public class WpfRichTextBoxLogger : AbstractSimpleLogger, IExinLog
+	public class WpfRichTextBoxLogger : AbstractSimpleLoggerBase
 	{
 		// TODO try out colors
 		private static readonly Dictionary<LogLevel, Brush> Colors = new Dictionary<LogLevel, Brush> {
@@ -29,16 +30,6 @@ namespace Common.Log.New.CommonLogging
 			: base(logName, logLevel, showLevel, showDateTime, showLogName, dateTimeFormat)
 		{
 			RichTextBox = richTextBox;
-		}
-
-		public void Write(LogLevel logLevel, object message, Exception exception)
-		{
-			WriteInternal(logLevel, message, exception);
-		}
-
-		public new bool IsLevelEnabled(LogLevel level)
-		{
-			return base.IsLevelEnabled(level);
 		}
 
 		protected override void WriteInternal(LogLevel level, object message, Exception e)

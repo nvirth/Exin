@@ -18,6 +18,7 @@ using Common.Annotations;
 using Common.Configuration;
 using Common.Db.Entities;
 using Common.Log;
+using Common.Log.New;
 using Common.UiModels.WPF;
 using Common.Utils;
 using Common.Utils.Helpers;
@@ -60,7 +61,7 @@ namespace WPF
 		{
 			InitializeComponent();
 			MessagePresenterManager.WireToRichTextBox(LogTB, Dispatcher);
-			// TODO setup log here
+			LogInit.InitWpfAppUiLoggers(LogTB);
 
 			InitFirstRepoRootIfNeeded();
 			Config.InitRepo();

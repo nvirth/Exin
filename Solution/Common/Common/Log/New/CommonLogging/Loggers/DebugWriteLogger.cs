@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Text;
+using Common.Log.New.CommonLogging.Loggers.Base;
 using Common.Logging;
 using Common.Logging.Simple;
 using Common.Log.New.Core;
@@ -11,7 +12,7 @@ namespace Common.Log.New.CommonLogging
 	///     Sends log messages to <see cref="System.Diagnostics.Debug.WriteLine" />.
 	/// </summary>
 	/// <author>Gilles Bayon</author>
-	public class DebugWriteLogger : AbstractSimpleLogger, IExinLog
+	public class DebugWriteLogger : AbstractSimpleLoggerBase
 	{
 		#region Ctor
 		/// <summary>
@@ -41,10 +42,5 @@ namespace Common.Log.New.CommonLogging
 
 	        System.Diagnostics.Debug.WriteLine(logMsg);
         }
-
-		public void Write(LogLevel logLevel, object message, Exception exception)
-		{
-			WriteInternal(logLevel, message, exception);
-		}
 	}
 }

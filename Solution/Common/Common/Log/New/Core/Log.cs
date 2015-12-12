@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Configuration;
+using System.Resources;
 using System.Runtime.CompilerServices;
 using Common.Logging;
 using System.Threading.Tasks;
 using Common.Utils.Helpers;
 using Common.Log.New.CommonLogging;
+using Localization;
 
 namespace Common.Log.New.Core
 {
@@ -345,7 +347,7 @@ namespace Common.Log.New.Core
 			Action<Action<FormatMessageHandler>, Exception> exceptionHandler
 			)
 		{
-			return DoLog(GetTag(callerTypeInstance, callerFnName), printMessageCallback, exception, logTarget, callerFnName, exceptionlessHandler,
+			return DoLog(GetTag(callerTypeInstance, callerFnName), printMessageCallback, exception, logTarget, exceptionlessHandler,
 						 exceptionHandler);
 		}
 
@@ -359,7 +361,7 @@ namespace Common.Log.New.Core
 			Action<Action<FormatMessageHandler>, Exception> exceptionHandler
 			)
 		{
-			return DoLog(GetTag(callerType, callerFnName), printMessageCallback, exception, logTarget, callerFnName, exceptionlessHandler, exceptionHandler);
+			return DoLog(GetTag(callerType, callerFnName), printMessageCallback, exception, logTarget, exceptionlessHandler, exceptionHandler);
 		}
 
 		private static Exception DoLog(
@@ -367,7 +369,6 @@ namespace Common.Log.New.Core
 			Func<FormatMessageHandler, string> printMessageCallback,
 			Exception exception,
 			LogTarget logTarget,
-			string callerFnName,
 			Action<Action<FormatMessageHandler>> exceptionlessHandler,
 			Action<Action<FormatMessageHandler>, Exception> exceptionHandler
 			)
@@ -396,6 +397,28 @@ namespace Common.Log.New.Core
 		#endregion
 
 		#endregion
+
+		public delegate string FormatMessageHandler2(ResourceManager resourceManager, string key, params object[] args);
+
+
+		public static void Ma2in(string[] args)
+		{
+			Log.Error(typeof(Log), m => m("sdf"));
+			Log.Trace(typeof(Log), m => m("Called"), null, LogTarget.Log);
+
+			Log.Trace(typeof(Log), m => m("Called"), null, LogTarget.Log);
+
+			FormatMessageHandler2 aaa;
+
+			//aaa(Localized.ResourceManager, Localized.Could_not_insert_the_Category_record,);
+
+			//Localized.Property();
+
+			//nameof();
+//
+			ExinLog.ger.LogError(Localized.Could_not_insert_the_Category_record);
+		}
+
 
 		#region Helpers
 		public static string GetTag(object instance, [CallerMemberName] string callerFnName = null)

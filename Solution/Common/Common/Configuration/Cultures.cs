@@ -18,6 +18,7 @@ namespace Common.Configuration
 		public static readonly CultureInfo hu_HU = new CultureInfo(C.hu_HU);
 
 		public static CultureInfo DefaultCulture => en_US;
+		public static CultureInfo LogCulture => en_US;
 
 		private static CultureInfo _currentCulture;
 		public static CultureInfo CurrentCulture
