@@ -107,6 +107,7 @@
     <Compile Include="Log\New\CommonLogging\Loggers\ConsoleColorOutLogger.cs" />
     <Compile Include="Log\New\CommonLogging\Loggers\Log4NetLogger.cs" />
     <Compile Include="Log\New\CommonLogging\Loggers\DebugWriteLogger.cs" />
+    <Compile Include="Log\New\Core\LogData.cs" />
     <Compile Include="Log\New\Core\LogLevels.cs" />
     <Compile Include="Log\New\Core\ForStackTraceException.cs" />
     <Compile Include="Log\New\Core\IExinLog.cs" />

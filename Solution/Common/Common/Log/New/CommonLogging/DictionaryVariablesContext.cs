@@ -25,7 +25,7 @@ namespace Common.Log.New.CommonLogging
 			base.Remove(key);
 		}
 
-		public void Clear()
+		public new void Clear()
 		{
 			base.Clear();
 		}

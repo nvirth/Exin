@@ -171,7 +171,7 @@ namespace Common.Log.New
 
 			await Core.Log.LogInitializedDfd.Task;
 
-			Core.Log.LogAtLevel(typeof(Log4NetLog), m => m(message), logLevel, exception);
+			Core.Log.LogAtLevel(typeof(Log4NetLog), m => m(message), logLevel, LogTarget.Log, exception);
 		}
 
 		private static void PurgeOldLogFiles()

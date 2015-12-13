@@ -39,7 +39,7 @@
       <CopyFormat>XML</CopyFormat>
 
       <!-- Possible values: EN, HU -->
-      <Language>EN</Language>
+      <Language>HU</Language>
 
       <!-- The name(s) of the current repository(ies), separated by ",".
         Can be empty, that means the (only one) default repository.

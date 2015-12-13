@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Resources;
-using System.Text;
 using Common.Configuration;
-using Common.Logging.Simple;
 using Common.Logging;
-using Common.Logging.Factory;
 using Common.Utils.Helpers;
-using Common.Log.New;
 using Common.Log.New.CommonLogging.Loggers.Base;
 using Common.Log.New.Core;
 using FormatMessageHandler = Common.Logging.FormatMessageHandler;
@@ -73,6 +69,7 @@ namespace Common.Log.New.CommonLogging
 			CleanupVariableContext();
 		}
 
+
 		//private bool LogToUi => (bool)(ThreadVariablesContext.Get(VariableContextKeys.LogToUi) ?? false);
 		//private bool LogToLog => (bool)(ThreadVariablesContext.Get(VariableContextKeys.LogToLog) ?? false);
 
@@ -83,31 +80,343 @@ namespace Common.Log.New.CommonLogging
 			ThreadVariablesContext.Clear();
 		}
 
+		#region New logging API
 
+		public void DoLog(LogData logData)
+		{
+			if(!IsLevelEnabled(logData.LogLevel))
+				return;
+
+			if(logData.LogToLog)
+				LogLoggers.ForEach(logger => logger.Write(logData.LogLevel, logData.GetMessageForLog(), logData.Exception));
+			if(logData.LogToUi)
+				UiLoggers.ForEach(logger => logger.Write(logData.LogLevel, logData.GetMessageForUi(), logData.Exception));
+		}
+
+		#endregion
+
+		#region Not supported
+
+		private const string NotSupportedExceptionMsg = "Logging with the default Common.Logging API is not supported. See supported methods in IExinLog. ";
+
+		protected override WriteHandler GetWriteHandler()
+		{
+			return (level, message, exception) => { throw new NotSupportedException(NotSupportedExceptionMsg); };
+		}
+
+		public override void Trace(object message)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Trace(object message, Exception exception)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void TraceFormat(IFormatProvider formatProvider, string format, params object[] args)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void TraceFormat(IFormatProvider formatProvider, string format, Exception exception, params object[] args)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void TraceFormat(string format, params object[] args)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void TraceFormat(string format, Exception exception, params object[] args)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Trace(Action<FormatMessageHandler> formatMessageCallback)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Trace(Action<FormatMessageHandler> formatMessageCallback, Exception exception)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Trace(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Trace(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback, Exception exception)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Debug(object message)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Debug(object message, Exception exception)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void DebugFormat(IFormatProvider formatProvider, string format, params object[] args)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void DebugFormat(IFormatProvider formatProvider, string format, Exception exception, params object[] args)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void DebugFormat(string format, params object[] args)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void DebugFormat(string format, Exception exception, params object[] args)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Debug(Action<FormatMessageHandler> formatMessageCallback)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Debug(Action<FormatMessageHandler> formatMessageCallback, Exception exception)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Debug(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Debug(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback, Exception exception)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Info(object message)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Info(object message, Exception exception)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void InfoFormat(IFormatProvider formatProvider, string format, params object[] args)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void InfoFormat(IFormatProvider formatProvider, string format, Exception exception, params object[] args)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void InfoFormat(string format, params object[] args)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void InfoFormat(string format, Exception exception, params object[] args)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Info(Action<FormatMessageHandler> formatMessageCallback)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Info(Action<FormatMessageHandler> formatMessageCallback, Exception exception)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Info(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Info(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback, Exception exception)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Warn(object message)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Warn(object message, Exception exception)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void WarnFormat(IFormatProvider formatProvider, string format, params object[] args)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void WarnFormat(IFormatProvider formatProvider, string format, Exception exception, params object[] args)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void WarnFormat(string format, params object[] args)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void WarnFormat(string format, Exception exception, params object[] args)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Warn(Action<FormatMessageHandler> formatMessageCallback)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Warn(Action<FormatMessageHandler> formatMessageCallback, Exception exception)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Warn(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Warn(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback, Exception exception)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Error(object message)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Error(object message, Exception exception)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void ErrorFormat(IFormatProvider formatProvider, string format, params object[] args)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void ErrorFormat(IFormatProvider formatProvider, string format, Exception exception, params object[] args)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void ErrorFormat(string format, params object[] args)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void ErrorFormat(string format, Exception exception, params object[] args)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Error(Action<FormatMessageHandler> formatMessageCallback)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Error(Action<FormatMessageHandler> formatMessageCallback, Exception exception)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Error(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Error(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback, Exception exception)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Fatal(object message)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Fatal(object message, Exception exception)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void FatalFormat(IFormatProvider formatProvider, string format, params object[] args)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void FatalFormat(IFormatProvider formatProvider, string format, Exception exception, params object[] args)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void FatalFormat(string format, params object[] args)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void FatalFormat(string format, Exception exception, params object[] args)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Fatal(Action<FormatMessageHandler> formatMessageCallback)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Fatal(Action<FormatMessageHandler> formatMessageCallback, Exception exception)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Fatal(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		public override void Fatal(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback, Exception exception)
+		{
+			throw new NotSupportedException(NotSupportedExceptionMsg);
+		}
+
+		#endregion
 	}
 
-
+	// TODO separate file
 	public class LocalizedCallbackMessageFormatter
 	{
 		public CultureInfo CultureInfo { get; set; }
 
-		private bool _isLocalized;
-
 		private readonly Dictionary<CultureInfo, string> _cache = new Dictionary<CultureInfo, string>();
 		private string CachedMessage
 		{
-			get
-			{
-				var key = _isLocalized ? CultureInfo : CultureInfo.InvariantCulture;
-				return _cache.ContainsKey(key) ? _cache[key] : null;
-			}
-			set
-			{
-				if(_isLocalized)
-					_cache[CultureInfo] = value;
-				else
-					_cache[CultureInfo.InvariantCulture] = value;
-			}
+			get { return _cache.ContainsKey(CultureInfo) ? _cache[CultureInfo] : null; }
+			set { _cache[CultureInfo] = value; }
 		}
 
 		// --
@@ -119,13 +428,11 @@ namespace Common.Log.New.CommonLogging
 		{
 			_formatProvider = formatProvider;
 			_formatMessageCallback = formatMessageCallback;
-			CultureInfo = Cultures.DefaultCulture;
+			CultureInfo = CultureInfo.InvariantCulture;
 		}
 
 		private string FormatMessage(string format, params object[] args)
 		{
-			_isLocalized = false;
-
 			if(args?.Length > 1)
 			{
 				var formatMessageHandler = args[1] as Func<FormatMessageHandler, string>;
@@ -147,8 +454,6 @@ namespace Common.Log.New.CommonLogging
 				var resourceManager = args[0] as ResourceManager; // TODO rather at end
 				if(resourceManager != null)
 				{
-					_isLocalized = true;
-
 					var resourceKey = format;
 					string newMessageFormat;
 					try {
@@ -176,5 +481,4 @@ namespace Common.Log.New.CommonLogging
 			return CachedMessage;
 		}
 	}
-
 }
