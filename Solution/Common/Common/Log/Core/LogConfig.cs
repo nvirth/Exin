@@ -1,4 +1,4 @@
-﻿namespace Common.Log
+﻿namespace Common.Log.Core
 {
 	public class LogConfig
 	{

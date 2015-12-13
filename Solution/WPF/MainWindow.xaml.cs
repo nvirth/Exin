@@ -18,8 +18,7 @@ using Common.Annotations;
 using Common.Configuration;
 using Common.Db.Entities;
 using Common.Log;
-using Common.Log.New;
-using Common.Log.New.Core;
+using Common.Log.Core;
 using Common.UiModels.WPF;
 using Common.Utils;
 using Common.Utils.Helpers;
@@ -90,28 +89,6 @@ namespace WPF
 					MainTabControl.SelectionChanged += MainTabControl_SelectionChanged;
 					this.IsEnabled = true;
 					ActualExpenseGP.TitleTb.Focus();
-
-					//TODO remove
-
-					//Localized.RequiredErrorMessageFormat
-					var a = Localized.ResourceManager.GetString("RequiredErrorMessageFormat", CultureInfo.InvariantCulture);
-
-					Log.Fatal(this, m => m("{0}", "LogTarget.All"), LogTarget.All);
-					Log.Fatal(this, m => m("LogTarget.Ui"), LogTarget.Ui);
-					Log.Fatal(this, m => m("{0}", "LogTarget.Log"), LogTarget.Log);
-
-					//Localized.Menu_Search
-					//Localized.ReplaceDailyItems_method_needs_a_not_null_list__
-					//Localized.Saving_0__statistics___Error__FORMAT__
-					Log.Fatal(this, m => m(Localized.ResourceManager, "Saving_0__statistics___Error__FORMAT__", "INSERTED_ARG"), LogTarget.All);
-
-
-
-					Log.Fatal(this, m => m("{0}", "LogTarget.All"), LogTarget.All, new Exception("test"));
-					Log.Fatal(this, m => m("LogTarget.Ui"), LogTarget.Ui, new Exception("test"));
-					Log.Fatal(this, m => m("{0}", "LogTarget.Log"), LogTarget.Log, new Exception("test"));
-
-					Log.Fatal(this, new Exception("test Exception message"), LogTarget.All);
 				};
 		}
 

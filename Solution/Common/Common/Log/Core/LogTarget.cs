@@ -1,6 +1,6 @@
 using System;
 
-namespace Common.Log.New.Core
+namespace Common.Log.Core
 {
 	[Flags]
 	public enum LogTarget

@@ -6,7 +6,7 @@ using System.Windows.Markup;
 using System.Windows.Navigation;
 using Common.Configuration;
 using Common.Log;
-using Common.Log.New;
+using Common.Log.Core;
 using Common.Utils.Helpers;
 using Localization;
 using WPF.Utils;

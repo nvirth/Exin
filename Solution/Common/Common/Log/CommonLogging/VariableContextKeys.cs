@@ -1,4 +1,4 @@
-namespace Common.Log.New.CommonLogging
+namespace Common.Log.CommonLogging
 {
 	public static class VariableContextKeys
 	{

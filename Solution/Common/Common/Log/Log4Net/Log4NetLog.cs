@@ -1,21 +1,21 @@
-﻿using log4net;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Threading.Tasks;
+using Common.Log.Core;
+using Common.Utils.Helpers;
+using log4net;
 using log4net.Appender;
 using log4net.Core;
 using log4net.Layout;
 using log4net.Repository.Hierarchy;
-using System;
 using LogLevel = Common.Logging.LogLevel;
-using System.IO;
-using System.Reflection;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using System.Threading;
-using Common.Log.New.Core;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using Common.Utils.Helpers;
 
-namespace Common.Log.New
+namespace Common.Log.Log4Net
 {
 	public class Log4NetLog
 	{
@@ -171,7 +171,7 @@ namespace Common.Log.New
 
 			await Core.Log.LogInitializedDfd.Task;
 
-			Core.Log.LogAtLevel(typeof(Log4NetLog), m => m(message), logLevel, LogTarget.Log, exception);
+			Core.Log.LogAtLevel(m => m(message), logLevel, exception, LogTarget.Log);
 		}
 
 		private static void PurgeOldLogFiles()

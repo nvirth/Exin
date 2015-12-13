@@ -4,27 +4,14 @@ using System.Resources;
 using System.Runtime.CompilerServices;
 using Common.Logging;
 using System.Threading.Tasks;
+using Common.Log.CommonLogging;
+using Common.Log.CommonLogging.Loggers;
 using Common.Utils.Helpers;
-using Common.Log.New.CommonLogging;
-using Localization;
 
-namespace Common.Log.New.Core
+namespace Common.Log.Core
 {
-	// If we would use the FormatMessageHandler from Common.Logging; we would have to
-	// add reference to Common.Logging.Core in every project using that delegate
-	//public delegate string FormatMessageHandler(string format, params object[] args);
-
-
-	//public delegate string FormatMessageHandler2(string tag, string format, params object[] args);
-	//public delegate string FormatMessageHandler3(string tag, ResourceManager resourceManager, string resourceKey, params object[] args);
-
-	// TODO this is a method delegate! So "FormatMessageHandler" was a better name
 	public delegate string MessageFormatterHandler(string format, params object[] args);
 	public delegate string MessageFormatterLocalizedHandler(ResourceManager resourceManager, string resourceKey, params object[] args);
-
-
-	//public delegate string AsdfHandler(object message, Exception exception, string tag, );
-
 
 	public static class Log
 	{
@@ -74,12 +61,6 @@ namespace Common.Log.New.Core
 		}
 
 		#endregion
-
-		private static void PrepareForLogTarget(LogTarget logTarget)
-		{
-			if(logTarget != LogTarget.All)
-				Core.ThreadVariablesContext.Set(VariableContextKeys.LogTarget, logTarget);
-		}
 
 		#region Extensions
 
@@ -169,6 +150,29 @@ namespace Common.Log.New.Core
 					throw new NotImplementedException(GetTag(typeof(Log)));
 			}
 		}
+		public static Exception LogAtLevel(object callerTypeInstance, LogLevel logLevel, Exception exception, LogTarget logTarget = LogTarget.Log, [CallerMemberName] string callerFnName = null)
+		{
+			if(!Core.IsLevelEnabled(logLevel))
+				return null;
+
+			switch(logLevel)
+			{
+				case LogLevel.Trace:
+					return DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Trace, callerFnName);
+				case LogLevel.Debug:
+					return DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Debug, callerFnName);
+				case LogLevel.Info:
+					return DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Info, callerFnName);
+				case LogLevel.Warn:
+					return DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Warn, callerFnName);
+				case LogLevel.Error:
+					return DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Error, callerFnName);
+				case LogLevel.Fatal:
+					return DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Fatal, callerFnName);
+				default:
+					throw new NotImplementedException(GetTag(typeof(Log)));
+			}
+		}
 
 		public static Exception LogAtLevel(Type callerType, Func<MessageFormatterHandler, string> printMessageCallback, LogLevel logLevel, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
 		{
@@ -216,31 +220,6 @@ namespace Common.Log.New.Core
 					throw new NotImplementedException(GetTag(typeof(Log)));
 			}
 		}
-
-		public static Exception LogAtLevel(object callerTypeInstance, LogLevel logLevel, Exception exception, LogTarget logTarget = LogTarget.Log, [CallerMemberName] string callerFnName = null)
-		{
-			if(!Core.IsLevelEnabled(logLevel))
-				return null;
-
-			switch(logLevel)
-			{
-				case LogLevel.Trace:
-					return DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Trace, callerFnName);
-				case LogLevel.Debug:
-					return DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Debug, callerFnName);
-				case LogLevel.Info:
-					return DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Info, callerFnName);
-				case LogLevel.Warn:
-					return DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Warn, callerFnName);
-				case LogLevel.Error:
-					return DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Error, callerFnName);
-				case LogLevel.Fatal:
-					return DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Fatal, callerFnName);
-				default:
-					throw new NotImplementedException(GetTag(typeof(Log)));
-			}
-		}
-
 		public static Exception LogAtLevel(Type callerType, LogLevel logLevel, Exception exception, LogTarget logTarget = LogTarget.Log, [CallerMemberName] string callerFnName = null)
 		{
 			if(!Core.IsLevelEnabled(logLevel))

@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.Windows.Controls;
+using Common.Log.CommonLogging;
+using Common.Log.CommonLogging.Loggers;
+using Common.Log.Log4Net;
 using Common.Logging;
-using Common.Logging.Simple;
-using Common.Log.New.Core;
-using Common.Log.New.CommonLogging;
-using Common.Log.New;
 
-using LogInstance = Common.Log.New.Core.Log;
-
-namespace Common.Log.New
+namespace Common.Log.Core
 {
 	public static class LogInit
 	{
@@ -36,8 +32,8 @@ namespace Common.Log.New
 
 		public static void InitWpfAppUiLoggers(RichTextBox richTextBox)
 		{
-			var aggregateLoggerFactoryAdapter = LogInstance.LoggerFactoryAdapter as AggregateLoggerFactoryAdapter;
-			var aggregateLogger = LogInstance.Core as AggregateLogger;
+			var aggregateLoggerFactoryAdapter = Core.Log.LoggerFactoryAdapter as AggregateLoggerFactoryAdapter;
+			var aggregateLogger = Core.Log.Core as AggregateLogger;
 			if(aggregateLogger == null || aggregateLoggerFactoryAdapter == null)
 				throw new ConfigurationErrorsException("aggregateLogger == null || aggregateLoggerFactoryAdapter == null");
 
@@ -118,7 +114,7 @@ namespace Common.Log.New
 
 		private static void InitCommon(LoggerInstancesArgs loggerInstances)
 		{
-			LogInstance.Init(
+			Core.Log.Init(
 				new AggregateLoggerFactoryAdapter(
 					// Dummies
 					showDateTime: true,

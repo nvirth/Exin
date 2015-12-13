@@ -1,12 +1,10 @@
 using System;
 using System.Diagnostics;
 using System.Text;
-using Common.Log.New.CommonLogging.Loggers.Base;
+using Common.Log.CommonLogging.Loggers.Base;
 using Common.Logging;
-using Common.Logging.Simple;
-using Common.Log.New.Core;
 
-namespace Common.Log.New.CommonLogging
+namespace Common.Log.CommonLogging.Loggers
 {
 	/// <summary>
 	///     Sends log messages to <see cref="System.Diagnostics.Debug.WriteLine" />.

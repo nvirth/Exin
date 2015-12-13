@@ -1,4 +1,4 @@
-namespace Common.Log.New.CommonLogging
+namespace Common.Log.Core
 {
 	public struct LogLevels
 	{

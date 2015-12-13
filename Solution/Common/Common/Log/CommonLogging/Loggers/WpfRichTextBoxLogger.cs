@@ -1,16 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Text;
-using Common.Logging.Simple;
-using Common.Logging;
-using Common.Log.New.Core;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Common.Log.New.CommonLogging.Loggers.Base;
+using Common.Log.CommonLogging.Loggers.Base;
+using Common.Logging;
 using Common.Utils;
 
-namespace Common.Log.New.CommonLogging
+namespace Common.Log.CommonLogging.Loggers
 {
 	public class WpfRichTextBoxLogger : AbstractSimpleLoggerBase
 	{

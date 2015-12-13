@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+
+  <!-- To activate these code snippets, browse the parent folder of this file
+    in (VS2012)/Tools/Code Snippets Manager/
+    -->
+
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Log.Trace</Title>
+      <Description>Log.Trace</Description>
+      <Author>Norbert Virth</Author>
+      <Shortcut>lt</Shortcut>
+      <SnippetTypes>
+        <!--<SnippetType>SurroundsWith</SnippetType>-->
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <!--<Declarations>
+        <Literal>
+          <ID>Message</ID>
+          <ToolTip>Message for the exception</ToolTip>
+          <Default>msg</Default>
+        </Literal>
+      </Declarations>-->
+      <Code Language="CSharp" Kind="any">
+        <![CDATA[Log.Trace(this, m => m("$end$"));]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Log.Info</Title>
+      <Description>Log.Info</Description>
+      <Author>Norbert Virth</Author>
+      <Shortcut>li</Shortcut>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Code Language="CSharp" Kind="any">
+        <![CDATA[Log.Info(this, m => m("$end$"));]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Log.Debug</Title>
+      <Description>Log.Debug</Description>
+      <Author>Norbert Virth</Author>
+      <Shortcut>ld</Shortcut>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Code Language="CSharp" Kind="any">
+        <![CDATA[Log.Debug(this, m => m("$end$"));]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Log.Warn</Title>
+      <Description>Log.Warn</Description>
+      <Author>Norbert Virth</Author>
+      <Shortcut>lw</Shortcut>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Code Language="CSharp" Kind="any">
+        <![CDATA[Log.Warn(this, m => m("$end$"));]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Log.Error</Title>
+      <Description>Log.Error</Description>
+      <Author>Norbert Virth</Author>
+      <Shortcut>le</Shortcut>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Code Language="CSharp" Kind="any">
+        <![CDATA[Log.Error(this, m => m("$end$"));]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Log.Fatal</Title>
+      <Description>Log.Fatal</Description>
+      <Author>Norbert Virth</Author>
+      <Shortcut>lf</Shortcut>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Code Language="CSharp" Kind="any">
+        <![CDATA[Log.Fatal(this, m => m("$end$"));]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+  
+</CodeSnippets>

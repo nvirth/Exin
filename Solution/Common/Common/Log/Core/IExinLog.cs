@@ -1,7 +1,7 @@
 using System;
 using Common.Logging;
 
-namespace Common.Log.New.Core
+namespace Common.Log.Core
 {
     public interface IExinLog : ILog
     {

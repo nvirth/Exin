@@ -5,7 +5,7 @@ using System.Linq;
 using Common.Configuration;
 using Common.Db.Entities;
 using Common.Log;
-using Common.Log.New.Core;
+using Common.Log.Core;
 using Common.Utils.Helpers;
 using DAL.DataBase.Managers;
 using DAL.DataBase.Managers.Base;

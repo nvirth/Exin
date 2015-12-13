@@ -1,14 +1,23 @@
 ﻿using System;
+using System.Collections;
 using Common.Utils.Helpers;
 using Localization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Common.Log
+namespace Common.Log.Core
 {
 	public static class ExceptionHelpers
 	{
 		#region AddData
+
+		public static T WithData<T>(this T exception, IDictionary dictionary) where T : Exception
+		{
+			foreach(var key in dictionary.Keys)
+				exception.AddData(key, dictionary[key]);
+
+			return exception;
+		}
 
 		/// <summary>
 		/// Adds data to the Exception's Data (IDictionary) property.
@@ -19,7 +28,7 @@ namespace Common.Log
 			e.AddData(value.GetType().Name, value);
 		}
 
-		public static void AddData(this Exception e, string key, object value)
+		public static void AddData(this Exception e, object key, object value)
 		{
 			// Serializing the object value
 			var stringValue = value.SerializeToLog();
