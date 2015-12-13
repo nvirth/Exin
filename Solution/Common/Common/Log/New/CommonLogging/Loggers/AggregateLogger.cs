@@ -12,6 +12,7 @@ using Common.Utils.Helpers;
 using Common.Log.New;
 using Common.Log.New.CommonLogging.Loggers.Base;
 using Common.Log.New.Core;
+using FormatMessageHandler = Common.Logging.FormatMessageHandler;
 
 namespace Common.Log.New.CommonLogging
 {
@@ -56,6 +57,7 @@ namespace Common.Log.New.CommonLogging
 				logToUi = (logTarget.Value & LogTarget.Ui) > 0;
 			}
 
+			// TODO soften cast after log is finished
 			var messageFormatter = (LocalizedCallbackMessageFormatter)message;
 			if(logToLog)
 			{
@@ -124,9 +126,25 @@ namespace Common.Log.New.CommonLogging
 		{
 			_isLocalized = false;
 
+			if(args?.Length > 1)
+			{
+				var formatMessageHandler = args[1] as Func<FormatMessageHandler, string>;
+				if(formatMessageHandler != null)
+				{
+					var innerMessage = formatMessageHandler(FormatInnerMessage);
+					args[1] = innerMessage;
+				}
+			}
+
+			CachedMessage = string.Format(_formatProvider, format, args);
+			return CachedMessage;
+		}
+
+		private string FormatInnerMessage(string format, params object[] args)
+		{
 			if(args?.Length > 0)
 			{
-				var resourceManager = args[0] as ResourceManager;
+				var resourceManager = args[0] as ResourceManager; // TODO rather at end
 				if(resourceManager != null)
 				{
 					_isLocalized = true;
@@ -145,8 +163,8 @@ namespace Common.Log.New.CommonLogging
 				}
 			}
 
-			CachedMessage = string.Format(_formatProvider, format, args);
-			return CachedMessage;
+			var innerMessage = string.Format(_formatProvider, format, args);
+			return innerMessage;
 		}
 
 		public override string ToString()

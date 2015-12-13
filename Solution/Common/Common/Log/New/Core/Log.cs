@@ -10,6 +10,10 @@ using Localization;
 
 namespace Common.Log.New.Core
 {
+	// If we would use the FormatMessageHandler from Common.Logging; we would have to
+	// add reference to Common.Logging.Core in every project using that delegate
+	//public delegate string FormatMessageHandler(string format, params object[] args);
+
 	public static class Log
 	{
 		private static IExinLog _core;
@@ -364,20 +368,37 @@ namespace Common.Log.New.Core
 			return DoLog(GetTag(callerType, callerFnName), printMessageCallback, exception, logTarget, exceptionlessHandler, exceptionHandler);
 		}
 
-		private static Exception DoLog(
+		public class LogData
+		{
+			public LogTarget LogTarget { get; set; }
+
+			public string Tag { get; set; }
+			public Func<FormatMessageHandler, string> PrintMessageCallback { get; set; }
+
+			public Exception Exception { get; set; }
+			public string StrackTrace { get; set; }
+
+			public ResourceManager ResourceManager { get; set; }
+			public string ResourceKey { get; set; }
+			public object[] ResourceFormatArgs { get; set; }
+
+		}
+
+		private static Exception DoLog2(
 			string tag,
 			Func<FormatMessageHandler, string> printMessageCallback,
 			Exception exception,
 			LogTarget logTarget,
 			Action<Action<FormatMessageHandler>> exceptionlessHandler,
 			Action<Action<FormatMessageHandler>, Exception> exceptionHandler
-			)
+		)
 		{
 			PrepareForLogTarget(logTarget);
 
 			if(exception == null)
 			{
-				exceptionlessHandler(m => m("{0}{1}", tag, printMessageCallback(string.Format)));
+				exceptionlessHandler(m => m("{0}{1}", tag, printMessageCallback));
+				//exceptionlessHandler(m => m("{0}{1}", tag, printMessageCallback(string.Format)));
 			}
 			else
 			{
@@ -394,6 +415,39 @@ namespace Common.Log.New.Core
 
 			return exception;
 		}
+
+		private static Exception DoLog(
+			string tag,
+			Func<FormatMessageHandler, string> printMessageCallback,
+			Exception exception,
+			LogTarget logTarget,
+			Action<Action<FormatMessageHandler>> exceptionlessHandler,
+			Action<Action<FormatMessageHandler>, Exception> exceptionHandler
+			)
+		{
+			PrepareForLogTarget(logTarget);
+
+			if(exception == null)
+			{
+				exceptionlessHandler(m => m("{0}{1}", tag, printMessageCallback));
+				//exceptionlessHandler(m => m("{0}{1}", tag, printMessageCallback(string.Format)));
+			}
+			else
+			{
+				if(string.IsNullOrEmpty(exception.StackTrace))
+				{
+					var stackTrace = "{0}StackTrace:{0}{1}".Formatted(Environment.NewLine, Environment.StackTrace);
+					exceptionHandler(m => m("{0}{1}{2}", tag, printMessageCallback(string.Format), stackTrace), exception);
+				}
+				else
+				{
+					exceptionHandler(m => m("{0}{1}", tag, printMessageCallback(string.Format)), exception);
+				}
+			}
+
+			return exception;
+		}
+
 		#endregion
 
 		#endregion
@@ -482,12 +536,12 @@ namespace Common.Log.New.Core
 			return exception;
 		}
 
-		public static void Trace(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback)
+		public static void Trace(IFormatProvider formatProvider, Action<Logging.FormatMessageHandler> formatMessageCallback)
 		{
 			Core.Trace(formatProvider, formatMessageCallback);
 		}
 
-		public static Exception Trace(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback, Exception exception)
+		public static Exception Trace(IFormatProvider formatProvider, Action<Logging.FormatMessageHandler> formatMessageCallback, Exception exception)
 		{
 			Core.Trace(formatProvider, formatMessageCallback, exception);
 			return exception;
@@ -537,12 +591,12 @@ namespace Common.Log.New.Core
 			return exception;
 		}
 
-		public static void Debug(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback)
+		public static void Debug(IFormatProvider formatProvider, Action<Logging.FormatMessageHandler> formatMessageCallback)
 		{
 			Core.Debug(formatProvider, formatMessageCallback);
 		}
 
-		public static Exception Debug(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback, Exception exception)
+		public static Exception Debug(IFormatProvider formatProvider, Action<Logging.FormatMessageHandler> formatMessageCallback, Exception exception)
 		{
 			Core.Debug(formatProvider, formatMessageCallback, exception);
 			return exception;
@@ -592,12 +646,12 @@ namespace Common.Log.New.Core
 			return exception;
 		}
 
-		public static void Info(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback)
+		public static void Info(IFormatProvider formatProvider, Action<Logging.FormatMessageHandler> formatMessageCallback)
 		{
 			Core.Info(formatProvider, formatMessageCallback);
 		}
 
-		public static Exception Info(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback, Exception exception)
+		public static Exception Info(IFormatProvider formatProvider, Action<Logging.FormatMessageHandler> formatMessageCallback, Exception exception)
 		{
 			Core.Info(formatProvider, formatMessageCallback, exception);
 			return exception;
@@ -647,12 +701,12 @@ namespace Common.Log.New.Core
 			return exception;
 		}
 
-		public static void Warn(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback)
+		public static void Warn(IFormatProvider formatProvider, Action<Logging.FormatMessageHandler> formatMessageCallback)
 		{
 			Core.Warn(formatProvider, formatMessageCallback);
 		}
 
-		public static Exception Warn(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback, Exception exception)
+		public static Exception Warn(IFormatProvider formatProvider, Action<Logging.FormatMessageHandler> formatMessageCallback, Exception exception)
 		{
 			Core.Warn(formatProvider, formatMessageCallback, exception);
 			return exception;
@@ -702,12 +756,12 @@ namespace Common.Log.New.Core
 			return exception;
 		}
 
-		public static void Error(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback)
+		public static void Error(IFormatProvider formatProvider, Action<Logging.FormatMessageHandler> formatMessageCallback)
 		{
 			Core.Error(formatProvider, formatMessageCallback);
 		}
 
-		public static Exception Error(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback, Exception exception)
+		public static Exception Error(IFormatProvider formatProvider, Action<Logging.FormatMessageHandler> formatMessageCallback, Exception exception)
 		{
 			Core.Error(formatProvider, formatMessageCallback, exception);
 			return exception;
@@ -757,12 +811,12 @@ namespace Common.Log.New.Core
 			return exception;
 		}
 
-		public static void Fatal(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback)
+		public static void Fatal(IFormatProvider formatProvider, Action<Logging.FormatMessageHandler> formatMessageCallback)
 		{
 			Core.Fatal(formatProvider, formatMessageCallback);
 		}
 
-		public static Exception Fatal(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback, Exception exception)
+		public static Exception Fatal(IFormatProvider formatProvider, Action<Logging.FormatMessageHandler> formatMessageCallback, Exception exception)
 		{
 			Core.Fatal(formatProvider, formatMessageCallback, exception);
 			return exception;

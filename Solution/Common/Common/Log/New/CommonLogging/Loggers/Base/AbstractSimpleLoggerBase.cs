@@ -4,6 +4,7 @@ using Common.Log.New.Core;
 using Common.Logging;
 using Common.Logging.Factory;
 using Common.Logging.Simple;
+using FormatMessageHandler = Common.Logging.FormatMessageHandler;
 
 namespace Common.Log.New.CommonLogging.Loggers.Base
 {

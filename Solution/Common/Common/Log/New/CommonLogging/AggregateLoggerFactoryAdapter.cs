@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Common.Logging;
 using Common.Logging.Configuration;
 using Common.Logging.Simple;
@@ -24,7 +25,12 @@ namespace Common.Log.New.CommonLogging
 
 		protected override ILog CreateLogger(string name, LogLevel level, bool showLevel, bool showDateTime, bool showLogName, string dateTimeFormat)
 		{
-			ILog log = new AggregateLogger(name, level, showLevel, showDateTime, showLogName, dateTimeFormat, LoggerInstances);
+			var loggerInstancesCopy = new LoggerInstancesArgs {
+				UiLoggers = LoggerInstances.UiLoggers.ToList(),
+				LogLoggers = LoggerInstances.LogLoggers.ToList(),
+			};
+
+            ILog log = new AggregateLogger(name, level, showLevel, showDateTime, showLogName, dateTimeFormat, loggerInstancesCopy);
 			return log;
 		}
 	}
