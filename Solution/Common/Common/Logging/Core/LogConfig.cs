@@ -1,4 +1,4 @@
-﻿namespace Common.Log.Core
+﻿namespace Exin.Common.Logging.Core
 {
 	public class LogConfig
 	{

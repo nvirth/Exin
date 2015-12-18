@@ -6,7 +6,7 @@ using System.Resources;
 using Common.Logging;
 using Common.Utils.Helpers;
 
-namespace Common.Log.CommonLogging
+namespace Exin.Common.Logging.CommonLogging
 {
 	/// <summary>
 	/// Note: This class is a custom MessageFormatter. Not in use anymore.

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using BLL.WpfManagers;
-using Common.Log;
+using Exin.Common.Logging;
 using Common.UiModels.WPF;
 using Common.UiModels.WPF.Base;
 using Common.Utils.Helpers;
@@ -14,6 +14,7 @@ using Localization;
 using WPF.Utils;
 using Common.Configuration;
 using Common.Configuration.Settings;
+using Exin.Common.Logging.Core;
 
 namespace WPF.ViewModels.SummaryModels
 {

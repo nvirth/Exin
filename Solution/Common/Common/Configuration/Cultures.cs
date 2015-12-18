@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using System.Threading;
-using Common.Log;
+using Exin.Common.Logging;
+using Exin.Common.Logging.Core;
 
 namespace Common.Configuration
 {

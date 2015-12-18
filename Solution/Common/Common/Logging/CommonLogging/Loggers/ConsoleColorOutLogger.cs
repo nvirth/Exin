@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Common.Log.CommonLogging.Loggers.Base;
 using Common.Logging;
+using Exin.Common.Logging.CommonLogging.Loggers.Base;
 
-namespace Common.Log.CommonLogging.Loggers
+namespace Exin.Common.Logging.CommonLogging.Loggers
 {
 	/// <summary>
 	/// Sends log messages to <see cref="Console.Out" />.

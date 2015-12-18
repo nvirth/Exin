@@ -2,7 +2,8 @@
 using System.Configuration;
 using System.Linq;
 using System.Xml.Linq;
-using Common.Log;
+using Exin.Common.Logging;
+using Exin.Common.Logging.Core;
 using Common.UiModels.WPF.Base;
 using Common.Utils.Helpers;
 using Localization;

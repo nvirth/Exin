@@ -6,8 +6,8 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-using Common.Log.Core;
 using Common.Utils.Helpers;
+using Exin.Common.Logging.Core;
 using log4net;
 using log4net.Appender;
 using log4net.Core;
@@ -15,7 +15,7 @@ using log4net.Layout;
 using log4net.Repository.Hierarchy;
 using LogLevel = Common.Logging.LogLevel;
 
-namespace Common.Log.Log4Net
+namespace Exin.Common.Logging.Log4Net
 {
 	public class Log4NetLog
 	{

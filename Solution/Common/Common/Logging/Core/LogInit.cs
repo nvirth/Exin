@@ -2,12 +2,12 @@
 using System.Configuration;
 using System.Diagnostics;
 using System.Windows.Controls;
-using Common.Log.CommonLogging;
-using Common.Log.CommonLogging.Loggers;
-using Common.Log.Log4Net;
 using Common.Logging;
+using Exin.Common.Logging.CommonLogging;
+using Exin.Common.Logging.CommonLogging.Loggers;
+using Exin.Common.Logging.Log4Net;
 
-namespace Common.Log.Core
+namespace Exin.Common.Logging.Core
 {
 	public static class LogInit
 	{

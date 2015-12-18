@@ -21,7 +21,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Xml.Linq;
 using Common.Configuration;
-using Common.Log;
+using Exin.Common.Logging;
+using Exin.Common.Logging.Core;
 using Localization;
 using Newtonsoft.Json;
 

@@ -1,12 +1,12 @@
 using System;
 using System.Threading;
-using Common.Log.Core;
 using Common.Logging;
 using Common.Logging.Factory;
 using Common.Logging.Simple;
+using Exin.Common.Logging.Core;
 using FormatMessageHandler = Common.Logging.FormatMessageHandler;
 
-namespace Common.Log.CommonLogging.Loggers.Base
+namespace Exin.Common.Logging.CommonLogging.Loggers.Base
 {
 	public abstract class AbstractSimpleLoggerBase : AbstractSimpleLogger, IExinLog
 	{

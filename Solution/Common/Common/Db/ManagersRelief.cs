@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using Common.Log;
+using Exin.Common.Logging;
 using Common.Utils.Helpers;
 using Common.Db.Entities;
+using Exin.Common.Logging.Core;
 
 namespace Common.Db
 {

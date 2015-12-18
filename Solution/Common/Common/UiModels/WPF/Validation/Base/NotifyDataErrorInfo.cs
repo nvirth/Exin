@@ -5,10 +5,10 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
-using Common.Log;
 using Common.UiModels.WPF.Base;
 using Common.Utils.Helpers;
 using Localization;
+using Exin.Common.Logging.Core;
 
 namespace Common.UiModels.WPF.Validation.Base
 {

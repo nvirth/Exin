@@ -4,11 +4,10 @@ using System.Resources;
 using System.Runtime.CompilerServices;
 using Common.Logging;
 using System.Threading.Tasks;
-using Common.Log.CommonLogging;
-using Common.Log.CommonLogging.Loggers;
 using Common.Utils.Helpers;
+using Exin.Common.Logging.CommonLogging.Loggers;
 
-namespace Common.Log.Core
+namespace Exin.Common.Logging.Core
 {
 	public delegate string MessageFormatterHandler(string format, params object[] args);
 	public delegate string MessageFormatterLocalizedHandler(ResourceManager resourceManager, string resourceKey, params object[] args);

@@ -3,7 +3,7 @@ using System.Configuration;
 using System.IO;
 using System.Reflection;
 using Common.Configuration.Settings;
-using Common.Log;
+using Exin.Common.Logging;
 using Common.Utils.Helpers;
 using Localization;
 using C = Common.Configuration.Constants.AppSettingsKeys;

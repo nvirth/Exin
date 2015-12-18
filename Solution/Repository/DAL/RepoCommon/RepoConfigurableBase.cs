@@ -1,6 +1,6 @@
 ﻿using System;
 using Common.Configuration;
-using Common.Log;
+using Exin.Common.Logging;
 
 namespace DAL.RepoCommon
 {

@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Common.Log.CommonLogging.Loggers;
 using Common.Logging;
 using Common.Logging.Configuration;
 using Common.Logging.Simple;
-using Common.Log.Core;
+using Exin.Common.Logging.Core;
+using Exin.Common.Logging.CommonLogging.Loggers;
 
-namespace Common.Log.CommonLogging
+namespace Exin.Common.Logging.CommonLogging
 {
 	public class AggregateLoggerFactoryAdapter : AbstractSimpleLoggerFactoryAdapter
 	{

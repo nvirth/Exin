@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
-using Common.Log.CommonLogging.Loggers.Base;
-using Common.Log.Core;
 using Common.Logging;
 using Common.Logging.Factory;
 using Common.Utils.Helpers;
+using Exin.Common.Logging.CommonLogging.Loggers.Base;
+using Exin.Common.Logging.Core;
 using FormatMessageHandler = Common.Logging.FormatMessageHandler;
 
-namespace Common.Log.CommonLogging.Loggers
+namespace Exin.Common.Logging.CommonLogging.Loggers
 {
 	public class AggregateLogger : AbstractSimpleLoggerBase
 	{

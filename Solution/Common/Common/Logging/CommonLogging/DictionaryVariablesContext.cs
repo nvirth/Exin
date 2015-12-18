@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Common.Logging;
 
-namespace Common.Log.CommonLogging
+namespace Exin.Common.Logging.CommonLogging
 {
 	public class DictionaryVariablesContext : Dictionary<string, object>, IVariablesContext
 	{

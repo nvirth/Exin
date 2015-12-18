@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Common.Log;
+using Exin.Common.Logging;
+using Exin.Common.Logging.Core;
 
 namespace Common.Utils
 {

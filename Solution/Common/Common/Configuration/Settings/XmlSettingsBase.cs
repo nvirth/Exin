@@ -2,7 +2,8 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Common.Log;
+using Exin.Common.Logging;
+using Exin.Common.Logging.Core;
 using Common.UiModels.WPF.Base;
 using Common.Utils.Helpers;
 

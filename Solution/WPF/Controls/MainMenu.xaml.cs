@@ -14,7 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Common.Configuration;
 using Common.Configuration.Settings;
-using Common.Log;
+using Exin.Common.Logging;
+using Exin.Common.Logging.Core;
 using WPF.Controls.ViewModels;
 using WPF.Utils;
 

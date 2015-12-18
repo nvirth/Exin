@@ -6,7 +6,8 @@ using System.Reflection;
 using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
-using Common.Log;
+using Exin.Common.Logging;
+using Exin.Common.Logging.Core;
 using Common.Utils.Helpers;
 using Localization;
 

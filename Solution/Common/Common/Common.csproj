@@ -7,7 +7,7 @@
     <ProjectGuid>{DA8F8FB4-F0AC-46B3-8CDC-CBF559F7B46D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Common</RootNamespace>
+    <RootNamespace>Exin.Common</RootNamespace>
     <AssemblyName>Common</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -99,7 +99,6 @@
     <Compile Include="Enums.cs" />
     <Compile Include="DatePaths.cs" />
     <Compile Include="Log\Old\ExinLogger.cs" />
-    <Compile Include="Log\Old\LoggerInstances.cs" />
     <Compile Include="Log\CommonLogging\Loggers\Base\AbstractSimpleLoggerBase.cs" />
     <Compile Include="Log\CommonLogging\Loggers\AggregateLogger.cs" />
     <Compile Include="Log\CommonLogging\AggregateLoggerFactoryAdapter.cs" />
@@ -119,6 +118,7 @@
     <Compile Include="Log\Core\LogTarget.cs" />
     <Compile Include="Log\Log4Net\Log4NetLog.cs" />
     <Compile Include="Log\Core\LogInit.cs" />
+    <Compile Include="Log\Old\LoggerInstances.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UiModels\WPF\Base\ChainedValidationBase.cs" />

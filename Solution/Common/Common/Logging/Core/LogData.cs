@@ -7,7 +7,7 @@ using Common.Configuration;
 using Common.Logging;
 using Common.Utils.Helpers;
 
-namespace Common.Log.Core
+namespace Exin.Common.Logging.Core
 {
 	public class LogData
 	{

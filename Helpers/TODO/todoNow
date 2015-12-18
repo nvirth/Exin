@@ -1,9 +1,11 @@
+* Log
+** Refactor to use the new log system
+** Remove the old one, clean app configs
 * Copy
 ** Do not copy if there is no selection
 *** Command based MenuItem handlers
 ** Csv
 ** Ctrl+C is tricky. One has to press the buttons hard to achieve a Ctrl+C event
-* Log
 * Markers
 * Xaml extract
 

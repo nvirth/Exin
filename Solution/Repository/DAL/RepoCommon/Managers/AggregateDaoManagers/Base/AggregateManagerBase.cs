@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Common;
 using Common.Configuration;
-using Common.Log;
+using Exin.Common.Logging;
+using Exin.Common.Logging.Core;
 using DAL.RepoCommon.Interfaces;
 
 namespace DAL.RepoCommon.Managers.AggregateDaoManagers.Base

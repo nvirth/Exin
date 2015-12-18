@@ -2,7 +2,8 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Windows.Data;
-using Common.Log;
+using Exin.Common.Logging;
+using Exin.Common.Logging.Core;
 
 namespace WPF.ValueConverters
 {

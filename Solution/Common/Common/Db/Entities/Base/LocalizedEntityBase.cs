@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using Common.Log;
+using Exin.Common.Logging;
+using Exin.Common.Logging.Core;
 using Common.Utils.Helpers;
 using Localization;
 using C = Common.Configuration.Constants.Xml.TransactionItem;

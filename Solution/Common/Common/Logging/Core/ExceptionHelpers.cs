@@ -5,7 +5,7 @@ using Localization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Common.Log.Core
+namespace Exin.Common.Logging.Core
 {
 	public static class ExceptionHelpers
 	{

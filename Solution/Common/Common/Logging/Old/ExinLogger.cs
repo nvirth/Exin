@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Threading;
-using Common.Log.Core;
 using Common.Utils;
 using log4net;
 using log4net.Config;
 
-namespace Common.Log
+namespace Exin.Common.Logging.Core
 {
 	public class ExinLogger
 	{

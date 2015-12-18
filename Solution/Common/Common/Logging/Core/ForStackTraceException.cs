@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Common.Log.Core
+namespace Exin.Common.Logging.Core
 {
     /// <summary>
     ///     These kind of Exceptions are not meant to be thrown; their purpose is only for saving the actual StackTrace.

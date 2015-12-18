@@ -1,11 +1,11 @@
 ﻿using System;
-using Common.Log.Core;
-using Common.Log.Log4Net;
+using Exin.Common.Logging.Log4Net;
 using Common.Logging;
 using Common.Logging.Factory;
+using Exin.Common.Logging.Core;
 using log4net.Core;
 
-namespace Common.Log.CommonLogging.Loggers
+namespace Exin.Common.Logging.CommonLogging.Loggers
 {
 	public class Log4NetLogger : AbstractLogger, IExinLog
 	{

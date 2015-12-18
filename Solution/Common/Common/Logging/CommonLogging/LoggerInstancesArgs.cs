@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Common.Log.Core;
+using Exin.Common.Logging.Core;
 
-namespace Common.Log.CommonLogging
+namespace Exin.Common.Logging.CommonLogging
 {
 	public struct LoggerInstancesArgs
 	{

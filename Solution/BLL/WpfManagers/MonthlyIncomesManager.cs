@@ -2,7 +2,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Common;
-using Common.Log;
+using Exin.Common.Logging;
+using Exin.Common.Logging.Core;
 using Common.UiModels.WPF;
 using Common.Utils;
 using DAL.DataBase.Managers;

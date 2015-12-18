@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Common.Log.CommonLogging.Loggers.Base;
 using Common.Logging;
 using Common.Utils;
+using Exin.Common.Logging.CommonLogging.Loggers.Base;
 
-namespace Common.Log.CommonLogging.Loggers
+namespace Exin.Common.Logging.CommonLogging.Loggers
 {
 	public class WpfRichTextBoxLogger : AbstractSimpleLoggerBase
 	{

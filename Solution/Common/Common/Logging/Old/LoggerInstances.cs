@@ -1,4 +1,4 @@
-﻿namespace Common.Log
+﻿namespace Exin.Common.Logging.Core
 {
 	public static class ExinLog
 	{

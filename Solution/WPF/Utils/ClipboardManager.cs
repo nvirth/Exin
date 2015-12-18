@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Common;
-using Common.Log;
+using Exin.Common.Logging;
 using Common.Utils.Helpers;
 using WPF.ViewModels.SummaryModels;
 using Common.Configuration;
 using Common.Configuration.Settings;
+using Exin.Common.Logging.Core;
 
 namespace WPF.Utils
 {
