@@ -150,7 +150,7 @@ namespace Common.UiModels.WPF.Validation.Base
 							if(displayAttribute != null)
 								displayName = displayAttribute.Name;
 							else
-								ExinLog.ger.LogError("WARN: Could not find the DisplayName for: {0}.{1}".Formatted(this.GetType().Name, propertyName)); // TODO localization
+								Log.Warn(this, m => m("Could not find the DisplayName for: {0}.{1}", this.GetType().Name, propertyName));
 						}
 
 						return validationAttribute.FormatErrorMessage(displayName);

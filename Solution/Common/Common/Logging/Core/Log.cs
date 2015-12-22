@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Globalization;
 using System.Resources;
 using System.Runtime.CompilerServices;
 using Common.Logging;
@@ -66,386 +67,308 @@ namespace Exin.Common.Logging.Core
 		private static readonly Func<MessageFormatterHandler, string> NoCallback = null;
 
 		#region General log at level (for default methods)
-		public static Exception LogAtLevel(Func<MessageFormatterHandler, string> printMessageCallback, LogLevel logLevel, Exception exception = null, LogTarget logTarget = LogTarget.Log)
+		public static Exception LogAtLevel(Func<MessageFormatterHandler, string> printMessageCallback, LogLevel logLevel, Exception exception = null, LogTarget logTarget = LogTarget.All)
 		{
-			if(!Core.IsLevelEnabled(logLevel))
-				return null;
-
-			switch(logLevel)
-			{
-				case LogLevel.Trace: return DoLog("", printMessageCallback, null, exception, logTarget, LogLevel.Trace);
-				case LogLevel.Debug: return DoLog("", printMessageCallback, null, exception, logTarget, LogLevel.Debug);
-				case LogLevel.Info: return DoLog("", printMessageCallback, null, exception, logTarget, LogLevel.Info);
-				case LogLevel.Warn: return DoLog("", printMessageCallback, null, exception, logTarget, LogLevel.Warn);
-				case LogLevel.Error: return DoLog("", printMessageCallback, null, exception, logTarget, LogLevel.Error);
-				case LogLevel.Fatal: return DoLog("", printMessageCallback, null, exception, logTarget, LogLevel.Fatal);
-				default:
-					throw new NotImplementedException(GetTag(typeof(Log)));
-			}
+			return !Core.IsLevelEnabled(logLevel) ? exception : DoLog("", printMessageCallback, exception, logTarget, logLevel);
 		}
-		public static Exception LogAtLevel(Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogLevel logLevel, Exception exception = null, LogTarget logTarget = LogTarget.Log)
+		public static Exception LogAtLevel(Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogLevel logLevel, Exception exception = null, LogTarget logTarget = LogTarget.All)
 		{
-			if(!Core.IsLevelEnabled(logLevel))
-				return null;
-
-			switch(logLevel)
-			{
-				case LogLevel.Trace: return DoLog("", null, printMessageCallback, exception, logTarget, LogLevel.Trace);
-				case LogLevel.Debug: return DoLog("", null, printMessageCallback, exception, logTarget, LogLevel.Debug);
-				case LogLevel.Info: return DoLog("", null, printMessageCallback, exception, logTarget, LogLevel.Info);
-				case LogLevel.Warn: return DoLog("", null, printMessageCallback, exception, logTarget, LogLevel.Warn);
-				case LogLevel.Error: return DoLog("", null, printMessageCallback, exception, logTarget, LogLevel.Error);
-				case LogLevel.Fatal: return DoLog("", null, printMessageCallback, exception, logTarget, LogLevel.Fatal);
-				default:
-					throw new NotImplementedException(GetTag(typeof(Log)));
-			}
+			return !Core.IsLevelEnabled(logLevel) ? exception : DoLog("", printMessageCallback, exception, logTarget, logLevel);
+		}
+		public static Exception LogAtLevel(Func<MessageFormatterHandler, CultureInfo, string> printMessageCallback, LogLevel logLevel, Exception exception = null, LogTarget logTarget = LogTarget.All)
+		{
+			return !Core.IsLevelEnabled(logLevel) ? exception : DoLog("", printMessageCallback, exception, logTarget, logLevel);
 		}
 		#endregion
 
 		#region General log at level (for our extensions)
-		public static Exception LogAtLevel(object callerTypeInstance, Func<MessageFormatterHandler, string> printMessageCallback, LogLevel logLevel, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		public static Exception LogAtLevel(object callerTypeInstance, Func<MessageFormatterHandler, string> printMessageCallback, LogLevel logLevel, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
 		{
-			if(!Core.IsLevelEnabled(logLevel))
-				return null;
-
-			switch(logLevel)
-			{
-				case LogLevel.Trace:
-					return DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Trace, callerFnName);
-				case LogLevel.Debug:
-					return DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Debug, callerFnName);
-				case LogLevel.Info:
-					return DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Info, callerFnName);
-				case LogLevel.Warn:
-					return DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Warn, callerFnName);
-				case LogLevel.Error:
-					return DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Error, callerFnName);
-				case LogLevel.Fatal:
-					return DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Fatal, callerFnName);
-				default:
-					throw new NotImplementedException(GetTag(typeof(Log)));
-			}
+			return !Core.IsLevelEnabled(logLevel) ? exception : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, logLevel, callerFnName);
 		}
-		public static Exception LogAtLevel(object callerTypeInstance, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogLevel logLevel, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		public static Exception LogAtLevel(object callerTypeInstance, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogLevel logLevel, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
 		{
-			if(!Core.IsLevelEnabled(logLevel))
-				return null;
-
-			switch(logLevel)
-			{
-				case LogLevel.Trace:
-					return DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Trace, callerFnName);
-				case LogLevel.Debug:
-					return DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Debug, callerFnName);
-				case LogLevel.Info:
-					return DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Info, callerFnName);
-				case LogLevel.Warn:
-					return DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Warn, callerFnName);
-				case LogLevel.Error:
-					return DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Error, callerFnName);
-				case LogLevel.Fatal:
-					return DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Fatal, callerFnName);
-				default:
-					throw new NotImplementedException(GetTag(typeof(Log)));
-			}
+			return !Core.IsLevelEnabled(logLevel) ? exception : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, logLevel, callerFnName);
 		}
-		public static Exception LogAtLevel(object callerTypeInstance, LogLevel logLevel, Exception exception, LogTarget logTarget = LogTarget.Log, [CallerMemberName] string callerFnName = null)
+		public static Exception LogAtLevel(object callerTypeInstance, Func<MessageFormatterHandler, CultureInfo, string> printMessageCallback, LogLevel logLevel, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
 		{
-			if(!Core.IsLevelEnabled(logLevel))
-				return null;
-
-			switch(logLevel)
-			{
-				case LogLevel.Trace:
-					return DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Trace, callerFnName);
-				case LogLevel.Debug:
-					return DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Debug, callerFnName);
-				case LogLevel.Info:
-					return DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Info, callerFnName);
-				case LogLevel.Warn:
-					return DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Warn, callerFnName);
-				case LogLevel.Error:
-					return DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Error, callerFnName);
-				case LogLevel.Fatal:
-					return DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Fatal, callerFnName);
-				default:
-					throw new NotImplementedException(GetTag(typeof(Log)));
-			}
+			return !Core.IsLevelEnabled(logLevel) ? exception : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, logLevel, callerFnName);
+		}
+		public static Exception LogAtLevel(object callerTypeInstance, LogLevel logLevel, Exception exception, LogTarget logTarget = LogTarget.All, [CallerMemberName] string callerFnName = null)
+		{
+			return !Core.IsLevelEnabled(logLevel) ? exception : DoLog(callerTypeInstance, NoCallback, exception, logTarget, logLevel, callerFnName);
 		}
 
-		public static Exception LogAtLevel(Type callerType, Func<MessageFormatterHandler, string> printMessageCallback, LogLevel logLevel, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		public static Exception LogAtLevel(Type callerType, Func<MessageFormatterHandler, string> printMessageCallback, LogLevel logLevel, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
 		{
-			if(!Core.IsLevelEnabled(logLevel))
-				return null;
-
-			switch(logLevel)
-			{
-				case LogLevel.Trace:
-					return DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Trace, callerFnName);
-				case LogLevel.Debug:
-					return DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Debug, callerFnName);
-				case LogLevel.Info:
-					return DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Info, callerFnName);
-				case LogLevel.Warn:
-					return DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Warn, callerFnName);
-				case LogLevel.Error:
-					return DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Error, callerFnName);
-				case LogLevel.Fatal:
-					return DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Fatal, callerFnName);
-				default:
-					throw new NotImplementedException(GetTag(typeof(Log)));
-			}
+			return !Core.IsLevelEnabled(logLevel) ? exception : DoLog(callerType, printMessageCallback, exception, logTarget, logLevel, callerFnName);
 		}
-		public static Exception LogAtLevel(Type callerType, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogLevel logLevel, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		public static Exception LogAtLevel(Type callerType, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogLevel logLevel, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
 		{
-			if(!Core.IsLevelEnabled(logLevel))
-				return null;
-
-			switch(logLevel)
-			{
-				case LogLevel.Trace:
-					return DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Trace, callerFnName);
-				case LogLevel.Debug:
-					return DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Debug, callerFnName);
-				case LogLevel.Info:
-					return DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Info, callerFnName);
-				case LogLevel.Warn:
-					return DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Warn, callerFnName);
-				case LogLevel.Error:
-					return DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Error, callerFnName);
-				case LogLevel.Fatal:
-					return DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Fatal, callerFnName);
-				default:
-					throw new NotImplementedException(GetTag(typeof(Log)));
-			}
+			return !Core.IsLevelEnabled(logLevel) ? exception : DoLog(callerType, printMessageCallback, exception, logTarget, logLevel, callerFnName);
 		}
-		public static Exception LogAtLevel(Type callerType, LogLevel logLevel, Exception exception, LogTarget logTarget = LogTarget.Log, [CallerMemberName] string callerFnName = null)
+		public static Exception LogAtLevel(Type callerType, Func<MessageFormatterHandler, CultureInfo, string> printMessageCallback, LogLevel logLevel, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
 		{
-			if(!Core.IsLevelEnabled(logLevel))
-				return null;
-
-			switch(logLevel)
-			{
-				case LogLevel.Trace:
-					return DoLog(callerType, NoCallback, exception, logTarget, LogLevel.Trace, callerFnName);
-				case LogLevel.Debug:
-					return DoLog(callerType, NoCallback, exception, logTarget, LogLevel.Debug, callerFnName);
-				case LogLevel.Info:
-					return DoLog(callerType, NoCallback, exception, logTarget, LogLevel.Info, callerFnName);
-				case LogLevel.Warn:
-					return DoLog(callerType, NoCallback, exception, logTarget, LogLevel.Warn, callerFnName);
-				case LogLevel.Error:
-					return DoLog(callerType, NoCallback, exception, logTarget, LogLevel.Error, callerFnName);
-				case LogLevel.Fatal:
-					return DoLog(callerType, NoCallback, exception, logTarget, LogLevel.Fatal, callerFnName);
-				default:
-					throw new NotImplementedException(GetTag(typeof(Log)));
-			}
+			return !Core.IsLevelEnabled(logLevel) ? exception : DoLog(callerType, printMessageCallback, exception, logTarget, logLevel, callerFnName);
+		}
+		public static Exception LogAtLevel(Type callerType, LogLevel logLevel, Exception exception, LogTarget logTarget = LogTarget.All, [CallerMemberName] string callerFnName = null)
+		{
+			return !Core.IsLevelEnabled(logLevel) ? exception : DoLog(callerType, NoCallback, exception, logTarget, logLevel, callerFnName);
 		}
 		#endregion
 
 		#region Concrete log at levels
-		public static Exception Trace(object callerTypeInstance, Func<MessageFormatterHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		public static Exception Trace(object callerTypeInstance, Func<MessageFormatterHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
 		{
-			return !Core.IsTraceEnabled ? null : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Trace, callerFnName);
+			return !Core.IsTraceEnabled ? exception : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Trace, callerFnName);
 		}
-		public static Exception Trace(object callerTypeInstance, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		public static Exception Trace(object callerTypeInstance, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
 		{
-			return !Core.IsTraceEnabled ? null : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Trace, callerFnName);
+			return !Core.IsTraceEnabled ? exception : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Trace, callerFnName);
 		}
-
-		public static Exception Trace(Type callerType, Func<MessageFormatterHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		public static Exception Trace(object callerTypeInstance, Func<MessageFormatterHandler, CultureInfo, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
 		{
-			return !Core.IsTraceEnabled ? null : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Trace, callerFnName);
-		}
-		public static Exception Trace(Type callerType, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
-		{
-			return !Core.IsTraceEnabled ? null : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Trace, callerFnName);
+			return !Core.IsTraceEnabled ? exception : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Trace, callerFnName);
 		}
 
-		public static Exception Trace(object callerTypeInstance, Exception exception, LogTarget logTarget = LogTarget.Log, [CallerMemberName] string callerFnName = null)
+		public static Exception Trace(Type callerType, Func<MessageFormatterHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
 		{
-			return !Core.IsTraceEnabled ? null : DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Trace, callerFnName);
+			return !Core.IsTraceEnabled ? exception : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Trace, callerFnName);
+		}
+		public static Exception Trace(Type callerType, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		{
+			return !Core.IsTraceEnabled ? exception : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Trace, callerFnName);
+		}
+		public static Exception Trace(Type callerType, Func<MessageFormatterHandler, CultureInfo, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		{
+			return !Core.IsTraceEnabled ? exception : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Trace, callerFnName);
 		}
 
-		public static Exception Trace(Type callerType, Exception exception, LogTarget logTarget = LogTarget.Log, [CallerMemberName] string callerFnName = null)
+		public static Exception Trace(object callerTypeInstance, Exception exception, LogTarget logTarget = LogTarget.All, [CallerMemberName] string callerFnName = null)
 		{
-			return !Core.IsTraceEnabled ? null : DoLog(callerType, NoCallback, exception, logTarget, LogLevel.Trace, callerFnName);
+			return !Core.IsTraceEnabled ? exception : DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Trace, callerFnName);
 		}
 
-		public static Exception Debug(object callerTypeInstance, Func<MessageFormatterHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		public static Exception Trace(Type callerType, Exception exception, LogTarget logTarget = LogTarget.All, [CallerMemberName] string callerFnName = null)
 		{
-			return !Core.IsDebugEnabled ? null : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Debug, callerFnName);
-		}
-		public static Exception Debug(object callerTypeInstance, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
-		{
-			return !Core.IsDebugEnabled ? null : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Debug, callerFnName);
+			return !Core.IsTraceEnabled ? exception : DoLog(callerType, NoCallback, exception, logTarget, LogLevel.Trace, callerFnName);
 		}
 
-		public static Exception Debug(Type callerType, Func<MessageFormatterHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		public static Exception Debug(object callerTypeInstance, Func<MessageFormatterHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
 		{
-			return !Core.IsDebugEnabled ? null : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Debug, callerFnName);
+			return !Core.IsDebugEnabled ? exception : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Debug, callerFnName);
 		}
-		public static Exception Debug(Type callerType, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		public static Exception Debug(object callerTypeInstance, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
 		{
-			return !Core.IsDebugEnabled ? null : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Debug, callerFnName);
+			return !Core.IsDebugEnabled ? exception : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Debug, callerFnName);
 		}
-
-		public static Exception Debug(object callerTypeInstance, Exception exception, LogTarget logTarget = LogTarget.Log, [CallerMemberName] string callerFnName = null)
+		public static Exception Debug(object callerTypeInstance, Func<MessageFormatterHandler, CultureInfo, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
 		{
-			return !Core.IsDebugEnabled ? null : DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Debug, callerFnName);
-		}
-
-		public static Exception Debug(Type callerType, Exception exception, LogTarget logTarget = LogTarget.Log, [CallerMemberName] string callerFnName = null)
-		{
-			return !Core.IsDebugEnabled ? null : DoLog(callerType, NoCallback, exception, logTarget, LogLevel.Debug, callerFnName);
+			return !Core.IsDebugEnabled ? exception : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Debug, callerFnName);
 		}
 
-		public static Exception Info(object callerTypeInstance, Func<MessageFormatterHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		public static Exception Debug(Type callerType, Func<MessageFormatterHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
 		{
-			return !Core.IsInfoEnabled ? null : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Info, callerFnName);
+			return !Core.IsDebugEnabled ? exception : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Debug, callerFnName);
 		}
-		public static Exception Info(object callerTypeInstance, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		public static Exception Debug(Type callerType, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
 		{
-			return !Core.IsInfoEnabled ? null : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Info, callerFnName);
+			return !Core.IsDebugEnabled ? exception : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Debug, callerFnName);
 		}
-
-		public static Exception Info(Type callerType, Func<MessageFormatterHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		public static Exception Debug(Type callerType, Func<MessageFormatterHandler, CultureInfo, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
 		{
-			return !Core.IsInfoEnabled ? null : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Info, callerFnName);
-		}
-		public static Exception Info(Type callerType, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
-		{
-			return !Core.IsInfoEnabled ? null : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Info, callerFnName);
+			return !Core.IsDebugEnabled ? exception : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Debug, callerFnName);
 		}
 
-		public static Exception Info(object callerTypeInstance, Exception exception, LogTarget logTarget = LogTarget.Log, [CallerMemberName] string callerFnName = null)
+		public static Exception Debug(object callerTypeInstance, Exception exception, LogTarget logTarget = LogTarget.All, [CallerMemberName] string callerFnName = null)
 		{
-			return !Core.IsInfoEnabled ? null : DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Info, callerFnName);
+			return !Core.IsDebugEnabled ? exception : DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Debug, callerFnName);
 		}
 
-		public static Exception Info(Type callerType, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		public static Exception Debug(Type callerType, Exception exception, LogTarget logTarget = LogTarget.All, [CallerMemberName] string callerFnName = null)
 		{
-			return !Core.IsInfoEnabled ? null : DoLog(callerType, NoCallback, exception, logTarget, LogLevel.Info, callerFnName);
+			return !Core.IsDebugEnabled ? exception : DoLog(callerType, NoCallback, exception, logTarget, LogLevel.Debug, callerFnName);
 		}
 
-		public static Exception Warn(object callerTypeInstance, Func<MessageFormatterHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		public static Exception Info(object callerTypeInstance, Func<MessageFormatterHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
 		{
-			return !Core.IsWarnEnabled ? null : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Warn, callerFnName);
+			return !Core.IsInfoEnabled ? exception : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Info, callerFnName);
 		}
-		public static Exception Warn(object callerTypeInstance, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		public static Exception Info(object callerTypeInstance, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
 		{
-			return !Core.IsWarnEnabled ? null : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Warn, callerFnName);
+			return !Core.IsInfoEnabled ? exception : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Info, callerFnName);
 		}
-
-		public static Exception Warn(Type callerType, Func<MessageFormatterHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		public static Exception Info(object callerTypeInstance, Func<MessageFormatterHandler, CultureInfo, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
 		{
-			return !Core.IsWarnEnabled ? null : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Warn, callerFnName);
-		}
-		public static Exception Warn(Type callerType, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
-		{
-			return !Core.IsWarnEnabled ? null : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Warn, callerFnName);
+			return !Core.IsInfoEnabled ? exception : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Info, callerFnName);
 		}
 
-		public static Exception Warn(object callerTypeInstance, Exception exception, LogTarget logTarget = LogTarget.Log, [CallerMemberName] string callerFnName = null)
+		public static Exception Info(Type callerType, Func<MessageFormatterHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
 		{
-			return !Core.IsWarnEnabled ? null : DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Warn, callerFnName);
+			return !Core.IsInfoEnabled ? exception : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Info, callerFnName);
+		}
+		public static Exception Info(Type callerType, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		{
+			return !Core.IsInfoEnabled ? exception : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Info, callerFnName);
+		}
+		public static Exception Info(Type callerType, Func<MessageFormatterHandler, CultureInfo, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		{
+			return !Core.IsInfoEnabled ? exception : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Info, callerFnName);
 		}
 
-		public static Exception Warn(Type callerType, Exception exception, LogTarget logTarget = LogTarget.Log, [CallerMemberName] string callerFnName = null)
+		public static Exception Info(object callerTypeInstance, Exception exception, LogTarget logTarget = LogTarget.All, [CallerMemberName] string callerFnName = null)
 		{
-			return !Core.IsWarnEnabled ? null : DoLog(callerType, NoCallback, exception, logTarget, LogLevel.Warn, callerFnName);
+			return !Core.IsInfoEnabled ? exception : DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Info, callerFnName);
 		}
 
-		public static Exception Error(object callerTypeInstance, Func<MessageFormatterHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		public static Exception Info(Type callerType, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
 		{
-			return !Core.IsErrorEnabled ? null : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Error, callerFnName);
-		}
-		public static Exception Error(object callerTypeInstance, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
-		{
-			return !Core.IsErrorEnabled ? null : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Error, callerFnName);
+			return !Core.IsInfoEnabled ? exception : DoLog(callerType, NoCallback, exception, logTarget, LogLevel.Info, callerFnName);
 		}
 
-		public static Exception Error(Type callerType, Func<MessageFormatterHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		public static Exception Warn(object callerTypeInstance, Func<MessageFormatterHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
 		{
-			return !Core.IsErrorEnabled ? null : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Error, callerFnName);
+			return !Core.IsWarnEnabled ? exception : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Warn, callerFnName);
 		}
-		public static Exception Error(Type callerType, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		public static Exception Warn(object callerTypeInstance, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
 		{
-			return !Core.IsErrorEnabled ? null : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Error, callerFnName);
+			return !Core.IsWarnEnabled ? exception : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Warn, callerFnName);
 		}
-
-		public static Exception Error(object callerTypeInstance, Exception exception, LogTarget logTarget = LogTarget.Log, [CallerMemberName] string callerFnName = null)
+		public static Exception Warn(object callerTypeInstance, Func<MessageFormatterHandler, CultureInfo, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
 		{
-			return !Core.IsErrorEnabled ? null : DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Error, callerFnName);
-		}
-
-		public static Exception Error(Type callerType, Exception exception, LogTarget logTarget = LogTarget.Log, [CallerMemberName] string callerFnName = null)
-		{
-			return !Core.IsErrorEnabled ? null : DoLog(callerType, NoCallback, exception, logTarget, LogLevel.Error, callerFnName);
+			return !Core.IsWarnEnabled ? exception : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Warn, callerFnName);
 		}
 
-		public static Exception Fatal(object callerTypeInstance, Func<MessageFormatterHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		public static Exception Warn(Type callerType, Func<MessageFormatterHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
 		{
-			return !Core.IsFatalEnabled ? null : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Fatal, callerFnName);
+			return !Core.IsWarnEnabled ? exception : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Warn, callerFnName);
 		}
-		public static Exception Fatal(object callerTypeInstance, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		public static Exception Warn(Type callerType, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
 		{
-			return !Core.IsFatalEnabled ? null : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Fatal, callerFnName);
+			return !Core.IsWarnEnabled ? exception : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Warn, callerFnName);
 		}
-
-		public static Exception Fatal(Type callerType, Func<MessageFormatterHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		public static Exception Warn(Type callerType, Func<MessageFormatterHandler, CultureInfo, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
 		{
-			return !Core.IsFatalEnabled ? null : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Fatal, callerFnName);
-		}
-		public static Exception Fatal(Type callerType, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
-		{
-			return !Core.IsFatalEnabled ? null : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Fatal, callerFnName);
+			return !Core.IsWarnEnabled ? exception : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Warn, callerFnName);
 		}
 
-		public static Exception Fatal(object callerTypeInstance, Exception exception, LogTarget logTarget = LogTarget.Log, [CallerMemberName] string callerFnName = null)
+		public static Exception Warn(object callerTypeInstance, Exception exception, LogTarget logTarget = LogTarget.All, [CallerMemberName] string callerFnName = null)
 		{
-			return !Core.IsFatalEnabled ? null : DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Fatal, callerFnName);
+			return !Core.IsWarnEnabled ? exception : DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Warn, callerFnName);
 		}
 
-		public static Exception Fatal(Type callerType, LogTarget logTarget = LogTarget.Log, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		public static Exception Warn(Type callerType, Exception exception, LogTarget logTarget = LogTarget.All, [CallerMemberName] string callerFnName = null)
 		{
-			return !Core.IsFatalEnabled ? null : DoLog(callerType, NoCallback, exception, logTarget, LogLevel.Fatal, callerFnName);
+			return !Core.IsWarnEnabled ? exception : DoLog(callerType, NoCallback, exception, logTarget, LogLevel.Warn, callerFnName);
+		}
+
+		public static Exception Error(object callerTypeInstance, Func<MessageFormatterHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		{
+			return !Core.IsErrorEnabled ? exception : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Error, callerFnName);
+		}
+		public static Exception Error(object callerTypeInstance, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		{
+			return !Core.IsErrorEnabled ? exception : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Error, callerFnName);
+		}
+		public static Exception Error(object callerTypeInstance, Func<MessageFormatterHandler, CultureInfo, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		{
+			return !Core.IsErrorEnabled ? exception : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Error, callerFnName);
+		}
+
+		public static Exception Error(Type callerType, Func<MessageFormatterHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		{
+			return !Core.IsErrorEnabled ? exception : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Error, callerFnName);
+		}
+		public static Exception Error(Type callerType, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		{
+			return !Core.IsErrorEnabled ? exception : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Error, callerFnName);
+		}
+		public static Exception Error(Type callerType, Func<MessageFormatterHandler, CultureInfo, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		{
+			return !Core.IsErrorEnabled ? exception : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Error, callerFnName);
+		}
+
+		public static Exception Error(object callerTypeInstance, Exception exception, LogTarget logTarget = LogTarget.All, [CallerMemberName] string callerFnName = null)
+		{
+			return !Core.IsErrorEnabled ? exception : DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Error, callerFnName);
+		}
+
+		public static Exception Error(Type callerType, Exception exception, LogTarget logTarget = LogTarget.All, [CallerMemberName] string callerFnName = null)
+		{
+			return !Core.IsErrorEnabled ? exception : DoLog(callerType, NoCallback, exception, logTarget, LogLevel.Error, callerFnName);
+		}
+
+		public static Exception Fatal(object callerTypeInstance, Func<MessageFormatterHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		{
+			return !Core.IsFatalEnabled ? exception : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Fatal, callerFnName);
+		}
+		public static Exception Fatal(object callerTypeInstance, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		{
+			return !Core.IsFatalEnabled ? exception : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Fatal, callerFnName);
+		}
+		public static Exception Fatal(object callerTypeInstance, Func<MessageFormatterHandler, CultureInfo, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		{
+			return !Core.IsFatalEnabled ? exception : DoLog(callerTypeInstance, printMessageCallback, exception, logTarget, LogLevel.Fatal, callerFnName);
+		}
+
+		public static Exception Fatal(Type callerType, Func<MessageFormatterHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		{
+			return !Core.IsFatalEnabled ? exception : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Fatal, callerFnName);
+		}
+		public static Exception Fatal(Type callerType, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		{
+			return !Core.IsFatalEnabled ? exception : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Fatal, callerFnName);
+		}
+		public static Exception Fatal(Type callerType, Func<MessageFormatterHandler, CultureInfo, string> printMessageCallback, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		{
+			return !Core.IsFatalEnabled ? exception : DoLog(callerType, printMessageCallback, exception, logTarget, LogLevel.Fatal, callerFnName);
+		}
+
+		public static Exception Fatal(object callerTypeInstance, Exception exception, LogTarget logTarget = LogTarget.All, [CallerMemberName] string callerFnName = null)
+		{
+			return !Core.IsFatalEnabled ? exception : DoLog(callerTypeInstance, NoCallback, exception, logTarget, LogLevel.Fatal, callerFnName);
+		}
+
+		public static Exception Fatal(Type callerType, LogTarget logTarget = LogTarget.All, Exception exception = null, [CallerMemberName] string callerFnName = null)
+		{
+			return !Core.IsFatalEnabled ? exception : DoLog(callerType, NoCallback, exception, logTarget, LogLevel.Fatal, callerFnName);
 		}
 		#endregion
 
 		#region DoLog
 
-		private static Exception DoLog(object callerTypeInstance, Func<MessageFormatterHandler, string> printMessageCallback, Exception exception, LogTarget logTarget, LogLevel logLevel, string callerFnName)
+		private static Exception DoLog(object callerTypeInstance, object printMessageCallback, Exception exception, LogTarget logTarget, LogLevel logLevel, string callerFnName)
 		{
-			return DoLog(GetTag(callerTypeInstance, callerFnName), printMessageCallback, null, exception, logTarget, logLevel);
+			return DoLog(GetTag(callerTypeInstance, callerFnName), printMessageCallback, exception, logTarget, logLevel);
 		}
-		private static Exception DoLog(object callerTypeInstance, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, Exception exception, LogTarget logTarget, LogLevel logLevel, string callerFnName)
+		private static Exception DoLog(Type callerType, object printMessageCallback, Exception exception, LogTarget logTarget, LogLevel logLevel, string callerFnName)
 		{
-			return DoLog(GetTag(callerTypeInstance, callerFnName), null, printMessageCallback, exception, logTarget, logLevel);
-		}
-
-		private static Exception DoLog(Type callerType, Func<MessageFormatterHandler, string> printMessageCallback, Exception exception, LogTarget logTarget, LogLevel logLevel, string callerFnName)
-		{
-			return DoLog(GetTag(callerType, callerFnName), printMessageCallback, null, exception, logTarget, logLevel);
-		}
-		private static Exception DoLog(Type callerType, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, Exception exception, LogTarget logTarget, LogLevel logLevel, string callerFnName)
-		{
-			return DoLog(GetTag(callerType, callerFnName), null, printMessageCallback, exception, logTarget, logLevel);
+			return DoLog(GetTag(callerType, callerFnName), printMessageCallback, exception, logTarget, logLevel);
 		}
 
 		private static Exception DoLog(
 			string tag,
-			Func<MessageFormatterHandler, string> messageFormatterHandler,
-			Func<MessageFormatterLocalizedHandler, string> messageFormatterLocalizedHandler,
+			object messageFormatterHandler,
 			Exception exception,
 			LogTarget logTarget,
 			LogLevel logLevel
 			)
 		{
-			var logData = messageFormatterHandler == null
-				? new LogData(tag, messageFormatterLocalizedHandler, exception, logTarget, logLevel)
-				: new LogData(tag, messageFormatterHandler, exception, logTarget, logLevel);
+			LogData logData;
+			Func<MessageFormatterHandler, string> stringFormatHandler;
+			Func<MessageFormatterLocalizedHandler, string> resourceManagerHandler;
+			Func<MessageFormatterHandler, CultureInfo, string> dynamicLocalizedHandler;
+
+			if(messageFormatterHandler == null)
+				logData = new LogData(tag, NoCallback, exception, logTarget, logLevel);
+			else if((stringFormatHandler = messageFormatterHandler as Func<MessageFormatterHandler, string>) != null)
+				logData = new LogData(tag, stringFormatHandler, exception, logTarget, logLevel);
+			else if((resourceManagerHandler = messageFormatterHandler as Func<MessageFormatterLocalizedHandler, string>) != null)
+				logData = new LogData(tag, resourceManagerHandler, exception, logTarget, logLevel);
+			else if((dynamicLocalizedHandler = messageFormatterHandler as Func<MessageFormatterHandler, CultureInfo, string>) != null)
+				logData = new LogData(tag, dynamicLocalizedHandler, exception, logTarget, logLevel);
+			else
+				throw new ArgumentOutOfRangeException("messageFormatterHandler");
 
 			Core.DoLog(logData);
 			return exception;

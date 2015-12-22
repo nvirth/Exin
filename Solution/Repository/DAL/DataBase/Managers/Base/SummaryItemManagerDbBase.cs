@@ -35,7 +35,11 @@ namespace DAL.DataBase.Managers.Base
 			}
 			catch(Exception e)
 			{
-				ExinLog.ger.LogException(Localized.Could_not_save_into_database_the_daily_expense_statistics, e);
+				Log.Error(this,
+					m => m(Localized.ResourceManager, LocalizedKeys.Could_not_save_into_database_the_daily_expense_statistics),
+					LogTarget.All,
+					e
+				);
 				throw;
 			}
 		}

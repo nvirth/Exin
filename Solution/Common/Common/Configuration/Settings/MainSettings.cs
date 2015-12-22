@@ -79,7 +79,11 @@ namespace Common.Configuration.Settings
 				}
 				catch (Exception e)
 				{
-					ExinLog.ger.LogException("Could not parse MainSettings.RepoXml, or some values are invalid. ", e);
+					Log.Fatal(typeof(RepoXml),
+						m => m(Localized.ResourceManager, LocalizedKeys.Could_not_parse_MainSettings_RepoXml__or_some_values_are_invalid__),
+						LogTarget.All,
+						e
+					);
 					throw;
 				}
 			}
@@ -215,7 +219,11 @@ namespace Common.Configuration.Settings
 				}
 				catch (Exception e)
 				{
-					ExinLog.ger.LogException("Could not parse MainSettings.UserSettingsXml. ", e);
+					Log.Fatal(typeof(UserSettingsXml),
+						m => m(Localized.ResourceManager, LocalizedKeys.Could_not_parse_MainSettings_UserSettingsXml__),
+						LogTarget.All,
+						e
+					);
 					throw;
 				}
 			}
@@ -293,7 +301,11 @@ namespace Common.Configuration.Settings
 			}
 			catch (Exception e)
 			{
-				ExinLog.ger.LogException("Could not read the MainSettings.xml file. Location: {0}".Formatted(xmlFilePath), e);
+				Log.Fatal(typeof(MainSettings),
+					m => m(Localized.ResourceManager, LocalizedKeys.Could_not_read_the_MainSettings_xml_file__Location___0_, xmlFilePath),
+					LogTarget.All,
+					e
+				);
 				throw;
 			}
 		}
@@ -309,12 +321,12 @@ namespace Common.Configuration.Settings
 				throw new ConfigurationErrorsException("The names of the repositories must be unique. These are duplicated: {0}".Formatted(duplicates));
 			}
 
-            //UserSettings.CurrentRepoNames.Any(repoName => !repoNames.Contains(repoName));
+			//UserSettings.CurrentRepoNames.Any(repoName => !repoNames.Contains(repoName));
 			var brokenRepoNames = UserSettings.CurrentRepoNames.Select(name => name.ToLowerInvariant()).Except(repoNames).ToList();
 			if (brokenRepoNames.Any())
 			{
 				var msg = "These CurrentRepository values point to non-existing repo(s): {0}".Formatted(brokenRepoNames.Join("; "));
-                throw new ConfigurationErrorsException(msg);
+				throw new ConfigurationErrorsException(msg);
 			}
 
 			if(LastInitVersion > Version)
@@ -324,7 +336,7 @@ namespace Common.Configuration.Settings
 
 			UserSettings.PropertyChanged += (sender, args) => OnPropertyChanged(C.UserSettings);
 			Repositories.ForEach(repoXml => repoXml.PropertyChanged += (sender, args) => OnPropertyChanged(C.Repositories));
-            Init();
+			Init();
 		}
 	}
 }

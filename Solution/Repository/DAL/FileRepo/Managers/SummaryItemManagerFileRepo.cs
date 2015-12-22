@@ -7,7 +7,6 @@ using System.Xml.Linq;
 using Common;
 using Common.Configuration;
 using Common.Db.Entities;
-using Exin.Common.Logging;
 using Exin.Common.Logging.Core;
 using Common.UiModels.WPF;
 using Common.Utils;
@@ -52,7 +51,7 @@ namespace DAL.FileRepo.Managers
 
 		public List<SummaryItem> GetInterval(DateTime fromDate, DateTime toDate)
 		{
-            MessagePresenter.Instance.WriteError(
+			MessagePresenter.Instance.WriteError(
 				Localized.Reading_statistics_from_File_Repository_is_not_implemented___ETC_MSG +
 				Config.Repo.Paths.SummariesDir);
 
@@ -112,7 +111,11 @@ namespace DAL.FileRepo.Managers
 			}
 			catch(Exception e)
 			{
-				ExinLog.ger.LogException(Localized.Saving_Monthly_summary_file___Error_, e);
+				Log.Error(this,
+					m => m(Localized.ResourceManager, LocalizedKeys.Saving_Monthly_summary_file___Error_),
+					LogTarget.All,
+					e
+				);
 				throw;
 			}
 		}
@@ -200,7 +203,11 @@ namespace DAL.FileRepo.Managers
 			}
 			catch(Exception e)
 			{
-				ExinLog.ger.LogException(Localized.Copying_summary_file_into_the_summary_directory___Error_, e);
+				Log.Error(this,
+					m => m(Localized.ResourceManager, LocalizedKeys.Copying_summary_file_into_the_summary_directory___Error_),
+					LogTarget.All,
+					e
+				);
 				throw;
 			}
 			actualYearAndMonth = actualYearAndMonthLocal;
@@ -218,7 +225,12 @@ namespace DAL.FileRepo.Managers
 				}
 				catch(Exception e)
 				{
-					ExinLog.ger.LogException(string.Format(Localized.Saving_0__statistics___Error__FORMAT__, expenseCategory.DisplayName), e);
+					var expenseCategoryTmp = expenseCategory;
+					Log.Error(this,
+						m => m(Localized.ResourceManager, LocalizedKeys.Saving_0__statistics___Error__FORMAT__, expenseCategoryTmp.DisplayName),
+						LogTarget.All,
+						e
+					);
 					throw;
 				}
 			}

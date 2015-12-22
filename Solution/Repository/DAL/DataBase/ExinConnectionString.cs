@@ -42,7 +42,7 @@ namespace DAL.DataBase
 
 		public string Get => _core.Get;
 
-	    #endregion
+		#endregion
 	}
 
 	public abstract class ExinConnectionStringManagerBase : RepoConfigurableBase
@@ -89,7 +89,7 @@ namespace DAL.DataBase
 		}
 
 		public abstract string Get { get; }
-    }
+	}
 
 	/// <summary>
 	/// In Release and Debug mode, the connection string is set up by config transform.
@@ -131,12 +131,15 @@ namespace DAL.DataBase
 			if(valid)
 				return;
 
-			const string msg = "Could not find the MS SQL connection string. ";
-			throw ExinLog.ger.LogException(msg, new ConfigurationErrorsException(msg));
+			throw Log.Error(this,
+				m => m(Localized.ResourceManager, LocalizedKeys.Could_not_find_the_MS_SQL_connection_string__),
+				LogTarget.All,
+				new ConfigurationErrorsException(Localized.Could_not_find_the_MS_SQL_connection_string__)
+			);
 		}
 
 		protected override string adoNetConnStrName => C.MsSql_AdoNet_ConnStr;
-	    protected override string efConnStrName => C.MsSql_EF_ConnStr;
+		protected override string efConnStrName => C.MsSql_EF_ConnStr;
 	}
 
 	/// <summary>
@@ -174,7 +177,7 @@ namespace DAL.DataBase
 		}
 
 		protected override string adoNetConnStrName => C.SQLite_AdoNet_ConnStr;
-	    protected override string efConnStrName => C.SQLite_EF_ConnStr;
+		protected override string efConnStrName => C.SQLite_EF_ConnStr;
 	}
 
 }

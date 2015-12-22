@@ -34,7 +34,7 @@ namespace WPF.ValueConverters
 			}
 			catch (Exception e)
 			{
-				ExinLog.ger.LogException("Warning! Unexpected error uccored in ChartYAxisMaxConverter.ConvertBack", e);
+				Log.Warn(this, m => m("Unexpected error occured. "), LogTarget.All, e);
 				return 0;
 			}
 		}

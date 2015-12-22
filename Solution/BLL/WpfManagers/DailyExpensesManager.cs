@@ -63,7 +63,12 @@ namespace BLL.WpfManagers
 			}
 			catch (Exception e)
 			{
-				throw ExinLog.ger.LogException(Localized.The_saving_of_the_daily_expenses_was_unsuccessful_, e);
+				Log.Error(this,
+					m => m(Localized.ResourceManager, LocalizedKeys.The_saving_of_the_daily_expenses_was_unsuccessful_),
+					LogTarget.All,
+					e
+				);
+				throw;
 			}
 		}
 
@@ -78,7 +83,12 @@ namespace BLL.WpfManagers
 			}
 			catch(Exception e)
 			{
-				throw ExinLog.ger.LogException(Localized.The_saving_of_expense_statistics_was_unsuccessful_, e);
+				Log.Error(this,
+					m => m(Localized.ResourceManager, LocalizedKeys.The_saving_of_expense_statistics_was_unsuccessful_),
+					LogTarget.All,
+					e
+				);
+				throw;
 			}
 		}
 

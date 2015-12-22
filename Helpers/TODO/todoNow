@@ -1,6 +1,21 @@
 * Log
 ** Refactor to use the new log system
 ** Remove the old one, clean app configs
+** Localization resources
+** Search for all the "throw" literals, and log where not logged yet
+** Try out logger colors
+** Find TODOs
+** Find excetion.WithData usages...
+*** PlusData should be lazy
+** PlusData should be lazy
+** EXCEPTION.DATA is not logged now via Log4Net!
+** // TODO LOG: COMPLEX LOCALIZED
+*** A new method for each log level is necessary, where: (m,c) => ... is the inner callback; where c is cultureInfo. So this way, 
+** DevMode: Log everything to UI as well, independently from the concrete log calls
+*** So eg Log.Warn(...Logtarget.Log...) should also be logged to UI as well, if this DevMode flag is set
+*** Or, maybe this should also hold a LogLevel
+** LocalizedKeys
+
 * Copy
 ** Do not copy if there is no selection
 *** Command based MenuItem handlers

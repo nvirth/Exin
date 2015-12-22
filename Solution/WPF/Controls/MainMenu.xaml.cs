@@ -35,7 +35,7 @@ namespace WPF.Controls
 					if(MainWindow == null)
 					{
 						const string msg = "MainWindow should be set";
-						throw ExinLog.ger.LogException(msg, new InvalidOperationException(msg));
+						throw Log.Fatal(this, m => m(msg), LogTarget.All, new InvalidOperationException(msg));
 					}
 					_mainMenuViewModel = new MainMenuViewModel(MainWindow);
 				}

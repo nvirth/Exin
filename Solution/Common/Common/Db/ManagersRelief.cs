@@ -4,6 +4,7 @@ using Exin.Common.Logging;
 using Common.Utils.Helpers;
 using Common.Db.Entities;
 using Exin.Common.Logging.Core;
+using Localization;
 
 namespace Common.Db
 {
@@ -31,8 +32,7 @@ namespace Common.Db
 						return res;
 					else
 					{
-						var msg = CalledBeforeInitErrMsg(_className);
-						throw ExinLog.ger.LogException(msg, new Exception(msg));
+						throw CalledBeforeInitException(_className);
 					}
 				}
 			}
@@ -50,8 +50,7 @@ namespace Common.Db
 			{
 				if(_getByName == null)
 				{
-					var msg = CalledBeforeInitErrMsg(_className);
-					throw ExinLog.ger.LogException(msg, new Exception(msg));
+					throw CalledBeforeInitException(_className);
 				}
 
 				return _getByName(name, nullIfNotFound);
@@ -82,8 +81,7 @@ namespace Common.Db
 						return res;
 					else
 					{
-						var msg = CalledBeforeInitErrMsg(_className);
-						throw ExinLog.ger.LogException(msg, new Exception(msg));
+						throw CalledBeforeInitException(_className);
 					}
 				}
 			}
@@ -101,8 +99,7 @@ namespace Common.Db
 			{
 				if (_getByName == null)
 				{
-					var msg = CalledBeforeInitErrMsg(_className);
-					throw ExinLog.ger.LogException(msg, new Exception(msg));
+					throw CalledBeforeInitException(_className);
 				}
 
 				return _getByName(name, nullIfNotFound);
@@ -119,9 +116,14 @@ namespace Common.Db
 		#region Helpers
 
 
-		private static string CalledBeforeInitErrMsg(string className, [CallerMemberName] string memberName = null)
+		private static Exception CalledBeforeInitException(string className, [CallerMemberName] string memberName = null)
 		{
-			return "{0}.{1}: Called before initialized. ".Formatted(className, memberName);
+			return Log.Fatal(className,
+				m => m(Localized.ResourceManager, LocalizedKeys.Called_before_initialized__),
+				LogTarget.All,
+				new InvalidOperationException(Localized.Called_before_initialized__),
+				memberName
+			);
 		}
 
 		#endregion

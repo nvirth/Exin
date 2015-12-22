@@ -59,7 +59,11 @@ namespace DAL.DataBase.AdoNet
 			}
 			catch(Exception e)
 			{
-				ExinLog.ger.LogException(Localized.Could_not_open_the_database_connection, e);
+				Log.Fatal(this,
+					m => m(Localized.ResourceManager, LocalizedKeys.Could_not_open_the_database_connection),
+					LogTarget.All,
+					e
+				);
 				throw;
 			}
 		}

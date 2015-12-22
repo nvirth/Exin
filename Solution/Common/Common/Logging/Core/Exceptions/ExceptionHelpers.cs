@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using Common.Utils.Helpers;
 using Localization;
 using Newtonsoft.Json;
@@ -15,6 +16,19 @@ namespace Exin.Common.Logging.Core
 		{
 			foreach(var key in dictionary.Keys)
 				exception.AddData(key, dictionary[key]);
+
+			return exception;
+		}
+
+		/// This method should be used to add kay-value pairs into an Exception's Data property,
+		/// via an anonymusly typed object instance. (So like: new { data1 = "test1", data2 = "test2"} ). <para />
+		/// This method iterates through the properties of the given instance.
+		public static T WithData<T>(this T exception, object anonymInstance) where T : Exception
+		{
+			var properties = anonymInstance.GetType().GetProperties();
+
+			foreach(var propertyInfo in properties)
+				exception.AddData(propertyInfo.Name, propertyInfo.GetValue(anonymInstance));
 
 			return exception;
 		}

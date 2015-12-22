@@ -151,6 +151,15 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}. Successfully saved.
+        /// </summary>
+        public static string _0___Successfully_saved {
+            get {
+                return ResourceManager.GetString("_0___Successfully_saved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} already exists with the specified name. .
         /// </summary>
         public static string _0__already_exists_with_the_specified_name__ {
@@ -250,11 +259,29 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (NOT terminating).
+        /// </summary>
+        public static string _NOT_terminating_ {
+            get {
+                return ResourceManager.GetString("_NOT_terminating_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  pc).
         /// </summary>
         public static string _pc_ {
             get {
                 return ResourceManager.GetString("_pc_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (terminating).
+        /// </summary>
+        public static string _terminating_ {
+            get {
+                return ResourceManager.GetString("_terminating_", resourceCulture);
             }
         }
         
@@ -273,6 +300,15 @@ namespace Localization {
         public static string Add_copy {
             get {
                 return ResourceManager.GetString("Add_copy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AggregateManagerBase.ctor: Argument &apos;managers&apos; can&apos;t be null or empty. .
+        /// </summary>
+        public static string AggregateManagerBase_ctor__Argument__managers__can_t_be_null_or_empty__ {
+            get {
+                return ResourceManager.GetString("AggregateManagerBase_ctor__Argument__managers__can_t_be_null_or_empty__", resourceCulture);
             }
         }
         
@@ -338,6 +374,15 @@ namespace Localization {
         public static string Calculating_summaries {
             get {
                 return ResourceManager.GetString("Calculating_summaries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Called before initialized. .
+        /// </summary>
+        public static string Called_before_initialized__ {
+            get {
+                return ResourceManager.GetString("Called_before_initialized__", resourceCulture);
             }
         }
         
@@ -569,6 +614,24 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not find the MS SQL connection string. .
+        /// </summary>
+        public static string Could_not_find_the_MS_SQL_connection_string__ {
+            get {
+                return ResourceManager.GetString("Could_not_find_the_MS_SQL_connection_string__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not find the ResourceManager (for type: {0}). Using the default one: {1}.
+        /// </summary>
+        public static string Could_not_find_the_ResourceManager__for_type___0____Using_the_default_one___1_ {
+            get {
+                return ResourceManager.GetString("Could_not_find_the_ResourceManager__for_type___0____Using_the_default_one___1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not find the monthly directory:
         ///.
         /// </summary>
@@ -606,6 +669,15 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not find this ConnectionString: {0}.
+        /// </summary>
+        public static string Could_not_find_this_ConnectionString___0_ {
+            get {
+                return ResourceManager.GetString("Could_not_find_this_ConnectionString___0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not insert the Category record. .
         /// </summary>
         public static string Could_not_insert_the_Category_record {
@@ -633,6 +705,15 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not insert the transaction items ({0} pc).
+        /// </summary>
+        public static string Could_not_insert_the_transaction_items___0__pc_ {
+            get {
+                return ResourceManager.GetString("Could_not_insert_the_transaction_items___0__pc_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not insert the Unit record. .
         /// </summary>
         public static string Could_not_insert_the_Unit_record {
@@ -651,6 +732,69 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not parse MainSettings.RepoXml, or some values are invalid. .
+        /// </summary>
+        public static string Could_not_parse_MainSettings_RepoXml__or_some_values_are_invalid__ {
+            get {
+                return ResourceManager.GetString("Could_not_parse_MainSettings_RepoXml__or_some_values_are_invalid__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not parse MainSettings.UserSettingsXml. .
+        /// </summary>
+        public static string Could_not_parse_MainSettings_UserSettingsXml__ {
+            get {
+                return ResourceManager.GetString("Could_not_parse_MainSettings_UserSettingsXml__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not parse RepoSettings.ConnectionStringsXml. .
+        /// </summary>
+        public static string Could_not_parse_RepoSettings_ConnectionStringsXml__ {
+            get {
+                return ResourceManager.GetString("Could_not_parse_RepoSettings_ConnectionStringsXml__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not parse RepoSettings.MsSqlSettingsXml. .
+        /// </summary>
+        public static string Could_not_parse_RepoSettings_MsSqlSettingsXml__ {
+            get {
+                return ResourceManager.GetString("Could_not_parse_RepoSettings_MsSqlSettingsXml__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not parse RepoSettings.UserSettingsXml. .
+        /// </summary>
+        public static string Could_not_parse_RepoSettings_UserSettingsXml__ {
+            get {
+                return ResourceManager.GetString("Could_not_parse_RepoSettings_UserSettingsXml__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not read the MainSettings.xml file. Location: {0}.
+        /// </summary>
+        public static string Could_not_read_the_MainSettings_xml_file__Location___0_ {
+            get {
+                return ResourceManager.GetString("Could_not_read_the_MainSettings_xml_file__Location___0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not read the RepoSettings.xml file. Location: {0}.
+        /// </summary>
+        public static string Could_not_read_the_RepoSettings_xml_file__Location___0_ {
+            get {
+                return ResourceManager.GetString("Could_not_read_the_RepoSettings_xml_file__Location___0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not remove the daily {0} at {1}.
         /// </summary>
         public static string Could_not_remove_the_daily_0_at_1__FORMAT__ {
@@ -660,11 +804,29 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not remove the transaction record (ID: {0}). .
+        /// </summary>
+        public static string Could_not_remove_the_transaction_record__ID___0____ {
+            get {
+                return ResourceManager.GetString("Could_not_remove_the_transaction_record__ID___0____", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not remove the transaction record (TransactionItem, ID: .
         /// </summary>
         public static string Could_not_remove_the_transaction_record__TransactionItem__ID_ {
             get {
                 return ResourceManager.GetString("Could_not_remove_the_transaction_record__TransactionItem__ID_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not save {0}. .
+        /// </summary>
+        public static string Could_not_save__0___ {
+            get {
+                return ResourceManager.GetString("Could_not_save__0___", resourceCulture);
             }
         }
         
@@ -694,6 +856,16 @@ namespace Localization {
         public static string Could_not_save_the_monthly_incomes_ {
             get {
                 return ResourceManager.GetString("Could_not_save_the_monthly_incomes_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not update the transaction record (ID: {0})
+        ///So these modifications did not apply into the database. .
+        /// </summary>
+        public static string Could_not_update_the_transaction_record__ID___0____ {
+            get {
+                return ResourceManager.GetString("Could_not_update_the_transaction_record__ID___0____", resourceCulture);
             }
         }
         
@@ -1150,6 +1322,15 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ManagerFactory is not implemented for: {0}.
+        /// </summary>
+        public static string ManagerFactory_is_not_implemented_for___0_ {
+            get {
+                return ResourceManager.GetString("ManagerFactory_is_not_implemented_for___0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 
         ///There is no search functionality implemented in the Exin application at present.
         ///However, you can search among your expneses/incomes in the file system (eg using Total Commander: Alt+F7); 
@@ -1345,6 +1526,15 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Probably infinite loop detected in UnhadledExceptionHandler. Exiting now. .
+        /// </summary>
+        public static string Probably_infinite_loop_detected_in_UnhadledExceptionHandler__Exiting_now__ {
+            get {
+                return ResourceManager.GetString("Probably_infinite_loop_detected_in_UnhadledExceptionHandler__Exiting_now__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quantity.
         /// </summary>
         public static string Quantity {
@@ -1505,6 +1695,15 @@ namespace Localization {
         public static string RequiredErrorMessageFormat {
             get {
                 return ResourceManager.GetString("RequiredErrorMessageFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RunningTaskCount: {0}.
+        /// </summary>
+        public static string RunningTaskCount___0_ {
+            get {
+                return ResourceManager.GetString("RunningTaskCount___0_", resourceCulture);
             }
         }
         
@@ -1925,6 +2124,16 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This localized dictionary did not contain any value nor for the current, nor for the default culture..
+        /// </summary>
+        public static string This_localized_dictionary_did_not_contain_any_value_nor_for_the_current__nor_for_the_default_culture_ {
+            get {
+                return ResourceManager.GetString("This_localized_dictionary_did_not_contain_any_value_nor_for_the_current__nor_for_" +
+                        "the_default_culture_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
         public static string Title {
@@ -2060,6 +2269,15 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unhandled Exception occured {0}. .
+        /// </summary>
+        public static string Unhandled_Exception_occured__0___ {
+            get {
+                return ResourceManager.GetString("Unhandled_Exception_occured__0___", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unit.
         /// </summary>
         public static string Unit {
@@ -2110,6 +2328,15 @@ namespace Localization {
         public static string UnitManagerEfFactory_is_not_implemented_for_this_DbType__FORMAT__ {
             get {
                 return ResourceManager.GetString("UnitManagerEfFactory_is_not_implemented_for_this_DbType__FORMAT__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unrecognised culture string: {0}.
+        /// </summary>
+        public static string Unrecognised_culture_string___0_ {
+            get {
+                return ResourceManager.GetString("Unrecognised_culture_string___0_", resourceCulture);
             }
         }
         

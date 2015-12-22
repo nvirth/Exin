@@ -4,6 +4,8 @@
   <!-- To activate these code snippets, browse the parent folder of this file
     in (VS2012)/Tools/Code Snippets Manager/
     -->
+  
+  <!--Regular-->
 
   <CodeSnippet Format="1.0.0">
     <Header>
@@ -17,15 +19,15 @@
       </SnippetTypes>
     </Header>
     <Snippet>
-      <!--<Declarations>
+      <Declarations>
         <Literal>
-          <ID>Message</ID>
-          <ToolTip>Message for the exception</ToolTip>
-          <Default>msg</Default>
+          <ID>this</ID>
+          <ToolTip>"this" or "typeof([smg])"</ToolTip>
+          <Default>this</Default>
         </Literal>
-      </Declarations>-->
+      </Declarations>
       <Code Language="CSharp" Kind="any">
-        <![CDATA[Log.Trace(this, m => m("$end$"));]]>
+        <![CDATA[Log.Trace($this$, m => m("$end$"));]]>
       </Code>
     </Snippet>
   </CodeSnippet>
@@ -41,8 +43,15 @@
       </SnippetTypes>
     </Header>
     <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>this</ID>
+          <ToolTip>"this" or "typeof([smg])"</ToolTip>
+          <Default>this</Default>
+        </Literal>
+      </Declarations>
       <Code Language="CSharp" Kind="any">
-        <![CDATA[Log.Info(this, m => m("$end$"));]]>
+        <![CDATA[Log.Info($this$, m => m("$end$"));]]>
       </Code>
     </Snippet>
   </CodeSnippet>
@@ -58,8 +67,15 @@
       </SnippetTypes>
     </Header>
     <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>this</ID>
+          <ToolTip>"this" or "typeof([smg])"</ToolTip>
+          <Default>this</Default>
+        </Literal>
+      </Declarations>
       <Code Language="CSharp" Kind="any">
-        <![CDATA[Log.Debug(this, m => m("$end$"));]]>
+        <![CDATA[Log.Debug($this$, m => m("$end$"));]]>
       </Code>
     </Snippet>
   </CodeSnippet>
@@ -75,8 +91,15 @@
       </SnippetTypes>
     </Header>
     <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>this</ID>
+          <ToolTip>"this" or "typeof([smg])"</ToolTip>
+          <Default>this</Default>
+        </Literal>
+      </Declarations>
       <Code Language="CSharp" Kind="any">
-        <![CDATA[Log.Warn(this, m => m("$end$"));]]>
+        <![CDATA[Log.Warn($this$, m => m("$end$"));]]>
       </Code>
     </Snippet>
   </CodeSnippet>
@@ -92,8 +115,15 @@
       </SnippetTypes>
     </Header>
     <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>this</ID>
+          <ToolTip>"this" or "typeof([smg])"</ToolTip>
+          <Default>this</Default>
+        </Literal>
+      </Declarations>
       <Code Language="CSharp" Kind="any">
-        <![CDATA[Log.Error(this, m => m("$end$"));]]>
+        <![CDATA[Log.Error($this$, m => m("$end$"));]]>
       </Code>
     </Snippet>
   </CodeSnippet>
@@ -109,10 +139,599 @@
       </SnippetTypes>
     </Header>
     <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>this</ID>
+          <ToolTip>"this" or "typeof([smg])"</ToolTip>
+          <Default>this</Default>
+        </Literal>
+      </Declarations>
       <Code Language="CSharp" Kind="any">
-        <![CDATA[Log.Fatal(this, m => m("$end$"));]]>
+        <![CDATA[Log.Fatal($this$, m => m("$end$"));]]>
       </Code>
     </Snippet>
   </CodeSnippet>
   
+  <!-- With Exception -->
+
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Log.Trace with exception</Title>
+      <Description>Log.Trace</Description>
+      <Author>Norbert Virth</Author>
+      <Shortcut>lte</Shortcut>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>this</ID>
+          <ToolTip>"this" or "typeof([smg])"</ToolTip>
+          <Default>this</Default>
+        </Literal>
+        <Literal>
+          <ID>logTarget</ID>
+          <ToolTip>LogTarget value</ToolTip>
+          <Default>All</Default>
+        </Literal>
+        <Literal>
+          <ID>exception</ID>
+          <ToolTip>Exception</ToolTip>
+          <Default>new ForStackTraceException()</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp" Kind="any">
+        <![CDATA[Log.Trace($this$, m => m("$end$"), LogTarget.$logTarget$, $exception$);]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Log.Info with exception</Title>
+      <Description>Log.Info</Description>
+      <Author>Norbert Virth</Author>
+      <Shortcut>lie</Shortcut>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>this</ID>
+          <ToolTip>"this" or "typeof([smg])"</ToolTip>
+          <Default>this</Default>
+        </Literal>
+        <Literal>
+          <ID>logTarget</ID>
+          <ToolTip>LogTarget value</ToolTip>
+          <Default>All</Default>
+        </Literal>
+        <Literal>
+          <ID>exception</ID>
+          <ToolTip>Exception</ToolTip>
+          <Default>new ForStackTraceException()</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp" Kind="any">
+        <![CDATA[Log.Info($this$, m => m("$end$"), LogTarget.$logTarget$, $exception$);]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Log.Debug with exception</Title>
+      <Description>Log.Debug</Description>
+      <Author>Norbert Virth</Author>
+      <Shortcut>lde</Shortcut>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>this</ID>
+          <ToolTip>"this" or "typeof([smg])"</ToolTip>
+          <Default>this</Default>
+        </Literal>
+        <Literal>
+          <ID>logTarget</ID>
+          <ToolTip>LogTarget value</ToolTip>
+          <Default>All</Default>
+        </Literal>
+        <Literal>
+          <ID>exception</ID>
+          <ToolTip>Exception</ToolTip>
+          <Default>new ForStackTraceException()</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp" Kind="any">
+        <![CDATA[Log.Debug($this$, m => m("$end$"), LogTarget.$logTarget$, $exception$);]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Log.Warn with exception</Title>
+      <Description>Log.Warn</Description>
+      <Author>Norbert Virth</Author>
+      <Shortcut>lwe</Shortcut>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>this</ID>
+          <ToolTip>"this" or "typeof([smg])"</ToolTip>
+          <Default>this</Default>
+        </Literal>
+        <Literal>
+          <ID>logTarget</ID>
+          <ToolTip>LogTarget value</ToolTip>
+          <Default>All</Default>
+        </Literal>
+        <Literal>
+          <ID>exception</ID>
+          <ToolTip>Exception</ToolTip>
+          <Default>new ForStackTraceException()</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp" Kind="any">
+        <![CDATA[Log.Warn($this$, m => m("$end$"), LogTarget.$logTarget$, $exception$);]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Log.Error with exception</Title>
+      <Description>Log.Error</Description>
+      <Author>Norbert Virth</Author>
+      <Shortcut>lee</Shortcut>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>this</ID>
+          <ToolTip>"this" or "typeof([smg])"</ToolTip>
+          <Default>this</Default>
+        </Literal>
+        <Literal>
+          <ID>logTarget</ID>
+          <ToolTip>LogTarget value</ToolTip>
+          <Default>All</Default>
+        </Literal>
+        <Literal>
+          <ID>exception</ID>
+          <ToolTip>Exception</ToolTip>
+          <Default>new ForStackTraceException()</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp" Kind="any">
+        <![CDATA[Log.Error($this$, m => m("$end$"), LogTarget.$logTarget$, $exception$);]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Log.Fatal with exception</Title>
+      <Description>Log.Fatal</Description>
+      <Author>Norbert Virth</Author>
+      <Shortcut>lfe</Shortcut>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>this</ID>
+          <ToolTip>"this" or "typeof([smg])"</ToolTip>
+          <Default>this</Default>
+        </Literal>
+        <Literal>
+          <ID>logTarget</ID>
+          <ToolTip>LogTarget value</ToolTip>
+          <Default>All</Default>
+        </Literal>
+        <Literal>
+          <ID>exception</ID>
+          <ToolTip>Exception</ToolTip>
+          <Default>new ForStackTraceException()</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp" Kind="any">
+        <![CDATA[Log.Fatal($this$, m => m("$end$"), LogTarget.$logTarget$, $exception$);]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+
+  <!-- Localized -->
+
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Log.Trace localized</Title>
+      <Description>Log.Trace</Description>
+      <Author>Norbert Virth</Author>
+      <Shortcut>ltl</Shortcut>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>this</ID>
+          <ToolTip>"this" or "typeof([smg])"</ToolTip>
+          <Default>this</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp" Kind="any">
+        <![CDATA[Log.Trace($this$, m => m(Localized.ResourceManager, LocalizedKeys.$end$));]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Log.Info localized</Title>
+      <Description>Log.Info</Description>
+      <Author>Norbert Virth</Author>
+      <Shortcut>lil</Shortcut>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>this</ID>
+          <ToolTip>"this" or "typeof([smg])"</ToolTip>
+          <Default>this</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp" Kind="any">
+        <![CDATA[Log.Info($this$, m => m(Localized.ResourceManager, LocalizedKeys.$end$));]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Log.Debug localized</Title>
+      <Description>Log.Debug</Description>
+      <Author>Norbert Virth</Author>
+      <Shortcut>ldl</Shortcut>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>this</ID>
+          <ToolTip>"this" or "typeof([smg])"</ToolTip>
+          <Default>this</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp" Kind="any">
+        <![CDATA[Log.Debug($this$, m => m(Localized.ResourceManager, LocalizedKeys.$end$));]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Log.Warn localized</Title>
+      <Description>Log.Warn</Description>
+      <Author>Norbert Virth</Author>
+      <Shortcut>lwl</Shortcut>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>this</ID>
+          <ToolTip>"this" or "typeof([smg])"</ToolTip>
+          <Default>this</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp" Kind="any">
+        <![CDATA[Log.Warn($this$, m => m(Localized.ResourceManager, LocalizedKeys.$end$));]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Log.Error localized</Title>
+      <Description>Log.Error</Description>
+      <Author>Norbert Virth</Author>
+      <Shortcut>lel</Shortcut>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>this</ID>
+          <ToolTip>"this" or "typeof([smg])"</ToolTip>
+          <Default>this</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp" Kind="any">
+        <![CDATA[Log.Error($this$, m => m(Localized.ResourceManager, LocalizedKeys.$end$));]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Log.Fatal localized</Title>
+      <Description>Log.Fatal</Description>
+      <Author>Norbert Virth</Author>
+      <Shortcut>lfl</Shortcut>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>this</ID>
+          <ToolTip>"this" or "typeof([smg])"</ToolTip>
+          <Default>this</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp" Kind="any">
+        <![CDATA[Log.Fatal($this$, m => m(Localized.ResourceManager, LocalizedKeys.$end$));]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+
+  <!-- Localized, with Exception -->
+
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Log.Trace localized, with exception</Title>
+      <Description>Log.Trace</Description>
+      <Author>Norbert Virth</Author>
+      <Shortcut>ltle</Shortcut>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>this</ID>
+          <ToolTip>"this" or "typeof([smg])"</ToolTip>
+          <Default>this</Default>
+        </Literal>
+        <Literal>
+          <ID>logTarget</ID>
+          <ToolTip>LogTarget value</ToolTip>
+          <Default>All</Default>
+        </Literal>
+        <Literal>
+          <ID>exception</ID>
+          <ToolTip>Exception</ToolTip>
+          <Default>new ForStackTraceException()</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp" Kind="any">
+        <![CDATA[Log.Trace($this$,
+	m => m(Localized.ResourceManager, LocalizedKeys.$end$),
+	LogTarget.$logTarget$,
+	$exception$
+);]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Log.Info localized, with exception</Title>
+      <Description>Log.Info</Description>
+      <Author>Norbert Virth</Author>
+      <Shortcut>lile</Shortcut>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>this</ID>
+          <ToolTip>"this" or "typeof([smg])"</ToolTip>
+          <Default>this</Default>
+        </Literal>
+        <Literal>
+          <ID>logTarget</ID>
+          <ToolTip>LogTarget value</ToolTip>
+          <Default>All</Default>
+        </Literal>
+        <Literal>
+          <ID>exception</ID>
+          <ToolTip>Exception</ToolTip>
+          <Default>new ForStackTraceException()</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp" Kind="any">
+        <![CDATA[Log.Info($this$,
+	m => m(Localized.ResourceManager, LocalizedKeys.$end$),
+	LogTarget.$logTarget$,
+	$exception$
+);]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Log.Debug localized, with exception</Title>
+      <Description>Log.Debug</Description>
+      <Author>Norbert Virth</Author>
+      <Shortcut>ldle</Shortcut>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>this</ID>
+          <ToolTip>"this" or "typeof([smg])"</ToolTip>
+          <Default>this</Default>
+        </Literal>
+        <Literal>
+          <ID>logTarget</ID>
+          <ToolTip>LogTarget value</ToolTip>
+          <Default>All</Default>
+        </Literal>
+        <Literal>
+          <ID>exception</ID>
+          <ToolTip>Exception</ToolTip>
+          <Default>new ForStackTraceException()</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp" Kind="any">
+        <![CDATA[Log.Debug($this$,
+	m => m(Localized.ResourceManager, LocalizedKeys.$end$),
+	LogTarget.$logTarget$,
+	$exception$
+);]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Log.Warn localized, with exception</Title>
+      <Description>Log.Warn</Description>
+      <Author>Norbert Virth</Author>
+      <Shortcut>lwle</Shortcut>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>this</ID>
+          <ToolTip>"this" or "typeof([smg])"</ToolTip>
+          <Default>this</Default>
+        </Literal>
+        <Literal>
+          <ID>logTarget</ID>
+          <ToolTip>LogTarget value</ToolTip>
+          <Default>All</Default>
+        </Literal>
+        <Literal>
+          <ID>exception</ID>
+          <ToolTip>Exception</ToolTip>
+          <Default>new ForStackTraceException()</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp" Kind="any">
+        <![CDATA[Log.Warn($this$,
+	m => m(Localized.ResourceManager, LocalizedKeys.$end$),
+	LogTarget.$logTarget$,
+	$exception$
+);]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Log.Error localized, with exception</Title>
+      <Description>Log.Error</Description>
+      <Author>Norbert Virth</Author>
+      <Shortcut>lele</Shortcut>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>this</ID>
+          <ToolTip>"this" or "typeof([smg])"</ToolTip>
+          <Default>this</Default>
+        </Literal>
+        <Literal>
+          <ID>logTarget</ID>
+          <ToolTip>LogTarget value</ToolTip>
+          <Default>All</Default>
+        </Literal>
+        <Literal>
+          <ID>exception</ID>
+          <ToolTip>Exception</ToolTip>
+          <Default>new ForStackTraceException()</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp" Kind="any">
+        <![CDATA[Log.Error($this$,
+	m => m(Localized.ResourceManager, LocalizedKeys.$end$),
+	LogTarget.$logTarget$,
+	$exception$
+);]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Log.Fatal localized, with exception</Title>
+      <Description>Log.Fatal</Description>
+      <Author>Norbert Virth</Author>
+      <Shortcut>lfle</Shortcut>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>this</ID>
+          <ToolTip>"this" or "typeof([smg])"</ToolTip>
+          <Default>this</Default>
+        </Literal>
+        <Literal>
+          <ID>logTarget</ID>
+          <ToolTip>LogTarget value</ToolTip>
+          <Default>All</Default>
+        </Literal>
+        <Literal>
+          <ID>exception</ID>
+          <ToolTip>Exception</ToolTip>
+          <Default>new ForStackTraceException()</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp" Kind="any">
+        <![CDATA[Log.Fatal($this$,
+	m => m(Localized.ResourceManager, LocalizedKeys.$end$),
+	LogTarget.$logTarget$,
+	$exception$
+);]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+
 </CodeSnippets>

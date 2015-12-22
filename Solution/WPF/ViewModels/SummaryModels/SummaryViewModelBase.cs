@@ -33,7 +33,7 @@ namespace WPF.ViewModels.SummaryModels
 				OnPropertyChanged();
 
 				SetAddButtonLabel(isAdd: true);
-                _managerBase.TransactionItems.CollectionChanged += EnsurePreviousSeceltedEditedGotRemoved;
+				_managerBase.TransactionItems.CollectionChanged += EnsurePreviousSeceltedEditedGotRemoved;
 			}
 		}
 
@@ -72,8 +72,8 @@ namespace WPF.ViewModels.SummaryModels
 			{
 				if(_listView == null)
 				{
-					var msg = "{0}ListView should be initialized".Formatted(Helpers.GetTag(this));
-					throw ExinLog.ger.LogException(msg, new InvalidOperationException(msg));
+					const string msg = "ListView should be initialized. ";
+					throw Log.Fatal(this, m => m(msg), LogTarget.All, new InvalidOperationException(msg));
 				}
 				return _listView;
 			}
@@ -136,7 +136,7 @@ namespace WPF.ViewModels.SummaryModels
 						.Join(",\r\n");
 					break;
 				case CopyFormat.Csv:
-					ExinLog.ger.LogError("This CopyFormat is not impleneted yet: " + copyFormat);
+					Log.Warn(this, m => m("This CopyFormat is not impleneted yet: {0}", copyFormat));
 					break;
 				default:
 					throw new NotImplementedException("This CopyFormat is not impleneted yet: " + copyFormat);

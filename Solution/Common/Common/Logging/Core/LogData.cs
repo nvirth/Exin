@@ -11,6 +11,13 @@ namespace Exin.Common.Logging.Core
 {
 	public class LogData
 	{
+		private enum Type
+		{
+			StringFormat,
+			ResourceManager,
+			DynamicLocalized,
+		}
+
 		public LogLevel LogLevel { get; set; }
 
 		public string Tag { get; private set; }
@@ -24,73 +31,137 @@ namespace Exin.Common.Logging.Core
 
 		public Exception Exception { get; private set; }
 		public string ManualStrackTrace { get; private set; }
-
-		// Not in use; but could be if needed
-		private readonly IFormatProvider _formatProvider;
+		public object PlusData { get; private set; }
 
 		public LogTarget LogTarget { get; private set; }
 		public bool LogToLog => (LogTarget & LogTarget.Log) > 0;
 		public bool LogToUi => (LogTarget & LogTarget.Ui) > 0;
 
+		// --
+		
+		private readonly Type _type;
+		private readonly IFormatProvider _formatProvider; // Not in use; but could be if needed
+		private readonly Func<MessageFormatterHandler, CultureInfo, string> _printMessageCallbackLocalized;
+
 		#region Ctor, Init
 
 		public LogData(string tag, Func<MessageFormatterHandler, string> printMessageCallback, Exception exception, LogTarget logTarget, LogLevel logLevel)
 		{
-			Extract(printMessageCallback);
-            Init(tag, exception, logTarget, logLevel);
-		}
+			_type = Type.StringFormat;
 
-		public LogData(string tag, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, Exception exception, LogTarget logTarget, LogLevel logLevel)
-		{
 			Extract(printMessageCallback);
 			Init(tag, exception, logTarget, logLevel);
+
+			if(printMessageCallback == null)
+				FixEmptyMessage();
+		}
+		public LogData(string tag, Func<MessageFormatterLocalizedHandler, string> printMessageCallback, Exception exception, LogTarget logTarget, LogLevel logLevel)
+		{
+			_type = Type.ResourceManager;
+
+			Extract(printMessageCallback);
+			Init(tag, exception, logTarget, logLevel);
+
+			if(printMessageCallback == null)
+				FixEmptyMessage();
+		}
+		public LogData(string tag, Func<MessageFormatterHandler, CultureInfo, string> printMessageCallback, Exception exception, LogTarget logTarget, LogLevel logLevel)
+		{
+			_type = Type.DynamicLocalized;
+
+			_printMessageCallbackLocalized = printMessageCallback;
+			Init(tag, exception, logTarget, logLevel);
+
+			if(printMessageCallback == null)
+				FixEmptyMessage();
 		}
 
 		private void Init(string tag, Exception exception, LogTarget logTarget, LogLevel logLevel)
 		{
 			Tag = tag;
-			Exception = exception;
 			LogTarget = logTarget;
 			LogLevel = logLevel;
 
-			//if(exception != null && string.IsNullOrEmpty(exception.StackTrace))
-			//	ManualStrackTrace = "{0}StackTrace:{0}{1}".Formatted(Environment.NewLine, Environment.StackTrace);
+			var dataException = exception as ForDataOnlyException;
+			if(dataException != null)
+				PlusData = dataException.LogData;
+			else
+				Exception = exception;
+		}
 
+		private void FixEmptyMessage()
+		{
 			if(MessageFormat == null)
 			{
-				if(ResourceManager == null && exception == null)
+				if(ResourceManager == null && Exception == null)
 					throw new InvalidOperationException("This LogData instance is invalid, there is no data in it: MessageFormat == null && ResourceManager == null && Exception == null");
-				if(exception != null)
+				if(Exception != null)
 				{
-					MessageFormat = exception.Message;
+					MessageFormat = Exception.Message;
 					MessageFormatArgs = new object[0];
 				}
 			}
 		}
+		
+		#endregion
+
+		#region Extract
+
+		private int _formatMessageHandlerCallCount;
 
 		private void Extract(Func<MessageFormatterHandler, string> formatMessageHandlerFunc)
 		{
-			formatMessageHandlerFunc?.Invoke(DoExtract);
+			ExtractSafe(() => formatMessageHandlerFunc?.Invoke(DoExtract));
 		}
-
+		private void Extract(Func<MessageFormatterHandler, CultureInfo, string> formatMessageHandlerFunc, CultureInfo currentCulture)
+		{
+			ExtractSafe(() => formatMessageHandlerFunc(DoExtract, currentCulture));
+		}
 		private void Extract(Func<MessageFormatterLocalizedHandler, string> formatMessageHandlerFunc)
 		{
-			formatMessageHandlerFunc?.Invoke(DoExtract);
+			ExtractSafe(() => formatMessageHandlerFunc?.Invoke(DoExtract));
+		}
+
+		private void ExtractSafe(Action extractAction)
+		{
+			try
+			{
+				_formatMessageHandlerCallCount = 0;
+				extractAction();
+				_formatMessageHandlerCallCount = 0;
+			}
+			catch(Exception e)
+			{
+				Log.Warn(this, m => m("LOGGING ERROR: Exception while executing the FormatMessageCallback. "), LogTarget.All, e);
+			}
 		}
 
 		private string DoExtract(string format, params object[] args)
 		{
+			EnsureFormatMessageHandlerCalledOnce();
+
 			MessageFormat = format;
 			MessageFormatArgs = args;
 			return null;
 		}
-
 		private string DoExtract(ResourceManager resourceManager, string resourceKey, params object[] args)
 		{
+			EnsureFormatMessageHandlerCalledOnce();
+				
 			ResourceManager = resourceManager;
 			ResourceKey = resourceKey;
 			ResourceFormatArgs = args;
 			return null;
+		}
+
+		private void EnsureFormatMessageHandlerCalledOnce()
+		{
+			_formatMessageHandlerCallCount++;
+
+			if(_formatMessageHandlerCallCount == 1)
+				return;
+
+			Log.Warn(this, m => m("The formatMessageHandler may only be called once, and has to contain the full log data. "));
 		}
 
 		#endregion
@@ -146,24 +217,41 @@ namespace Exin.Common.Logging.Core
 			}
 			else
 			{
-				var stackTrace = "{0}StackTrace:{0}{1}".Formatted(Environment.NewLine, Environment.StackTrace);
-				fullMessage = "{0}{1}{2}".Formatted(tag, GetCoreMessage(cultureInfo), stackTrace);
+				if(ManualStrackTrace == null)
+					ManualStrackTrace = "{0}StackTrace:{0}{1}".Formatted(Environment.NewLine, Environment.StackTrace);
+
+				fullMessage = "{0}{1}{2}".Formatted(tag, GetCoreMessage(cultureInfo), ManualStrackTrace);
 			}
 			return fullMessage;
 		}
 
 		private string GetCoreMessage(CultureInfo cultureInfo)
 		{
-			var messageFormat = MessageFormat;
-			var messageFormatArgs = MessageFormatArgs;
-			if(ResourceManager != null)
+			string messageFormat;
+			object[] messageFormatArgs;
+			switch(_type)
 			{
-				messageFormatArgs = ResourceFormatArgs;
-				messageFormat = ResourceManager.GetString(ResourceKey, cultureInfo)
-				                ?? "!!! MISSING RESOURCE KEY: {0}/{1} !!!".Formatted(ResourceManager.BaseName, ResourceKey);
+				case Type.StringFormat:
+					messageFormat = MessageFormat;
+					messageFormatArgs = MessageFormatArgs;
+					break;
+				case Type.ResourceManager:
+					messageFormatArgs = ResourceFormatArgs;
+					messageFormat = ResourceManager.GetString(ResourceKey, cultureInfo)
+									?? "!!! MISSING RESOURCE KEY: {0}/{1} !!!".Formatted(ResourceManager.BaseName, ResourceKey);
+					break;
+				case Type.DynamicLocalized:
+					Extract(_printMessageCallbackLocalized, cultureInfo);
+					messageFormat = MessageFormat;
+					messageFormatArgs = MessageFormatArgs;
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
 			}
 
 			var coreMessage = string.Format(messageFormat, messageFormatArgs);
+			coreMessage += PlusData != null ? "\r\nData: " + PlusData.SerializeToLog() : "";
+
 			return coreMessage;
 		}
 
@@ -171,10 +259,12 @@ namespace Exin.Common.Logging.Core
 		private readonly Dictionary<LogTarget, string> _cache = new Dictionary<LogTarget, string>();
 		private string GetCachedMessage(LogTarget logTarget)
 		{
+			logTarget = _type == Type.StringFormat ? LogTarget.All : logTarget;
 			return _cache.ContainsKey(logTarget) ? _cache[logTarget] : null;
 		}
 		private void SetCachedMessage(LogTarget logTarget, string value)
 		{
+			logTarget = _type == Type.StringFormat ? LogTarget.All : logTarget;
 			_cache[logTarget] = value;
 		}
 		#endregion

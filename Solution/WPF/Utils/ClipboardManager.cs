@@ -26,7 +26,7 @@ namespace WPF.Utils
 				if(_mainWindow == null)
 				{
 					var msg = "{0} should be set. ".Formatted(this.Property(x => x.MainWindow));
-					throw ExinLog.ger.LogException(msg, new InvalidOperationException(msg));
+					throw Log.Fatal(this, m => m(msg), LogTarget.All, new InvalidOperationException(msg));
 				}
 				return _mainWindow;
 			}
@@ -39,7 +39,7 @@ namespace WPF.Utils
 				if(_mainWindow != null)
 				{
 					var msg = "{0} property may be set only once. ".Formatted(this.Property(x => x.MainWindow));
-					throw ExinLog.ger.LogException(msg, new InvalidOperationException(msg));
+					throw Log.Fatal(this, m => m(msg), LogTarget.All, new InvalidOperationException(msg));
 				}
 				_mainWindow = value;
 			}

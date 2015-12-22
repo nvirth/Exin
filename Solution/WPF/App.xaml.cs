@@ -32,10 +32,10 @@ namespace WPF
 		}
 		
 		protected override void OnStartup(StartupEventArgs e)
-	    {
-            // Do not run multiple instances from the app
-            ApplicationRunningHelper.SwitchToRunningInstanceIfExists();
-        }
+		{
+			// Do not run multiple instances from the app
+			ApplicationRunningHelper.SwitchToRunningInstanceIfExists();
+		}
 
 		#region ..ExceptionHandlers
 
@@ -56,23 +56,29 @@ namespace WPF
 			_unhadledExceptionCounter++;
 			if (_unhadledExceptionCounter >= UnhadledExceptionCounterMax)
 			{
-				ExinLog.ger.LogError("Probably infinite loop detected in UnhadledExceptionHandler. Exiting now. ");
+				Log.Error(typeof(App), m => m(Localized.ResourceManager, LocalizedKeys.Probably_infinite_loop_detected_in_UnhadledExceptionHandler__Exiting_now__));
 				return;
 			}
 
-			var errMsg = "Unhandled Exception occured{0}. ".Formatted(e.IsTerminating ? " (terminating)" : " (NOT terminating)");
+			var r = Localized.ResourceManager;
+			var c = Cultures.LogCulture;
+			var errMsg = r
+				.GetString(LocalizedKeys.Unhandled_Exception_occured__0___, c)
+				.Formatted(e.IsTerminating ? r.GetString(LocalizedKeys._terminating_, c) : r.GetString(LocalizedKeys._NOT_terminating_, c));
+
+
 			var promptMsg = Localized.An_unexpected_error_occured__The_app_will_stop_now__;
 
 			var exception = e.ExceptionObject as Exception;
 			if (exception == null)
 			{
-				ExinLog.ger.LogError(errMsg, e.ExceptionObject);
+				Log.Fatal(typeof(App), m => m(errMsg), LogTarget.Log, new ForDataOnlyException(e.ExceptionObject));
 				if (e.ExceptionObject != null)
 					promptMsg += e.ExceptionObject.SerializeToLog();
 			}
 			else
 			{
-				ExinLog.ger.LogException(errMsg, exception);
+				Log.Fatal(typeof(App), m => m(errMsg), LogTarget.Log, exception);
 
 				var plusMessage = exception.Message;
 

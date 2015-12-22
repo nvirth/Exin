@@ -75,7 +75,11 @@ namespace DAL.DataBase.EntityFramework.Managers
 			}
 			catch(Exception e)
 			{
-				ExinLog.ger.LogException(Localized.Could_not_insert_the_Unit_record, e);
+				Log.Error(this,
+					m => m(Localized.ResourceManager, LocalizedKeys.Could_not_insert_the_Unit_record),
+					LogTarget.All,
+					e
+				);
 				throw;
 			}
 		}

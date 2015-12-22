@@ -4,6 +4,7 @@ using System.Linq;
 using Common;
 using Common.Configuration;
 using Common.Db.Entities;
+using Common.Utils.Helpers;
 using Exin.Common.Logging;
 using Exin.Common.Logging.Core;
 using DAL.DataBase.AdoNet.Managers;
@@ -32,9 +33,8 @@ namespace DAL.RepoCommon.Managers.Factory
 					break;
 
 				default:
-					var msg = Localized.ManagerFactory_is_not_implemented_for__ + LocalConfig.DbAccessMode;
-					ExinLog.ger.LogError(msg);
-					throw new NotImplementedException(msg);
+					Log.Fatal(this, m => m(Localized.ResourceManager, LocalizedKeys.ManagerFactory_is_not_implemented_for___0_, LocalConfig.DbAccessMode));
+					throw new NotImplementedException(Localized.ManagerFactory_is_not_implemented_for___0_.Formatted(LocalConfig.DbAccessMode));
 			}
 		}
 

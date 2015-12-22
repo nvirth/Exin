@@ -6,13 +6,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using Exin.Common.Logging;
 using Exin.Common.Logging.Core;
+using Localization;
 
 namespace Common.Utils
 {
 	public static class TaskManager
 	{
 		private static int RunningTaskCount = 0;
-		private static HashSet<Task> RunninTasks = new HashSet<Task>();
+		private static readonly HashSet<Task> RunninTasks = new HashSet<Task>();
 		private static object Lock = new object();
 
 		private static void AfterTaskStarted(Task task)
@@ -21,7 +22,7 @@ namespace Common.Utils
 			{
 				RunningTaskCount++;
 				RunninTasks.Add(task);
-				ExinLog.ger.LogInfo("RunningTaskCount: " + RunningTaskCount);
+				Log.Debug(typeof(TaskManager), m => m(Localized.ResourceManager, LocalizedKeys.RunningTaskCount___0_, RunningTaskCount));
 			}
 
 			task.ContinueWith(__task => { // AfterTaskFinished
@@ -29,7 +30,7 @@ namespace Common.Utils
 				{
 					RunningTaskCount--;
 					RunninTasks.Remove(task);
-					ExinLog.ger.LogInfo("RunningTaskCount: " + RunningTaskCount);
+					Log.Debug(typeof(TaskManager), m => m(Localized.ResourceManager, LocalizedKeys.RunningTaskCount___0_, RunningTaskCount));
 				}
 			});
 		}

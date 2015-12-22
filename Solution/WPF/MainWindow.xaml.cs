@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
@@ -190,7 +191,7 @@ namespace WPF
 						break;
 					default:
 						yAxisMax = 0;
-						ExinLog.ger.LogError("Unexpected currency by Statistics/YAxisMax default value");
+						Log.Warn(this, m => m("Unexpected currency by Statistics/YAxisMax default value"));
 						break;
 				}
 

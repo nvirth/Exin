@@ -53,7 +53,11 @@ namespace Common.Configuration.Settings
 				}
 				catch (Exception e)
 				{
-					ExinLog.ger.LogException("Could not parse RepoSettings.UserSettingsXml. ", e);
+					Log.Fatal(typeof(UserSettingsXml),
+						m => m(Localized.ResourceManager, LocalizedKeys.Could_not_parse_RepoSettings_UserSettingsXml__),
+						LogTarget.All,
+						e
+					);
 					throw;
 				}
 			}
@@ -120,7 +124,11 @@ namespace Common.Configuration.Settings
 					}
 					catch(Exception e)
 					{
-						ExinLog.ger.LogException("Could not parse RepoSettings.ConnectionStringsXml. ", e);
+						Log.Fatal(typeof(ConnectionStringsXml),
+							m => m(Localized.ResourceManager, LocalizedKeys.Could_not_parse_RepoSettings_ConnectionStringsXml__),
+							LogTarget.All,
+							e
+						);
 						throw;
 					}
 				}
@@ -161,7 +169,11 @@ namespace Common.Configuration.Settings
 				}
 				catch(Exception e)
 				{
-					ExinLog.ger.LogException("Could not parse RepoSettings.MsSqlSettingsXml. ", e);
+					Log.Fatal(typeof(MsSqlSettingsXml),
+						m => m(Localized.ResourceManager, LocalizedKeys.Could_not_parse_RepoSettings_MsSqlSettingsXml__),
+						LogTarget.All,
+						e
+					);
 					throw;
 				}
 			}
@@ -322,7 +334,11 @@ namespace Common.Configuration.Settings
 			}
 			catch(Exception e)
 			{
-				ExinLog.ger.LogException("Could not read the RepoSettings.xml file. Location: {0}".Formatted(xmlFilePath), e);
+				Log.Fatal(typeof(RepoSettings),
+					m => m(Localized.ResourceManager, LocalizedKeys.Could_not_read_the_RepoSettings_xml_file__Location___0_, xmlFilePath),
+					LogTarget.All,
+					e
+				);
 				throw;
 			}
 		}

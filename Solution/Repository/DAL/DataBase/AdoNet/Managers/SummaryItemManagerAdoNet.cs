@@ -172,7 +172,11 @@ namespace DAL.DataBase.AdoNet.Managers
 				}
 				catch(Exception e)
 				{
-					ExinLog.ger.LogException(Localized.SummaryItem_InsertOrUpdate_failed__MS_SQL_, e, query);
+					Log.Error(this,
+						m => m(Localized.ResourceManager, LocalizedKeys.SummaryItem_InsertOrUpdate_failed__MS_SQL_),
+						LogTarget.All,
+						e.WithData(new {query})
+					);
 					throw;
 				}
 			}
@@ -256,7 +260,11 @@ namespace DAL.DataBase.AdoNet.Managers
 				}
 				catch(Exception e)
 				{
-					ExinLog.ger.LogException(Localized.SummaryItem_InsertOrUpdate_failed_SQLite_, e, stringBuilder.ToString());
+					Log.Error(this,
+						m => m(Localized.ResourceManager, LocalizedKeys.SummaryItem_InsertOrUpdate_failed_SQLite_),
+						LogTarget.All,
+						e.WithData(new Dictionary<string, object> { {"Query (possible broken)", stringBuilder.ToString()} })
+					);
 					throw;
 				}
 			}

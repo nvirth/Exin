@@ -194,9 +194,11 @@ namespace Common
 			}
 			else
 			{
-				var e = new DirectoryNotFoundException(file.DirectoryName);
-				ExinLog.ger.LogException(Localized.Directory_not_found, e);
-				throw e;
+				throw Log.Error(typeof(DatePaths),
+					m => m(Localized.ResourceManager, LocalizedKeys.Directory_not_found),
+					LogTarget.All,
+					new DirectoryNotFoundException(file.DirectoryName)
+				);
 			}
 		}
 
@@ -213,7 +215,7 @@ namespace Common
 				fileName = Path.ChangeExtension(fileName, Config.FileExtension);
 
 				var filePath = Path.Combine(MonthDirPath, fileName);
-                using(var fileStream = File.OpenWrite(filePath))
+				using(var fileStream = File.OpenWrite(filePath))
 					fileStream.SetLength(0);
 
 				//MessagePresenter.Instance.WriteLine(fileName);

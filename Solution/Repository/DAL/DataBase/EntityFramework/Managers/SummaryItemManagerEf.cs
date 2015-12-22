@@ -59,7 +59,11 @@ namespace DAL.DataBase.EntityFramework.Managers
 			}
 			catch(Exception e)
 			{
-				throw ExinLog.ger.LogException(Localized.SummaryItem_InsertOrUpdate_failed__, e, new { LostItems = insertItems });
+				throw Log.Error(this,
+					m => m(Localized.ResourceManager, LocalizedKeys.SummaryItem_InsertOrUpdate_failed__),
+					LogTarget.All,
+					e.WithData(new { LostItems = insertItems })
+				);
 			}
 		}
 

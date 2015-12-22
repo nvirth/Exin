@@ -98,27 +98,27 @@
     <Compile Include="Db\Entities\Unit.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="DatePaths.cs" />
-    <Compile Include="Log\Old\ExinLogger.cs" />
-    <Compile Include="Log\CommonLogging\Loggers\Base\AbstractSimpleLoggerBase.cs" />
-    <Compile Include="Log\CommonLogging\Loggers\AggregateLogger.cs" />
-    <Compile Include="Log\CommonLogging\AggregateLoggerFactoryAdapter.cs" />
-    <Compile Include="Log\CommonLogging\DictionaryVariablesContext.cs" />
-    <Compile Include="Log\CommonLogging\LoggerInstancesArgs.cs" />
-    <Compile Include="Log\CommonLogging\LocalizedCallbackMessageFormatter.cs" />
-    <Compile Include="Log\CommonLogging\VariableContextKeys.cs" />
-    <Compile Include="Log\CommonLogging\Loggers\WpfRichTextBoxLogger.cs" />
-    <Compile Include="Log\CommonLogging\Loggers\ConsoleColorOutLogger.cs" />
-    <Compile Include="Log\CommonLogging\Loggers\Log4NetLogger.cs" />
-    <Compile Include="Log\CommonLogging\Loggers\DebugWriteLogger.cs" />
-    <Compile Include="Log\Core\LogData.cs" />
-    <Compile Include="Log\Core\LogLevels.cs" />
-    <Compile Include="Log\Core\ForStackTraceException.cs" />
-    <Compile Include="Log\Core\IExinLog.cs" />
-    <Compile Include="Log\Core\Log.cs" />
-    <Compile Include="Log\Core\LogTarget.cs" />
-    <Compile Include="Log\Log4Net\Log4NetLog.cs" />
-    <Compile Include="Log\Core\LogInit.cs" />
-    <Compile Include="Log\Old\LoggerInstances.cs" />
+    <Compile Include="Logging\Core\Exceptions\ForDataOnlyException.cs" />
+    <Compile Include="Logging\Old\ExinLogger.cs" />
+    <Compile Include="Logging\CommonLogging\Loggers\Base\AbstractSimpleLoggerBase.cs" />
+    <Compile Include="Logging\CommonLogging\Loggers\AggregateLogger.cs" />
+    <Compile Include="Logging\CommonLogging\AggregateLoggerFactoryAdapter.cs" />
+    <Compile Include="Logging\CommonLogging\DictionaryVariablesContext.cs" />
+    <Compile Include="Logging\CommonLogging\LoggerInstancesArgs.cs" />
+    <Compile Include="Logging\CommonLogging\LocalizedCallbackMessageFormatter.cs" />
+    <Compile Include="Logging\CommonLogging\VariableContextKeys.cs" />
+    <Compile Include="Logging\CommonLogging\Loggers\WpfRichTextBoxLogger.cs" />
+    <Compile Include="Logging\CommonLogging\Loggers\ConsoleColorOutLogger.cs" />
+    <Compile Include="Logging\CommonLogging\Loggers\Log4NetLogger.cs" />
+    <Compile Include="Logging\CommonLogging\Loggers\DebugWriteLogger.cs" />
+    <Compile Include="Logging\Core\LogData.cs" />
+    <Compile Include="Logging\Core\LogLevels.cs" />
+    <Compile Include="Logging\Core\Exceptions\ForStackTraceException.cs" />
+    <Compile Include="Logging\Core\IExinLog.cs" />
+    <Compile Include="Logging\Core\Log.cs" />
+    <Compile Include="Logging\Core\LogTarget.cs" />
+    <Compile Include="Logging\Log4Net\Log4NetLog.cs" />
+    <Compile Include="Logging\Core\LogInit.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UiModels\WPF\Base\ChainedValidationBase.cs" />
@@ -138,8 +138,8 @@
     <Compile Include="Utils\ClipboardNotification.cs" />
     <Compile Include="Utils\Helpers\ConfigurationManagerExtensions.cs" />
     <Compile Include="Utils\Helpers\Helpers.cs" />
-    <Compile Include="Log\Core\LogConfig.cs" />
-    <Compile Include="Log\Core\ExceptionHelpers.cs" />
+    <Compile Include="Logging\Core\LogConfig.cs" />
+    <Compile Include="Logging\Core\Exceptions\ExceptionHelpers.cs" />
     <Compile Include="Configuration\Cultures.cs" />
     <Compile Include="Utils\Helpers\EnumHelpers.cs" />
     <Compile Include="Utils\Helpers\UiHelpers.cs" />
@@ -162,8 +162,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Log\ExinLogCodeSnippets.snippet" />
-    <None Include="Log\CommonLogging\ReadMe.md" />
+    <None Include="Logging\ExinLogCodeSnippets.snippet">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Logging\CommonLogging\ReadMe.md" />
     <None Include="packages.config" />
     <None Include="Properties\SlowCheetah\SlowCheetah.Transforms.targets" />
   </ItemGroup>

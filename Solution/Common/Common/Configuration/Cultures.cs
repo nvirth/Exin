@@ -1,7 +1,9 @@
 ﻿using System.Globalization;
 using System.Threading;
+using Common.Utils.Helpers;
 using Exin.Common.Logging;
 using Exin.Common.Logging.Core;
+using Localization;
 
 namespace Common.Configuration
 {
@@ -28,7 +30,7 @@ namespace Common.Configuration
 			private set
 			{
 				_currentCulture = value;
-                Thread.CurrentThread.CurrentCulture = value;
+				Thread.CurrentThread.CurrentCulture = value;
 				Thread.CurrentThread.CurrentUICulture = value;
 				CultureInfo.DefaultThreadCurrentCulture = value;
 				CultureInfo.DefaultThreadCurrentUICulture = value;
@@ -67,9 +69,12 @@ namespace Common.Configuration
 					return hu_HU;
 				case null:
 				default:
-					var msg = "Invalid culture string: " + text;
-					throw ExinLog.ger.LogException(msg, new CultureNotFoundException(msg));
-            }
+					throw Log.Fatal(typeof(Cultures),
+						m => m(Localized.ResourceManager, LocalizedKeys.Unrecognised_culture_string___0_, text),
+						LogTarget.All,
+						new CultureNotFoundException(Localized.Unrecognised_culture_string___0_.Formatted(text))
+					);
+			}
 		}
 	}
 }

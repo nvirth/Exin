@@ -44,7 +44,7 @@ namespace Common.Utils
 			ResourceManager resourceManager;
 			try
 			{
-				resourceManager = _resourceType
+				resourceManager = type
 					.GetProperties(BindingFlags.Public | BindingFlags.Static)
 					.Where(pi => pi.PropertyType == typeof(ResourceManager))
 					.Select(pi => (ResourceManager)pi.GetValue(null))
@@ -52,10 +52,11 @@ namespace Common.Utils
 			}
 			catch(Exception e)
 			{
-				// TODO localization
-				var msg = "Could not find the ResourceManager (for type: {0}). Using the default one: {1}".Formatted(_resourceType, DefaultResourceManager);
-				ExinLog.ger.LogException(msg, e);
-
+				Log.Warn(this,
+					m => m(Localized.ResourceManager, LocalizedKeys.Could_not_find_the_ResourceManager__for_type___0____Using_the_default_one___1_, _resourceType, DefaultResourceManager),
+					LogTarget.All,
+					e
+				);
 				resourceManager = DefaultResourceManager;
 			}
 			return resourceManager;

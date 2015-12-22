@@ -120,8 +120,11 @@ namespace TransportData
 			}
 			catch(Exception e)
 			{
-				ExinLog.ger.LogException("The repository is empty", e, logToUi: false);
-				MessagePresenter.Instance.WriteLine(Localized.The_repository_is_empty);
+				Log.Warn(this,
+					m => m(Localized.ResourceManager, LocalizedKeys.The_repository_is_empty),
+					LogTarget.All,
+					e
+				);
 				return;
 			}
 
@@ -190,7 +193,7 @@ namespace TransportData
 					ClearFileRepo();
 					break;
 				default:
-                    throw new NotImplementedException("TransportData_Worker.PrepareDestinationRepo is not implemented to this DbType: {0}".Formatted(LocalConfig.SaveMode));
+					throw new NotImplementedException("TransportData_Worker.PrepareDestinationRepo is not implemented to this DbType: {0}".Formatted(LocalConfig.SaveMode));
 			}
 		}
 

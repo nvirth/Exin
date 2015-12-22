@@ -14,6 +14,7 @@ namespace Exin.Common.Logging.Core
 		public const string DateTimeFormat = "yyyy/MM/dd HH:mm:ss:fff";
 
 		// TODO from some config file, to be able to change the level in production
+		// TODO different log level for UI and Log, and maybe for TransportData
 		public static LogLevel GetLogLevel()
 		{
 #if DEBUG

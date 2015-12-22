@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -167,8 +168,8 @@ namespace TransportData
 
 			if(Errors.Count != 0)
 			{
-				const string msg = "ParsedArgs.ProcessArgs: This method must not be called when Errors is not empty. ";
-				throw ExinLog.ger.LogException(msg, new InvalidOperationException(msg));
+				const string msg = "This method must not be called when Errors is not empty. ";
+				throw Log.Fatal(this, m => m(msg), LogTarget.All, new InvalidOperationException(msg));
 			}
 
 			_repoConfiguration = new RepoConfiguration();
@@ -213,7 +214,7 @@ namespace TransportData
 			{
 				case C.EN:
 					Cultures.SetToEnglish();
-                    break;
+					break;
 				case C.HU:
 					Cultures.SetToHungarian();
 					break;
@@ -241,7 +242,7 @@ namespace TransportData
 
 			var parsedArgs = new ParsedArgs(args);
 			parsedArgs.ProcessLang();
-            if (parsedArgs.Help)
+			if (parsedArgs.Help)
 				PrintCliUsageAndExit();
 			if (parsedArgs.Errors.Count != 0)
 				PrintArgumentErrorsAndExit(parsedArgs);
@@ -324,13 +325,17 @@ namespace TransportData
 			//if (Debugger.IsAttached)
 			//Debugger.Break(); // Stop here while debugging
 
-			var errMsg = "Unhandled Exception occured{0}. ".Formatted(e.IsTerminating ? " (terminating)" : " (NOT terminating)");
+			Func<MessageFormatterHandler, CultureInfo, string> errMsgFunc = (m, c) => {
+				var r = Localized.ResourceManager;
+				var errMsg = r
+					.GetString(LocalizedKeys.Unhandled_Exception_occured__0___, c)
+					.Formatted(e.IsTerminating ? r.GetString(LocalizedKeys._terminating_, c) : r.GetString(LocalizedKeys._NOT_terminating_, c));
+
+				return m(errMsg);
+			};
 
 			var exception = e.ExceptionObject as Exception;
-			if(exception == null)
-				ExinLog.ger.LogError(errMsg, e.ExceptionObject);
-			else
-				ExinLog.ger.LogException(errMsg, exception);
+			Log.Fatal(typeof(TransportData), errMsgFunc, LogTarget.All, exception ?? new ForDataOnlyException(e.ExceptionObject));
 
 			if(e.IsTerminating)
 				Exit(2);

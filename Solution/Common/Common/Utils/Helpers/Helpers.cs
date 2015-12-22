@@ -178,14 +178,14 @@ namespace Common.Utils.Helpers
 				}
 				catch(Exception e)
 				{
-					ExinLog.ger.LogException(e.Message, e); // TODO should not log to UI
+					Log.Warn(typeof(Helpers), m => m("Unsuccessful attempt ({0}.). "), LogTarget.Log, e);
 
 					wasError = true;
 					numOfErrors++;
 
 					if(numOfErrors == 10)
 					{
-						ExinLog.ger.LogError("DeleteDirectoryIfExist: Could not purge directory: " + dirPath);
+						Log.Error(typeof(Helpers), m => m("Could not purge directory: " + dirPath));
 						throw;
 					}
 
@@ -452,24 +452,27 @@ namespace Common.Utils.Helpers
 			//Tries to find a DescriptionAttribute for a potential friendly name
 			//for the enum
 			MemberInfo[] memberInfo = enumerationValue.GetType().GetMember(enumerationValue.ToString());
-			if(memberInfo != null && memberInfo.Length > 0)
+			if(memberInfo?.Length > 0)
 			{
 				object[] attrs = memberInfo[0].GetCustomAttributes(typeof(DescriptionAttribute), false);
 
-				if(attrs != null && attrs.Length > 0)
+				if(attrs?.Length > 0)
 				{
 					//Pull out the description value
 					var localizationResourceKey = ((DescriptionAttribute)attrs[0]).Description;
 					var result = Localized.ResourceManager.GetString(localizationResourceKey);
 					if(result == null)
 					{
-						ExinLog.ger.LogError(Localized.The_following_enum_is_probably_not_localized_yet,
-							new
-							{
+						Log.Warn(typeof(Helpers), 
+							m => m(Localized.ResourceManager, LocalizedKeys.The_following_enum_is_probably_not_localized_yet),
+							LogTarget.All,
+							new ForDataOnlyException(new {
 								@Type = enumerationValue.GetType().ToString(),
 								Value = enumerationValue.ToString(),
 								Description = localizationResourceKey,
-							});
+							})
+						);
+
 						result = localizationResourceKey;
 					}
 
@@ -583,13 +586,15 @@ namespace Common.Utils.Helpers
 			if (defaultLangValue != null)
 				return defaultLangValue;
 
-			ExinLog.ger.LogError(
-				"This localized dictionary did not contain any value nor for the current, nor for the default culture.",
-				new {
-					CurrentCulture = Cultures.CurrentCulture,
-					DefaultCulture = Cultures.DefaultCulture,
+			Log.Warn(typeof(Helpers), 
+				m => m(Localized.ResourceManager, LocalizedKeys.This_localized_dictionary_did_not_contain_any_value_nor_for_the_current__nor_for_the_default_culture_),
+				LogTarget.All,
+				new ForDataOnlyException(new {
+					Cultures.CurrentCulture,
+					Cultures.DefaultCulture,
 					Dictionary = localizedDictionary
-				});
+				})
+			);
 
 			return localizedDictionary.Values.First();
 		}
@@ -693,7 +698,7 @@ namespace Common.Utils.Helpers
 					continue;
 				}
 				
-                if(!(comparer.Compare(actual, item) > 0))
+				if(!(comparer.Compare(actual, item) > 0))
 					break;
 			}
 			position = i;

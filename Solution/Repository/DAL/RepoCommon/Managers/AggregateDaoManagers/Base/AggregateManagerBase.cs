@@ -6,6 +6,7 @@ using Common.Configuration;
 using Exin.Common.Logging;
 using Exin.Common.Logging.Core;
 using DAL.RepoCommon.Interfaces;
+using Localization;
 
 namespace DAL.RepoCommon.Managers.AggregateDaoManagers.Base
 {
@@ -27,8 +28,11 @@ namespace DAL.RepoCommon.Managers.AggregateDaoManagers.Base
 
 			if(managers == null || managers.Count == 0)
 			{
-				const string msg = "AggregateManagerBase.ctor: Argument 'managers' can't be null or empty. ";
-				throw ExinLog.ger.LogException(msg, new ArgumentException(msg, "managers"));
+				throw Log.Fatal(this,
+					m => m(Localized.ResourceManager, LocalizedKeys.AggregateManagerBase_ctor__Argument__managers__can_t_be_null_or_empty__),
+					LogTarget.All,
+					new ArgumentException(Localized.AggregateManagerBase_ctor__Argument__managers__can_t_be_null_or_empty__, "managers")
+				);
 			}
 		}
 

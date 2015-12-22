@@ -65,8 +65,11 @@ namespace DAL.RepoCommon.Managers.Base
 			var item = _cacheFull.Find(c => c.ID == ID);
 			if(item == null)
 			{
-                var msg = string.Format(Localized.Could_not_find_the__0___ID___1___in_the_database, LocalizedTypeNameLowercase, ID);
-				throw ExinLog.ger.LogException(msg, new Exception(msg));
+				throw Log.Error(this,
+					m => m(Localized.ResourceManager, LocalizedKeys.Could_not_find_the__0___ID___1___in_the_database, LocalizedTypeNameLowercase, ID),
+					LogTarget.All,
+					new Exception(Localized.Could_not_find_the__0___ID___1___in_the_database.Formatted(LocalizedTypeNameLowercase, ID))
+				);
 			}
 
 			return item;
@@ -79,8 +82,11 @@ namespace DAL.RepoCommon.Managers.Base
 			var item = _cacheFull.Find(c => c.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
 			if(item == null && !nullIfNotFound)
 			{
-                var msg = string.Format(Localized.Could_not_find_the__0___Name___1___in_the_database, LocalizedTypeNameLowercase, name);
-				throw ExinLog.ger.LogException(msg, new Exception(msg));
+				throw Log.Error(this,
+					m => m(Localized.ResourceManager, LocalizedKeys.Could_not_find_the__0___Name___1___in_the_database, LocalizedTypeNameLowercase, name),
+					LogTarget.All,
+					new Exception(Localized.Could_not_find_the__0___Name___1___in_the_database.Formatted(LocalizedTypeNameLowercase, name))
+				);
 			}
 
 			return item;
@@ -102,8 +108,11 @@ namespace DAL.RepoCommon.Managers.Base
 			var existingWithSameName = GetByName(item.Name, nullIfNotFound: true);
 			if(existingWithSameName != null)
 			{
-                string msg = Localized._0__already_exists_with_the_specified_name__.Formatted(LocalizedTypeName);
-				throw ExinLog.ger.LogException(msg, new Exception(msg));
+				throw Log.Error(this,
+					m => m(Localized.ResourceManager, LocalizedKeys._0__already_exists_with_the_specified_name__, LocalizedTypeName),
+					LogTarget.All,
+					new Exception(Localized._0__already_exists_with_the_specified_name__.Formatted(LocalizedTypeName))
+				);
 			}
 		}
 

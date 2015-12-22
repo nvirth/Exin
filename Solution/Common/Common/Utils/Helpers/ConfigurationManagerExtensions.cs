@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Exin.Common.Logging;
 using Exin.Common.Logging.Core;
+using Localization;
 
 namespace Common.Utils.Helpers
 {
@@ -16,8 +18,11 @@ namespace Common.Utils.Helpers
 			var connStr = ConfigurationManager.ConnectionStrings[connStrName];
 			if(string.IsNullOrWhiteSpace(connStr?.ConnectionString))
 			{
-				var msg = "Could not find this ConnectionString: {0}".Formatted(connStrName); // TODO localization?
-				throw ExinLog.ger.LogException(msg, new ConfigurationErrorsException(msg));
+				throw Log.Fatal(typeof(ConfigurationManagerExtensions), 
+					m => m(Localized.ResourceManager, LocalizedKeys.Could_not_find_this_ConnectionString___0_, connStrName),
+					LogTarget.All,
+					new ConfigurationErrorsException(Localized.Could_not_find_this_ConnectionString___0_.Formatted(connStrName))
+				);
 			}
 			return connStr;
 		}

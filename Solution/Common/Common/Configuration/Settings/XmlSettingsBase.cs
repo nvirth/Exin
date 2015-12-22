@@ -6,6 +6,7 @@ using Exin.Common.Logging;
 using Exin.Common.Logging.Core;
 using Common.UiModels.WPF.Base;
 using Common.Utils.Helpers;
+using Localization;
 
 namespace Common.Configuration.Settings
 {
@@ -20,7 +21,7 @@ namespace Common.Configuration.Settings
 		{
 			XmlFilePath = xmlFilePath;
 			XmlDoc = xmlDoc;
-            XElement = xElement;
+			XElement = xElement;
 		}
 
 		/// Call this after the properties have been initialized
@@ -55,11 +56,11 @@ namespace Common.Configuration.Settings
 					XmlDoc.Save(XmlFilePath);
 				}
 
-				ExinLog.ger.LogInfo("{0}. Successfully saved".Formatted(this.GetType().Name));
-            }
+				Log.Info(this, m => m("{0}. Successfully saved", this.GetType().Name), LogTarget.Log);
+			}
 			catch(Exception e)
 			{
-				ExinLog.ger.LogException("Could not save {0}. ".Formatted(this.GetType().Name), e);
+				Log.Warn(this, m => m("Could not save {0}. ", this.GetType().Name), LogTarget.Log, e);
 			}
 		}
 

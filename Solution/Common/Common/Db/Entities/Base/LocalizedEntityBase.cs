@@ -53,8 +53,11 @@ namespace Common.Db.Entities.Base
 					if (_displayName == null)
 					{
 						//todo localize Name and DisplayName words when they can be set via options
-						var msg = Localized.This__0__entity_does_not_contain_any_DisplayName_value___.Formatted(GetLocalizedTypeNameLowercase());
-						ExinLog.ger.LogError(msg, new { ID, Name, DisplayNames });
+						Log.Warn(this,
+							m => m(Localized.ResourceManager, LocalizedKeys.This__0__entity_does_not_contain_any_DisplayName_value___, GetLocalizedTypeNameLowercase()),
+							LogTarget.All,
+							new ForDataOnlyException(new { ID, Name, DisplayNames })
+						);
 
 						_displayName = Name;
 					}

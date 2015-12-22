@@ -42,7 +42,7 @@ namespace DAL.DataBase.AdoNet.Managers
 	public abstract class TransactionItemManagerAdoNetBase : TransactionItemManagerDbBase
 	{
 		protected TransactionItemManagerAdoNetBase(IRepoConfiguration repoConfiguration,
-            ICategoryManager categoryManager, IUnitManager unitManager) : base(repoConfiguration, categoryManager, unitManager)
+			ICategoryManager categoryManager, IUnitManager unitManager) : base(repoConfiguration, categoryManager, unitManager)
 		{
 		}
 
@@ -206,7 +206,11 @@ namespace DAL.DataBase.AdoNet.Managers
 			}
 			catch(Exception e)
 			{
-				ExinLog.ger.LogException(Localized.Could_not_insert_the_transaction_item_, e, transactionItem);
+				Log.Error(this,
+					m => m(Localized.ResourceManager, LocalizedKeys.Could_not_insert_the_transaction_item_),
+					LogTarget.All,
+					e.WithData(new { transactionItem })
+				);
 				throw;
 			}
 		}
@@ -300,8 +304,11 @@ namespace DAL.DataBase.AdoNet.Managers
 				}
 				catch(Exception e)
 				{
-					var msg = Localized.Could_not_insert_the_transaction_items_ + transactionItems.Count + Localized._pc_;
-					ExinLog.ger.LogException(msg, e, transactionItems);
+					Log.Error(this,
+						m => m(Localized.ResourceManager, LocalizedKeys.Could_not_insert_the_transaction_items___0__pc_, transactionItems.Count),
+						LogTarget.All,
+						e.WithData(new { transactionItems })
+					);
 					throw;
 				}
 			}
@@ -334,8 +341,11 @@ namespace DAL.DataBase.AdoNet.Managers
 				}
 				catch(Exception e)
 				{
-					var msg = Localized.Could_not_insert_the_transaction_items_ + transactionItems.Count + Localized._pc_;
-					ExinLog.ger.LogException(msg, e, transactionItems);
+					Log.Error(this,
+						m => m(Localized.ResourceManager, LocalizedKeys.Could_not_insert_the_transaction_items___0__pc_, transactionItems.Count),
+						LogTarget.All,
+						e.WithData(new { transactionItems })
+					);
 					throw;
 				}
 			}
@@ -368,8 +378,11 @@ namespace DAL.DataBase.AdoNet.Managers
 				}
 				catch(Exception e)
 				{
-					var msg = Localized.Could_not_insert_the_transaction_items_ + transactionItems.Count + Localized._pc_;
-					ExinLog.ger.LogException(msg, e, transactionItems);
+					Log.Error(this,
+						m => m(Localized.ResourceManager, LocalizedKeys.Could_not_insert_the_transaction_items___0__pc_, transactionItems.Count),
+						LogTarget.All,
+						e.WithData(new { transactionItems })
+					);
 					throw;
 				}
 			}
@@ -471,9 +484,11 @@ namespace DAL.DataBase.AdoNet.Managers
 				}
 				catch(Exception e)
 				{
-					var msg = Localized.Could_not_update_the_transaction_record__TransactionItem__ID_ + transactionItem.ID + ")" + Environment.NewLine;
-					msg += Localized.So_these_modifications_did_not_apply_in_the_database; //data: transactionItem
-					ExinLog.ger.LogException(msg, e, transactionItem);
+					Log.Error(this,
+						m => m(Localized.ResourceManager, LocalizedKeys.Could_not_update_the_transaction_record__ID___0____, transactionItem.ID),
+						LogTarget.All,
+						e.WithData(new { transactionItem })
+					);
 					throw;
 				}
 			}
@@ -521,8 +536,11 @@ namespace DAL.DataBase.AdoNet.Managers
 				}
 				catch(Exception e)
 				{
-					var msg = Localized.Could_not_remove_the_transaction_record__TransactionItem__ID_ + id + ")";
-					ExinLog.ger.LogException(msg, e);
+					Log.Error(this,
+						m => m(Localized.ResourceManager, LocalizedKeys.Could_not_remove_the_transaction_record__ID___0____, id),
+						LogTarget.All,
+						e
+					);
 					throw;
 				}
 			}
@@ -575,9 +593,22 @@ namespace DAL.DataBase.AdoNet.Managers
 			}
 			catch(Exception e)
 			{
-				var transactionItemTypeStr = isExpense ? Localized.expenses : isIncome ? Localized.incomes : Localized.transaction_items;
-				var msg = string.Format(Localized.Could_not_remove_the_daily_0_at_1__FORMAT__, transactionItemTypeStr, date.ToLocalizedShortDateString());
-				ExinLog.ger.LogException(msg, e);
+				Log.Error(this,
+					(m,c) => {
+						var r = Localized.ResourceManager;
+
+						var transactionItemTypeStr = isExpense 
+							? r.GetString(LocalizedKeys.expenses, c) 
+							: isIncome 
+								? r.GetString(LocalizedKeys.incomes, c)
+								: r.GetString(LocalizedKeys.transaction_items, c);
+
+						var msg = string.Format(r.GetString(LocalizedKeys.Could_not_remove_the_daily_0_at_1__FORMAT__, c), transactionItemTypeStr, date.ToLocalizedShortDateString());
+						return m(msg);
+					},
+					LogTarget.All,
+					e
+				);
 				throw;
 			}
 		}
@@ -616,18 +647,19 @@ namespace DAL.DataBase.AdoNet.Managers
 		{
 			if(transactionItems == null)
 			{
-				string msg = Localized.ReplaceDailyItems_method_needs_a_not_null_list__;
-				var e = new Exception(msg);
-				ExinLog.ger.LogException(msg, e);
-				throw e;
+				throw Log.Error(this,
+					m => m(Localized.ResourceManager, LocalizedKeys.ReplaceDailyItems_method_needs_a_not_null_list__),
+					LogTarget.All,
+					new ArgumentNullException("transactionItems", Localized.ReplaceDailyItems_method_needs_a_not_null_list__)
+				);
 			}
-
 			if(transactionItems.Any(transactionItem => transactionItem.Date != date))
 			{
-				string msg = Localized.ReplaceDailyItems_method_replaces_only_1_day__the_item_s_dates_must_be_the_same__day_;
-				var e = new Exception(msg);
-				ExinLog.ger.LogException(msg, e);
-				throw e;
+				throw Log.Error(this,
+					m => m(Localized.ResourceManager, LocalizedKeys.ReplaceDailyItems_method_replaces_only_1_day__the_item_s_dates_must_be_the_same__day_),
+					LogTarget.All,
+					new ArgumentException(Localized.ReplaceDailyItems_method_replaces_only_1_day__the_item_s_dates_must_be_the_same__day_)
+				);
 			}
 
 			ClearDay(ctx, date, transactionItemType);

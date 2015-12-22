@@ -170,7 +170,11 @@ namespace BLL.WpfManagers
 			}
 			catch(Exception e)
 			{
-                ExinLog.ger.LogException(Localized.SummaryEngineBase_ReadData_failed_, e);
+				Log.Warn(this,
+					m => m(Localized.ResourceManager, LocalizedKeys.SummaryEngineBase_ReadData_failed_),
+					LogTarget.All,
+					e
+				);
 				HasError = true;
 			}
 			IsReady = true;

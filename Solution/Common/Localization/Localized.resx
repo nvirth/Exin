@@ -834,4 +834,81 @@ or if you are familiar with SQL queries, you can also use the SQLite database fi
   <data name="Add_copy" xml:space="preserve">
     <value>Add copy</value>
   </data>
+  <data name="Could_not_find_this_ConnectionString___0_" xml:space="preserve">
+    <value>Could not find this ConnectionString: {0}</value>
+  </data>
+  <data name="This_localized_dictionary_did_not_contain_any_value_nor_for_the_current__nor_for_the_default_culture_" xml:space="preserve">
+    <value>This localized dictionary did not contain any value nor for the current, nor for the default culture.</value>
+  </data>
+  <data name="Could_not_find_the_ResourceManager__for_type___0____Using_the_default_one___1_" xml:space="preserve">
+    <value>Could not find the ResourceManager (for type: {0}). Using the default one: {1}</value>
+    <comment>"Could not find the ResourceManager (for type: {0}). Using the default one: {1}".Formatted(_resourceType, DefaultResourceManager);</comment>
+  </data>
+  <data name="RunningTaskCount___0_" xml:space="preserve">
+    <value>RunningTaskCount: {0}</value>
+  </data>
+  <data name="Could_not_insert_the_transaction_items___0__pc_" xml:space="preserve">
+    <value>Could not insert the transaction items ({0} pc)</value>
+  </data>
+  <data name="Could_not_update_the_transaction_record__ID___0____" xml:space="preserve">
+    <value>Could not update the transaction record (ID: {0})
+So these modifications did not apply into the database. </value>
+  </data>
+  <data name="Could_not_remove_the_transaction_record__ID___0____" xml:space="preserve">
+    <value>Could not remove the transaction record (ID: {0}). </value>
+  </data>
+  <data name="Could_not_find_the_MS_SQL_connection_string__" xml:space="preserve">
+    <value>Could not find the MS SQL connection string. </value>
+  </data>
+  <data name="AggregateManagerBase_ctor__Argument__managers__can_t_be_null_or_empty__" xml:space="preserve">
+    <value>AggregateManagerBase.ctor: Argument 'managers' can't be null or empty. </value>
+  </data>
+  <data name="ManagerFactory_is_not_implemented_for___0_" xml:space="preserve">
+    <value>ManagerFactory is not implemented for: {0}</value>
+  </data>
+  <data name="Unhandled_Exception_occured__0___" xml:space="preserve">
+    <value>Unhandled Exception occured {0}. </value>
+  </data>
+  <data name="_terminating_" xml:space="preserve">
+    <value>(terminating)</value>
+  </data>
+  <data name="_NOT_terminating_" xml:space="preserve">
+    <value>(NOT terminating)</value>
+  </data>
+  <data name="Probably_infinite_loop_detected_in_UnhadledExceptionHandler__Exiting_now__" xml:space="preserve">
+    <value>Probably infinite loop detected in UnhadledExceptionHandler. Exiting now. </value>
+  </data>
+  <data name="Unrecognised_culture_string___0_" xml:space="preserve">
+    <value>Unrecognised culture string: {0}</value>
+  </data>
+  <data name="Could_not_parse_MainSettings_RepoXml__or_some_values_are_invalid__" xml:space="preserve">
+    <value>Could not parse MainSettings.RepoXml, or some values are invalid. </value>
+  </data>
+  <data name="Could_not_parse_MainSettings_UserSettingsXml__" xml:space="preserve">
+    <value>Could not parse MainSettings.UserSettingsXml. </value>
+  </data>
+  <data name="Could_not_read_the_MainSettings_xml_file__Location___0_" xml:space="preserve">
+    <value>Could not read the MainSettings.xml file. Location: {0}</value>
+  </data>
+  <data name="Could_not_parse_RepoSettings_UserSettingsXml__" xml:space="preserve">
+    <value>Could not parse RepoSettings.UserSettingsXml. </value>
+  </data>
+  <data name="Could_not_parse_RepoSettings_ConnectionStringsXml__" xml:space="preserve">
+    <value>Could not parse RepoSettings.ConnectionStringsXml. </value>
+  </data>
+  <data name="Could_not_parse_RepoSettings_MsSqlSettingsXml__" xml:space="preserve">
+    <value>Could not parse RepoSettings.MsSqlSettingsXml. </value>
+  </data>
+  <data name="Could_not_read_the_RepoSettings_xml_file__Location___0_" xml:space="preserve">
+    <value>Could not read the RepoSettings.xml file. Location: {0}</value>
+  </data>
+  <data name="_0___Successfully_saved" xml:space="preserve">
+    <value>{0}. Successfully saved</value>
+  </data>
+  <data name="Could_not_save__0___" xml:space="preserve">
+    <value>Could not save {0}. </value>
+  </data>
+  <data name="Called_before_initialized__" xml:space="preserve">
+    <value>Called before initialized. </value>
+  </data>
 </root>

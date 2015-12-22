@@ -38,8 +38,8 @@ namespace WPF.Controls
 				var viewModel = (MainWindowViewModel)GetValue(MainWindowViewModelProperty);
 				if(viewModel == null)
 				{
-					var msg = "{0}MainWindowViewModel should be set.".Formatted(Helpers.GetTag(this));
-					throw ExinLog.ger.LogException(msg, new InvalidOperationException(msg));
+					var msg = "MainWindowViewModel should be set.";
+					throw Log.Fatal(this, m => m(msg), LogTarget.All, new InvalidOperationException(msg));
 				}
 				return viewModel;
 			}
@@ -60,8 +60,8 @@ namespace WPF.Controls
 				var viewModel = (MutableSummaryViewModelBase)GetValue(ViewModelProperty);
 				if(viewModel == null)
 				{
-					var msg = "{0}ViewModel should be set.".Formatted(Helpers.GetTag(this));
-					throw ExinLog.ger.LogException(msg, new InvalidOperationException(msg));
+					var msg = "ViewModel should be set.";
+					throw Log.Fatal(this, m => m(msg), LogTarget.All, new InvalidOperationException(msg));
 				}
 				return viewModel;
 			}
@@ -82,8 +82,8 @@ namespace WPF.Controls
 				var date = (DateTime)GetValue(DateProperty);
 				if(date == default(DateTime))
 				{
-					var msg = "{0}Date should be set.".Formatted(Helpers.GetTag(this));
-					throw ExinLog.ger.LogException(msg, new InvalidOperationException(msg));
+					var msg = "Date should be set.";
+					throw Log.Fatal(this, m => m(msg), LogTarget.All, new InvalidOperationException(msg));
 				}
 				return date;
 			}
@@ -104,8 +104,8 @@ namespace WPF.Controls
 				var type = (TransactionItemType)GetValue(TypeProperty);
 				if(type == 0)
 				{
-					var msg = "{0}Type should be set.".Formatted(Helpers.GetTag(this));
-					throw ExinLog.ger.LogException(msg, new InvalidOperationException(msg));
+					var msg = "Type should be set.";
+					throw Log.Fatal(this, m => m(msg), LogTarget.All, new InvalidOperationException(msg));
 				}
 				return type;
 			}
@@ -128,7 +128,7 @@ namespace WPF.Controls
 			{
 				case TransactionItemType.Expense:
 					header = Localized.New_daily_expense;
-                    break;
+					break;
 				case TransactionItemType.Income:
 					header = Localized.New_monthly_income;
 					break;

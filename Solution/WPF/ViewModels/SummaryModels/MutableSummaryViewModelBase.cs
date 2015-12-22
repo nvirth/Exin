@@ -25,8 +25,8 @@ namespace WPF.ViewModels.SummaryModels
 			{
 				if(_titleTextBox == null)
 				{
-					var msg = "{0}TitleTextBox should be initialized".Formatted(Helpers.GetTag(this));
-					throw ExinLog.ger.LogException(msg, new InvalidOperationException(msg));
+					const string msg = "TitleTextBox should be initialized. ";
+					throw Log.Fatal(this, m => m(msg), LogTarget.All, new InvalidOperationException(msg));
 				}
 				return _titleTextBox;
 			}

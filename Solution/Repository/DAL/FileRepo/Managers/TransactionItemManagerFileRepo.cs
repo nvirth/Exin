@@ -82,7 +82,11 @@ namespace DAL.FileRepo.Managers
 			}
 			catch(Exception e)
 			{
-				ExinLog.ger.LogException(msg + Localized.Reading_error_, e);
+				Log.Error(this,
+					(m, c) => m(msg + Localized.ResourceManager.GetString(LocalizedKeys.Reading_error_, c)),
+					LogTarget.All,
+					e
+				);
 				throw;
 			}
 		}
@@ -133,7 +137,11 @@ namespace DAL.FileRepo.Managers
 			}
 			catch(Exception e)
 			{
-				ExinLog.ger.LogException(Localized.There_was_error_while_reading_the_daily_files_, e);
+				Log.Error(this,
+					m => m(Localized.ResourceManager, LocalizedKeys.There_was_error_while_reading_the_daily_files_),
+					LogTarget.All,
+					e
+				);
 				throw;
 			}
 		}
@@ -164,7 +172,11 @@ namespace DAL.FileRepo.Managers
 			}
 			catch(Exception e)
 			{
-				ExinLog.ger.LogException(Localized.Reading_error_, e);
+				Log.Error(this,
+					m => m(Localized.ResourceManager, LocalizedKeys.Reading_error_),
+					LogTarget.All,
+					e
+				);
 				throw;
 			}
 		}
@@ -207,7 +219,11 @@ namespace DAL.FileRepo.Managers
 			}
 			catch(Exception e)
 			{
-				ExinLog.ger.LogException(msg + Localized.___Save_error_, e);
+				Log.Error(this,
+					(m,c) => m(msg + Localized.ResourceManager.GetString(LocalizedKeys.___Save_error_, c)),
+					LogTarget.All,
+					e
+				);
 				throw;
 			}
 		}
@@ -224,7 +240,11 @@ namespace DAL.FileRepo.Managers
 			}
 			catch(Exception e)
 			{
-				ExinLog.ger.LogException(msg + Localized.___Save_error_, e);
+				Log.Error(this,
+					(m,c) => m(msg + Localized.ResourceManager.GetString(LocalizedKeys.___Save_error_,c)),
+					LogTarget.All,
+					e
+				);
 				throw;
 			}
 		}
