@@ -12,6 +12,7 @@
 *** Command based MenuItem handlers
 ** Csv
 ** Ctrl+C is tricky. One has to press the buttons hard to achieve a Ctrl+C event
+
 * Markers
 * Xaml extract
 

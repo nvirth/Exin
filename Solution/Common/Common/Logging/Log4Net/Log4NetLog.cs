@@ -58,7 +58,7 @@ namespace Exin.Common.Logging.Log4Net
 					}
 					catch(Exception e)
 					{
-						DoLogInEarlyPhase("Could not set this: AppExecDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location); ", LogLevel.Error, e);
+						LogHelpers.DoLogInEarlyPhase("Could not set this: AppExecDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location); ", LogLevel.Error, e);
 						appExecDir = ""; // it will be a local path this way
 					}
 					_logRootDirPath = Path.Combine(appExecDir, LogRootDirName);
@@ -91,12 +91,12 @@ namespace Exin.Common.Logging.Log4Net
 				logFileName = "{0}-{1:D6}-{2:X}.log".Formatted(logFileNameStart, todayFilesCount + 1, Guid.NewGuid().GetHashCode());
 
 				var logFilePath = Path.Combine(logDir.FullName, logFileName);
-				DoLogInEarlyPhase("The Log4Net logger's file path is:\r\n" + logFilePath, LogLevel.Debug);
+				LogHelpers.DoLogInEarlyPhase("The Log4Net logger's file path is:\r\n" + logFilePath, LogLevel.Debug);
 				return logFilePath;
 			}
 			catch(Exception e)
 			{
-				DoLogInEarlyPhase("Could not calculate the logFilePath correctly. Default one will be used. ", LogLevel.Error, e);
+				LogHelpers.DoLogInEarlyPhase("Could not calculate the logFilePath correctly. Default one will be used. ", LogLevel.Error, e);
 				return logFileName;
 			}
 		}
@@ -154,26 +154,13 @@ namespace Exin.Common.Logging.Log4Net
 					var todayMidnight = DateTime.Today.AddDays(1).AddMinutes(1); // +1 min for safety sake
 					var diff = todayMidnight - DateTime.Now;
 
-					DoLogInEarlyPhase("The Log4Net logger's file path will be refreshed in: {0}h {1}m {2}s".Formatted(diff.Hours, diff.Minutes, diff.Seconds), LogLevel.Debug);
+					LogHelpers.DoLogInEarlyPhase("The Log4Net logger's file path will be refreshed in: {0}h {1}m {2}s".Formatted(diff.Hours, diff.Minutes, diff.Seconds), LogLevel.Debug);
 					Thread.Sleep(diff);
 
 					roller.File = GetLogFilePath();
 					roller.ActivateOptions();
 				}
 			});
-		}
-
-		private static async void DoLogInEarlyPhase(string message, LogLevel logLevel, Exception exception = null, [CallerMemberName] string callerFnName = null)
-		{
-			var preMsg = exception == null ? message : message + " --- Exception.Message: " + exception.Message;
-			if(logLevel > LogLevel.Info)
-				Console.Error.WriteLine(preMsg);
-			else
-				Debug.WriteLine(preMsg);
-
-			await Core.Log.LogInitializedDfd.Task;
-
-			Core.Log.LogAtLevel(m => m(message), logLevel, exception, LogTarget.Log);
 		}
 
 		private static void PurgeOldLogFiles()
@@ -189,7 +176,7 @@ namespace Exin.Common.Logging.Log4Net
 					.ToList();
 
 				oldFilesToRemove.ForEach(fileInfo => fileInfo.Delete());
-				DoLogInEarlyPhase("Removed {0} log files older than {1} days. ".Formatted(oldFilesToRemove.Count, MaxBackupDays), LogLevel.Debug);
+				LogHelpers.DoLogInEarlyPhase("Removed {0} log files older than {1} days. ".Formatted(oldFilesToRemove.Count, MaxBackupDays), LogLevel.Debug);
 
 				var emptiedDirs = oldFilesToRemove
 					.Select(fileInfo => fileInfo.DirectoryName)
@@ -198,11 +185,11 @@ namespace Exin.Common.Logging.Log4Net
 					.ToList();
 
 				emptiedDirs.ForEach(Directory.Delete);
-				DoLogInEarlyPhase("Removed {0} emptied log folders. ".Formatted(emptiedDirs.Count), LogLevel.Debug);
+				LogHelpers.DoLogInEarlyPhase("Removed {0} emptied log folders. ".Formatted(emptiedDirs.Count), LogLevel.Debug);
 			}
 			catch(Exception e)
 			{
-				DoLogInEarlyPhase("Could not delete old log files. ", LogLevel.Error, e);
+				LogHelpers.DoLogInEarlyPhase("Could not delete old log files. ", LogLevel.Error, e);
 			}
 		}
 

@@ -231,15 +231,16 @@ namespace TransportData
 		public static void Main(string[] args)
 		{
 			//StartDebugger();
-			MessagePresenterManager.WireToConsole();
-			Config.InitRepo();
-			LogInit.InitTransportData();
 
 			AppDomain.CurrentDomain.UnhandledException += UnhadledExceptionHandler;
-
+			
+			LogInit.InitTransportData();
 			Log.Info(typeof(TransportData), m => m("---------------------"), LogTarget.Log);
 			Log.Info(typeof(TransportData), m => m("TransportData started"), LogTarget.Log);
 			Log.Info(typeof(TransportData), m => m("---------------------"), LogTarget.Log);
+
+			MessagePresenterManager.WireToConsole();
+			Config.InitRepo();
 
 			#region Parsing args
 

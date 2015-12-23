@@ -121,6 +121,9 @@
 				// ----CopyFormat
 				// ----Language
 				// ----CurrentRepoNames
+				// --Logging
+				// ----UiLoggerLevel
+				// ----LogLoggerLevel
 				//
 				// RepoSettings.xml
 				// 
@@ -151,6 +154,8 @@
 				public const string EntityFramework = "EntityFramework";
 				public const string Language = "Language";
 				public const string LastInitVersion = "LastInitVersion";
+				public const string Logging = "Logging";
+				public const string LogLoggerLevel = "LogLoggerLevel";
 				public const string MsSqlSettings = "MsSqlSettings";
 				public const string Name = "Name";
 				public const string ReadMode = "ReadMode";
@@ -159,6 +164,7 @@
 				public const string RootDir = "RootDir";
 				public const string SaveMode = "SaveMode";
 				public const string StatYAxisMax = "StatYAxisMax";
+				public const string UiLoggerLevel = "UiLoggerLevel";
 				public const string UserSettings = "UserSettings";
 				public const string Version = "Version";
 			}

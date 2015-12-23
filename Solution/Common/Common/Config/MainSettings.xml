@@ -48,5 +48,14 @@
       -->
       <CurrentRepoNames></CurrentRepoNames>
     </UserSettings>
+
+    <Logging>
+      <!-- Possible values: Trace > Debug > Info > Warn > Error > Fatal -->
+      <UiLoggerLevel>Info</UiLoggerLevel>
+      
+      <!-- Possible values: Trace > Debug > Info > Warn > Error > Fatal -->
+      <LogLoggerLevel>Debug</LogLoggerLevel>
+    </Logging>  
+  
   </App>
 </root>

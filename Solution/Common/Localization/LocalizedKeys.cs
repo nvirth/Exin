@@ -5,6 +5,8 @@
 	{
 		// TODO test all of them in Debug mode - if they are still valid
 
+		public const string Parsing_error__ = "Parsing_error__";
+
 		public const string _0__already_exists_with_the_specified_name__ = "_0__already_exists_with_the_specified_name__";
 		public const string _0__Database = "_0__Database";
 		public const string _0__is_not_implemented_for_context_type___1___using_DbType_configuration___2_ = "_0__is_not_implemented_for_context_type___1___using_DbType_configuration___2_";

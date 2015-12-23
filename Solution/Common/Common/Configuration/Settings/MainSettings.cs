@@ -6,13 +6,13 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
-using Exin.Common.Logging;
 using Exin.Common.Logging.Core;
 using Common.UiModels.WPF.Base;
 using Common.UiModels.WPF.Validation;
 using Common.Utils.Helpers;
 using Localization;
 using C = Common.Configuration.Constants.Xml.Settings;
+using LogLevel = Common.Logging.LogLevel;
 
 namespace Common.Configuration.Settings
 {
@@ -234,6 +234,78 @@ namespace Common.Configuration.Settings
 					CurrentRepoNames[0] = DefaultRepoName;
 			}
 		}
+		public class LoggingXml : NotifyPropertyChanged
+		{
+			#region Leaf xml properties
+
+			private LogLevel _uiLoggerLevel;
+			public LogLevel UiLoggerLevel
+			{
+				get { return _uiLoggerLevel; }
+				set
+				{
+					if(_uiLoggerLevel == value)
+						return;
+
+					_uiLoggerLevel = value;
+					_xElement.Element(C.UiLoggerLevel).SetValue(value);
+					OnPropertyChanged();
+				}
+			}
+
+			private LogLevel _logLoggerLevel;
+			public LogLevel LogLoggerLevel
+			{
+				get { return _logLoggerLevel; }
+				set
+				{
+					if(_logLoggerLevel == value)
+						return;
+
+					_logLoggerLevel = value;
+					_xElement.Element(C.LogLoggerLevel).SetValue(value);
+					OnPropertyChanged();
+				}
+			}
+
+			#endregion
+
+			private readonly XElement _xElement;
+
+			public LoggingXml(XElement xElement)
+			{
+				_xElement = xElement;
+			}
+
+			public static LoggingXml Parse(XElement xml)
+			{
+				try
+				{
+					var uiLoggerLevelStr = xml.ParseString(C.UiLoggerLevel);
+					var logLoggerLevelStr = xml.ParseString(C.LogLoggerLevel);
+
+					var instance = new LoggingXml(xml) {
+						UiLoggerLevel = EnumHelpers.Parse<LogLevel>(uiLoggerLevelStr, ignoreCase: true),
+						LogLoggerLevel = EnumHelpers.Parse<LogLevel>(logLoggerLevelStr, ignoreCase: true),
+					};
+					instance.InitAndValidate();
+					return instance;
+				}
+				catch(Exception e)
+				{
+					Log.Fatal(typeof(LoggingXml),
+						m => m(Localized.ResourceManager, LocalizedKeys.Parsing_error__),
+						LogTarget.All,
+						e
+					);
+					throw;
+				}
+			}
+
+			private void InitAndValidate()
+			{
+			}
+		}
 
 		#region Leaf xml properties
 
@@ -271,6 +343,7 @@ namespace Common.Configuration.Settings
 
 		public List<RepoXml> Repositories { get; private set; }
 		public UserSettingsXml UserSettings { get; private set; }
+		public LoggingXml Logging { get; private set; }
 
 		private MainSettings(string xmlFilePath, XElement xmlDoc, XElement xElement) : base(xmlFilePath, xmlDoc, xElement)
 		{
@@ -290,6 +363,7 @@ namespace Common.Configuration.Settings
 						Version = Version.Parse(versionStr),
 						LastInitVersion = Version.Parse(lastInitVersionStr),
 						UserSettings = UserSettingsXml.Parse(xml.Element(C.UserSettings)),
+						Logging = LoggingXml.Parse(xml.Element(C.Logging)),
 						Repositories = xml.Element(C.Repositories).Elements(C.Repo).Select(RepoXml.Parse).ToList(),
 					};
 					return result;

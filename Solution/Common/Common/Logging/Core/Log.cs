@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
 using System.Resources;
@@ -6,7 +7,9 @@ using System.Runtime.CompilerServices;
 using Common.Logging;
 using System.Threading.Tasks;
 using Common.Utils.Helpers;
+using Exin.Common.Logging.CommonLogging;
 using Exin.Common.Logging.CommonLogging.Loggers;
+using Exin.Common.Logging.Log4Net;
 
 namespace Exin.Common.Logging.Core
 {
@@ -22,10 +25,19 @@ namespace Exin.Common.Logging.Core
 			{
 				if(_core == null)
 				{
-					LogManager.Adapter = LoggerFactoryAdapter;
-					_core = LogManager.GetLogger<object>() as AggregateLogger;
-					if(_core == null)
-						throw new ConfigurationErrorsException("LogManager.GetLogger<object>() did not return an AggregateLogger instance. ");
+					try
+					{
+						LogManager.Adapter = LoggerFactoryAdapter;
+						_core = LogManager.GetLogger<object>() as AggregateLogger;
+						if(_core == null)
+							throw new ConfigurationErrorsException("LogManager.GetLogger<object>() did not return an AggregateLogger instance. ");
+					}
+					catch(Exception e)
+					{
+						System.Diagnostics.Debug.WriteLine(e);
+						_core = null;
+						return LogInit.DefaultLoggerFactoryAdapter.GetLogger(typeof(object)) as AggregateLogger;
+					}
 				}
 
 				return _core;

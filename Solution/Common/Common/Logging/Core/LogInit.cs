@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.Windows.Controls;
+using Common.Configuration;
 using Common.Logging;
 using Common.Utils.Helpers;
 using Exin.Common.Logging.CommonLogging;
@@ -19,27 +21,57 @@ namespace Exin.Common.Logging.Core
 		// TODO from some config file, to be able to change the level in production
 		// TODO different log level for UI and Log, and maybe for TransportData
 
+		private static LogLevel? _uiLoggerLevel;
 		public static LogLevel UiLoggerLevel
 		{
 			get
 			{
+				if(_uiLoggerLevel.HasValue)
+					return _uiLoggerLevel.Value;
+
+				LogLevel logLevel;
+				try
+				{
 #if DEBUG
-				return LogLevel.Debug;
+					logLevel = Config.MainSettings.Logging.UiLoggerLevel;
+					//logLevel = LogLevel.Info;
 #else
-				return LogLevel.Info;
+					logLevel = Config.MainSettings.Logging.UiLoggerLevel;
 #endif
+				}
+				catch(Exception e)
+				{
+					Debug.WriteLine("Could not read this: Config.MainSettings.Logging.UiLoggerLevel. Exception.Message: " + e.Message);
+					logLevel = LogLevel.Info;
+				}
+				return logLevel;
 			}
 		}
+
+		private static LogLevel? _logLoggerLevel;
 		public static LogLevel LogLoggerLevel
 		{
 			get
 			{
-#if DEBUG
-				return LogLevel.Trace;
-#else
-				return LogLevel.Debug;
-#endif
+				if(_logLoggerLevel.HasValue)
+					return _logLoggerLevel.Value;
 
+				LogLevel logLevel;
+				try
+				{
+#if DEBUG
+					logLevel = Config.MainSettings.Logging.LogLoggerLevel;
+					//logLevel = LogLevel.Info;
+#else
+					logLevel = Config.MainSettings.Logging.LogLoggerLevel;
+#endif
+				}
+				catch(Exception e)
+				{
+					Debug.WriteLine("Could not read this: Config.MainSettings.Logging.LogLoggerLevel. Exception.Message: " + e.Message);
+					logLevel = LogLevel.Info;
+				}
+				return logLevel;
 			}
 		}
 
@@ -138,18 +170,38 @@ namespace Exin.Common.Logging.Core
 
 		private static void InitCommon(LoggerInstancesArgs loggerInstances)
 		{
-			Core.Log.Init(
-				new AggregateLoggerFactoryAdapter(
-					// Dummies
-					showDateTime: true,
-					showLogName: false,
-					showLevel: true,
-					dateTimeFormat: DateTimeFormat,
-					// 
-					logLevel: AggregateLoggerLevel,
-					instances: loggerInstances
-				)
+			Log.Init(CreateAggregateLogger(loggerInstances));
+		}
+
+		private static ILoggerFactoryAdapter CreateAggregateLogger(LoggerInstancesArgs loggerInstances)
+		{
+			return new AggregateLoggerFactoryAdapter(
+				// Dummies
+				showDateTime: true,
+				showLogName: false,
+				showLevel: true,
+				dateTimeFormat: DateTimeFormat,
+				// 
+				logLevel: AggregateLoggerLevel,
+				instances: loggerInstances
 			);
+		}
+
+		private static ILoggerFactoryAdapter _defaultLoggerFactoryAdapter;
+		public static ILoggerFactoryAdapter DefaultLoggerFactoryAdapter
+		{
+			get
+			{
+				if(_defaultLoggerFactoryAdapter == null)
+					_defaultLoggerFactoryAdapter = CreateAggregateLogger(new LoggerInstancesArgs() {
+						UiLoggers = new List<IExinLog>(0),
+						LogLoggers = new List<IExinLog>(1) {
+							new Log4NetLogger(Log4NetLog.Create())
+						},
+					});
+
+				return _defaultLoggerFactoryAdapter;
+			}
 		}
 	}
 }

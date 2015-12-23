@@ -1490,6 +1490,15 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Parsing error. .
+        /// </summary>
+        public static string Parsing_error__ {
+            get {
+                return ResourceManager.GetString("Parsing_error__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please, wait until it&apos;s done!.
         /// </summary>
         public static string Please__wait_until_it_s_done {

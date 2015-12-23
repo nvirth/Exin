@@ -111,6 +111,7 @@
     <Compile Include="Logging\CommonLogging\Loggers\Log4NetLogger.cs" />
     <Compile Include="Logging\CommonLogging\Loggers\DebugWriteLogger.cs" />
     <Compile Include="Logging\Core\LogData.cs" />
+    <Compile Include="Logging\Core\LogHelpers.cs" />
     <Compile Include="Logging\Core\LogLevels.cs" />
     <Compile Include="Logging\Core\Exceptions\ForStackTraceException.cs" />
     <Compile Include="Logging\Core\IExinLog.cs" />
@@ -172,6 +173,7 @@
   <ItemGroup>
     <None Include="Config\MainSettings.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Windows;
 using System.Windows.Markup;
@@ -24,11 +25,11 @@ namespace WPF
 			AppDomain.CurrentDomain.UnhandledException += UnhadledExceptionHandler;
 			AppDomain.CurrentDomain.FirstChanceException += FirstChanceExceptionHandler;
 
-			// Setting the language
-			Cultures.ApplyUserSettings();
-
 			// Initializing the log system
 			LogInit.InitWpfAppLogLoggers();
+
+			// Setting the language
+			Cultures.ApplyUserSettings();
 
 			Log.Info(typeof(App), m => m("---------------------"), LogTarget.Log);
 			Log.Info(typeof(App), m => m("    Exin started     "), LogTarget.Log);
@@ -88,8 +89,8 @@ namespace WPF
 
 				if(exception.InnerException != null)
 				{
-					// Here we can gather those unhandled exception types, which wraps the information
-					if(exception is XamlParseException)
+					// TODO we should prompt all the innter exceptions' messages
+					if(_wrapperExceptionTypes.Any(type => type.IsInstanceOfType(exception)))
 						plusMessage = exception.InnerException.Message;
 				}
 
@@ -99,6 +100,12 @@ namespace WPF
 			if(e.IsTerminating)
 				Util.PromptErrorWindow(promptMsg);
 		}
+
+		// Here we can gather those unhandled exception types, which wraps the information
+		private static Type[] _wrapperExceptionTypes = new[] {
+			typeof(TypeInitializationException),
+			typeof(XamlParseException),
+		};
 
 		#endregion
 
