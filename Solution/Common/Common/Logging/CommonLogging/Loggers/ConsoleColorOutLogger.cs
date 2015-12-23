@@ -14,11 +14,11 @@ namespace Exin.Common.Logging.CommonLogging.Loggers
 	{
 		private static readonly Dictionary<LogLevel, ConsoleColor> Colors = new Dictionary<LogLevel, ConsoleColor> {
 			{ LogLevel.Fatal, ConsoleColor.Red },
-			{ LogLevel.Error, ConsoleColor.Yellow },
-			{ LogLevel.Warn, ConsoleColor.Magenta },
-			{ LogLevel.Info, ConsoleColor.White },
-			{ LogLevel.Debug, ConsoleColor.Gray },
-			{ LogLevel.Trace, ConsoleColor.DarkGray },
+			{ LogLevel.Error, ConsoleColor.Red },
+			{ LogLevel.Warn, ConsoleColor.DarkRed },
+			{ LogLevel.Info, ConsoleColor.Gray },
+			{ LogLevel.Debug, ConsoleColor.DarkGray },
+			{ LogLevel.Trace, ConsoleColor.DarkCyan },
 		};
 
 		private readonly bool _useColor;

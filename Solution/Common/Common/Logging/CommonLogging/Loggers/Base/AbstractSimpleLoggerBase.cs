@@ -24,7 +24,8 @@ namespace Exin.Common.Logging.CommonLogging.Loggers.Base
 
 		public void Write(LogLevel logLevel, object message, Exception exception)
 		{
-			WriteInternal(logLevel, message, exception);
+			if(IsLevelEnabled(logLevel))
+				WriteInternal(logLevel, message, exception);
 		}
 
 		#endregion

@@ -99,7 +99,6 @@
     <Compile Include="Enums.cs" />
     <Compile Include="DatePaths.cs" />
     <Compile Include="Logging\Core\Exceptions\ForDataOnlyException.cs" />
-    <Compile Include="Logging\Old\ExinLogger.cs" />
     <Compile Include="Logging\CommonLogging\Loggers\Base\AbstractSimpleLoggerBase.cs" />
     <Compile Include="Logging\CommonLogging\Loggers\AggregateLogger.cs" />
     <Compile Include="Logging\CommonLogging\AggregateLoggerFactoryAdapter.cs" />
@@ -117,6 +116,7 @@
     <Compile Include="Logging\Core\IExinLog.cs" />
     <Compile Include="Logging\Core\Log.cs" />
     <Compile Include="Logging\Core\LogTarget.cs" />
+    <Compile Include="Logging\Log4Net\ExceptionDataPlConverter.cs" />
     <Compile Include="Logging\Log4Net\Log4NetLog.cs" />
     <Compile Include="Logging\Core\LogInit.cs" />
     <Compile Include="Properties\Annotations.cs" />

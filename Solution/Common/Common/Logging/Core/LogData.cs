@@ -43,6 +43,9 @@ namespace Exin.Common.Logging.Core
 		private readonly IFormatProvider _formatProvider; // Not in use; but could be if needed
 		private readonly Func<MessageFormatterHandler, CultureInfo, string> _printMessageCallbackLocalized;
 
+		private string _plusDataStr;
+		public string PlusDataStr => _plusDataStr ?? (_plusDataStr = PlusData != null ? "\r\nData: " + PlusData.SerializeToLog() : "");
+
 		#region Ctor, Init
 
 		public LogData(string tag, Func<MessageFormatterHandler, string> printMessageCallback, Exception exception, LogTarget logTarget, LogLevel logLevel)
@@ -250,7 +253,7 @@ namespace Exin.Common.Logging.Core
 			}
 
 			var coreMessage = string.Format(messageFormat, messageFormatArgs);
-			coreMessage += PlusData != null ? "\r\nData: " + PlusData.SerializeToLog() : "";
+			coreMessage += PlusDataStr;
 
 			return coreMessage;
 		}

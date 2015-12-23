@@ -20,12 +20,13 @@ namespace Exin.Common.Logging.Log4Net
 	public class Log4NetLog
 	{
 		public const int MaxBackupDays = 90;
+		public const string ExceptionData = "ExceptionData";
 
 		private PatternLayout _layout = new PatternLayout();
-		public PatternLayout DefaultLayout { get { return _layout; } }
+		public PatternLayout DefaultLayout => _layout;
 
-		private const string LOG_PATTERN = "%date [%thread] %-5level %message%newline";
-		public string DefaultPattern { get { return LOG_PATTERN; } }
+		private const string LOG_PATTERN = "%date [%thread] %-5level %message %newline%" + ExceptionData;
+		public string DefaultPattern => LOG_PATTERN;
 
 		public Log4NetLog()
 		{
@@ -108,6 +109,7 @@ namespace Exin.Common.Logging.Log4Net
 				ConversionPattern = LOG_PATTERN,
 				//IgnoresException = false, --> for custom rendering
 			};
+			patternLayout.AddConverter(ExceptionData, typeof(ExceptionDataPlConverter));
 			patternLayout.ActivateOptions();
 
 			// This woud pass the log messages to Debug.WriteLine
@@ -135,7 +137,7 @@ namespace Exin.Common.Logging.Log4Net
 
 			RefreshLogsPeriodically(roller);
 
-			hierarchy.Root.Level = LogInit.GetLogLevel().ToLog4Net();
+			hierarchy.Root.Level = LogInit.LogLoggerLevel.ToLog4Net();
 			hierarchy.Configured = true;
 		}
 

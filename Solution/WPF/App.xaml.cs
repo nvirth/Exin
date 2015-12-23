@@ -29,6 +29,10 @@ namespace WPF
 
 			// Initializing the log system
 			LogInit.InitWpfAppLogLoggers();
+
+			Log.Info(typeof(App), m => m("---------------------"), LogTarget.Log);
+			Log.Info(typeof(App), m => m("    Exin started     "), LogTarget.Log);
+			Log.Info(typeof(App), m => m("---------------------"), LogTarget.Log);
 		}
 		
 		protected override void OnStartup(StartupEventArgs e)

@@ -233,10 +233,13 @@ namespace TransportData
 			//StartDebugger();
 			MessagePresenterManager.WireToConsole();
 			Config.InitRepo();
+			LogInit.InitTransportData();
 
 			AppDomain.CurrentDomain.UnhandledException += UnhadledExceptionHandler;
 
-			//ExinLog.ger.LogError("[INFO] TransportData started");
+			Log.Info(typeof(TransportData), m => m("---------------------"), LogTarget.Log);
+			Log.Info(typeof(TransportData), m => m("TransportData started"), LogTarget.Log);
+			Log.Info(typeof(TransportData), m => m("---------------------"), LogTarget.Log);
 
 			#region Parsing args
 

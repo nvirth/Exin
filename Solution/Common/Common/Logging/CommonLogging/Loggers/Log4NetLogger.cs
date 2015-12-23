@@ -26,7 +26,8 @@ namespace Exin.Common.Logging.CommonLogging.Loggers
 
 		public void Write(LogLevel logLevel, object message, Exception exception)
 		{
-			WriteInternal(logLevel, message, exception);
+			if(IsLevelEnabled(logLevel))
+				WriteInternal(logLevel, message, exception);
 		}
 
 		public bool IsLevelEnabled(LogLevel level)

@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Windows.Controls;
 using Common.Logging;
+using Common.Utils.Helpers;
 using Exin.Common.Logging.CommonLogging;
 using Exin.Common.Logging.CommonLogging.Loggers;
 using Exin.Common.Logging.Log4Net;
@@ -13,16 +14,38 @@ namespace Exin.Common.Logging.Core
 	{
 		public const string DateTimeFormat = "yyyy/MM/dd HH:mm:ss:fff";
 
+		#region LogLevels
+
 		// TODO from some config file, to be able to change the level in production
 		// TODO different log level for UI and Log, and maybe for TransportData
-		public static LogLevel GetLogLevel()
+
+		public static LogLevel UiLoggerLevel
 		{
+			get
+			{
 #if DEBUG
-			return LogLevel.Debug;
+				return LogLevel.Debug;
 #else
-			return LogLevel.Info;
+				return LogLevel.Info;
 #endif
+			}
 		}
+		public static LogLevel LogLoggerLevel
+		{
+			get
+			{
+#if DEBUG
+				return LogLevel.Trace;
+#else
+				return LogLevel.Debug;
+#endif
+
+			}
+		}
+
+		public static LogLevel AggregateLoggerLevel => Helpers.Min(UiLoggerLevel, LogLoggerLevel);
+
+		#endregion
 
 		#region Wpf App
 
@@ -52,7 +75,7 @@ namespace Exin.Common.Logging.Core
 			{
 				logLoggers.Add(new DebugWriteLogger(
 					logName: typeof(DebugWriteLogger).Name,
-					logLevel: GetLogLevel(),
+					logLevel: LogLoggerLevel, 
 					showDateTime: true,
 					showLogName: false,
 					showLevel: true,
@@ -71,7 +94,7 @@ namespace Exin.Common.Logging.Core
 		{
 			var uiLogger = new WpfRichTextBoxLogger(
 				logName: typeof(WpfRichTextBoxLogger).Name,
-				logLevel: GetLogLevel(),
+				logLevel: UiLoggerLevel,
 				showDateTime: false,
 				showLogName: false,
 				showLevel: false,
@@ -96,7 +119,7 @@ namespace Exin.Common.Logging.Core
 				UiLoggers = new List<IExinLog>(1) {
 					new ConsoleColorOutLogger(
 						logName: typeof(ConsoleColorOutLogger).Name,
-						logLevel: GetLogLevel(),
+						logLevel: UiLoggerLevel,
 						showDateTime: false,
 						showLogName: false,
 						showLevel: false,
@@ -123,7 +146,7 @@ namespace Exin.Common.Logging.Core
 					showLevel: true,
 					dateTimeFormat: DateTimeFormat,
 					// 
-					logLevel: GetLogLevel(),
+					logLevel: AggregateLoggerLevel,
 					instances: loggerInstances
 				)
 			);

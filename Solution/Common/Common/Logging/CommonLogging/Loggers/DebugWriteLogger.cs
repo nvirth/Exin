@@ -26,19 +26,19 @@ namespace Exin.Common.Logging.CommonLogging.Loggers
 		/// <param name="showLogName">Include the instance name in the log message.</param>
 		/// <param name="dateTimeFormat">The date and time format to use in the log message.</param>
 		public DebugWriteLogger(string logName, LogLevel logLevel, bool showLevel, bool showDateTime, bool showLogName, string dateTimeFormat)
-            : base(logName, logLevel, showLevel, showDateTime, showLogName, dateTimeFormat) { }
-        #endregion
+			: base(logName, logLevel, showLevel, showDateTime, showLogName, dateTimeFormat) { }
+		#endregion
 
-        protected override void WriteInternal(LogLevel level, object message, Exception e)
-        {
-	        if(!Debugger.IsAttached)
-		        return;
+		protected override void WriteInternal(LogLevel level, object message, Exception e)
+		{
+			if(!Debugger.IsAttached)
+				return;
 
 			var sb = new StringBuilder();
-            FormatOutput(sb, level, message, e);
-	        var logMsg = sb.ToString();
+			FormatOutput(sb, level, message, e);
+			var logMsg = sb.ToString();
 
-	        System.Diagnostics.Debug.WriteLine(logMsg);
-        }
+			System.Diagnostics.Debug.WriteLine(logMsg);
+		}
 	}
 }

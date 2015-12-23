@@ -42,6 +42,6 @@ namespace Exin.Common.Logging.CommonLogging.Loggers
 			MessagePresenterManager.AppendToWpfRichTextbox(logMsg, RichTextBox, color, 
 				newLineAtEnd: true, scrollToEnd: true
 			);
-        }
+		}
 	}
 }
