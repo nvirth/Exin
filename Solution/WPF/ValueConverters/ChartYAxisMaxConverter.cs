@@ -9,6 +9,9 @@ namespace WPF.ValueConverters
 {
 	public class ChartYAxisMaxConverter : IValueConverter
 	{
+		private static ChartYAxisMaxConverter _intance;
+		public static ChartYAxisMaxConverter Intance => _intance ?? (_intance = new ChartYAxisMaxConverter());
+
 		private static Regex Regex = new Regex(@"\D");
 
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

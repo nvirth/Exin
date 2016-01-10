@@ -5,10 +5,6 @@
 	{
 		// TODO test all of them in Debug mode - if they are still valid
 
-		public const string Parsing_error__ = "Parsing_error__";
-		public const string Could_not_setup_Internet_Explorer_emulation_version__ = "Could_not_setup_Internet_Explorer_emulation_version__";
-		public const string Exin_uses_Internet_Explorer_to_draw_some_charts__FORMAT__ = "Exin_uses_Internet_Explorer_to_draw_some_charts__FORMAT__";
-
 		public const string _0__already_exists_with_the_specified_name__ = "_0__already_exists_with_the_specified_name__";
 		public const string _0__Database = "_0__Database";
 		public const string _0__is_not_implemented_for_context_type___1___using_DbType_configuration___2_ = "_0__is_not_implemented_for_context_type___1___using_DbType_configuration___2_";
@@ -95,6 +91,7 @@
 		public const string Could_not_save_into_database_the_daily_expense_statistics = "Could_not_save_into_database_the_daily_expense_statistics";
 		public const string Could_not_save_the_daily_expenses_ = "Could_not_save_the_daily_expenses_";
 		public const string Could_not_save_the_monthly_incomes_ = "Could_not_save_the_monthly_incomes_";
+		public const string Could_not_setup_Internet_Explorer_emulation_version__ = "Could_not_setup_Internet_Explorer_emulation_version__";
 		public const string Could_not_update_the_transaction_record__ID___0____ = "Could_not_update_the_transaction_record__ID___0____";
 		public const string Could_not_update_the_transaction_record__TransactionItem__ID_ = "Could_not_update_the_transaction_record__TransactionItem__ID_";
 		public const string Created___0__FORMAT__ = "Created___0__FORMAT__";
@@ -127,6 +124,7 @@
 		public const string Error_ = "Error_";
 		public const string Error__More_than_one_exists_from_files_starting_with__0__FORMAT__ = "Error__More_than_one_exists_from_files_starting_with__0__FORMAT__";
 		public const string Error_occured_while_creating_the_SQLite_database_file = "Error_occured_while_creating_the_SQLite_database_file";
+		public const string Exin_uses_Internet_Explorer_to_draw_some_charts__FORMAT__ = "Exin_uses_Internet_Explorer_to_draw_some_charts__FORMAT__";
 		public const string ExinAdoNetContextFactory_is_not_implemented_for_this_DbType__FORMAT__ = "ExinAdoNetContextFactory_is_not_implemented_for_this_DbType__FORMAT__";
 		public const string ExinConnectionString_s_ctor_is_not_implemented_for__0_ = "ExinConnectionString_s_ctor_is_not_implemented_for__0_";
 		public const string ExinConnectionStringManagerBase_s_ctor_is_not_implemented_for__0_ = "ExinConnectionStringManagerBase_s_ctor_is_not_implemented_for__0_";
@@ -162,6 +160,7 @@
 		public const string New_monthly_income = "New_monthly_income";
 		public const string Operation_finished_successfully__ = "Operation_finished_successfully__";
 		public const string Options_menuitem_is_not_implemented_yet = "Options_menuitem_is_not_implemented_yet";
+		public const string Parsing_error__ = "Parsing_error__";
 		public const string Please__wait_until_it_s_done = "Please__wait_until_it_s_done";
 		public const string Press_any_key_to_continue_ = "Press_any_key_to_continue_";
 		public const string Press_any_key_to_exit_____ = "Press_any_key_to_exit_____";

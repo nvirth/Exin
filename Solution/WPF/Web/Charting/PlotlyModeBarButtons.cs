@@ -1,0 +1,31 @@
+namespace WPF.Web.Charting
+{
+	public enum PlotlyModeBarButtons
+	{
+		toImage,
+		sendDataToCloud,
+		zoom2d,
+		pan2d,
+		select2d,
+		lasso2d,
+		zoomIn2d,
+		zoomOut2d,
+		autoScale2d,
+		resetScale2d,
+		hoverClosestCartesian,
+		hoverCompareCartesian,
+		zoom3d,
+		pan3d,
+		orbitRotation,
+		tableRotation,
+		resetCameraDefault3d,
+		resetCameraLastSave3d,
+		hoverClosest3d,
+		zoomInGeo,
+		zoomOutGeo,
+		resetGeo,
+		hoverClosestGeo,
+		hoverClosestGl2d,
+		hoverClosestPie,
+	}
+}

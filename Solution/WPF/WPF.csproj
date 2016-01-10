@@ -105,6 +105,9 @@
     <Compile Include="Controls\NewTransactionForm.xaml.cs">
       <DependentUpon>NewTransactionForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\PlotlyChart.xaml.cs">
+      <DependentUpon>PlotlyChart.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\ClickSelectTextBox.cs" />
     <Compile Include="Utils\ClipboardManager.cs" />
     <Compile Include="Utils\DatePickerFromCodeDateChanger.cs" />
@@ -124,6 +127,9 @@
     <Compile Include="ValueConverters\NegateBoolConverter.cs" />
     <Compile Include="ValueConverters\RemoveButtonConverter.cs" />
     <Compile Include="ValueConverters\StringTruncateConverter.cs" />
+    <Compile Include="ViewModels\PlotlyChartViewModel.cs" />
+    <Compile Include="Web\Charting\PlotlyChartJsConstants.cs" />
+    <Compile Include="Web\Charting\PlotlyChartManager.cs" />
     <Compile Include="ViewModels\SummaryModels\MonthlyIncomesViewModel.cs" />
     <Compile Include="ViewModels\SummaryModels\MonthlyExpensesViewModel.cs" />
     <Compile Include="ViewModels\SummaryModels\DailyExpensesViewModel.cs" />
@@ -131,6 +137,8 @@
     <Compile Include="ViewModels\SummaryModels\SummaryViewModelBase.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\StatisticsViewModel.cs" />
+    <Compile Include="Web\Charting\PlotlyChartConnector.cs" />
+    <Compile Include="Web\Charting\PlotlyModeBarButtons.cs" />
     <Compile Include="Web\WebBrowserHelpers.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -139,6 +147,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\NewTransactionForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PlotlyChart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -224,6 +236,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Web\Charting\charting.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web\Charting\JQuery\jquery-2.2_0.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Web\Charting\PlotLy\plotly.js">

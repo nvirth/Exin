@@ -176,9 +176,10 @@ namespace WPF
 
 		private void InitStatistics()
 		{
+			// TODO extract common logic for DVC and JS charts
+
 			//-- Set the Chart's Y Axis's Maximum property
 			int yAxisMax;
-			var converter = new ChartYAxisMaxConverter();
 
 			var yAxisMaxConfig = Config.Repo.Settings.UserSettings.StatYAxisMax;
 			if(yAxisMaxConfig.HasValue)
@@ -198,60 +199,7 @@ namespace WPF
 						break;
 				}
 
-			YAxis.Maximum = converter.Convert(yAxisMax);
-
-			//-- Setup JS based statistics
-			if(Config.WebChartingHtmlPath.CountOf(':') != 1)
-				Log.Warn(this, m => m("Config.WebChartingHtmlPath.CountOf(':') != 1. WebBrowser.Source won't be set. "));
-			else
-				StatisticsWebBrowser.Source = new Uri(@"file://127.0.0.1/" + Config.WebChartingHtmlPath.Replace(':','$'));
-
-			//StatisticsWebBrowser.InvokeScript();
-			//StatisticsWebBrowser.LoadCompleted;
-			//StatisticsWebBrowser.Loaded;
-			//StatisticsWebBrowser.ObjectForScripting;
-			//StatisticsWebBrowser.Refresh();
-
-			StatisticsWebBrowser.ObjectForScripting = new Asdf();
-
-
-			StatisticsWebBrowser.LoadCompleted += (sender, args) => {
-				//StatisticsWebBrowser.InvokeScript("barChartWithDirectLabels");
-				//StatisticsWebBrowser.InvokeScript("barChartWithDirectLabels", "aaaaaaa");
-				//StatisticsWebBrowser.InvokeScript("barChartWithDirectLabels", new { prop1 = "aaaaaaa", prop2 = 11 });
-				//StatisticsWebBrowser.InvokeScript("barChartWithDirectLabels", new { prop1 = "aaaaaaa" });
-				//StatisticsWebBrowser.InvokeScript("barChartWithDirectLabels", new Qwe());
-				StatisticsWebBrowser.InvokeScript("barChartWithDirectLabels", new { prop1 = "aaaaaaa", prop2 = 11 }.ToJson());
-			};
-			//StatisticsWebBrowser.LoadCompleted += (sender, args) => StatisticsWebBrowser.InvokeScript("barChartWithDirectLabels", new { prop1 = "aaaaaaa", prop2 = 11 });
-
-			var htmlDocument = (IHTMLDocument2)StatisticsWebBrowser.Document;
-			var onErrorEvent = (HTMLWindowEvents2_Event)htmlDocument.parentWindow;
-			onErrorEvent.onerror += OnErrorEventOnOnerror;
-
-		}
-
-		[System.Runtime.InteropServices.ComVisible(visibility: true)]
-		public class Qwe
-		{
-			public string ssss { get; set; } = "as";
-			public string ssss2 { get; set; }
-		}
-
-		[System.Runtime.InteropServices.ComVisible(visibility: true)]
-		public class Asdf
-		{
-			public object Prop1 { get; set; }
-
-			public void Loga(string message)
-			{
-				Log.Info(this, m => m("WebBrowser says: " + message));
-			}
-		}
-
-		private void OnErrorEventOnOnerror(string description, string url, int line)
-		{
-			Log.Warn(this, m => m("Error in WebBrowser control"), LogTarget.All, new ForDataOnlyException(new { description, url, line }));
+			YAxis.Maximum = ChartYAxisMaxConverter.Intance.Convert(yAxisMax);
 		}
 
 		private static void InitFirstRepoRootIfNeeded()

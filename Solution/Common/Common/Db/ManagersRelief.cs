@@ -115,7 +115,6 @@ namespace Common.Db
 
 		#region Helpers
 
-
 		private static Exception CalledBeforeInitException(string className, [CallerMemberName] string memberName = null)
 		{
 			return Log.Fatal(className,

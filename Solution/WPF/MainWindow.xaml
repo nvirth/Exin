@@ -244,13 +244,13 @@
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static res:Localized.Statistics}">
-                <TabControl Margin="1">
+                <TabControl Margin="1"
+                            DataContext="{Binding Path=Statistics, Mode=OneWay}"
+                >
                     <!--TODO localization and tab naming -->
                     <TabItem Header="Old">
-                        <Grid x:Name="StatisticsPanel" 
-                              DataContext="{Binding Path=Statistics, Mode=OneWay}"
-                        >
-                        <Grid.Resources>
+                        <Grid x:Name="StatisticsPanel" >
+                            <Grid.Resources>
                             <ResourceDictionary Source="ResourceDictionaries/ChartResources.xaml" />
                         </Grid.Resources>
                         <Grid.RowDefinitions>
@@ -298,7 +298,9 @@
                     </Grid>
                     </TabItem>
                     <TabItem Header="New">
-                        <WebBrowser x:Name="StatisticsWebBrowser" />
+                        <e:PlotlyChart x:Name="PlotlyChart" 
+                                       DataContext="{Binding Path=IncomesAndExpenses}"
+                        />
                     </TabItem>
                 </TabControl>
             </TabItem>
