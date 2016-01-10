@@ -29,6 +29,10 @@ namespace Common.Configuration
 #endif
 		public static readonly string AppExecDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 		public static readonly string MainSettingsFilePath = Path.Combine(AppExecDir, @".\Config\MainSettings.xml");
+		public static readonly string WebDir = Path.Combine(AppExecDir, @".\Web\");
+		public static readonly string WebChartingDir = Path.Combine(WebDir, @".\Charting\");
+		public static readonly string WebChartingHtmlPath = Path.Combine(WebChartingDir, @".\charting.html");
+
 		public const string AppName = "Exin";
 		public const int CategoryValidFrom = 100;
 		public const int UnitValidFrom = 100;

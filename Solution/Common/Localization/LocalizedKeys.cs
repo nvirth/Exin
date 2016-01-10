@@ -6,6 +6,8 @@
 		// TODO test all of them in Debug mode - if they are still valid
 
 		public const string Parsing_error__ = "Parsing_error__";
+		public const string Could_not_setup_Internet_Explorer_emulation_version__ = "Could_not_setup_Internet_Explorer_emulation_version__";
+		public const string Exin_uses_Internet_Explorer_to_draw_some_charts__FORMAT__ = "Exin_uses_Internet_Explorer_to_draw_some_charts__FORMAT__";
 
 		public const string _0__already_exists_with_the_specified_name__ = "_0__already_exists_with_the_specified_name__";
 		public const string _0__Database = "_0__Database";

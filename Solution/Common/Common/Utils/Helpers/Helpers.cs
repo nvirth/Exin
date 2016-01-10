@@ -905,6 +905,11 @@ namespace Common.Utils.Helpers
 
 		#region String
 
+		public static int CountOf(this string str, char ch)
+		{
+			return str.Count(c => c == ch);
+		}
+
 		public static string Join<T>(this IEnumerable<T> strings, string separator)
 		{
 			return string.Join(separator, strings);

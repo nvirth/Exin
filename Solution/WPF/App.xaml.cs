@@ -11,6 +11,7 @@ using Exin.Common.Logging.Core;
 using Common.Utils.Helpers;
 using Localization;
 using WPF.Utils;
+using WPF.Web;
 
 namespace WPF
 {
@@ -40,6 +41,10 @@ namespace WPF
 		{
 			// Do not run multiple instances from the app
 			ApplicationRunningHelper.SwitchToRunningInstanceIfExists();
+
+			// Initializing IE emulation. Has to be before the first WebBrowser object is instantiated; so before
+			// calling InitializeComponent() in MainWindow. Note, that this way there can't be any GUI logs here.
+			WebBrowserHelpers.Init();
 		}
 
 		#region ..ExceptionHandlers

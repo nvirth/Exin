@@ -860,6 +860,15 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not setup Internet Explorer emulation version. .
+        /// </summary>
+        public static string Could_not_setup_Internet_Explorer_emulation_version__ {
+            get {
+                return ResourceManager.GetString("Could_not_setup_Internet_Explorer_emulation_version__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not update the transaction record (ID: {0})
         ///So these modifications did not apply into the database. .
         /// </summary>
@@ -1145,6 +1154,15 @@ namespace Localization {
         public static string Error_occured_while_creating_the_SQLite_database_file {
             get {
                 return ResourceManager.GetString("Error_occured_while_creating_the_SQLite_database_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exin uses Internet Explorer to draw some charts. Your version of it ({0}) is less than the minimum necessary ({1}). Some charts won&apos;t work. .
+        /// </summary>
+        public static string Exin_uses_Internet_Explorer_to_draw_some_charts__FORMAT__ {
+            get {
+                return ResourceManager.GetString("Exin_uses_Internet_Explorer_to_draw_some_charts__FORMAT__", resourceCulture);
             }
         }
         

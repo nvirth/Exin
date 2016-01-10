@@ -914,4 +914,10 @@ So these modifications did not apply into the database. </value>
   <data name="Parsing_error__" xml:space="preserve">
     <value>Parsing error. </value>
   </data>
+  <data name="Could_not_setup_Internet_Explorer_emulation_version__" xml:space="preserve">
+    <value>Could not setup Internet Explorer emulation version. </value>
+  </data>
+  <data name="Exin_uses_Internet_Explorer_to_draw_some_charts__FORMAT__" xml:space="preserve">
+    <value>Exin uses Internet Explorer to draw some charts. Your version of it ({0}) is less than the minimum necessary ({1}). Some charts won't work. </value>
+  </data>
 </root>

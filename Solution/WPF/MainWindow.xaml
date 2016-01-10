@@ -244,55 +244,63 @@
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static res:Localized.Statistics}">
-                <Grid x:Name="StatisticsPanel" 
-                            DataContext="{Binding Path=Statistics, Mode=OneWay}"
-                    >
-                    <Grid.Resources>
-                        <ResourceDictionary Source="ResourceDictionaries/ChartResources.xaml" />
-                    </Grid.Resources>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" Margin="10 10 0 0">
-                        <StackPanel Orientation="Vertical">
-                            <StackPanel.Resources>
-                                <valueConverters:ChartYAxisMaxConverter x:Key="ChartYAxisMaxConverter" />
-                            </StackPanel.Resources>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{x:Static res:Localized.Y_axis_max__}" />
-                                <utils:ClickSelectTextBox x:Name="YAxisMaxTB" Width="30" LostFocus="YAxisMaxTB_OnLostFocus" IsNumeric="True"
-                                                          Text="{Binding Maximum, ElementName=YAxis, Converter={StaticResource ChartYAxisMaxConverter}, UpdateSourceTrigger=PropertyChanged, Delay=500}" 
-                                                          />
+                <TabControl Margin="1">
+                    <!--TODO localization and tab naming -->
+                    <TabItem Header="Old">
+                        <Grid x:Name="StatisticsPanel" 
+                              DataContext="{Binding Path=Statistics, Mode=OneWay}"
+                        >
+                        <Grid.Resources>
+                            <ResourceDictionary Source="ResourceDictionaries/ChartResources.xaml" />
+                        </Grid.Resources>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Margin="10 10 0 0">
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel.Resources>
+                                    <valueConverters:ChartYAxisMaxConverter x:Key="ChartYAxisMaxConverter" />
+                                </StackPanel.Resources>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{x:Static res:Localized.Y_axis_max__}" />
+                                    <utils:ClickSelectTextBox x:Name="YAxisMaxTB" Width="30" LostFocus="YAxisMaxTB_OnLostFocus" IsNumeric="True"
+                                                              Text="{Binding Maximum, ElementName=YAxis, Converter={StaticResource ChartYAxisMaxConverter}, UpdateSourceTrigger=PropertyChanged, Delay=500}" 
+                                                              />
+                                </StackPanel>
                             </StackPanel>
-                        </StackPanel>
-                        <WrapPanel FlowDirection="RightToLeft">
-                            <WrapPanel.Resources>
-                                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-                                    <Setter Property="Margin" Value="10,0,0,0"></Setter>
-                                </Style>
-                            </WrapPanel.Resources>
-                            <Button Content="{x:Static res:Localized.Refresh}" Click="RedoStatisticsButton_OnClick"
-                                    FontWeight="{Binding Path=IsDefault, Converter={StaticResource IsDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
+                            <WrapPanel FlowDirection="RightToLeft">
+                                <WrapPanel.Resources>
+                                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                        <Setter Property="Margin" Value="10,0,0,0"></Setter>
+                                    </Style>
+                                </WrapPanel.Resources>
+                                <Button Content="{x:Static res:Localized.Refresh}" Click="RedoStatisticsButton_OnClick"
+                                        FontWeight="{Binding Path=IsDefault, Converter={StaticResource IsDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
+                                        />
+                            </WrapPanel>
+                        </Grid>
+                        <DVC:Chart Grid.Row="1" BorderThickness="0" Padding="10,0" LegendStyle="{StaticResource LegendStyle}" >
+                            <DVC:Chart.Axes>
+                                <!-- Maximum is set from code! -->
+                                <DVC:LinearAxis Orientation="Y" Minimum="0" Maximum="200000" x:Name="YAxis" ShowGridLines="True" 
+                                                AxisLabelStyle="{StaticResource NumericAxisLabelStyle}" />
+                            </DVC:Chart.Axes>
+                            <DVC:Chart.Series>
+                                <DVC:ColumnSeries 
+                                    ItemsSource="{Binding Path=IncomesAndExpenses}"
+                                    IndependentValueBinding="{Binding Path=Key.DisplayName, Converter={StaticResource StringTruncate}}"
+                                    DependentValueBinding="{Binding Path=Value}"
+                                    DataPointStyle="{StaticResource ColumnDataPointStyle}"
                                     />
-                        </WrapPanel>
+                            </DVC:Chart.Series>
+                        </DVC:Chart>
                     </Grid>
-                    <DVC:Chart Grid.Row="1" BorderThickness="0" Padding="10,0" LegendStyle="{StaticResource LegendStyle}" >
-                        <DVC:Chart.Axes>
-                            <!-- Maximum is set from code! -->
-                            <DVC:LinearAxis Orientation="Y" Minimum="0" Maximum="200000" x:Name="YAxis" ShowGridLines="True" 
-                                            AxisLabelStyle="{StaticResource NumericAxisLabelStyle}" />
-                        </DVC:Chart.Axes>
-                        <DVC:Chart.Series>
-                            <DVC:ColumnSeries 
-                                ItemsSource="{Binding Path=IncomesAndExpenses}"
-                                IndependentValueBinding="{Binding Path=Key.DisplayName, Converter={StaticResource StringTruncate}}"
-                                DependentValueBinding="{Binding Path=Value}"
-                                DataPointStyle="{StaticResource ColumnDataPointStyle}"
-                                />
-                        </DVC:Chart.Series>
-                    </DVC:Chart>
-                </Grid>
+                    </TabItem>
+                    <TabItem Header="New">
+                        <WebBrowser x:Name="StatisticsWebBrowser" />
+                    </TabItem>
+                </TabControl>
             </TabItem>
         </TabControl>
         <Grid Grid.Column="2" Grid.Row="1"  >
@@ -307,7 +315,7 @@
                             SelectedDateChanged="SummaryDatePicker_SelectedDateChanged"
                         -->
             </DatePicker>
-	        <RichTextBox Grid.Row="1" x:Name="LogTB" VerticalScrollBarVisibility="Visible" IsReadOnly="True" IsReadOnlyCaretVisible="False" Margin="10" />
+            <RichTextBox Grid.Row="1" x:Name="LogTB" VerticalScrollBarVisibility="Visible" IsReadOnly="True" IsReadOnlyCaretVisible="False" Margin="10" />
             <Button Grid.Row="2" Margin="10" Content="{x:Static res:Localized.Clear}" Click="ClearLogButton_OnClick" HorizontalAlignment="Right" 
                     FontWeight="{Binding Path=IsDefault, Converter={StaticResource IsDefaultToFontWeightConverter}, RelativeSource={RelativeSource Self}}"
                     />
