@@ -22,6 +22,7 @@ namespace Exin.Common.Logging.Log4Net
 		public const int MaxBackupDays = 90;
 		public const string ExceptionData = "ExceptionData";
 
+		// TODO this _layout is not used!
 		private PatternLayout _layout = new PatternLayout();
 		public PatternLayout DefaultLayout => _layout;
 
