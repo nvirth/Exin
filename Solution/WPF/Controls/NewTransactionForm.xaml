@@ -58,7 +58,11 @@
                     <TextBlock Text="{x:Static res:Localized.Comment_}" Grid.Row="5" Grid.Column="0" TextAlignment="Right" />
 
                     <!--Column 1-->
-                    <utils:ClickSelectTextBox x:Name="TitleTb" Text="{validation:Binding Path=Title}" Grid.Row="0" Grid.Column="1" />
+                    <utils:ClickSelectTextBox x:Name="TitleTb" Text="{validation:Binding Path=Title}" Grid.Row="0" Grid.Column="1"
+                                              MaxLength="101"
+                                              />
+                    <!--TODO MaxLength bound-->
+
                     <utils:ClickSelectTextBox Text="{validation:Binding Path=Amount}" Grid.Row="1" Grid.Column="1" IsNumeric="True" />
                     <ComboBox x:Name="CategoryCB" Grid.Row="2" Grid.Column="1" 
                               Visibility="{Binding ElementName=UserControl, Path=Type, Converter={StaticResource HideIfIncomeConverter}}"
@@ -85,7 +89,10 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <utils:ClickSelectTextBox Text="{validation:Binding Path=Comment}" Grid.Row="5" Grid.Column="1" />
+                    <utils:ClickSelectTextBox Text="{validation:Binding Path=Comment}" Grid.Row="5" Grid.Column="1"
+                                              AcceptsReturn="True" VerticalScrollBarVisibility="Auto" MaxLines="2" MaxLength="201"
+                                              />
+                    <!--TODO MaxLength bound-->
                 </Grid>
                 <WrapPanel Margin="0,10,0,0" FlowDirection="RightToLeft">
                     <WrapPanel.Resources>
