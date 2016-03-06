@@ -10,7 +10,7 @@ namespace WPF.Utils
 	// TODO move into Controls
 	public class ClickSelectTextBox : TextBox
 	{
-		#region Properties
+		#region IsNumeric (DP)
 
 		public static readonly DependencyProperty IsNumericProperty = DependencyProperty.Register(
 			"IsNumeric", typeof (bool), typeof (ClickSelectTextBox), new PropertyMetadata(default(bool)));
@@ -32,16 +32,21 @@ namespace WPF.Utils
 			AddHandler(MouseDoubleClickEvent,
 			  new RoutedEventHandler(SelectAllText), true);
 
+			// NumericTextBox
 			PreviewTextInput += OnPreviewTextInput;
 			DataObject.AddPastingHandler(this, OnPaste);
+
+			// To be able to insert multiline data
+			//AcceptsReturn = true;
 		}
 
-		private static void OnPaste(object sender, DataObjectPastingEventArgs e)
+		#region Numeric
+		private void OnPaste(object sender, DataObjectPastingEventArgs e)
 		{
 			if(e.DataObject.GetDataPresent(DataFormats.Text))
 			{
 				var text = (String)e.DataObject.GetData(typeof(String));
-				if(!IsValid(text))
+				if(!ValidateIfNumeric(text))
 					e.CancelCommand();
 			}
 			else
@@ -52,20 +57,22 @@ namespace WPF.Utils
 
 		private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
 		{
-			if(!IsNumeric)
-				return;
-
-			if(!IsValid(e.Text))
+			if(!ValidateIfNumeric(e.Text))
 				e.Handled = true;
 		}
 
-		private static bool IsValid(string text)
+		private bool ValidateIfNumeric(string text)
 		{
+			if(!IsNumeric)
+				return true;
+
 			var regex = new Regex(@"^[-+]?[\d]*$"); //TODO float
 			var isValid = regex.IsMatch(text);
 			return isValid;
 		}
+		#endregion
 
+		#region SelectAll
 		private static void SelectivelyIgnoreMouseButton(object sender, MouseButtonEventArgs e)
 		{
 			// Find the TextBox
@@ -89,7 +96,8 @@ namespace WPF.Utils
 		private static void SelectAllText(object sender, RoutedEventArgs e)
 		{
 			var textBox = e.OriginalSource as TextBox;
-		    textBox?.SelectAll();
-		}
+			textBox?.SelectAll();
+		} 
+		#endregion
 	}
 }
