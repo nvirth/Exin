@@ -7,7 +7,7 @@
     <!-- Can differ from the assembly version. (Must not be null)
       If so, the xml settings probably did not get updated with the app, maybe because that was not necessary 
     -->
-    <Version>0.0.5</Version>
+    <Version>0.0.6</Version>
     
     <!-- The last version where the user made (valid) settings (via GUI). (Must not be null) -->
     <LastInitVersion>0.0.0.0</LastInitVersion>
