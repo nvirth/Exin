@@ -1,0 +1,1 @@
+When changing anything in the app what writes into MainSettings.xml, some properties will be serialized wrong, and cause the app the next time to crash at start!
