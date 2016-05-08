@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Common.Db.Entities;
+using Exin.Common.Logging.Core;
+using Localization;
 using WPF.ViewModels;
 using WPF.Web.Charting;
 
@@ -27,10 +29,21 @@ namespace WPF.Controls
 			InitializeComponent();
 			//LayoutRoot.DataContext = this;
 
-			ViewModel = new PlotlyChartViewModel(WebBrowser);
+			try
+			{
+				ViewModel = new PlotlyChartViewModel(WebBrowser);
 
-			this.DataContextChanged += (sender, args) => RefreshViewModel();
-			RefreshViewModel();
+				this.DataContextChanged += (sender, args) => RefreshViewModel();
+				RefreshViewModel();
+			}
+			catch(Exception e)
+			{
+				Log.Error(this,
+					m => m(Localized.ResourceManager, LocalizedKeys.Could_not_initialize_Plotly_charts__They_won_t_be_available_),
+					LogTarget.All,
+					e
+				);
+			}
 		}
 
 		private void RefreshViewModel()

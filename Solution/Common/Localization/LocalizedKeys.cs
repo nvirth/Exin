@@ -72,6 +72,7 @@
 		public const string Could_not_find_the_SQLite_database_file__here__0__FORMAT__ = "Could_not_find_the_SQLite_database_file__here__0__FORMAT__";
 		public const string Could_not_find_the_Unit__DisplayName_0__in_the_database__FORMAT__ = "Could_not_find_the_Unit__DisplayName_0__in_the_database__FORMAT__";
 		public const string Could_not_find_this_ConnectionString___0_ = "Could_not_find_this_ConnectionString___0_";
+		public const string Could_not_initialize_Plotly_charts__They_won_t_be_available_ = "Could_not_initialize_Plotly_charts__They_won_t_be_available_";
 		public const string Could_not_insert_the_Category_record = "Could_not_insert_the_Category_record";
 		public const string Could_not_insert_the_transaction_item_ = "Could_not_insert_the_transaction_item_";
 		public const string Could_not_insert_the_transaction_items_ = "Could_not_insert_the_transaction_items_";

@@ -834,4 +834,7 @@ A beviteli mezőkben:
   <data name="Add_copy" xml:space="preserve">
     <value>Másolat hozzáadása</value>
   </data>
+  <data name="Could_not_initialize_Plotly_charts__They_won_t_be_available_" xml:space="preserve">
+    <value>A Plotly diagromok előkészítése sikertelen volt. Nem lesznek elérhetők ebben a munkamenetben. </value>
+  </data>
 </root>

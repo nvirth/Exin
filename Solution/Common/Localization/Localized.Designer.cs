@@ -678,6 +678,15 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not initialize Plotly charts. They won&apos;t be available in this work session..
+        /// </summary>
+        public static string Could_not_initialize_Plotly_charts__They_won_t_be_available_ {
+            get {
+                return ResourceManager.GetString("Could_not_initialize_Plotly_charts__They_won_t_be_available_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not insert the Category record. .
         /// </summary>
         public static string Could_not_insert_the_Category_record {
