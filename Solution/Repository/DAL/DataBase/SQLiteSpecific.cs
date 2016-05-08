@@ -63,7 +63,7 @@ namespace DAL.DataBase
 					var startInfo = new ProcessStartInfo
 					{
 						//WorkingDirectory = Paths.Play_publicPath,
-						FileName = AssemblyNames.TransportData_exe,
+						FileName = Path.Combine(Config.AppExecDir, AssemblyNames.TransportData_exe),
 						Arguments = commandArgs,
 						//WindowStyle = ProcessWindowStyle.Hidden,
 						//RedirectStandardOutput = true,

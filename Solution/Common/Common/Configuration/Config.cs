@@ -28,10 +28,10 @@ namespace Common.Configuration
 		}
 #endif
 		public static readonly string AppExecDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-		public static readonly string MainSettingsFilePath = Path.Combine(AppExecDir, @".\Config\MainSettings.xml");
-		public static readonly string WebDir = Path.Combine(AppExecDir, @".\Web\");
-		public static readonly string WebChartingDir = Path.Combine(WebDir, @".\Charting\");
-		public static readonly string WebChartingHtmlPath = Path.Combine(WebChartingDir, @".\charting.html");
+		public static readonly string MainSettingsFilePath = Path.Combine(AppExecDir, @"Config\MainSettings.xml");
+		public static readonly string WebDir = Path.Combine(AppExecDir, @"Web\");
+		public static readonly string WebChartingDir = Path.Combine(WebDir, @"Charting\");
+		public static readonly string WebChartingHtmlPath = Path.Combine(WebChartingDir, @"charting.html");
 
 		public const string AppName = "Exin";
 		public const int CategoryValidFrom = 100;
@@ -42,7 +42,7 @@ namespace Common.Configuration
 		//--
 
 		public static readonly MainSettings MainSettings = MainSettings.Read(MainSettingsFilePath);
-		public static string FirstRepoRootPath => MainSettings.Repositories[0].RootDir;
+		public static string FirstRepoRootPath => MainSettings.Repositories[0].RootDirAbs;
 		public static IRepo Repo; // TODO implement multiple repos...
 
 		public static void InitRepo()

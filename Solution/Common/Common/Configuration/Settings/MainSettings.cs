@@ -51,10 +51,31 @@ namespace Common.Configuration.Settings
 						return;
 
 					_rootDir = value;
+					RootDirAbs = value;
 					_xElement.Element(C.RootDir).SetValue(value);
 					OnPropertyChanged();
 				}
 			}
+
+			private string _rootDirAbs;
+			public string RootDirAbs
+			{
+				get { return _rootDirAbs; }
+				private set
+				{
+					if(_rootDirAbs == value)
+						return;
+
+					var fullPath = value;
+					if(!Path.IsPathRooted(value))
+						fullPath = Path.GetFullPath(Path.Combine(Config.AppExecDir, value));
+
+					//_rootDirAbs = Path.GetFullPath(fullPath);
+					_rootDirAbs = fullPath;
+					OnPropertyChanged();
+				}
+			}
+
 
 			#endregion
 
@@ -113,7 +134,7 @@ namespace Common.Configuration.Settings
 				if(isRootEmpty) // Possibly the first start of the app
 				{
 					RootDir = DefaultRootDir.Replace(RepoNamePlaceholder, Name);
-					Directory.CreateDirectory(RootDir);
+					Directory.CreateDirectory(RootDirAbs);
 				}
 				else
 				{
