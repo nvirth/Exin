@@ -923,4 +923,7 @@ So these modifications did not apply into the database. </value>
   <data name="Could_not_initialize_Plotly_charts__They_won_t_be_available_" xml:space="preserve">
     <value>Could not initialize Plotly charts. They won't be available in this work session.</value>
   </data>
+  <data name="Unknown_culture___0_" xml:space="preserve">
+    <value>Unknown culture: {0}</value>
+  </data>
 </root>

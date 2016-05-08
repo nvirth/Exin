@@ -76,5 +76,21 @@ namespace Common.Configuration
 					);
 			}
 		}
+
+		public static string Serialize(CultureInfo cultureInfo)
+		{
+			if(Equals(cultureInfo, en_US))
+				return C.EN;
+			if(Equals(cultureInfo, hu_HU))
+				return C.HU;
+
+			var aa = Localized.Unknown_culture___0_;
+
+			throw Log.Fatal(typeof(Cultures),
+				m => m(Localized.ResourceManager, LocalizedKeys.Unrecognised_culture_string___0_, cultureInfo),
+				LogTarget.All,
+				new CultureNotFoundException(Localized.Unrecognised_culture_string___0_.Formatted(cultureInfo))
+			);
+		}
 	}
 }

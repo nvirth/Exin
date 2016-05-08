@@ -2368,6 +2368,15 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unknown culture: {0}.
+        /// </summary>
+        public static string Unknown_culture___0_ {
+            get {
+                return ResourceManager.GetString("Unknown_culture___0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unrecognised culture string: {0}.
         /// </summary>
         public static string Unrecognised_culture_string___0_ {

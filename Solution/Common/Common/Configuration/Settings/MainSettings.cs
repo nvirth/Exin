@@ -26,6 +26,7 @@ namespace Common.Configuration.Settings
 		{
 			#region Leaf xml properties
 
+			private bool _isNameEmpty = true;
 			private string _name;
 			public string Name
 			{
@@ -35,12 +36,20 @@ namespace Common.Configuration.Settings
 					if(_name == value)
 						return;
 
-					_name = value;
-					_xElement.Element(C.Name).SetValue(value);
+					_isNameEmpty = string.IsNullOrWhiteSpace(value);
+					var valueResolved = _isNameEmpty ? DefaultRepoName : value;
+
+					var isValid = Regex.IsMatch(valueResolved, ValidationConstants.RegEx_START_EnChar_EnCharOrDigit_0Ti_END);
+					if(!isValid)
+						throw new ConfigurationErrorsException("RepoName: " + Localized.ResourceManager.GetString(ValidationConstants.RegExErrMsg_START_EnChar_EnCharOrDigit_0Ti_END));
+
+					_name = valueResolved;
+					_xElement.Element(C.Name).SetValue(valueResolved);
 					OnPropertyChanged();
 				}
 			}
 
+			private bool _isRootDirEmpty = true;
 			private string _rootDir;
 			public string RootDir
 			{
@@ -50,9 +59,13 @@ namespace Common.Configuration.Settings
 					if(_rootDir == value)
 						return;
 
-					_rootDir = value;
-					RootDirAbs = value;
-					_xElement.Element(C.RootDir).SetValue(value);
+					_isRootDirEmpty = string.IsNullOrWhiteSpace(value);
+					var valueRaw = _isRootDirEmpty ? DefaultRootDir : value; // It could contain ":REPO_NAME:"
+					var valueResolved = valueRaw.Replace(RepoNamePlaceholder, Name);
+
+					_rootDir = valueResolved;
+					RootDirAbs = valueResolved;
+					_xElement.Element(C.RootDir).SetValue(valueRaw);
 					OnPropertyChanged();
 				}
 			}
@@ -70,7 +83,6 @@ namespace Common.Configuration.Settings
 					if(!Path.IsPathRooted(value))
 						fullPath = Path.GetFullPath(Path.Combine(Config.AppExecDir, value));
 
-					//_rootDirAbs = Path.GetFullPath(fullPath);
 					_rootDirAbs = fullPath;
 					OnPropertyChanged();
 				}
@@ -93,7 +105,7 @@ namespace Common.Configuration.Settings
 					var instance = new RepoXml(xml)
 					{
 						Name = xml.ParseString(C.Name),
-						RootDir = xml.ParseString(C.RootDir),
+						RootDir = xml.ParseString(C.RootDir), // Order is important!
 					};
 					instance.InitAndValidate();
 					return instance;
@@ -111,35 +123,18 @@ namespace Common.Configuration.Settings
 
 			private void InitAndValidate()
 			{
-				var isRootEmpty = string.IsNullOrWhiteSpace(RootDir);
-				var isNameEmpty = string.IsNullOrWhiteSpace(Name);
-				if (isRootEmpty && isNameEmpty)
-				{
 #if DEBUG
-					//var rootDir = ProjectInfos.GetSolutionsRootDircetory(Config.AppName);
-					RootDir = Config.FileRepoDeveloperPath;
-					isRootEmpty = false;
-#endif
-				}
-
-				//--Name
-				if(isNameEmpty)
-					Name = DefaultRepoName;
-
-				var isValid = Regex.IsMatch(Name, ValidationConstants.RegEx_START_EnChar_EnCharOrDigit_0Ti_END);
-				if (!isValid)
-					throw new ConfigurationErrorsException("RepoName: " + Localized.ResourceManager.GetString(ValidationConstants.RegExErrMsg_START_EnChar_EnCharOrDigit_0Ti_END));
-
-				//--RootDir
-				if(isRootEmpty) // Possibly the first start of the app
+				if (_isRootDirEmpty && _isNameEmpty)
 				{
-					RootDir = DefaultRootDir.Replace(RepoNamePlaceholder, Name);
+					RootDir = Config.FileRepoDeveloperPath;
+				}
+#endif
+				if(_isRootDirEmpty) // Possibly the first start of the app
+				{
 					Directory.CreateDirectory(RootDirAbs);
 				}
 				else
 				{
-					RootDir = RootDir.Replace(RepoNamePlaceholder, Name);
-
 					// TODO Starting problem: If a new, virgin app starts, it will crash on this
 					//if(!Directory.Exists(RootDir))
 					//	throw new DirectoryNotFoundException(RootDir);
@@ -148,7 +143,8 @@ namespace Common.Configuration.Settings
 		}
 		public class UserSettingsXml : NotifyPropertyChanged
 		{
-			public const char CurrentRepoNamesSeparator = ',';
+			public const char CurrentRepoNamesSeparatorChar = ',';
+			public static readonly string CurrentRepoNamesSeparatorStr = CurrentRepoNamesSeparatorChar.ToString();
 
 			#region Leaf xml properties
 
@@ -162,7 +158,8 @@ namespace Common.Configuration.Settings
 						return;
 
 					_currentRepoNames = value;
-					_xElement.Element(C.CurrentRepoNames).SetValue(value);
+					var valueSerialized = value.Join(CurrentRepoNamesSeparatorStr);
+					_xElement.Element(C.CurrentRepoNames).SetValue(valueSerialized);
 					OnPropertyChanged();
 				}
 			}
@@ -192,7 +189,8 @@ namespace Common.Configuration.Settings
 						return;
 
 					_language = value;
-					_xElement.Element(C.Language).SetValue(value);
+					var valueSerialized = Cultures.Serialize(value);
+					_xElement.Element(C.Language).SetValue(valueSerialized);
 					OnPropertyChanged();
 				}
 			}
@@ -230,7 +228,7 @@ namespace Common.Configuration.Settings
 
 					var instance = new UserSettingsXml(xml)
 					{
-						CurrentRepoNames = xml.ParseString(C.CurrentRepoNames).ToLowerInvariant().Split(CurrentRepoNamesSeparator),
+						CurrentRepoNames = xml.ParseString(C.CurrentRepoNames).ToLowerInvariant().Split(CurrentRepoNamesSeparatorChar),
 						AllowsFutureDate = xml.ParseBool(C.AllowsFutureDate),
 						Language = Cultures.Parse(languageStr),
 						CopyFormat = EnumHelpers.Parse<CopyFormat>(copyFormatStr, ignoreCase: true),
