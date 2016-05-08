@@ -8,6 +8,13 @@
 ###Fixed
 ###Security
 
+## v0.0.6
+###Fixed
+* The app only can be launched from icon
+* If JS charts can't be load, the app won't crash.
+* BugFix: MainSettings.xml had properties (RootDir, Language, CurrentRepoNames) with wrongly serialized values
+** Thus, once the xml got overridden from code, the app could not launch anymore.
+
 ## v0.0.5
 End user involving changes
 * Copy Xml or Json data with Ctlr+C, or from Main menu
