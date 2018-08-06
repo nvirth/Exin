@@ -1,0 +1,29 @@
++ <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+- <System>
+  <Provider Name="Application Error" /> 
+  <EventID Qualifiers="0">1000</EventID> 
+  <Level>2</Level> 
+  <Task>100</Task> 
+  <Keywords>0x80000000000000</Keywords> 
+  <TimeCreated SystemTime="2018-08-06T18:25:06.000000000Z" /> 
+  <EventRecordID>17288</EventRecordID> 
+  <Channel>Application</Channel> 
+  <Computer>shan7539-NB</Computer> 
+  <Security /> 
+  </System>
+- <EventData>
+  <Data>Exin.exe</Data> 
+  <Data>0.0.6.0</Data> 
+  <Data>572f3b42</Data> 
+  <Data>WindowsBase.ni.dll</Data> 
+  <Data>4.0.30319.36415</Data> 
+  <Data>59a67370</Data> 
+  <Data>80131623</Data> 
+  <Data>0024f5ed</Data> 
+  <Data>bf4</Data> 
+  <Data>01d42db14d7443a1</Data> 
+  <Data>c:\Norbi\Programs\Exin\Exin.exe</Data> 
+  <Data>C:\Windows\assembly\NativeImages_v4.0.30319_32\WindowsBase\e807dcc93154a9ee5a8e37b9df9c5fd1\WindowsBase.ni.dll</Data> 
+  <Data>0aa4b07f-99a6-11e8-b9ba-0016d38e71e7</Data> 
+  </EventData>
+  </Event>

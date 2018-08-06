@@ -1,0 +1,1 @@
+I've just switched between days with ALT + LeftArrow, and once, unexpectedly, the app crashed
