@@ -1,0 +1,75 @@
+Repro:
+
+1. Add new daily expense, don't save
+2. Click exit
+3. Click save in the alert dialog
+
+Call stack:
+
+Application: Exin.exe
+Framework Version: v4.0.30319
+Description: The process was terminated due to an unhandled exception.
+Exception Info: System.InvalidOperationException
+   at System.Windows.Threading.Dispatcher.VerifyAccess()
+   at System.Windows.DependencyObject.GetValue(System.Windows.DependencyProperty)
+   at System.Windows.Documents.TextPointer.System.Windows.Documents.ITextPointer.GetValue(System.Windows.DependencyProperty)
+   at System.Windows.Documents.TextRangeBase.GetCharacterValueFromPosition(System.Windows.Documents.ITextPointer, System.Windows.DependencyProperty)
+   at System.Windows.Documents.TextRangeBase.GetCharacterPropertyValue(System.Windows.Documents.ITextRange, System.Windows.DependencyProperty)
+   at System.Windows.Documents.TextRangeBase.GetPropertyValue(System.Windows.Documents.ITextRange, System.Windows.DependencyProperty)
+   at System.Windows.Documents.TextRange.System.Windows.Documents.ITextRange.GetPropertyValue(System.Windows.DependencyProperty)
+   at System.Windows.Documents.TextRange.GetPropertyValue(System.Windows.DependencyProperty)
+   at Common.Utils.MessagePresenterManager.AppendToWpfRichTextbox(System.String, System.Windows.Controls.RichTextBox, System.Windows.Media.Brush, Boolean, Boolean)
+   at Exin.Common.Logging.CommonLogging.Loggers.WpfRichTextBoxLogger.WriteInternal(Common.Logging.LogLevel, System.Object, System.Exception)
+   at Exin.Common.Logging.CommonLogging.Loggers.Base.AbstractSimpleLoggerBase.Write(Common.Logging.LogLevel, System.Object, System.Exception)
+   at Exin.Common.Logging.CommonLogging.Loggers.AggregateLogger+<>c__DisplayClass9_0.<DoLog>b__1(Exin.Common.Logging.Core.IExinLog)
+   at Common.Utils.Helpers.Helpers.ForEach[[System.__Canon, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]](System.Collections.Generic.IEnumerable`1<System.__Canon>, System.Action`1<System.__Canon>)
+   at Exin.Common.Logging.CommonLogging.Loggers.AggregateLogger.DoLog(Exin.Common.Logging.Core.LogData)
+   at Exin.Common.Logging.Core.Log.DoLog(System.String, System.Object, System.Exception, Exin.Common.Logging.Core.LogTarget, Common.Logging.LogLevel)
+   at Exin.Common.Logging.Core.Log.DoLog(System.Object, System.Object, System.Exception, Exin.Common.Logging.Core.LogTarget, Common.Logging.LogLevel, System.String)
+   at Exin.Common.Logging.Core.Log.Error(System.Object, System.Func`2<Exin.Common.Logging.Core.MessageFormatterLocalizedHandler,System.String>, Exin.Common.Logging.Core.LogTarget, System.Exception, System.String)
+   at BLL.WpfManagers.DailyExpensesManager.ReplaceSummary()
+   at System.Threading.Tasks.Task.InnerInvoke()
+   at System.Threading.Tasks.Task.Execute()
+
+Exception Info: System.AggregateException
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean)
+   at System.Threading.Tasks.Task.Wait(Int32, System.Threading.CancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at Common.Utils.TaskManager+<>c.<WaitBackgroundTasks>b__4_0()
+   at System.Threading.Tasks.Task.InnerInvoke()
+   at System.Threading.Tasks.Task.Execute()
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(System.Threading.Tasks.Task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(System.Threading.Tasks.Task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at Common.Utils.TaskManager+<WaitBackgroundTasks>d__4.MoveNext()
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(System.Threading.Tasks.Task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(System.Threading.Tasks.Task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at WPF.MainWindow+<MainWindow_OnClosing>d__14.MoveNext()
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore+<>c.<ThrowAsync>b__6_0(System.Object)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(System.Delegate, System.Object, Int32)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(System.Object, System.Delegate, System.Object, Int32, System.Delegate)
+   at System.Windows.Threading.DispatcherOperation.InvokeImpl()
+   at System.Windows.Threading.DispatcherOperation.InvokeInSecurityContext(System.Object)
+   at System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, System.Object, Boolean)
+   at System.Threading.ExecutionContext.Run(System.Threading.ExecutionContext, System.Threading.ContextCallback, System.Object, Boolean)
+   at System.Threading.ExecutionContext.Run(System.Threading.ExecutionContext, System.Threading.ContextCallback, System.Object)
+   at MS.Internal.CulturePreservingExecutionContext.Run(MS.Internal.CulturePreservingExecutionContext, System.Threading.ContextCallback, System.Object)
+   at System.Windows.Threading.DispatcherOperation.Invoke()
+   at System.Windows.Threading.Dispatcher.ProcessQueue()
+   at System.Windows.Threading.Dispatcher.WndProcHook(IntPtr, Int32, IntPtr, IntPtr, Boolean ByRef)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr, Int32, IntPtr, IntPtr, Boolean ByRef)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(System.Object)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(System.Delegate, System.Object, Int32)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(System.Object, System.Delegate, System.Object, Int32, System.Delegate)
+   at System.Windows.Threading.Dispatcher.LegacyInvokeImpl(System.Windows.Threading.DispatcherPriority, System.TimeSpan, System.Delegate, System.Object, Int32)
+   at MS.Win32.HwndSubclass.SubclassWndProc(IntPtr, Int32, IntPtr, IntPtr)
+   at MS.Win32.UnsafeNativeMethods.DispatchMessage(System.Windows.Interop.MSG ByRef)
+   at System.Windows.Threading.Dispatcher.PushFrameImpl(System.Windows.Threading.DispatcherFrame)
+   at System.Windows.Threading.Dispatcher.PushFrame(System.Windows.Threading.DispatcherFrame)
+   at System.Windows.Application.RunDispatcher(System.Object)
+   at System.Windows.Application.RunInternal(System.Windows.Window)
+   at System.Windows.Application.Run(System.Windows.Window)
+   at System.Windows.Application.Run()
+   at WPF.App.Main()
+
