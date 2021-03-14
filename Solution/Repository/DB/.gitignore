@@ -1,1 +1,3 @@
 Scripts/ScriptsIgnoredOnImport.sql
+*.dbmdl
+*.jfm
