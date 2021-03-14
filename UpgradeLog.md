@@ -2,6 +2,15 @@
 
 This document contains incremental upgrade instructions from version to version
 
+## v0.0.7
+
+0. Create a **backup** of your data.
+1. Update this file: `<ExinRoot>`\\Repositories\\`<RepoName>`\\Data\\Categories.xml 
+	1. Merge with: `<ExinRoot>`\\ResourcesDefault\\Categories.xml
+	1. Note, that in case you did not add categories manually, you can just overwrite your active version
+1. Run `TransportData.exe --From FileRepo --To [Db_SQLite|Db_MsSql]`
+	1. This will import the new categories from `Categories.xml` into DB.	 
+
 ## v0.0.5
 
 * RepoSettings.xml new members:
