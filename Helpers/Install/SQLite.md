@@ -1,4 +1,4 @@
-﻿If you see this error after compiling the code:
+﻿﻿If you see this error after compiling the code:
 
 Error 175: The ADO.NET provider with invariant name 'System.Data.SQLite' is either not registered in the machine or application config file, or could not be loaded. See the inner exception for details. (DAL/ExinEf.edmx)
 
