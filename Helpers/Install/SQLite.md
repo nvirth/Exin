@@ -1,6 +1,13 @@
 ﻿SQLite
 ======
 
+Install
+-------
+
+You need to download and install the corresponding version of the SQLite .NET Provider from here:
+http://system.data.sqlite.org/index.html/doc/trunk/www/downloads.wiki
+
+
 Troubleshooting
 ---------------
 
