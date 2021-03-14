@@ -8,7 +8,14 @@
 ###Fixed
 ###Security
 
+## v0.0.7
+
+###Changed
+
+* Add new categories
+
 ## v0.0.6
+
 ###Fixed
 * The app only can be launched from icon
 * If JS charts can't be load, the app won't crash.
