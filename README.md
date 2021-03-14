@@ -16,6 +16,18 @@ Monthly Expenses on diagrams: <br />
 ![Statistics Js][Statistics Js]
 ![Statistics Net][Statistics Net]
 
+Project prerequisites
+---------------------
+
+* Visual Studio 2015
+
+Project setup
+-------------
+
+* [Helpers/Install/Template files.md](Helpers/Install/Template%20files.md)
+* [Helpers/Install/SQLite.md](Helpers/Install/SQLite.md)
+* [Helpers/Install/DbProjectSetup.md](Helpers/Install/DbProjectSetup.md)
+* [Helpers/Install/SlowCheetah.md](Helpers/Install/SlowCheetah.md)
 
 
 [Daily Expenses]: https://github.com/nvirth/Exin/blob/master/Helpers/Screenshots/DailyExpenses.png "Daily Expenses"
