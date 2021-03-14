@@ -5,16 +5,6 @@ You need to create a local copy of all the template files/folders, so the ones e
 You can find instructions in them.
 Never commit the local copies of these! There are present in the git ignore list, so they won't be commited by accident.
 
-The complate list of these templates
-------------------------------------
-
-	Solution/WPF/Config/AppSettings.Debug.config.template
-	Solution/WPF/Config/AppSettings.Release.config.template
-	Solution/WPF/Config/AppSettings.config.template
-	Solution/WPF/Config/ConnectionStrings.Debug.config.template
-	Solution/WPF/Config/ConnectionStrings.Release.config.template
-	Solution/WPF/Config/ConnectionStrings.config.template
-
 Optional
 --------
 
