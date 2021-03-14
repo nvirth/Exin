@@ -45,6 +45,7 @@
 				public const string OtherPublicTransport = "OtherPublicTransport";
 				public const string Cigarette = "Cigarette";
 				public const string Others = "Others";
+				// NOTE! Categories have been extended, but new items did not get hard wired here. Check the above xml for them.
 			}
 
 			// Exin\Solution\Repository\DB\ResourcesDefault\Units.xml

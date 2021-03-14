@@ -90,4 +90,100 @@
 			<hu-HU>Egyéb</hu-HU>
 		</DisplayNames>
 	</Category>
+	<Category>
+		<ID>200</ID>
+		<Name>Rent</Name>
+		<DisplayNames>
+			<en-US>Rent</en-US>
+			<hu-HU>Albérleti díj</hu-HU>
+		</DisplayNames>
+	</Category>
+	<Category>
+		<ID>201</ID>
+		<Name>Car</Name>
+		<DisplayNames>
+			<en-US>Car</en-US>
+			<hu-HU>Autó</hu-HU>
+		</DisplayNames>
+	</Category>
+	<Category>
+		<ID>202</ID>
+		<Name>Credit</Name>
+		<DisplayNames>
+			<en-US>Credit</en-US>
+			<hu-HU>Hitel</hu-HU>
+		</DisplayNames>
+	</Category>
+	<Category>
+		<ID>203</ID>
+		<Name>DonationSupport</Name>
+		<DisplayNames>
+			<en-US>Donation, support</en-US>
+			<hu-HU>Adomány, támogatás</hu-HU>
+		</DisplayNames>
+	</Category>
+	<Category>
+		<ID>204</ID>
+		<Name>Pet</Name>
+		<DisplayNames>
+			<en-US>Pet</en-US>
+			<hu-HU>Háziállat</hu-HU>
+		</DisplayNames>
+	</Category>
+	<Category>
+		<ID>205</ID>
+		<Name>GameBookEntertainment</Name>
+		<DisplayNames>
+			<en-US>Game, book, entertainment</en-US>
+			<hu-HU>Játék, könyv, szórakozás</hu-HU>
+		</DisplayNames>
+	</Category>
+	<Category>
+		<ID>206</ID>
+		<Name>Sport</Name>
+		<DisplayNames>
+			<en-US>Sport</en-US>
+			<hu-HU>Sport</hu-HU>
+		</DisplayNames>
+	</Category>
+	<Category>
+		<ID>207</ID>
+		<Name>ComputerAndAccessories</Name>
+		<DisplayNames>
+			<en-US>Computer and accessories</en-US>
+			<hu-HU>Gép és -alkatrész</hu-HU>
+		</DisplayNames>
+	</Category>
+	<Category>
+		<ID>208</ID>
+		<Name>Learning</Name>
+		<DisplayNames>
+			<en-US>Learning</en-US>
+			<hu-HU>Tanulás</hu-HU>
+		</DisplayNames>
+	</Category>
+	<Category>
+		<ID>209</ID>
+		<Name>SoftwareLicence</Name>
+		<DisplayNames>
+			<en-US>Software licence</en-US>
+			<hu-HU>Szoftver liszensz</hu-HU>
+		</DisplayNames>
+	</Category>
+	<Category>
+		<ID>210</ID>
+		<Name>ReadyOrPlateMeal</Name>
+		<DisplayNames>
+			<en-US>Ready/plate meal</en-US>
+			<hu-HU>Kaja - készétel</hu-HU>
+		</DisplayNames>
+	</Category>
+	<Category>
+		<ID>211</ID>
+		<Name>Health</Name>
+		<DisplayNames>
+			<en-US>Health</en-US>
+			<hu-HU>Egészség</hu-HU>
+		</DisplayNames>
+	</Category>
 </root>
