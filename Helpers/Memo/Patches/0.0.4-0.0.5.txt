@@ -1,8 +1,0 @@
-Changes
--------
-* RepoSettings.xml new members:
-	Repo
-	++MsSqlSettings
-	++++ConnectionStrings
-	++++++AdoNet
-	++++++EntityFramework
