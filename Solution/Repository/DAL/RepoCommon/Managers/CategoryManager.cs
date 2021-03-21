@@ -1,4 +1,5 @@
-﻿using Common.Configuration;
+﻿using System.Linq;
+using Common.Configuration;
 using Common.Db;
 using Common.Db.Entities;
 using DAL.RepoCommon.Interfaces;
@@ -33,8 +34,9 @@ namespace DAL.RepoCommon.Managers
 
 		public override void RefreshCache()
 		{
-			var Categorys = _core.GetAll();
-			RefreshCache(Categorys);
+			var categories = _core.GetAll();
+			categories = categories.OrderBy(category => category.DisplayName).ToList();
+			RefreshCache(categories);
 		}
 
 		public override void Add(Category Category)

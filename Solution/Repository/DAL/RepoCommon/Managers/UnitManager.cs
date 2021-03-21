@@ -1,4 +1,5 @@
-﻿using Common.Configuration;
+﻿using System.Linq;
+using Common.Configuration;
 using Common.Db;
 using Common.Db.Entities;
 using DAL.RepoCommon.Interfaces;
@@ -32,6 +33,7 @@ namespace DAL.RepoCommon.Managers
 		public override void RefreshCache()
 		{
 			var units = _core.GetAll();
+			units = units.OrderBy(unit => unit.DisplayName).ToList();
 			RefreshCache(units);
 		}
 
