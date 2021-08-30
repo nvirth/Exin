@@ -54,7 +54,12 @@
     <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
     <VisualStudioVersion Condition="'$(SSDTExists)' == ''">10.0</VisualStudioVersion>
   </PropertyGroup>
-  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <PropertyGroup>
+    <SqlTasksPath Condition="!Exists('$(SqlTasksPath)')">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets</SqlTasksPath>
+    <SqlTasksPath Condition="!Exists('$(SqlTasksPath)')">$(ProgramFiles)\MSBuild\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets</SqlTasksPath>
+    <SqlTasksPath Condition="!Exists('$(SqlTasksPath)')">$(ProgramFiles)\MSBuild\Microsoft\VisualStudio\v14.0\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets</SqlTasksPath>
+  </PropertyGroup>
+  <Import Project="$(SqlTasksPath)" />
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Scripts\" />
