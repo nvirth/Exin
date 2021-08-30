@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,6 +16,8 @@ using Localization;
 using WPF.Utils;
 using Common.Configuration;
 using Common.Configuration.Settings;
+using CsvHelper;
+using CsvHelper.Configuration;
 using Exin.Common.Logging.Core;
 
 namespace WPF.ViewModels.SummaryModels
@@ -136,7 +140,9 @@ namespace WPF.ViewModels.SummaryModels
 						.Join(",\r\n");
 					break;
 				case CopyFormat.Csv:
-					Log.Warn(this, m => m("This CopyFormat is not impleneted yet: {0}", copyFormat));
+					var stringWriter = new StringWriter();
+					var csv = new CsvWriter(stringWriter, CultureInfo.InvariantCulture);
+					csv.WriteRecords(selectedTransactions);
 					break;
 				default:
 					throw new NotImplementedException("This CopyFormat is not impleneted yet: " + copyFormat);
