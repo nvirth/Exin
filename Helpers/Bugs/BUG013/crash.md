@@ -1,5 +1,16 @@
-Don't know how to reproduce this.
-Was only switching days
+Repro
+-----
+
+In `MainSettings.xml`, set `<UiLoggerLevel>Debug</UiLoggerLevel>`
+
+--> Maybe the Debug log (running process count) and the Info log (saving the summaries, months) want to be written into the RichTextBox at the same time!
+
+Exception while debugging
+-------------------------
+
+Managed Debugging Assistant 'FatalExecutionEngineError' has detected a problem in 'C:\Norbi\Development\Exin\Solution\WPF\bin\Release\Exin.vshost.exe'.
+
+Additional information: The runtime has encountered a fatal error. The address of the error was at 0x5734a9e0, on thread 0x3470. The error code is 0x80131623. This error may be a bug in the CLR or in the unsafe or non-verifiable portions of user code. Common sources of this bug include user marshaling errors for COM-interop or PInvoke, which may corrupt the stack.
 
 
 Event log
