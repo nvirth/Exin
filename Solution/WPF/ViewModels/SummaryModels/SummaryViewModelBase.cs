@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using BLL;
 using BLL.WpfManagers;
 using Exin.Common.Logging;
 using Common.UiModels.WPF;
@@ -16,6 +17,7 @@ using Localization;
 using WPF.Utils;
 using Common.Configuration;
 using Common.Configuration.Settings;
+using Common.Utils;
 using CsvHelper;
 using CsvHelper.Configuration;
 using Exin.Common.Logging.Core;
@@ -141,8 +143,15 @@ namespace WPF.ViewModels.SummaryModels
 					break;
 				case CopyFormat.Csv:
 					var stringWriter = new StringWriter();
-					var csv = new CsvWriter(stringWriter, CultureInfo.InvariantCulture);
-					csv.WriteRecords(selectedTransactions);
+					using(var csv = new CsvWriter(stringWriter, CultureInfo.InvariantCulture))
+					{
+						var isExpense = selectedTransactions.FirstOrDefault() is ExpenseItem;
+						if(isExpense)
+							csv.WriteRecords(selectedTransactions.OfType<ExpenseItem>().Select(ei => ei.ToCsv()));
+						else
+							csv.WriteRecords(selectedTransactions.OfType<IncomeItem>().Select(ii => ii.ToCsv()));
+					}
+					resultString = stringWriter.ToString();
 					break;
 				default:
 					throw new NotImplementedException("This CopyFormat is not impleneted yet: " + copyFormat);
