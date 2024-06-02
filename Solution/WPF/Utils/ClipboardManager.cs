@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using Common;
-using Exin.Common.Logging;
 using Common.Utils.Helpers;
 using WPF.ViewModels.SummaryModels;
-using Common.Configuration;
 using Common.Configuration.Settings;
 using Exin.Common.Logging.Core;
 

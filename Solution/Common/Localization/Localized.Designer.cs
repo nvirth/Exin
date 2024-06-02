@@ -551,6 +551,15 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not copy to clipboard.
+        /// </summary>
+        public static string Could_not_copy_to_clipboard {
+            get {
+                return ResourceManager.GetString("Could_not_copy_to_clipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not find the {0} (ID: {1}) in the database.
         /// </summary>
         public static string Could_not_find_the__0___ID___1___in_the_database {

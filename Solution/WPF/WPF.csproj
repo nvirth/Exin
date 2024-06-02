@@ -130,6 +130,7 @@
       <DependentUpon>PlotlyChart.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\ClickSelectTextBox.cs" />
+    <Compile Include="Utils\ClipboardExtensions.cs" />
     <Compile Include="Utils\ClipboardManager.cs" />
     <Compile Include="Utils\DatePickerFromCodeDateChanger.cs" />
     <Compile Include="Utils\ItemsControlSorterCore.cs" />

@@ -837,4 +837,7 @@ A beviteli mezőkben:
   <data name="Could_not_initialize_Plotly_charts__They_won_t_be_available_" xml:space="preserve">
     <value>A Plotly diagromok előkészítése sikertelen volt. Nem lesznek elérhetők ebben a munkamenetben. </value>
   </data>
+  <data name="Could_not_copy_to_clipboard" xml:space="preserve">
+    <value>Nem sikerült a vágólapra másolás</value>
+  </data>
 </root>

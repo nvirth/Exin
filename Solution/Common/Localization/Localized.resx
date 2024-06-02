@@ -926,4 +926,7 @@ So these modifications did not apply into the database. </value>
   <data name="Unknown_culture___0_" xml:space="preserve">
     <value>Unknown culture: {0}</value>
   </data>
+  <data name="Could_not_copy_to_clipboard" xml:space="preserve">
+    <value>Could not copy to clipboard</value>
+  </data>
 </root>

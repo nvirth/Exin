@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using BLL;
 using BLL.WpfManagers;
-using Exin.Common.Logging;
 using Common.UiModels.WPF;
 using Common.UiModels.WPF.Base;
 using Common.Utils.Helpers;
@@ -17,9 +14,7 @@ using Localization;
 using WPF.Utils;
 using Common.Configuration;
 using Common.Configuration.Settings;
-using Common.Utils;
 using CsvHelper;
-using CsvHelper.Configuration;
 using Exin.Common.Logging.Core;
 
 namespace WPF.ViewModels.SummaryModels
@@ -158,7 +153,7 @@ namespace WPF.ViewModels.SummaryModels
 			}
 
 			if(!string.IsNullOrWhiteSpace(resultString))
-				Clipboard.SetText(resultString, TextDataFormat.Text);
+				ClipboardExtensions.SetText(resultString, TextDataFormat.Text);
 
 			Config.MainSettings.UserSettings.CopyFormat = copyFormat.Value;
 		}

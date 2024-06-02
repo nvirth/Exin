@@ -58,6 +58,7 @@
 		public const string Copy_menuitem_is_not_implemented_yet = "Copy_menuitem_is_not_implemented_yet";
 		public const string Copying_summary_file_into_the_summary_directory___Error_ = "Copying_summary_file_into_the_summary_directory___Error_";
 		public const string Copying_summary_file_into_the_summary_directory___OK = "Copying_summary_file_into_the_summary_directory___OK";
+		public const string Could_not_copy_to_clipboard = "Could_not_copy_to_clipboard";
 		public const string Could_not_find_the__0___ID___1___in_the_database = "Could_not_find_the__0___ID___1___in_the_database";
 		public const string Could_not_find_the__0___Name___1___in_the_database = "Could_not_find_the__0___Name___1___in_the_database";
 		public const string Could_not_find_the_Category__DisplayName_0__in_the_database__FORMAT__ = "Could_not_find_the_Category__DisplayName_0__in_the_database__FORMAT__";
